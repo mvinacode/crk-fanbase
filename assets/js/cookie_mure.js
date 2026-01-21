@@ -23,14 +23,68 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Nouvelle version : utilise data-id pour la sauvegarde
+// === SYSTÈME DE DÉTECTION PAR ÉLÉMENT INDIVIDUEL ===
+function generateElementSignature(element) {
+  const id = element.dataset.id;
+  const images = element.dataset.images;
+  if (!id || !images) return null;
+  
+  // Crée un hash unique pour cet élément spécifique
+  const signature = (id + images).split('').reduce((hash, char) => {
+    return ((hash << 5) - hash) + char.charCodeAt(0);
+  }, 0).toString();
+  
+  return signature;
+}
+
+function checkIndividualChanges() {
+  const elements = document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .costume-toggle');
+  
+  console.log(`🔍 Vérification de ${elements.length} éléments`);
+  
+  elements.forEach(el => {
+    const id = el.dataset.id;
+    if (!id) {
+      console.log('⚠️ Élément sans data-id trouvé, ignoré');
+      return;
+    }
+    
+    const signatureKey = `signature:${id}`;
+    const currentSignature = generateElementSignature(el);
+    const savedSignature = localStorage.getItem(signatureKey);
+    
+    console.log(`📋 ${id}:`);
+    console.log(`  - Signature actuelle: ${currentSignature}`);
+    console.log(`  - Signature sauvegardée: ${savedSignature}`);
+    
+    // Si la signature de CET élément a changé
+    if (savedSignature && savedSignature !== currentSignature) {
+      console.log(`🔄 Modification détectée pour ${id} - Réinitialisation de cet élément uniquement`);
+      
+      // ✅ Supprime UNIQUEMENT l'état de CET élément
+      localStorage.removeItem(`etat-${id}`);
+    } else if (!savedSignature) {
+      console.log(`✨ Première visite pour ${id}`);
+    } else {
+      console.log(`✅ Aucun changement pour ${id}`);
+    }
+    
+    // Sauvegarde la signature de cet élément
+    localStorage.setItem(signatureKey, currentSignature);
+  });
+}
+
+// APPELLE LA VÉRIFICATION AU CHARGEMENT
+checkIndividualChanges();
+
+// === CODE EXISTANT (inchangé) ===
 const elements = document.querySelectorAll('.costume-toggle, .garniture-cycle, .ascension-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle');
 
 elements.forEach(img => {
   const images = JSON.parse(img.dataset.images);
-  const id = img.dataset.id; // Utilise directement data-id
+  const id = img.dataset.id;
 
-  if (!id) return; // Sécurité : ignore les images sans data-id
+  if (!id) return;
 
   // Charger l'état sauvegardé
   const savedStep = localStorage.getItem(`etat-${id}`);

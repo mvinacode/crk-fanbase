@@ -1,5 +1,4 @@
-﻿
-@font-face {
+﻿@font-face {
     font-family: 'CookieRun-Bold';
     src: url('../fonts/CookieRun\ Bold.ttf');
 }
@@ -7,7 +6,7 @@
 body {
   margin: 0;
   font-family: 'CookieRun-Bold', sans-serif;
-  background-color: #E3D3C7;
+  background-color: #422f1e;
 }
 
 .header {
@@ -254,6 +253,7 @@ body {
 .costume-gallery img {
   max-width: 200px;
 }
+
 .costume-item {
   display: flex;
   flex-direction: column;
@@ -277,6 +277,7 @@ body {
   width: 110px;
   margin-top: 10px;
 }
+
 .costume-name {
   margin-top: 1px;
   font-size: 18px;
@@ -286,6 +287,3 @@ body {
 }
 
 /* Les styles de boutons sont maintenant dans buttons.css */
-
-/* Les styles de boutons sont maintenant dans buttons.css */
-
