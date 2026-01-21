@@ -1,0 +1,67 @@
+/* S'APPLIQUE UNIQUEMENT AUX ÉCRANS >= 2000px */
+@media (min-width: 1300px) {
+
+  /* 1) Cadre de page : on “fige” une largeur de travail et on centre */
+  .header,
+  .main {
+    max-width: 1460px;      /* même ordre d’idée que ta maquette */
+    margin-inline: auto;    /* centre le contenu */
+    padding-inline: 50px;   /* garde ton padding existant */
+  }
+
+  /* 2) Header : pas d’étirement hasardeux, spacing propre */
+  .header {
+    gap: 40px;
+    flex-wrap: nowrap;      /* évite les retours à la ligne sur XXL */
+  }
+
+  /* 3) Logo et patch: tailles stables (pas d’agrandissement démesuré) */
+  .logo {
+    width: 450px;           /* conserve ta taille de base */
+    height: auto;
+  }
+  .patch-container {
+    width: 800px;           /* conserve ta taille de base */
+    max-width: 100%;
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .patch-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 50px;
+  }
+
+  /* 4) Section principale : garde ton rythme visuel */
+  .main {
+    padding-block: 40px;
+  }
+
+  /* 5) Cartes des derniers ajouts : wraps “propres”, pas d’étirement */
+  .cartes-cookies {
+    display: flex;
+    flex-wrap: wrap;        /* passe à la ligne si besoin */
+    gap: 30px 30px;         /* rangées/colonnes régulières */
+    justify-content: flex-start;
+    margin-bottom: 50px;
+  }
+  .carte-cookie {
+    width: 196px;           /* garde la taille carte intacte */
+    height: 196px;
+    object-fit: contain;
+  }
+
+  /* 6) Menu & boutons : lisibles, sans devenir géants */
+  .menu {
+    gap: 40px;
+    justify-content: center;
+  }
+  .btn {
+    font-size: 50px;
+  }
+  
+  .btn span {
+    padding: 20px 40px;
+  }
+}

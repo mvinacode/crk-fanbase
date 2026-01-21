@@ -1,0 +1,102 @@
+
+@font-face {
+    font-family: 'CookieRun-Bold';
+    src: url('../fonts/CookieRun\ Bold.ttf');
+}
+
+body.accueil {
+  margin: 0;
+  font-family: 'CookieRun-Bold';
+  background-color: #E3D3C7;
+  color: #865C43;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 50px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.logo-container {
+  flex: 0 0 auto;
+}
+
+.logo {
+  width: 450px;
+  height: auto;
+}
+
+.patch-container {
+  position: relative;
+  width: 800px; /* Agrandi pour correspondre à ta maquette */
+  max-width: 100%;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.patch-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 50px;
+}
+
+
+.main {
+  padding: 40px 50px;
+}
+
+.derniers-ajouts h2 {
+  font-size: 30px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.cartes-cookies {
+  display: flex;
+  gap: 30px;
+  justify-content: left;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.carte-cookie-wrapper {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.carte-cookie {
+  width: 196px;
+  height: 196px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  display: block;
+}
+
+.carte-cookie:hover {
+  transform: scale(1.05);
+}
+
+.icon-new {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.menu {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* Les styles de boutons sont maintenant dans buttons.css */
+

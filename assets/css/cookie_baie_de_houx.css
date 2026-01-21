@@ -1,0 +1,392 @@
+﻿
+@font-face {
+    font-family: 'CookieRun-Bold';
+    src: url('../fonts/CookieRun\ Bold.ttf');
+}
+
+body {
+  margin: 0;
+  font-family: 'CookieRun-Bold', sans-serif;
+  background-color: #E3D3C7;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.logo {
+  height: 140px;
+}
+
+.patch-info {
+  position: absolute;
+  left: 180px;
+  top: 10px;
+  text-align: center;
+}
+
+.patch-info img {
+  height: 20px;
+}
+
+.patch-text {
+  font-size: 10px;
+  font-weight: 900;
+  color: #865C43;
+  margin-top: 2px;
+}
+
+.maj-image {
+  height: 140px;
+  border-radius: 50px;
+}
+
+.page-cookie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.bloc-fond-cookie {
+  position: relative;
+  width: 1427px;
+  height: 856px;
+  margin: 10px auto 0;
+}
+
+.fond-floute {
+  width: 100%;
+  height: 100%;
+  background: url("../images/background/lobby_baie_de_houx.webp") no-repeat center;
+  background-size: cover;
+  border-radius: 30px;
+  opacity: 0.4;
+}
+
+.nom-cookie {
+  position: absolute;
+  top: -40px;
+  right: 50px;
+  font-family: 'CookieRun-Bold', sans-serif;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: right;
+  color: #60206C;
+  text-shadow: 0px 4px 4px rgba(12, 12, 12, 0.305);
+  padding: 10px 20px;
+}
+
+.illustration-cookie img {
+  width: 412px;
+  height: 444px;
+  object-fit: contain;
+  position: absolute;
+  top: 100px;
+  left: 320px;
+}
+
+.illustration-cookie img[src$="cookie_baie_de_houx_la_grande_presence_de_sa_majeste.webp"] {
+  width: 412px;
+  height: 444px;
+  top: 130px;
+  left: 270px;
+}
+
+.illustration-cookie img[src$="cookie_baie_de_houx_egide_du_paradis.webp"] {
+  width: 412px;
+  height: 444px;
+  top: 180px;
+  left: 280px;
+}
+
+.badges {
+  position: absolute;
+  top: 230px;
+  left: 100px;
+  display: flex;
+  gap: 50px;
+}
+
+.badge {
+  height: 40px;
+  width: auto;
+}
+
+.menu {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.toppings {
+  position: absolute;
+  top: 310px;
+  right: 110px;
+  display: flex;
+  gap: 20px;
+}
+
+/* Ajout pour gestion des garnitures cycliques */
+.garniture-cycle {
+  width: 110px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.garniture-cycle:hover {
+  transform: scale(1.1);
+}
+
+.tartelettes {
+  position: absolute;
+  top: 430px;
+  right: 110px;
+  display: flex;
+  gap: 20px;
+}
+
+/* Ajout pour gestion des garnitures cycliques */
+.tartelette-cycle {
+  width: 110px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.tartelette-cycle:hover {
+  transform: scale(1.1);
+}
+
+.biscuits {
+  position: absolute;
+  top: 550px;
+  right: 100px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Ajout pour gestion des garnitures cycliques */
+.biscuit-cycle {
+  width: 200px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.biscuit-cycle:hover {
+  transform: scale(1.1);
+}
+
+.promotion {
+  position: absolute;
+  top: 580px;
+  right: 815px;
+  display: flex;
+}
+
+/* Ajout pour gestion des garnitures cycliques */
+.promotion-cycle {
+  width: 45px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.promotion-cycle:hover {
+  transform: scale(1.1);
+}
+
+.ascension {
+  position: absolute;
+  top: 630px;
+  right: 840px;
+  display: flex;
+}
+
+/* Ajout pour gestion des garnitures cycliques */
+.ascension-cycle {
+  width: 170px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.ascension-cycle:hover {
+  transform: scale(1.1);
+}
+
+.popup-costume {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.popup-content {
+  background-color: #FFF0DC;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  color: #865C43;
+}
+
+.close-popup {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #865C43;
+  cursor: pointer;
+}
+
+.costume-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.costume-gallery img {
+  max-width: 200px;
+}
+.costume-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.costume-item img.costume-toggle {
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.costume-item img.costume-toggle:hover {
+  transform: scale(1.05);
+}
+
+.costume-icon img {
+  width: 110px;
+  margin-top: 10px;
+}
+.costume-name {
+  margin-top: 1px;
+  font-size: 18px;
+  color: #865C43;
+  font-family: 'CookieRun-Bold', sans-serif;
+  text-align: center;
+}
+
+.icon-small {
+  width: 20px;
+  height: auto;
+  vertical-align: middle;
+  margin-left: 1px;
+}
+
+/* Les styles de boutons sont maintenant dans buttons.css */
+
+/* Les styles de boutons sont maintenant dans buttons.css */
+.btn-eveil {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  width: 272px;
+  height: 67px;
+  background-color: #FF0498;
+  color: #FFF0DC;
+  font-size: 40px;
+  font-weight: 900;
+  font-family: 'CookieRun-Bold', sans-serif;
+  text-decoration: none;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-eveil:hover {
+  background-color: #f98fcd;
+}
+
+/* Désactivation visuelle du bouton éveil lorsqu’il est masqué/inactif */
+.btn-eveil[aria-disabled="true"] { pointer-events: none; opacity: .5; }
+
+/* --- Bouton-image éveil --- */
+.awaken-toggle { 
+  cursor: pointer; 
+  user-select: none; 
+  position: absolute;
+  top: 90px;
+  left: 320px;
+  display: inline-block;
+  transition: transform 120ms ease, filter 180ms ease, box-shadow 120ms ease;
+  /* Ombres 3D douces via drop-shadow (fonctionne bien sur <img>) */
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.15))
+          drop-shadow(0 2px 2px rgba(0,0,0,.1));
+  border-radius: 16px; /* si l’image a des bords transparents, ça adoucit le rendu */
+}
+
+/* léger “soulèvement” au survol */
+.awaken-toggle:hover {
+  transform: translateY(-2px);
+}
+
+/* effet pressé */
+.awaken-toggle:active {
+  transform: translateY(0) scale(0.98);
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.18))
+          drop-shadow(0 1px 1px rgba(0,0,0,.08));
+}
+
+/* animation au clic : petit pop */
+.awaken-toggle.pop {
+  animation: awaken-pop 180ms ease-out;
+}
+
+@keyframes awaken-pop {
+  0%   { transform: scale(1);   }
+  50%  { transform: scale(0.96);}
+  100% { transform: scale(1);   }
+}
+
+/* optionnel : un léger glow quand l’éveil est actif (couleur) */
+.awaken-toggle.active-glow {
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.15))
+          drop-shadow(0 2px 2px rgba(0,0,0,.1))
+          drop-shadow(0 0 10px rgb(172, 7, 81));
+}
+
+/* accessibilité : réduit les animations si l’utilisateur le demande */
+@media (prefers-reduced-motion: reduce) {
+  .awaken-toggle,
+  .awaken-toggle:hover,
+  .awaken-toggle:active {
+    transition: none;
+    animation: none;
+  }
+}

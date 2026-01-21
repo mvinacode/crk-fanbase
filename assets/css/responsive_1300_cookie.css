@@ -1,0 +1,94 @@
+/* --- Responsive spécial écrans XXL (≥2000px) --- */
+@media (min-width: 1300px) {
+
+      /* 1) Cadre de page : on “fige” une largeur de travail et on centre */
+  .header,
+  .main {
+    max-width: 1460px;      /* même ordre d’idée que ta maquette */
+    margin-inline: auto;    /* centre le contenu */
+    padding-inline: 50px;   /* garde ton padding existant */
+  }
+
+  /* 2) Header : pas d’étirement hasardeux, spacing propre */
+  .header {
+    gap: 40px;
+    flex-wrap: nowrap;      /* évite les retours à la ligne sur XXL */
+  }
+
+  /* Conteneur global de la page cookie :
+     largeur figée à 1427px, centré, pour garder ton rendu d'origine */
+  .page-cookie {
+    width: 1427px;
+    max-width: 1427px;
+    margin: 0 auto;
+    position: relative;
+    padding-bottom: 120px; /* réserve de place pour les boutons */
+  }
+
+  /* Bloc de fond : même largeur et hauteur que ta maquette */
+  .bloc-fond-cookie {
+    width: 1427px;
+    height: 856px;
+    margin: 0 auto;
+  }
+
+  /* Illustration cookie : conserve ses dimensions exactes */
+  .illustration-cookie img {
+    width: 412px;
+    height: 444px;
+    position: absolute;
+  }
+
+  /* Badges : gardent leurs positions absolues */
+  .badges {
+    position: absolute;
+    top: 40px;
+    left: 35px;
+    gap: 50px;
+  }
+  .badge { height: 40px; }
+
+  
+  /* Toppings, tartelettes, biscuits, promotions, ascensions :
+     on ne modifie pas tes positions */
+
+  .ascension {
+    position: absolute;
+  }
+
+  .toppings {
+    position: absolute;
+    right: 50px;
+    top: 120px;
+  }
+
+    .tartelettes {
+    position: absolute;
+    right: 50px;
+    top: 245px;
+  }
+
+  .biscuits {
+    position: absolute;
+    right: 50px;
+    top: 365px;
+  }
+
+    .promotion {
+    position: absolute;
+  }
+
+  /* Boutons en bas : forcés à rester visibles */
+  .btn-cookie-precedent,
+  .btn-cookie-suivant,
+  .btn-costume {
+    bottom: 160px;  /* évite qu'ils partent trop bas */
+  }
+
+
+  .btn-cookie-precedent { right: 350px; }
+  .btn-cookie-suivant   { right: 10px; }
+  .btn-costume          { right: 1080px; }
+
+
+}
