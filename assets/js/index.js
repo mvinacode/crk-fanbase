@@ -26,17 +26,22 @@ fetch("assets/data/maj.json")
 
       link.appendChild(img);
 
-      // Afficher l'icône NEW uniquement si la date est dans les 30 derniers jours
+      // Afficher l'icône NEW ou UP selon le type et la date
       const cookieDate = new Date(cookie.date);
       const today = new Date();
       const daysDifference = Math.floor((today - cookieDate) / (1000 * 60 * 60 * 24));
 
-      if (daysDifference <= 20) {
-        const iconNew = document.createElement("img");
-        iconNew.src = "assets/images/icones/icon_new.webp";
-        iconNew.alt = "New";
-        iconNew.className = "icon-new";
-        link.appendChild(iconNew);
+      if (daysDifference <= 30 && cookie.type) {
+        const icon = document.createElement("img");
+        if (cookie.type === "new") {
+          icon.src = "assets/images/icones/icon_new.webp";
+          icon.alt = "New";
+        } else if (cookie.type === "update") {
+          icon.src = "assets/images/icones/icon_up.webp";
+          icon.alt = "Update";
+        }
+        icon.className = "icon-new";
+        link.appendChild(icon);
       }
 
       container.appendChild(link);

@@ -3,13 +3,15 @@
     "nom": "Cookie Affogato",
     "image": "cookies/cookie_affogato/cookie_affogato_carte.webp",
     "link": "cookie_affogato.html",
-    "date": "2026-01-14T23:32:00"
+    "date": "2026-01-14T23:32:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Alchimiste",
     "image": "cookies/cookie_alchimiste/cookie_alchimiste_carte.webp",
     "link": "cookie_alchimiste.html",
-    "date": "2026-01-14T19:53:00"
+    "date": "2026-01-14T19:53:00",
+    "type": "update"
   },   
   {
     "nom": "Cookie Arbre Millénaire",
@@ -21,7 +23,8 @@
     "nom": "Cookie Avocat",
     "image": "cookies/cookie_avocat/cookie_avocat_carte.webp",
     "link": "cookie_avocat.html",
-    "date": "2026-01-14T19:55:00"
+    "date": "2026-01-14T19:55:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Baie de Houx",
@@ -33,7 +36,8 @@
     "nom": "Cookie Brioche beurrée",
     "image": "cookies/cookie_brioche_beurree/cookie_brioche_beurree_carte.webp",
     "link": "cookie_brioche_beurree.html",
-    "date": "2026-01-15T00:05:00"
+    "date": "2026-01-15T00:05:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Cacao Noir",
@@ -57,13 +61,15 @@
     "nom": "Cookie Carotte",
     "image": "cookies/cookie_carotte/cookie_carotte_carte.webp",
     "link": "cookie_carotte.html",
-    "date": "2026-01-14T20:05:00"
+    "date": "2026-01-14T20:05:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Champignon vénéneux",
     "image": "cookies/cookie_champignon_veneneux/cookie_champignon_veneneux_carte.webp",
     "link": "cookie_champignon_veneneux.html",
-    "date": "2026-01-14T21:58:00"
+    "date": "2026-01-14T21:58:00",
+    "type": "update"
   },  
   {
     "nom": "Cookie Charbon",
@@ -75,13 +81,15 @@
     "nom": "Cookie Chevalier",
     "image": "cookies/cookie_chevalier/cookie_chevalier_carte.webp",
     "link": "cookie_chevalier.html",
-    "date": "2026-01-14T20:56:00"
+    "date": "2026-01-14T20:56:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Chevalier Ceylan",
     "image": "cookies/cookie_chevalier_ceylan/cookie_chevalier_ceylan_carte.webp",
     "link": "cookie_chevalier_ceylan.html",
-    "date": "2026-01-14T23:20:00"
+    "date": "2026-01-14T23:20:00",
+    "type": "update"
   },  
   {
     "nom": "Cookie Chevalier vif-argent",
@@ -99,7 +107,8 @@
     "nom": "Cookie Costaud",
     "image": "cookies/cookie_costaud/cookie_costaud_carte.webp",
     "link": "cookie_costaud.html",
-    "date": "2026-01-14T19:52:00"
+    "date": "2026-01-14T19:52:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Eau gazeuse",
@@ -123,7 +132,8 @@
     "nom": "Cookie Figue",
     "image": "cookies/cookie_figue/cookie_figue_carte.webp",
     "link": "cookie_figue.html",
-    "date": "2026-01-14T22:30:00"
+    "date": "2026-01-14T22:30:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Fleur de cerisier",
@@ -147,7 +157,8 @@
     "nom": "Cookie Grenade",
     "image": "cookies/cookie_grenade/cookie_grenade_carte.webp",
     "link": "cookie_grenade.html",
-    "date": "2026-01-14T22:04:00"
+    "date": "2026-01-14T22:04:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Haetae des nuages",
@@ -165,7 +176,8 @@
     "nom": "Cookie Lait de l'ombre",
     "image": "cookies/cookie_lait_de_l_ombre/cookie_lait_de_l_ombre_carte.webp",
     "link": "cookie_lait_de_l_ombre.html",
-    "date": "2026-01-15T00:23:00"
+    "date": "2026-01-15T00:23:00",
+    "type": "update"
   },  
   {
     "nom": "Cookie Lys Blanc",
@@ -183,7 +195,8 @@
     "nom": "Cookie Matcha",
     "image": "cookies/cookie_matcha/cookie_matcha_carte.webp",
     "link": "cookie_matcha.html",
-    "date": "2026-01-15T00:00:00"
+    "date": "2026-01-15T00:00:00",
+    "type": "update"
   },   
   {
     "nom": "Cookie Mousse au thé vert",
@@ -207,19 +220,22 @@
     "nom": "Cookie Pâte moisie",
     "image": "cookies/cookie_pate_moisie/cookie_pate_moisie_carte.webp",
     "link": "cookie_pate_moisie.html",
-    "date": "2026-01-15T01:09:00"
+    "date": "2026-01-15T01:09:00",
+    "type": "new"
   }, 
   {
     "nom": "Cookie Pions choco",
     "image": "cookies/cookie_pions_choco/cookie_pions_choco_carte.webp",
     "link": "cookie_pions_choco.html",
-    "date": "2026-01-15T00:41:00"
+    "date": "2026-01-15T00:41:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Pomme d'amour",
     "image": "cookies/cookie_pomme_d_amour/cookie_pomme_d_amour_carte.webp",
     "link": "cookie_pomme_d_amour.html",
-    "date": "2026-01-15T00:29:00"
+    "date": "2026-01-15T00:29:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Poussière d'Étoile",
@@ -231,13 +247,15 @@
     "nom": "Cookie Red Velvet",
     "image": "cookies/cookie_red_velvet/cookie_red_velvet_carte.webp",
     "link": "cookie_red_velvet.html",
-    "date": "2026-01-14T23:06:00"
+    "date": "2026-01-14T23:06:00",
+    "type": "update"
   },  
   {
     "nom": "Cookie Réglisse",
     "image": "cookies/cookie_reglisse/cookie_reglisse_carte.webp",
     "link": "cookie_reglisse.html",
-    "date": "2026-01-14T21:50:00"
+    "date": "2026-01-14T21:50:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Salière",
@@ -255,19 +273,22 @@
     "nom": "Cookie Sorcier",
     "image": "cookies/cookie_sorcier/cookie_sorcier_carte.webp",
     "link": "cookie_sorcier.html",
-    "date": "2026-01-14T19:51:00"
+    "date": "2026-01-14T19:51:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Sorcière des Ténèbres",
     "image": "cookies/cookie_sorciere_des_tenebres/cookie_sorciere_des_tenebres_carte.webp",
     "link": "cookie_sorciere_des_tenebres.html",
-    "date": "2026-01-15T00:55:00"
+    "date": "2026-01-15T00:55:00",
+    "type": "new"
   }, 
   {
     "nom": "Cookie Sucre Éternel",
     "image": "cookies/cookie_sucre_eternel/cookie_sucre_eternel_carte.webp",
     "link": "cookie_sucre_eternel.html",
-    "date": "2026-01-15T00:35:00"
+    "date": "2026-01-15T00:35:00",
+    "type": "update"
   }, 
   {
     "nom": "Cookie Tarte aux myrtilles",
@@ -279,6 +300,7 @@
     "nom": "Schwarzwälder",
     "image": "cookies/schwarzwalder/schwarzwalder_carte.webp",
     "link": "schwarzwalder.html",
-    "date": "2026-01-14T23:43:00"
+    "date": "2026-01-14T23:43:00",
+    "type": "update"
   }
 ]
