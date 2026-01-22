@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Accueil - Cookie Run Kingdom</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/ico" href="assets/images/icones/app_logo.ico">
+  <link rel="icon" type="image/ico" href="assets/images/icones/app_logo_5_ans.ico">
   <link rel="stylesheet" href="assets/css/buttons.css">
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="assets/css/responsive_1300_index.css">
@@ -29,5 +29,10 @@
   </main>
 
 </body>
+<script type="module">
+  import { supabase } from './assets/js/app.js'
+  console.log('✅ Supabase initialisé:', supabase)
+  console.log('URL:', import.meta.env.VITE_SUPABASE_URL)
+</script>
 <script src="assets/js/index.js"></script>
 </html>

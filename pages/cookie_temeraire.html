@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Cookie Téméraire</title>
     <link rel="icon" type="image/ico" href="../assets/images/icones/cookie_temeraire_icon.ico"> 
-    <link id="css-buttons" rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
     <link id="css-temeraire" href="../assets/css/cookie_temeraire.css" rel="stylesheet">
     <link id="css-temeraire" rel="stylesheet" href="../assets/css/responsive_1300_cookie.css">
  </head>
@@ -210,18 +210,15 @@
         ]' data-step="0" src="../assets/images/ascension/ascension_star_1_nb.webp"/>
  </div>
 
- <a class="btn-costume" href="#"><span>Costumes</span></a>
+ <a class="btn-costume" href="#">Costumes</a>
  <a href="../pages/cookie_fraise.html" class="btn-cookie-suivant"><span>Cookie suivant</span></a>
- <button class="btn-save" id="btn-save"><span>Sauvegarder</span></button>
+ <button class="btn-save" id="btn-save">Sauvegarder</button>
  </main>
 
  <script id="js-temeraire" src="../assets/js/cookie_temeraire.js"></script>
 
  <script>
   const version = new Date().getTime(); // timestamp unique
-
-  const cssButtons = document.getElementById("css-buttons");
-  cssButtons.href = cssButtons.href + "?v=" + version;
 
   const css = document.getElementById("css-temeraire");
   css.href = css.href + "?v=" + version;

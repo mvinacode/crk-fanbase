@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Chargement du Cookie...</title>
+  <link rel="icon" type="image/ico" href="../assets/images/icones/fav_icon.ico"> 
+  <link id="css-buttons" rel="stylesheet" href="../assets/css/buttons.css">
+  <link id="css-base" rel="stylesheet" href="../assets/css/responsive_1300_cookie.css">
+  <!-- Le CSS spécifique sera chargé par JS si nécessaire -->
+</head>
+
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <!-- Popup pour les costumes (structure identique à cookie_temeraire.html) -->
+  <div class="popup-costume" id="popup-costume" style="display: none;">
+    <div class="popup-content">
+        <span class="close-popup" id="close-popup">×</span>
+        <h2>Costumes disponibles</h2>
+        <div class="costume-gallery" id="popup-costume-gallery">
+            <!-- Les images seront injectées ici par cookie_supabase.js -->
+        </div>
+    </div>
+  </div>
+
+  <!-- Le contenu sera injecté ici par cookie_supabase.js -->
+  <main class="page-cookie" id="page-cookie">
+
+  <script type="module" src="../assets/js/cookie_supabase.js"></script>
+
+</body>
+</html>

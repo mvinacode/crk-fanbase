@@ -12,8 +12,34 @@
   /* 2) Header : pas d’étirement hasardeux, spacing propre */
   .header {
     gap: 40px;
-    flex-wrap: nowrap;      /* évite les retours à la ligne sur XXL */
+    flex-wrap: nowrap;      /* évite les retours à la ligne sur XXL */    position: relative;
   }
+  
+  .user-info {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+  }
+  
+  .welcome-message {
+    color: #865C43;
+    font-size: 18px;
+  }
+  
+  .btn-logout,
+  .btn-login-header {
+    padding: 10px 25px !important;
+    font-size: 18px !important;
+    height: auto !important;
+  }
+  
+  .btn-logout span,
+  .btn-login-header span {
+    font-size: 18px !important;  }
 
   /* Conteneur global de la page cookie :
      largeur figée à 1427px, centré, pour garder ton rendu d'origine */

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Cookie - Chargement Dynamique</title>
+  <link id="css-buttons" rel="stylesheet" href="../assets/css/buttons.css">
+  <link id="css-responsive" rel="stylesheet" href="../assets/css/responsive_1300_cookie.css">
+  <!-- CSS spécifique au cookie chargé dynamiquement -->
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- Popup costumes (généré dynamiquement) -->
+<div class="popup-costume" id="popup-costume">
+  <div class="popup-content">
+    <span class="close-popup" id="close-popup">×</span>
+    <h2>Costumes disponibles</h2>
+    <div class="costume-gallery" id="costume-gallery">
+      <!-- Costumes chargés dynamiquement -->
+    </div>
+  </div>
+</div>
+
+<main class="page-cookie" id="page-cookie">
+  <!-- Contenu chargé dynamiquement depuis le JSON -->
+</main>
+
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/cookie-navigations.js"></script>
+<script type="module" id="js-cookie" src="../assets/js/cookie_supabase.js"></script>
+
+<script>
+  const version = new Date().getTime(); // timestamp unique
+
+  const cssButtons = document.getElementById("css-buttons");
+  cssButtons.href = cssButtons.href + "?v=" + version;
+
+  const cssResponsive = document.getElementById("css-responsive");
+  cssResponsive.href = cssResponsive.href + "?v=" + version;
+
+  const js = document.getElementById("js-cookie");
+  js.src = js.src + "?v=" + version;
+</script>
+
+</body>
+</html>

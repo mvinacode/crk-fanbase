@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const filtreObtenu = document.getElementById("filtre-obtenu");
   const filtreNonObtenu = document.getElementById("filtre-non-obtenu");
   let tousLesCookies = [];
+  let cookiesFiltres = [];
+  let cookiesAffiches = 0;
+  const COOKIES_PAR_PAGE = 20;
 
   let rareteActive = "";
   let roleActif = "";
@@ -23,9 +26,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   function afficherCookies(liste) {
+    cookiesFiltres = liste;
+    
+    // Sauvegarder les IDs des cartes déjà visibles
+    const cartesVisibles = new Set();
+    document.querySelectorAll(".carte-cookie.visible").forEach(carte => {
+      const id = carte.querySelector(".btn-obtenu")?.dataset.cookieId;
+      if (id) cartesVisibles.add(id);
+    });
+    
+    cookiesAffiches = 0;
     container.innerHTML = "";
-
-    liste.forEach(cookie => {
+    container.dataset.cartesVisibles = JSON.stringify(Array.from(cartesVisibles));
+    
+    // Créer un élément sentinelle pour détecter le scroll
+    let sentinel = document.getElementById("scroll-sentinel");
+    if (!sentinel) {
+      sentinel = document.createElement("div");
+      sentinel.id = "scroll-sentinel";
+      sentinel.style.height = "1px";
+      container.parentElement.appendChild(sentinel);
+      
+      // Observer la sentinelle pour charger automatiquement
+      const sentinelObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && cookiesAffiches < cookiesFiltres.length) {
+            chargerPlusCookies();
+          }
+        });
+      }, {
+        rootMargin: "200px"
+      });
+      
+      sentinelObserver.observe(sentinel);
+    }
+    
+    chargerPlusCookies();
+  }
+  
+  function chargerPlusCookies() {
+    const debut = cookiesAffiches;
+    const fin = Math.min(debut + COOKIES_PAR_PAGE, cookiesFiltres.length);
+    const nouveauxCookies = cookiesFiltres.slice(debut, fin);
+    
+    nouveauxCookies.forEach((cookie, index) => {
       const carte = document.createElement("a");
       carte.href = cookie.lien;
 // --- Redirection automatique vers la page éveillée si possédé ---
@@ -96,12 +140,18 @@ if (hasAwakened && isFromageDore) {
   carte.dataset.awakened = "true";               // (optionnel: style)
 }
 
-      carte.className = "carte-cookie";
-
-      // Opacité si obtenu
+      // Vérifier l'état obtenu dès le début
       const estObtenu = localStorage.getItem(cookie.id) === "true";
+      
+      carte.className = "carte-cookie carte-cookie-glossy";
       if (estObtenu) {
-        carte.classList.add("obtenu");
+        carte.className += " obtenu";
+      }
+      
+      // Vérifier si cette carte était déjà visible pour ne pas rejouer l'animation
+      const cartesVisibles = JSON.parse(container.dataset.cartesVisibles || "[]");
+      if (cartesVisibles.includes(cookie.id)) {
+        carte.classList.add("visible");
       }
 
       let multiElementsClass = Array.isArray(cookie.element) && cookie.element.length > 1 ? "multi-elements" : "";
@@ -211,8 +261,36 @@ if (cookie.id === "cookie-fromage-dore") {
 
       container.appendChild(carte);
     });
+    
+    cookiesAffiches = fin;
 
     activerBoutonsObtenu();
+    
+    // Observer pour l'animation au scroll
+    observerCartes();
+  }
+
+  function observerCartes() {
+    const cartes = document.querySelectorAll(".carte-cookie:not(.visible)");
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Ajouter un petit délai pour un effet plus fluide
+          setTimeout(() => {
+            entry.target.classList.add("visible");
+          }, 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    });
+    
+    cartes.forEach(carte => {
+      observer.observe(carte);
+    });
   }
 
   function appliquerFiltres() {
@@ -254,10 +332,13 @@ if (cookie.id === "cookie-fromage-dore") {
   filtreNonObtenu.addEventListener("change", appliquerFiltres);
 
   function activerBoutonsObtenu() {
-    const boutons = document.querySelectorAll(".btn-obtenu");
+    const boutons = document.querySelectorAll(".btn-obtenu:not([data-initialized])");
     boutons.forEach(bouton => {
       const id = bouton.dataset.cookieId;
       const carte = bouton.closest(".carte-cookie");
+
+      // Marquer comme initialisé pour éviter les doublons
+      bouton.dataset.initialized = "true";
 
       if (localStorage.getItem(id) === "true") {
         bouton.classList.add("obtenu");
@@ -277,7 +358,10 @@ if (cookie.id === "cookie-fromage-dore") {
           carte.classList.remove("obtenu");
         }
 
-        appliquerFiltres();
+        // Ne recharger que si les filtres obtenu/non-obtenu sont actifs
+        if (filtreObtenu.checked || filtreNonObtenu.checked) {
+          appliquerFiltres();
+        }
       });
     });
   }
@@ -285,14 +369,32 @@ if (cookie.id === "cookie-fromage-dore") {
   // Rarete
   window.toggleRareteOptions = function () {
     const options = document.getElementById("rareteOptions");
-    options.style.display = options.style.display === "flex" ? "none" : "flex";
+    const isVisible = options.classList.contains("show");
+    
+    if (isVisible) {
+      options.classList.remove("show");
+    } else {
+      // Ajouter la classe après un court délai pour déclencher l'animation
+      setTimeout(() => {
+        options.classList.add("show");
+      }, 10);
+    }
   };
 
   document.querySelectorAll("#rareteOptions li").forEach(option => {
     option.addEventListener("click", () => {
       const valeur = option.getAttribute("data-value");
       rareteActive = rareteActive === valeur ? "" : valeur;
-      document.getElementById("rareteOptions").style.display = "none";
+      
+      // Retirer la classe active de tous les éléments
+      document.querySelectorAll("#rareteOptions li").forEach(li => li.classList.remove("active"));
+      
+      // Ajouter la classe active à l'élément cliqué (sauf si on désélectionne)
+      if (rareteActive) {
+        option.classList.add("active");
+      }
+      
+      document.getElementById("rareteOptions").classList.remove("show");
       appliquerFiltres();
     });
   });
@@ -300,14 +402,32 @@ if (cookie.id === "cookie-fromage-dore") {
   // Rôle
   window.toggleRoleOptions = function () {
     const options = document.getElementById("roleOptions");
-    options.style.display = options.style.display === "flex" ? "none" : "flex";
+    const isVisible = options.classList.contains("show");
+    
+    if (isVisible) {
+      options.classList.remove("show");
+    } else {
+      // Ajouter la classe après un court délai pour déclencher l'animation
+      setTimeout(() => {
+        options.classList.add("show");
+      }, 10);
+    }
   };
 
   document.querySelectorAll("#roleOptions li").forEach(option => {
     option.addEventListener("click", () => {
       const valeur = option.getAttribute("data-value");
       roleActif = roleActif === valeur ? "" : valeur;
-      document.getElementById("roleOptions").style.display = "none";
+      
+      // Retirer la classe active de tous les éléments
+      document.querySelectorAll("#roleOptions li").forEach(li => li.classList.remove("active"));
+      
+      // Ajouter la classe active à l'élément cliqué (sauf si on désélectionne)
+      if (roleActif) {
+        option.classList.add("active");
+      }
+      
+      document.getElementById("roleOptions").classList.remove("show");
       appliquerFiltres();
     });
   });
@@ -315,14 +435,32 @@ if (cookie.id === "cookie-fromage-dore") {
   // Élément
   window.toggleElementOptions = function () {
     const options = document.getElementById("elementOptions");
-    options.style.display = options.style.display === "flex" ? "none" : "flex";
+    const isVisible = options.classList.contains("show");
+    
+    if (isVisible) {
+      options.classList.remove("show");
+    } else {
+      // Ajouter la classe après un court délai pour déclencher l'animation
+      setTimeout(() => {
+        options.classList.add("show");
+      }, 10);
+    }
   };
 
   document.querySelectorAll("#elementOptions li").forEach(option => {
     option.addEventListener("click", () => {
       const valeur = option.getAttribute("data-value");
       elementActif = elementActif === valeur ? "" : valeur;
-      document.getElementById("elementOptions").style.display = "none";
+      
+      // Retirer la classe active de tous les éléments
+      document.querySelectorAll("#elementOptions li").forEach(li => li.classList.remove("active"));
+      
+      // Ajouter la classe active à l'élément cliqué (sauf si on désélectionne)
+      if (elementActif) {
+        option.classList.add("active");
+      }
+      
+      document.getElementById("elementOptions").classList.remove("show");
       appliquerFiltres();
     });
   });

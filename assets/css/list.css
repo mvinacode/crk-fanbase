@@ -16,6 +16,33 @@ body.list {
   padding: 30px 95px;
   gap: 150px;
   flex-wrap: wrap;
+  position: relative;
+}
+
+.user-info {
+  position: absolute;
+  top: 30px;
+  right: 95px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.welcome-message {
+  color: #865C43;
+  font-size: 18px;
+}
+
+.btn-logout,
+.btn-login-header {
+  padding: 10px 25px !important;
+  font-size: 18px !important;
+  height: auto !important;
+}
+
+.btn-logout span,
+.btn-login-header span {
+  font-size: 18px !important;
 }
 
 .logo-container {
@@ -105,7 +132,7 @@ body.list {
   top: 100%;
   left: 0;
   z-index: 10;
-  display: none; /* caché par défaut */
+  display: flex;
   flex-direction: column;
   padding: 0;
   margin-top: 8px;
@@ -115,6 +142,30 @@ body.list {
   border: 2px solid #865C43;
   border-radius: 10px;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s 0.3s;
+  pointer-events: none;
+}
+
+.filtre-rarete-options.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s;
+  pointer-events: auto;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .filtre-rarete-options li {
@@ -125,11 +176,16 @@ body.list {
   transition: background-color 0.2s;
   width: 100%;
   padding: 10px 0; /* pour que le hover aie une vraie zone */
+  font-size: 18px;
 }
 
 
 .filtre-rarete-options li:hover {
-  background-color: #865C43;
+  background-color: #A6795B;
+}
+
+.filtre-rarete-options li.active {
+  background-color: #A6795B;
 }
 
 .filtre-rarete-options img {
@@ -160,10 +216,10 @@ body.list {
 }
 
 .filtre-role-options {
-  display: none;
+  display: flex;
   flex-direction: column;
   padding: 0;
-  margin: 0;
+  margin-top: 8px;
   list-style: none;
   width: 180px;
   background: #FFF0DC;
@@ -172,6 +228,19 @@ body.list {
   overflow: hidden;
   position: absolute;
   z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s 0.3s;
+  pointer-events: none;
+}
+
+.filtre-role-options.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s;
+  pointer-events: auto;
 }
 
 .filtre-role-options li {
@@ -183,16 +252,21 @@ body.list {
   transition: background-color 0.2s;
   width: 100%;
   padding: 5px 30px; /* un peu de confort visuel */
+  font-size: 18px;
 }
 
 
 .filtre-role-options li:hover {
-  background-color: #865C43;
+  background-color: #A6795B;
+}
+
+.filtre-role-options li.active {
+  background-color: #A6795B;
 }
 
 .filtre-role-options img {
   height: 28px;
-  width: auto;
+  width: 28px;
   object-fit: contain;
 }
 
@@ -218,10 +292,10 @@ body.list {
 }
 
 .filtre-element-options {
-  display: none;
+  display: flex;
   flex-direction: column;
   padding: 0;
-  margin: 0;
+  margin-top: 8px;
   list-style: none;
   width: 180px;
   background: #FFF0DC;
@@ -230,6 +304,19 @@ body.list {
   overflow: hidden;
   position: absolute;
   z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s 0.3s;
+  pointer-events: none;
+}
+
+.filtre-element-options.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s;
+  pointer-events: auto;
 }
 
 .filtre-element-options li {
@@ -241,17 +328,100 @@ body.list {
   transition: background-color 0.2s;
   width: 100%;
   padding: 5px 30px; /* un peu de confort visuel */
+  font-size: 18px;
 }
 
 
 .filtre-element-options li:hover {
-  background-color: #865C43;
+  background-color: #A6795B;
+}
+
+.filtre-element-options li.active {
+  background-color: #A6795B;
 }
 
 .filtre-element-options img {
   height: 28px;
   width: auto;
   object-fit: contain;
+}
+
+/* Filtres cookies obtenus/non obtenus */
+.filtre-obtenu-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+.filtre-obtenu-wrapper label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  color: #865C43;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filtre-obtenu-wrapper input[type="checkbox"] {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: #FFF0DC;
+  border: 3px solid #865C43;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0px 0px 10px rgba(134, 92, 67, 0.15),
+              0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.filtre-obtenu-wrapper input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 4px;
+  top: 3px;
+  left: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: rotate(-25deg);
+  box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.6);
+}
+
+.filtre-obtenu-wrapper input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.filtre-obtenu-wrapper input[type="checkbox"]:checked {
+  background: #6B4935;
+}
+
+.filtre-obtenu-wrapper input[type="checkbox"]:checked::after {
+  content: '';
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.filtre-obtenu-wrapper input[type="checkbox"]:hover {
+  border-color: #A6795B;
+  transform: scale(1.05);
 }
 
 /* SECTION PRINCIPALE LISTE */
@@ -272,21 +442,111 @@ body.list {
 
 .carte-cookie {
   background-color: #FFF0DC;
-  border-radius: 20px;
+  border-radius: 50px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 50px;
   padding: 0px 20px 0px 0px;
-  transition: transform 0.2s ease;
   max-width: 1192px;
   width: 100%;
   height: 195px;
   box-sizing: border-box;
+  
+  /* Animation au scroll avec effet de rebond */
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  transition: none;
 }
 
-.carte-cookie:hover {
+.carte-cookie.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.carte-cookie.visible.obtenu {
+  animation: bounceInObtenu 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bounceInObtenu {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  60% {
+    opacity: 0.4;
+    transform: translateY(-8px) scale(1.02);
+  }
+  100% {
+    opacity: 0.4;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.carte-cookie.visible:hover {
+  transform: scale(1.01);
+  transition: transform 0.2s ease;
+}
+
+/* Style glossy test pour une carte */
+.carte-cookie-glossy {
+  box-shadow: inset 0px 0px 20px rgba(212, 196, 176, 0.5),
+              inset 0px -4px 8px rgba(196, 181, 160, 0.4),
+              inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
+              inset 0px 20px 30px -10px rgba(196, 181, 160, 0.7),
+              inset 0px -20px 30px -10px rgba(196, 181, 160, 0.7),
+              inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
+              inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
+              0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+  position: relative;
+}
+
+.carte-cookie-glossy::before {
+  content: '';
+  position: absolute;
+  width: 63px;
+  height: 35px;
+  top: 20px;
+  left: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transform: rotate(-25deg);
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+.carte-cookie-glossy::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.carte-cookie-glossy:hover {
   transform: scale(1.01);
 }
 
@@ -304,7 +564,7 @@ body.list {
   justify-content: center;
   background: rgba(134, 92, 67, 0.67);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  border-radius: 50px;
 }
 
 .cookie-head {
@@ -405,10 +665,18 @@ body.list {
 /* Opacité pour les cookies obtenus */
 .carte-cookie.obtenu {
   opacity: 0.4;
-  transition: opacity 0.3s ease;
 }
 
 .carte-cookie[data-awakened="true"] {
-  outline: 3px solid gold;
-  box-shadow: 0 0 10px gold;
+  box-shadow: 0 0 15px rgba(218, 165, 32, 0.9),
+              0 0 25px rgba(218, 165, 32, 0.6),
+              0 0 35px rgba(218, 165, 32, 0.3),
+              inset 0px 0px 20px rgba(212, 196, 176, 0.5),
+              inset 0px -4px 8px rgba(196, 181, 160, 0.4),
+              inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
+              inset 0px 20px 30px -10px rgba(196, 181, 160, 0.7),
+              inset 0px -20px 30px -10px rgba(196, 181, 160, 0.7),
+              inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
+              inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
+              0px 8px 16px rgba(0, 0, 0, 0.2) !important;
 }

@@ -1,0 +1,218 @@
+{
+  "id": "cookie-lys-blanc",
+  "nom": "Cookie Lys Blanc",
+  "pageTitle": "Cookie Lys Blanc",
+  "cssFile": "cookie_lys_blanc.css",
+  "jsFile": null,
+  "navigation": {
+    "precedent": {
+      "url": "cookie.html?id=cookie-justicier",
+      "nom": "Cookie Justicier"
+    },
+    "suivant": {
+      "url": "cookie.html?id=cookie-muguet",
+      "nom": "Cookie Muguet"
+    }
+  },
+  "illustration": "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_gif.webp",
+  "badges": {
+    "rarete": "../assets/images/rarete/antique.webp",
+    "classe": "../assets/images/classe/explosion.webp",
+    "element": "../assets/images/elements_crk/element_herbe.webp"
+  },
+  "costumes": [
+    {
+      "nom": "Costume original",
+      "icone": "../assets/images/rarete/original_costume.webp",
+      "images": [
+        "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_costume_original.webp"
+      ],
+      "illustrationReplace": null
+    },
+    {
+      "nom": "Fée des fleurs nocturnes",
+      "icone": "../assets/images/rarete/legendaire_costume.webp",
+      "iconeMythique": "../assets/images/icones/icone_mythique.webp",
+      "images": [
+        "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_costume_fee_des_fleurs_nocturnes_nb.webp",
+        "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_costume_fee_des_fleurs_nocturnes.webp",
+        "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_costume_fee_des_fleurs_nocturnes_or.webp"
+      ],
+      "illustrationReplace": "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_fee_des_fleurs_nocturnes.webp",
+      "illustrationReplaceOr": "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_fee_des_fleurs_nocturnes_or.webp"
+    },
+    {
+      "nom": "Voile du deuil éternel",
+      "icone": "../assets/images/rarete/legendaire_costume.webp",
+      "images": [
+        "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_costume_voile_du_deuil_eternel_nb.webp",
+        "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_costume_voile_du_deuil_eternel.webp"
+      ],
+      "illustrationReplace": "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_voile_du_deuil_eternel.webp"
+    }
+  ],
+  "toppings": [
+    {
+      "type": "framboise_croyance_epanouie",
+      "images": [
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_1_nb.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_1.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_2.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_3.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_4.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_5.webp"
+      ]
+    },
+    {
+      "type": "pepites_croyance_epanouie",
+      "images": [
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_1_nb.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_1.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_2.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_3.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_4.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_5.webp"
+      ]
+    },
+    {
+      "type": "framboise_croyance_epanouie",
+      "images": [
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_1_nb.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_1.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_2.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_3.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_4.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_5.webp"
+      ]
+    },
+    {
+      "type": "pepites_croyance_epanouie",
+      "images": [
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_1_nb.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_1.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_2.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_3.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_4.webp",
+        "../assets/images/garnitures/garniture_pepites_croyance_epanouie_5.webp"
+      ]
+    },
+    {
+      "type": "framboise_croyance_epanouie",
+      "images": [
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_1_nb.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_1.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_2.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_3.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_4.webp",
+        "../assets/images/garnitures/garniture_framboise_croyance_epanouie_5.webp"
+      ]
+    }
+  ],
+  "tartelettes": [
+    {
+      "type": "framboise",
+      "images": [
+        "../assets/images/tartelettes/tartelette_framboise_nb.webp",
+        "../assets/images/tartelettes/tartelette_framboise.webp"
+      ]
+    },
+    {
+      "type": "pepites_chocolat",
+      "images": [
+        "../assets/images/tartelettes/tartelette_pepites_chocolat_nb.webp",
+        "../assets/images/tartelettes/tartelette_pepites_chocolat.webp"
+      ]
+    },
+    {
+      "type": "framboise",
+      "images": [
+        "../assets/images/tartelettes/tartelette_framboise_nb.webp",
+        "../assets/images/tartelettes/tartelette_framboise.webp"
+      ]
+    },
+    {
+      "type": "pepites_chocolat",
+      "images": [
+        "../assets/images/tartelettes/tartelette_pepites_chocolat_nb.webp",
+        "../assets/images/tartelettes/tartelette_pepites_chocolat.webp"
+      ]
+    },
+    {
+      "type": "framboise",
+      "images": [
+        "../assets/images/tartelettes/tartelette_framboise_nb.webp",
+        "../assets/images/tartelettes/tartelette_framboise.webp"
+      ]
+    }
+  ],
+  "biscuits": [
+    {
+      "type": "explosion_vent_herbe",
+      "images": [
+        "../assets/images/biscuits/explosion_vent_herbe_nb.webp",
+        "../assets/images/biscuits/explosion_vent_herbe.webp"
+      ]
+    },
+    {
+      "type": "explosion_vent_herbe",
+      "images": [
+        "../assets/images/biscuits/explosion_vent_herbe_nb.webp",
+        "../assets/images/biscuits/explosion_vent_herbe.webp"
+      ]
+    },
+    {
+      "type": "explosion_vent_herbe",
+      "images": [
+        "../assets/images/biscuits/explosion_vent_herbe_nb.webp",
+        "../assets/images/biscuits/explosion_vent_herbe.webp"
+      ]
+    }
+  ],
+  "promotions": [
+    {
+      "niveau": 1,
+      "images": [
+        "../assets/images/ascension/promotion_1_nb.webp",
+        "../assets/images/ascension/promotion_1.webp"
+      ]
+    },
+    {
+      "niveau": 1,
+      "images": [
+        "../assets/images/ascension/promotion_1_nb.webp",
+        "../assets/images/ascension/promotion_1.webp"
+      ]
+    },
+    {
+      "niveau": 1,
+      "images": [
+        "../assets/images/ascension/promotion_1_nb.webp",
+        "../assets/images/ascension/promotion_1.webp"
+      ]
+    },
+    {
+      "niveau": 1,
+      "images": [
+        "../assets/images/ascension/promotion_1_nb.webp",
+        "../assets/images/ascension/promotion_1.webp"
+      ]
+    },
+    {
+      "niveau": 1,
+      "images": [
+        "../assets/images/ascension/promotion_1_nb.webp",
+        "../assets/images/ascension/promotion_1.webp"
+      ]
+    }
+  ],
+  "ascension": {
+    "etoiles": [
+          "../assets/images/ascension/ascension_star_1_nb.webp",
+          "../assets/images/ascension/ascension_star_1.webp",
+          "../assets/images/ascension/ascension_star_2.webp",
+          "../assets/images/ascension/ascension_star_3.webp",
+          "../assets/images/ascension/ascension_star_4.webp",
+          "../assets/images/ascension/ascension_star_5.webp"
+    ]
+  }
+}
