@@ -1,0 +1,45 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vite cache
+.vite/
+
+# Env files
+.env
+.env.*
+
+# VS Code settings
+.vscode/
+
+# Figma files
+*.fig
+
+# Backup files
+*.bak
+*.tmp
+
+# Personal data
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+
+# Misc
+*.log
+
+# Ignore all by default, except tracked files
+# !.gitignore
