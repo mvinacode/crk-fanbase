@@ -34,8 +34,14 @@ jobs:
           node node_modules/vite/bin/vite.js build
           # Manually copy static assets that Vite misses (referenced dynamically in JS/CSS)
           cp -r includes dist/
-          cp -r assets/data dist/assets/
-          cp -r assets/images dist/assets/
+          mkdir -p dist/assets/css
+          cp -r assets/css/* dist/assets/css/
+          mkdir -p dist/assets/data
+          cp -r assets/data/* dist/assets/data/
+          mkdir -p dist/assets/fonts
+          cp -r assets/fonts/* dist/assets/fonts/
+          mkdir -p dist/assets/images
+          cp -r assets/images/* dist/assets/images/
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
