@@ -5,6 +5,7 @@ export default defineConfig({
   root: './',
   build: {
     outDir: 'dist',
+    assetsDir: 'bundled_assets',
     rollupOptions: {
       input: {
         main: './index.html',

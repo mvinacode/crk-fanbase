@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <title>Liste Cookies</title>
@@ -7,12 +8,13 @@
   <link rel="icon" type="image/ico" href="../assets/images/icones/app_logo_5_ans.ico">
   <link id="css-buttons" rel="stylesheet" href="../assets/css/buttons.css">
   <link id="css-list" rel="stylesheet" href="../assets/css/list.css">
-  <link id="css-list" rel="stylesheet" href="../assets/css/responsive_1300_list.css">
+  <link id="css-responsive" rel="stylesheet" href="../assets/css/responsive_1300_list.css">
 
 </head>
+
 <body class="list">
 
-<div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
 
   <main class="main">
     <nav class="menu">
@@ -20,98 +22,113 @@
       <a href="list.html" class="btn"><span>Liste de tous les Cookies</span></a>
     </nav>
 
-<section class="recherche-cookies">
-  <input type="text" id="recherche" placeholder="Rechercher un cookie...">
-</section>
+    <section class="recherche-cookies">
+      <input type="text" id="recherche" placeholder="Rechercher un cookie...">
+    </section>
 
-<section class="filtres">
-<div class="filtre-rarete-wrapper">
-  <div class="filtre-rarete-toggle" onclick="toggleRareteOptions()">
-    Filtrer par rareté
-  </div>
-  <ul class="filtre-rarete-options" id="rareteOptions">
-    <li data-value=""> Afficher tout</li>
-    <li data-value="normal.webp"> <img src="../assets/images/rarete/normal.webp"></li>
-    <li data-value="rare.webp"> <img src="../assets/images/rarete/rare.webp"></li>
-    <li data-value="epique.webp"> <img src="../assets/images/rarete/epique.webp"></li>
-    <li data-value="antique.webp"> <img src="../assets/images/rarete/antique.webp"></li>
-    <li data-value="legendaire.webp"> <img src="../assets/images/rarete/legendaire.webp"></li>
-    <li data-value="special.webp"> <img src="../assets/images/rarete/special.webp"></li>
-    <li data-value="super_epique.webp"> <img src="../assets/images/rarete/super_epique.webp"></li>
-    <li data-value="dragon.webp"> <img src="../assets/images/rarete/dragon.webp"></li>
-    <li data-value="bete.webp"> <img src="../assets/images/rarete/bete.webp"></li>
-    <li data-value="sorciere.webp"> <img src="../assets/images/rarete/sorciere.webp"></li>
-  </ul>
-</div>
+    <section class="filtres">
+      <div class="filtre-rarete-wrapper">
+        <div class="filtre-rarete-toggle" onclick="toggleRareteOptions()">
+          Filtrer par rareté
+        </div>
+        <ul class="filtre-rarete-options" id="rareteOptions">
+          <li data-value=""> Afficher tout</li>
+          <li data-value="normal.webp"> <img src="../assets/images/rarete/normal.webp"></li>
+          <li data-value="rare.webp"> <img src="../assets/images/rarete/rare.webp"></li>
+          <li data-value="epique.webp"> <img src="../assets/images/rarete/epique.webp"></li>
+          <li data-value="antique.webp"> <img src="../assets/images/rarete/antique.webp"></li>
+          <li data-value="legendaire.webp"> <img src="../assets/images/rarete/legendaire.webp"></li>
+          <li data-value="special.webp"> <img src="../assets/images/rarete/special.webp"></li>
+          <li data-value="super_epique.webp"> <img src="../assets/images/rarete/super_epique.webp"></li>
+          <li data-value="dragon.webp"> <img src="../assets/images/rarete/dragon.webp"></li>
+          <li data-value="bete.webp"> <img src="../assets/images/rarete/bete.webp"></li>
+          <li data-value="sorciere.webp"> <img src="../assets/images/rarete/sorciere.webp"></li>
+        </ul>
+      </div>
 
-<div class="filtre-role-wrapper">
-  <div class="filtre-role-toggle" onclick="toggleRoleOptions()">
-    Filtrer par rôle
-  </div>
-  <ul class="filtre-role-options" id="roleOptions">
-    <li data-value=""> Afficher tout </li>
-    <li data-value="assaut.webp"><img src="../assets/images/classe/assaut.webp" alt="Assaut"> <span> Assaut </span> </li>
-    <li data-value="bts.webp"><img src="../assets/images/classe/bts.webp" alt="Assaut"> <span> BTS </span> </li>
-    <li data-value="defense.webp"><img src="../assets/images/classe/defense.webp" alt="Défense"> <span> Défense </span> </li>
-    <li data-value="embuscade.webp"><img src="../assets/images/classe/embuscade.webp" alt="Embuscade"> <span> Embuscade </span> </li>
-    <li data-value="explosion.webp"><img src="../assets/images/classe/explosion.webp" alt="Explosion"> <span> Explosion </span> </li>
-    <li data-value="magie.webp"><img src="../assets/images/classe/magie.webp" alt="Magie"> <span> Magie </span> </li>
-    <li data-value="soin.webp"><img src="../assets/images/classe/soin.webp" alt="Soin"> <span> Soin </span> </li>
-    <li data-value="soutien.webp"><img src="../assets/images/classe/soutien.webp" alt="Soutien"> <span> Soutien </span> </li>
-    <li data-value="tir.webp"><img src="../assets/images/classe/tir.webp" alt="Tir"> <span> Tir </span> </li>
-  </ul>
-</div>
+      <div class="filtre-role-wrapper">
+        <div class="filtre-role-toggle" onclick="toggleRoleOptions()">
+          Filtrer par rôle
+        </div>
+        <ul class="filtre-role-options" id="roleOptions">
+          <li data-value=""> Afficher tout </li>
+          <li data-value="assaut.webp"><img src="../assets/images/classe/assaut.webp" alt="Assaut"> <span> Assaut
+            </span> </li>
+          <li data-value="bts.webp"><img src="../assets/images/classe/bts.webp" alt="Assaut"> <span> BTS </span> </li>
+          <li data-value="defense.webp"><img src="../assets/images/classe/defense.webp" alt="Défense"> <span> Défense
+            </span> </li>
+          <li data-value="embuscade.webp"><img src="../assets/images/classe/embuscade.webp" alt="Embuscade"> <span>
+              Embuscade </span> </li>
+          <li data-value="explosion.webp"><img src="../assets/images/classe/explosion.webp" alt="Explosion"> <span>
+              Explosion </span> </li>
+          <li data-value="magie.webp"><img src="../assets/images/classe/magie.webp" alt="Magie"> <span> Magie </span>
+          </li>
+          <li data-value="soin.webp"><img src="../assets/images/classe/soin.webp" alt="Soin"> <span> Soin </span> </li>
+          <li data-value="soutien.webp"><img src="../assets/images/classe/soutien.webp" alt="Soutien"> <span> Soutien
+            </span> </li>
+          <li data-value="tir.webp"><img src="../assets/images/classe/tir.webp" alt="Tir"> <span> Tir </span> </li>
+        </ul>
+      </div>
 
-<div class="filtre-element-wrapper">
-  <div class="filtre-element-toggle" onclick="toggleElementOptions()">
-    Filtrer par élément
-  </div>
-  <ul class="filtre-element-options" id="elementOptions">
-    <li data-value=""> Afficher tout </li>
-    <li data-value="element_acier.webp"><img src="../assets/images/elements_crk/element_acier.webp" alt="Acier"> <span> Acier </span> </li>
-    <li data-value="element_chaos.webp"><img src="../assets/images/elements_crk/element_chaos.webp" alt="Chaos"> <span> Chaos </span> </li>
-    <li data-value="element_eau.webp"><img src="../assets/images/elements_crk/element_eau.webp" alt="Eau"> <span> Eau </span> </li>
-    <li data-value="element_electricite.webp"><img src="../assets/images/elements_crk/element_electricite.webp" alt="Electricité"> <span> Électricité </span> </li>
-    <li data-value="element_feu.webp"><img src="../assets/images/elements_crk/element_feu.webp" alt="Feu"> <span> Feu </span> </li>
-    <li data-value="element_glace.webp"><img src="../assets/images/elements_crk/element_glace.webp" alt="Glace"> <span> Glace </span> </li>
-    <li data-value="element_herbe.webp"><img src="../assets/images/elements_crk/element_herbe.webp" alt="Herbe"> <span> Herbe </span> </li>
-    <li data-value="element_lumiere.webp"><img src="../assets/images/elements_crk/element_lumiere.webp" alt="Lumière"> <span> Lumière </span> </li>
-    <li data-value="element_poison.webp"><img src="../assets/images/elements_crk/element_poison.webp" alt="Poison"> <span> Poison </span> </li>
-    <li data-value="element_tenebres.webp"><img src="../assets/images/elements_crk/element_tenebres.webp" alt="Ténèbres"> <span> Ténèbres </span> </li>
-    <li data-value="element_terre.webp"><img src="../assets/images/elements_crk/element_terre.webp" alt="Terre"> <span> Terre </span> </li>
-    <li data-value="element_vent.webp"><img src="../assets/images/elements_crk/element_vent.webp" alt="Vent"> <span> Vent </span> </li>
-  </ul>
-</div>
+      <div class="filtre-element-wrapper">
+        <div class="filtre-element-toggle" onclick="toggleElementOptions()">
+          Filtrer par élément
+        </div>
+        <ul class="filtre-element-options" id="elementOptions">
+          <li data-value=""> Afficher tout </li>
+          <li data-value="element_acier.webp"><img src="../assets/images/elements_crk/element_acier.webp" alt="Acier">
+            <span> Acier </span>
+          </li>
+          <li data-value="element_chaos.webp"><img src="../assets/images/elements_crk/element_chaos.webp" alt="Chaos">
+            <span> Chaos </span>
+          </li>
+          <li data-value="element_eau.webp"><img src="../assets/images/elements_crk/element_eau.webp" alt="Eau"> <span>
+              Eau </span> </li>
+          <li data-value="element_electricite.webp"><img src="../assets/images/elements_crk/element_electricite.webp"
+              alt="Electricité"> <span> Électricité </span> </li>
+          <li data-value="element_feu.webp"><img src="../assets/images/elements_crk/element_feu.webp" alt="Feu"> <span>
+              Feu </span> </li>
+          <li data-value="element_glace.webp"><img src="../assets/images/elements_crk/element_glace.webp" alt="Glace">
+            <span> Glace </span>
+          </li>
+          <li data-value="element_herbe.webp"><img src="../assets/images/elements_crk/element_herbe.webp" alt="Herbe">
+            <span> Herbe </span>
+          </li>
+          <li data-value="element_lumiere.webp"><img src="../assets/images/elements_crk/element_lumiere.webp"
+              alt="Lumière"> <span> Lumière </span> </li>
+          <li data-value="element_poison.webp"><img src="../assets/images/elements_crk/element_poison.webp"
+              alt="Poison"> <span> Poison </span> </li>
+          <li data-value="element_tenebres.webp"><img src="../assets/images/elements_crk/element_tenebres.webp"
+              alt="Ténèbres"> <span> Ténèbres </span> </li>
+          <li data-value="element_terre.webp"><img src="../assets/images/elements_crk/element_terre.webp" alt="Terre">
+            <span> Terre </span>
+          </li>
+          <li data-value="element_vent.webp"><img src="../assets/images/elements_crk/element_vent.webp" alt="Vent">
+            <span> Vent </span>
+          </li>
+        </ul>
+      </div>
 
-<div class="filtre-obtenu-wrapper">
-  <label>
-    <input type="checkbox" id="filtre-obtenu" />
-    Afficher les cookies obtenus
-  </label>
-  <label>
-    <input type="checkbox" id="filtre-non-obtenu" />
-    Afficher les cookies non obtenus
-  </label>
-</div>
-</section>
+      <div class="filtre-obtenu-wrapper">
+        <label>
+          <input type="checkbox" id="filtre-obtenu" />
+          Afficher les cookies obtenus
+        </label>
+        <label>
+          <input type="checkbox" id="filtre-non-obtenu" />
+          Afficher les cookies non obtenus
+        </label>
+      </div>
+    </section>
 
     <section class="liste-bloc">
-  <div class="grille-cookies">
-    <!-- Les cartes seront générées ici dynamiquement -->
-  </div>
-</section>
+      <div class="grille-cookies">
+        <!-- Les cartes seront générées ici dynamiquement -->
+      </div>
+    </section>
 
-  <script id="js-list" src="../assets/js/list.js"></script>
-  
-<script>
-  const version = new Date().getTime(); // timestamp unique
+    <script type="module" src="../assets/js/list.js"></script>
 
-  const css = document.getElementById("css-list");
-  css.href = css.href + "?v=" + version;
+</body>
 
-  const js = document.getElementById("js-list");
-  js.src = js.src + "?v=" + version;
-</script>
-
-  </body>
 </html>
