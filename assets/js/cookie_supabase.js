@@ -322,6 +322,24 @@ async function loadCookieData() {
       }
     }
 
+    // --- RÉCUPÉRATION DE LA NAVIGATION LOCALE (FALLBACK) ---
+    let localNavigation = {};
+    try {
+      const navResponse = await fetch('../assets/data/navigation.json');
+      if (navResponse.ok) {
+        localNavigation = await navResponse.json();
+      }
+    } catch (e) {
+      console.warn('Erreur chargement navigation.json:', e);
+    }
+
+    // Fusionner la navigation (Local + Supabase)
+    const cookieNav = {
+      ...(localNavigation[cookieData.id] || localNavigation[urlParams.get('id')] || {}),
+      ...(cookieData.navigation || {})
+    };
+    cookieData.navigation = cookieNav;
+
     // --- RÉCUPÉRATION DE LA SÉLECTION SUPABASE (Optionnel si connecté) ---
     const { data: authData } = await supabase.auth.getUser();
     if (authData.user) {
@@ -424,6 +442,21 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '280px';
     img.style.top = '100px';
+  } else if (src.includes('baie') || src.includes('verte')) {
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '250px';
+    img.style.top = '120px';
+  } else if (src.includes('gnome')) {
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '350px';
+    img.style.top = '300px';
+  } else if (src.includes('hiver') || src.includes('chaud')) {
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '140px';
   }
   // Ajoute ici d'autres règles si besoin
 }
@@ -726,9 +759,9 @@ function renderCookie(data) {
     `}).join('')}
  </div>
 
- <a class="btn-costume" href="#"><span>Costumes</span></a>
- ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><span>Cookie précédent</span></a>` : ''}
- <a href="cookie_detail.html?id=${data.navigation?.suivant || ''}" class="btn-cookie-suivant"><span>Cookie suivant</span></a>
+  <a class="btn-costume" href="#"><span>Costumes</span></a>
+  ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><span>Cookie précédent</span></a>` : ''}
+  ${data.navigation?.suivant ? `<a href="cookie_detail.html?id=${data.navigation.suivant}" class="btn-cookie-suivant"><span>Cookie suivant</span></a>` : ''}
  
   `;
 

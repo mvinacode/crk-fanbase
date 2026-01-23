@@ -1,0 +1,18 @@
+{
+    "fa4da28e-bff9-441e-b466-a6464c1d266a": {
+        "suivant": "9a419714-296e-449f-815c-1842448d7234",
+        "precedent": "9a419714-296e-449f-815c-1842448d7234"
+    },
+    "cookie-temeraire": {
+        "suivant": "9a419714-296e-449f-815c-1842448d7234",
+        "precedent": "9a419714-296e-449f-815c-1842448d7234"
+    },
+    "9a419714-296e-449f-815c-1842448d7234": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "fa4da28e-bff9-441e-b466-a6464c1d266a"
+    },
+    "cookie-fraise": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "fa4da28e-bff9-441e-b466-a6464c1d266a"
+    }
+}

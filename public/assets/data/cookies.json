@@ -77,7 +77,10 @@
     "image": "cookies/cookie_sel_silencieux/cookie_sel_silencieux_tete.webp",
     "rarete": "rarete/bete.webp",
     "role": "classe/embuscade.webp",
-    "element": ["elements_crk/element_tenebres.webp", "elements_crk/element_acier.webp"],
+    "element": [
+      "elements_crk/element_tenebres.webp",
+      "elements_crk/element_acier.webp"
+    ],
     "lien": "cookie_sel_silencieux.html"
   },
   {
@@ -212,8 +215,13 @@
     "image": "cookies/cookie_agar_agar/cookie_agar_agar_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
-    "element": ["elements_crk/element_feu.webp", "elements_crk/element_electricite.webp", "elements_crk/element_eau.webp", 
-    "elements_crk/element_vent.webp", "elements_crk/element_glace.webp"],
+    "element": [
+      "elements_crk/element_feu.webp",
+      "elements_crk/element_electricite.webp",
+      "elements_crk/element_eau.webp",
+      "elements_crk/element_vent.webp",
+      "elements_crk/element_glace.webp"
+    ],
     "lien": "cookie_agar_agar.html"
   },
   {
@@ -285,7 +293,10 @@
     "image": "cookies/cookie_mousse_au_the_vert/cookie_mousse_au_the_vert_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
-    "element": ["elements_crk/element_vent.webp", "elements_crk/element_herbe.webp"],
+    "element": [
+      "elements_crk/element_vent.webp",
+      "elements_crk/element_herbe.webp"
+    ],
     "lien": "cookie_mousse_au_the_vert.html"
   },
   {
@@ -447,7 +458,10 @@
     "image": "cookies/cookie_brioche_beurree/cookie_brioche_beurree_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
-    "element": ["elements_crk/element_acier.webp", "elements_crk/element_chaos.webp"],
+    "element": [
+      "elements_crk/element_acier.webp",
+      "elements_crk/element_chaos.webp"
+    ],
     "lien": "cookie_brioche_beurree.html"
   },
   {
@@ -465,7 +479,10 @@
     "image": "cookies/cookie_matcha/cookie_matcha_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
-    "element": ["elements_crk/element_poison.webp", "elements_crk/element_herbe.webp"],
+    "element": [
+      "elements_crk/element_poison.webp",
+      "elements_crk/element_herbe.webp"
+    ],
     "lien": "cookie_matcha.html"
   },
   {
@@ -537,7 +554,11 @@
     "image": "cookies/cookie_olive/cookie_olive_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
-    "element": ["elements_crk/element_terre.webp", "elements_crk/element_feu.webp", "elements_crk/element_electricite.webp"],
+    "element": [
+      "elements_crk/element_terre.webp",
+      "elements_crk/element_feu.webp",
+      "elements_crk/element_electricite.webp"
+    ],
     "lien": "cookie_olive.html"
   },
   {
@@ -582,7 +603,10 @@
     "image": "cookies/cookie_meduse_mousseline/cookie_meduse_mousseline_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
-    "element": ["elements_crk/element_eau.webp", "elements_crk/element_electricite.webp"],
+    "element": [
+      "elements_crk/element_eau.webp",
+      "elements_crk/element_electricite.webp"
+    ],
     "lien": "cookie_meduse_mousseline.html"
   },
   {
@@ -852,7 +876,10 @@
     "image": "cookies/schwarzwalder/schwarzwalder_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
-    "element": ["elements_crk/element_acier.webp", "elements_crk/element_chaos.webp"],
+    "element": [
+      "elements_crk/element_acier.webp",
+      "elements_crk/element_chaos.webp"
+    ],
     "lien": "schwarzwalder.html"
   },
   {
@@ -1356,7 +1383,11 @@
     "image": "cookies/cookie_reglisse/cookie_reglisse_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
-    "element": ["elements_crk/element_tenebres.webp", "elements_crk/element_poison.webp", "elements_crk/element_chaos.webp"],
+    "element": [
+      "elements_crk/element_tenebres.webp",
+      "elements_crk/element_poison.webp",
+      "elements_crk/element_chaos.webp"
+    ],
     "lien": "cookie_reglisse.html"
   },
   {
@@ -1564,7 +1595,7 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/defense.webp",
     "element": "",
-    "lien": "cookie_fraise.html"
+    "lien": "cookie_detail.html?id=cookie-fraise"
   },
   {
     "id": "cookie-temeraire",
@@ -1573,6 +1604,6 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/assaut.webp",
     "element": "",
-    "lien": "cookie_temeraire.html"
+    "lien": "cookie_detail.html?id=cookie-temeraire"
   }
 ]

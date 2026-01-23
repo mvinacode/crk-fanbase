@@ -598,8 +598,8 @@ body:not(.accueil) .header .user-info {
 
 
 .btn-cookie-precedent {
-    bottom: 20px;
-    right: 350px;
+    bottom: 100px;
+    right: 340px;
 }
 
 .btn-cookie-suivant {
