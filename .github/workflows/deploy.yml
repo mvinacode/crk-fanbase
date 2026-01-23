@@ -30,7 +30,12 @@ jobs:
         run: npm install
 
       - name: Build
-        run: node node_modules/vite/bin/vite.js build
+        run: |
+          node node_modules/vite/bin/vite.js build
+          # Manually copy static assets that Vite misses (referenced dynamically in JS/CSS)
+          cp -r includes dist/
+          cp -r assets/data dist/assets/
+          cp -r assets/images dist/assets/
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
