@@ -92,7 +92,10 @@ async function loadCookieData() {
     console.log("Tentative de chargement pour ID:", cookieId);
 
     // Récupération intelligente : par ID (UUID) ou par Slug
+    let cookieData = null;
+    let error = null;
     let response;
+
     // Si l'ID ressemble à un UUID, on cherche par ID, sinon par slug
     const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cookieId);
 
@@ -102,31 +105,61 @@ async function loadCookieData() {
         .select('*')
         .eq('id', cookieId)
         .maybeSingle();
-    } else {
-      console.log("ID n'est pas un UUID, on cherche par slug:", cookieId);
-      response = await supabase
-        .from('cookies')
-        .select('*')
-        .eq('slug', cookieId)
-        .maybeSingle();
-    }
-
-    let cookieData = response.data;
-    let error = response.error;
-
-    if (error && isUuid) {
-      // Si on a cherché par ID et que ça a foiré (ex: 400 Bad Request car pas UUID), on tente par slug
-      console.log("Échec recherche par ID, tentative par slug...");
-      response = await supabase
-        .from('cookies')
-        .select('*')
-        .eq('slug', cookieId)
-        .maybeSingle();
       cookieData = response.data;
       error = response.error;
+    } else {
+      console.log("ID n'est pas un UUID, on cherche par slug:", cookieId);
+      // Tentative par slug
+      response = await supabase
+        .from('cookies')
+        .select('*')
+        .eq('slug', cookieId)
+        .maybeSingle();
+
+      cookieData = response.data;
+      error = response.error;
+
+      // FALLBACK : Si la colonne slug n'existe pas ou si rien n'est trouvé
+      // On tolère l'erreur de colonne inexistante (42703 en PostgreSQL)
+      if (!cookieData || (error && (error.code === '42703' || error.message.includes('slug')))) {
+        console.log("Recherche par slug échouée ou colonne absente, tentative via cookies.json + recherche par nom...");
+        try {
+          const localResponse = await fetch('../assets/data/cookies.json');
+          if (localResponse.ok) {
+            const localCookies = await localResponse.json();
+            // On cherche le cookie qui a cet ID dans le JSON (ex: "cookie-fraise")
+            const localEntry = localCookies.find(c =>
+              c.id === cookieId ||
+              (c.nom && c.nom.toLowerCase().replace(/\s+/g, '-') === cookieId.toLowerCase())
+            );
+
+            if (localEntry) {
+              console.log("Correspondance trouvée dans cookies.json:", localEntry.nom);
+              // On tente une recherche par nom exact dans Supabase
+              const nameResponse = await supabase
+                .from('cookies')
+                .select('*')
+                .eq('nom', localEntry.nom)
+                .maybeSingle();
+
+              if (nameResponse.data) {
+                console.log("Cookie trouvé en base via son nom !");
+                cookieData = nameResponse.data;
+                error = null;
+              } else {
+                console.log("Cookie non trouvé en base sous ce nom, utilisation des données locales.");
+                cookieData = localEntry;
+                error = null;
+              }
+            }
+          }
+        } catch (localErr) {
+          console.error("Erreur lors du fallback local:", localErr);
+        }
+      }
     }
 
-    if (error) {
+    if (error && !cookieData) {
       console.error('Erreur Supabase:', error);
       throw error;
     }
