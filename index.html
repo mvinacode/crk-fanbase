@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <title>Accueil - Cookie Run Kingdom</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/ico" href="assets/images/icones/app_logo_5_ans.ico">
-  <link rel="stylesheet" href="assets/css/buttons.css">
-  <link rel="stylesheet" href="assets/css/index.css">
-  <link rel="stylesheet" href="assets/css/responsive_1300_index.css">
-  
-</head>
-<body class="accueil">
+  <link rel="stylesheet" id="css-cookie-dynamic" href="assets/css/cookie_dynamic.css">
 
-<div id="header-placeholder"></div>
+
+</head>
+
+<body class="accueil">
+  <div id="header-placeholder"></div>
 
   <main class="main">
-    <nav class="menu">
-      <a href="index.html" class="btn"><span>Accueil</span></a>
-      <a href="pages/list.html" class="btn"><span>Liste de tous les Cookies</span></a>
-    </nav>
 
-        <div class="derniers-ajouts">
+
+
+    <div class="derniers-ajouts">
       <h2>Derniers ajouts ou modifications</h2>
       <div class="cartes-cookies">
-    <!-- Les cartes seront insérées ici automatiquement par le script -->
-  </div>
+        <!-- Les cartes seront insérées ici automatiquement par le script -->
+      </div>
     </div>
   </main>
 
 </body>
-<script type="module">
-  import { supabase } from './assets/js/app.js'
-  console.log('✅ Supabase initialisé:', supabase)
-  console.log('URL:', import.meta.env.VITE_SUPABASE_URL)
-</script>
-<script src="assets/js/index.js"></script>
+<script type="module" src="assets/js/cookie_supabase.js"></script>
+
 </html>

@@ -71,34 +71,31 @@ document.addEventListener("DOMContentLoaded", () => {
     
     nouveauxCookies.forEach((cookie, index) => {
       const carte = document.createElement("a");
-      carte.href = cookie.lien;
+      // Par défaut, lien dynamique vers la page détail avec l'id
+      carte.href = `cookie_detail.html?id=${encodeURIComponent(cookie.id)}`;
 // --- Redirection automatique vers la page éveillée si possédé ---
-// 1) Fabrique une clé "fichier" à partir du lien : "xxx/nom.html" -> "nom"
+// (on garde la logique existante, mais la valeur par défaut du href est maintenant cookie_detail.html?id=...)
 const cookieKeyFromLink = (href) => {
   const file = (href || "").split("/").pop() || "";
   return file.replace(/\.html?$/i, "");
 };
 
-// 2) Normalise en deux variantes : tirets et underscores
 const toHyphen = (s) => (s || "").toLowerCase().replace(/_/g, "-");
 const toUnderscore = (s) => (s || "").toLowerCase().replace(/-/g, "_");
 
-// Clés candidates (depuis le lien ET depuis l'id JSON)
-const linkKey = cookieKeyFromLink(cookie.lien);           // ex: "cookie_lys_blanc"
-const idKey   = (cookie.id || "");                        // ex: "cookie-lys-blanc"
-
+const linkKey = cookieKeyFromLink(cookie.lien);
+const idKey   = (cookie.id || "");
 const candidates = new Set([
   linkKey,
-  toHyphen(linkKey),     // "cookie-lys-blanc"
-  toUnderscore(linkKey), // "cookie_lys_blanc"
+  toHyphen(linkKey),
+  toUnderscore(linkKey),
   idKey,
   toHyphen(idKey),
   toUnderscore(idKey),
 ]);
 
-// 3) Vérifie si une des variantes est marquée "éveil possédé"
 let hasAwakened = false;
-let canonical = null; // on gardera la version "tirets" comme canon
+let canonical = null;
 for (const key of candidates) {
   const val = localStorage.getItem(`cookie-awakened-owned:${key}`);
   if (val === "1") {
@@ -108,36 +105,34 @@ for (const key of candidates) {
   }
 }
 
-// 4) (Optionnel mais conseillé) migration vers une clé canon "tirets"
 if (hasAwakened && canonical) {
   localStorage.setItem(`cookie-awakened-owned:${canonical}`, "1");
 }
 
-// 5) Si c’est Lys Blanc ET éveil possédé -> redirige vers la page éveillée
 const isLysBlanc = ["cookie-lys-blanc","cookie_lys_blanc"].includes(canonical || toHyphen(linkKey));
 const isVanillePure = ["cookie-vanille-pure","cookie_vanille_pure"].includes(canonical || toHyphen(linkKey));
 const isBaieHoux = ["cookie-baie-de-houx","cookie_baie_de_houx"].includes(canonical || toHyphen(linkKey));
 const isCacaoNoir = ["cookie-cacao-noir","cookie_cacao_noir"].includes(canonical || toHyphen(linkKey));
 const isFromageDore = ["cookie-fromage-dore","cookie_fromage_dore"].includes(canonical || toHyphen(linkKey));
 if (hasAwakened && isLysBlanc) {
-  carte.href = "cookie_lys_blanc_eveil.html";    // list.html est dans /pages/
-  carte.dataset.awakened = "true";               // (optionnel: style)
+  carte.href = "cookie_lys_blanc_eveil.html";
+  carte.dataset.awakened = "true";
 }
 if (hasAwakened && isVanillePure) {
-  carte.href = "cookie_vanille_pure_eveil.html";    // list.html est dans /pages/
-  carte.dataset.awakened = "true";               // (optionnel: style)
+  carte.href = "cookie_vanille_pure_eveil.html";
+  carte.dataset.awakened = "true";
 }
 if (hasAwakened && isBaieHoux) {
-  carte.href = "cookie_baie_de_houx_eveil.html";    // list.html est dans /pages/
-  carte.dataset.awakened = "true";               // (optionnel: style)
+  carte.href = "cookie_baie_de_houx_eveil.html";
+  carte.dataset.awakened = "true";
 }
 if (hasAwakened && isCacaoNoir) {
-  carte.href = "cookie_cacao_noir_eveil.html";    // list.html est dans /pages/
-  carte.dataset.awakened = "true";               // (optionnel: style)
+  carte.href = "cookie_cacao_noir_eveil.html";
+  carte.dataset.awakened = "true";
 }
 if (hasAwakened && isFromageDore) {
-  carte.href = "cookie_fromage_dore_eveil.html";    // list.html est dans /pages/
-  carte.dataset.awakened = "true";               // (optionnel: style)
+  carte.href = "cookie_fromage_dore_eveil.html";
+  carte.dataset.awakened = "true";
 }
 
       // Vérifier l'état obtenu dès le début

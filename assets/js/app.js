@@ -13,7 +13,7 @@ console.log("Supabase est prêt !")
  
 async function getCookies() {
   const { data, error } = await supabase
-    .from('Cookies') // Attention aux majuscules !
+    .from('cookies') // Table en minuscule
     .select('*')
  
   if (error) {
