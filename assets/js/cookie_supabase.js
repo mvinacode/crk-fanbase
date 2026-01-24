@@ -381,7 +381,7 @@ async function loadCookieData() {
     // Appliquer dynamiquement les styles d'illustration selon l'image
     applyIllustrationStyles();
 
-    setupImageCycles();
+    setupImageCycles(cookieData);
     setupCostumePopup();
   } catch (err) {
     console.error('Erreur lors du chargement des données du cookie:', err);
@@ -833,7 +833,7 @@ function setupCostumePopup() {
   // checkIndividualChanges() devrait être appelé ici si nécessaire
 }
 
-function setupImageCycles() {
+function setupImageCycles(cookieData) {
   // La logique existante pour gérer le clic sur les images (cycle) doit être réappliquée
   // car les éléments viennent d'être créés dynamiquement.
   // On suppose qu'il existe une fonction globale ou on réimplémente le listener ici
@@ -879,48 +879,43 @@ function setupImageCycles() {
       if (this.classList.contains('costume-toggle')) {
         const costumeName = this.alt?.toLowerCase() || '';
         const isNB = costumeName.includes('nb') || (images[parseInt(this.dataset.step || 0)]?.toLowerCase().includes('nb'));
-        if (isNB && illustration && window._cookieOriginalImage) {
-          illustration.src = window._cookieOriginalImage;
-          illustrationChanged = true;
 
-          // On vide la sélection Supabase car on revient à l'original
-          const page = document.getElementById('page-cookie');
-          const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
-          if (cookieId) {
-            console.log('[Costume] Retour à l\'original (NB détecté), vider Supabase...');
-            saveSelectionToSupabase(cookieId, null);
+        const page = document.getElementById('page-cookie');
+        const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
+
+        if (isNB && illustration) {
+          // Si on repasse en NB, on vérifie si c'était l'illustration active
+          const currentIllustration = illustration.src;
+          const isThisCostumeActive = currentIllustration === this.dataset.illustrationReplace;
+
+          if (isThisCostumeActive && window._cookieOriginalImage) {
+            console.log('[Costume] Désactivation de l\'illustration active, retour à l\'original...');
+            illustration.src = window._cookieOriginalImage;
+            illustrationChanged = true;
+
+            if (cookieId) {
+              saveSelectionToSupabase(cookieId, null);
+              localStorage.removeItem(`cookie-illustration:${cookieId}`);
+            }
           }
         } else if (this.dataset.illustrationReplace && illustration) {
+          // Si on passe en Couleur, on définit comme illustration active
           illustration.src = this.dataset.illustrationReplace;
           illustrationChanged = true;
 
-          // On récupère l'id du cookie depuis le DOM (toujours fiable)
-          const page = document.getElementById('page-cookie');
-          const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
-
           if (cookieId) {
-            // BUG FIX : Reset other costumes state to 0 for this cookie
-            if (data.costumes) {
-              data.costumes.forEach(c => {
-                if (c.id !== this.dataset.id) {
-                  saveEtatForId(c.id, 0);
-                }
-              });
-            }
-
             saveCookieIllustration(cookieId, this.dataset.illustrationReplace);
-
             // Synchronisation Supabase avec la colonne costume_id
-            // Comme on n'est pas en NB, on sauve l'ID du costume
             saveSelectionToSupabase(cookieId, this.dataset.id);
 
-            console.log('[Costume] Sauvegarde illustration costume :', {
+            console.log('[Costume] Nouvelle illustration active :', {
               id: this.dataset.id,
-              cookieId: cookieId
+              name: this.alt
             });
           }
         }
-      } else if (this.dataset.illustrationReplace && illustration) {
+      }
+      else if (this.dataset.illustrationReplace && illustration) {
         illustration.src = this.dataset.illustrationReplace;
         illustrationChanged = true;
       }
