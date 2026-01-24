@@ -352,16 +352,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (roleActif !== "") {
-      resultats = resultats.filter(cookie => cookie.role.includes(roleActif));
+      resultats = resultats.filter(cookie => {
+        const role = (cookie.role || "").toLowerCase();
+        const roleFilter = roleActif.toLowerCase().replace(".webp", "");
+        return role.includes(roleFilter);
+      });
     }
 
     if (elementActif !== "") {
       resultats = resultats.filter(cookie => {
-        if (Array.isArray(cookie.element)) {
-          return cookie.element.some(e => e.includes(elementActif));
-        } else {
-          return cookie.element.includes(elementActif);
-        }
+        const elementFilter = elementActif.toLowerCase().replace(".webp", "");
+        const elements = Array.isArray(cookie.element) ? cookie.element : [cookie.element || ""];
+        return elements.some(e => (e || "").toLowerCase().includes(elementFilter));
       });
     }
 

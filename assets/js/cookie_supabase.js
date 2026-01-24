@@ -64,6 +64,16 @@ if (cookieId === 'cookie-temeraire') {
   cookieId = 'fa4da28e-bff9-441e-b466-a6464c1d266a';
 }
 
+// Correction spéciale pour cookie fraise :
+if (cookieId === 'cookie-fraise') {
+  cookieId = '9a419714-296e-449f-815c-1842448d7234';
+}
+
+// Correction spéciale pour cookie fraise :
+if (cookieId === 'cookie-sorcier') {
+  cookieId = 'b01c71b1-19b0-46ff-894f-f22d3008f585';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -139,7 +149,7 @@ async function loadCookieData() {
               const nameResponse = await supabase
                 .from('cookies')
                 .select('*')
-                .eq('nom', localEntry.nom)
+                .ilike('nom', localEntry.nom)
                 .maybeSingle();
 
               if (nameResponse.data) {
@@ -180,116 +190,70 @@ async function loadCookieData() {
       .eq('cookie_id', cookieData.id);
     console.log('Toutes les lignes builds pour ce cookie_id :', allBuildsResponse);
 
-    // --- Récupération de tous les toppings (topping1 à topping5) ---
-    let toppingsResponse = await supabase
-      .from('builds')
-      .select('*')
-      .eq('cookie_id', cookieData.id)
-      .in('type', ['topping1', 'topping2', 'topping3', 'topping4', 'topping5']);
-    console.log('Résultat Supabase toppings/builds:', toppingsResponse);
+    // --- HELPER FETCH CATEGORY DATA ---
+    async function fetchCategoryData(categorySlug, buildTypes, defaultNom) {
+      try {
+        // 1. Tentative sur la nouvelle table (ex: 'toppings')
+        const { data: newData, error: newError } = await supabase
+          .from(categorySlug)
+          .select('*')
+          .eq('cookie_id', cookieData.id)
+          .order('position', { ascending: true });
 
-    if (toppingsResponse.data && toppingsResponse.data.length > 0) {
-      // Pour chaque ligne (topping1 à topping5), récupérer les images
-      cookieData.toppings = toppingsResponse.data.map(toppingRow => {
-        const toppingImages = Object.keys(toppingRow)
-          .filter(key => key.startsWith('image') && toppingRow[key])
-          .sort()
-          .map(key => toppingRow[key]);
-        return {
-          id: toppingRow.id,
-          nom: toppingRow.nom || toppingRow.type || 'Garniture',
-          images: toppingImages
-        };
-      });
-    } else {
-      cookieData.toppings = [];
+        if (!newError && newData && newData.length > 0) {
+          console.log(`Données trouvées dans la nouvelle table "${categorySlug}"`);
+          return newData.map(item => ({
+            id: item.id,
+            nom: item.nom || item.type || defaultNom,
+            images: Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? JSON.parse(item.images) : [])
+          }));
+        }
+      } catch (e) {
+        console.log(`Table "${categorySlug}" non trouvée ou erreur, tentative fallback builds...`);
+      }
+
+      // 2. Fallback sur la table 'builds'
+      const { data: fallbackData } = await supabase
+        .from('builds')
+        .select('*')
+        .eq('cookie_id', cookieData.id)
+        .in('type', buildTypes);
+
+      if (fallbackData && fallbackData.length > 0) {
+        console.log(`Fallback builds utilisé pour "${categorySlug}"`);
+        return fallbackData.map(row => {
+          const images = Object.keys(row)
+            .filter(key => key.startsWith('image') && row[key])
+            .sort()
+            .map(key => row[key]);
+          return {
+            id: row.id,
+            nom: row.nom || row.type || defaultNom,
+            images: images
+          };
+        });
+      }
+      return [];
     }
 
-    // --- Récupération de toutes les tartelettes (tartelette1 à tartelette5) ---
-    let tartelettesResponse = await supabase
-      .from('builds')
-      .select('*')
-      .eq('cookie_id', cookieData.id)
-      .in('type', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5']);
-    console.log('Résultat Supabase tartelettes/builds:', tartelettesResponse);
+    // --- CHARGEMENT DES DIFFÉRENTES CATÉGORIES ---
+    cookieData.toppings = await fetchCategoryData('toppings', ['topping1', 'topping2', 'topping3', 'topping4', 'topping5'], 'Garniture');
+    cookieData.tartelettes = await fetchCategoryData('tartelettes', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5'], 'Tartelette');
+    cookieData.biscuits = await fetchCategoryData('biscuits', ['biscuit1', 'biscuit2', 'biscuit3'], 'Biscuit');
+    cookieData.promotions = await fetchCategoryData('promotions', ['promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion');
 
-    if (tartelettesResponse.data && tartelettesResponse.data.length > 0) {
-      cookieData.tartelettes = tartelettesResponse.data.map(tarteletteRow => {
-        const tarteletteImages = Object.keys(tarteletteRow)
-          .filter(key => key.startsWith('image') && tarteletteRow[key])
-          .sort()
-          .map(key => tarteletteRow[key]);
-        return {
-          id: tarteletteRow.id,
-          nom: tarteletteRow.nom || tarteletteRow.type || 'Tartelette',
-          images: tarteletteImages
-        };
-      });
-    } else {
-      cookieData.tartelettes = [];
-    }
-
-    // --- Récupération de tous les biscuits (biscuit1 à biscuit3) ---
-    let biscuitsResponse = await supabase
-      .from('builds')
-      .select('*')
-      .eq('cookie_id', cookieData.id)
-      .in('type', ['biscuit1', 'biscuit2', 'biscuit3']);
-    console.log('Résultat Supabase biscuits/builds:', biscuitsResponse);
-
-    if (biscuitsResponse.data && biscuitsResponse.data.length > 0) {
-      cookieData.biscuits = biscuitsResponse.data.map(biscuitRow => {
-        const biscuitImages = Object.keys(biscuitRow)
-          .filter(key => key.startsWith('image') && biscuitRow[key])
-          .sort()
-          .map(key => biscuitRow[key]);
-        return {
-          id: biscuitRow.id,
-          nom: biscuitRow.nom || biscuitRow.type || 'Biscuit',
-          images: biscuitImages
-        };
-      });
-    } else {
-      cookieData.biscuits = [];
-    }
-
-    // --- Récupération de toutes les promotions (promotion1 à promotion5) ---
-    let promotionsResponse = await supabase
-      .from('builds')
-      .select('*')
-      .eq('cookie_id', cookieData.id)
-      .in('type', ['promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5']);
-    console.log('Résultat Supabase promotions/builds:', promotionsResponse);
-
-    if (promotionsResponse.data && promotionsResponse.data.length > 0) {
-      cookieData.promotions = promotionsResponse.data.map(promotionRow => {
-        const promotionImages = Object.keys(promotionRow)
-          .filter(key => key.startsWith('image') && promotionRow[key])
-          .sort()
-          .map(key => promotionRow[key]);
-        return {
-          id: promotionRow.id,
-          nom: promotionRow.nom || promotionRow.type || 'Promotion',
-          images: promotionImages
-        };
-      });
-    } else {
-      cookieData.promotions = [];
-    }
-
-    // Log pour debug toppings
-    console.log('Toppings trouvés pour ce cookie :', cookieData.toppings);
-    // Log complet de cookieData
-    console.log('cookieData complet avant rendu :', cookieData);
+    // Pour l'ascension, la structure est un peu différente dans cookieData
+    const ascensionItems = await fetchCategoryData('ascension', ['ascension'], 'Ascension');
+    cookieData.ascension = { etoiles: ascensionItems };
 
     // --- Récupération de tous les costumes (table "costumes") ---
     let costumesResponse = await supabase
       .from('costumes')
       .select('*')
       .eq('cookie_id', cookieData.id);
-    console.log('Résultat Supabase costumes:', costumesResponse);
 
     if (costumesResponse.data && costumesResponse.data.length > 0) {
+      console.log('Costumes trouvés dans Supabase');
       cookieData.costumes = costumesResponse.data.map(costumeRow => {
         // Récupère toutes les colonnes imageX non nulles et triées
         const costumeImages = Object.keys(costumeRow)
@@ -309,31 +273,8 @@ async function loadCookieData() {
       cookieData.costumes = [];
     }
 
-    // --- Récupération de toutes les ascensions (table "builds") ---
-    let ascensionResponse = await supabase
-      .from('builds')
-      .select('*')
-      .eq('cookie_id', cookieData.id)
-      .eq('type', 'ascension');
-    console.log('Résultat Supabase ascension/builds:', ascensionResponse);
-
-    if (ascensionResponse.data && ascensionResponse.data.length > 0) {
-      cookieData.ascension = {
-        etoiles: ascensionResponse.data.map(ascensionRow => {
-          const ascensionImages = Object.keys(ascensionRow)
-            .filter(key => key.startsWith('image') && ascensionRow[key])
-            .sort()
-            .map(key => ascensionRow[key]);
-          return {
-            id: ascensionRow.id,
-            nom: ascensionRow.nom || ascensionRow.type || 'Ascension',
-            images: ascensionImages
-          };
-        })
-      };
-    } else {
-      cookieData.ascension = { etoiles: [] };
-    }
+    // Log complet de cookieData pour debug
+    console.log('cookieData complet après chargement dynamisé :', cookieData);
 
     // Met à jour le titre de la page avec le nom du cookie
     document.title = cookieData.nom || 'Cookie';
@@ -652,27 +593,14 @@ function renderCookie(data) {
     }
   }
 
-  // 2. Fallback localStorage : chercher si un costume a un step sauvegardé > 0
-  if (!costumeIllustration && data.costumes && data.costumes.length > 0) {
-    for (const costume of data.costumes) {
-      const savedStep = getEtatForId(costume.id);
-      const step = savedStep !== null ? parseInt(savedStep, 10) : 0;
-      if (costume.illustrationReplace && step > 0) {
-        costumeIllustration = formatImagePath(costume.illustrationReplace);
-        console.log('[Costume] Priorité 2 : Restauration depuis localStorage (step):', costumeIllustration);
-        break;
-      }
-    }
-  }
-
-  // 3. Fallback final : Sauvegarde d'illustration simple
+  // 2. Fallback final : Sauvegarde d'illustration simple
   if (costumeIllustration) {
     currentIllustration = costumeIllustration;
   } else {
     const saved = getCookieIllustration(data.id);
     if (saved) {
       currentIllustration = saved;
-      console.log('[Costume] Priorité 3 : Restauration depuis sauvegarde simple:', currentIllustration);
+      console.log('[Costume] Priorité 2 : Restauration depuis sauvegarde simple:', currentIllustration);
     }
   }
 
@@ -800,14 +728,6 @@ function renderCookie(data) {
 
   if (pageContainer) {
     pageContainer.innerHTML = cookieHTML;
-
-    // Gestion de la sauvegarde auto au chargement de l'image (une fois dans le DOM)
-    const illustrationImg = pageContainer.querySelector('.illustration-cookie img');
-    if (illustrationImg && data.id) {
-      illustrationImg.addEventListener('load', () => {
-        saveCookieIllustration(data.id, illustrationImg.src);
-      });
-    }
   }
 }
 
@@ -979,6 +899,15 @@ function setupImageCycles() {
           const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
 
           if (cookieId) {
+            // BUG FIX : Reset other costumes state to 0 for this cookie
+            if (data.costumes) {
+              data.costumes.forEach(c => {
+                if (c.id !== this.dataset.id) {
+                  saveEtatForId(c.id, 0);
+                }
+              });
+            }
+
             saveCookieIllustration(cookieId, this.dataset.illustrationReplace);
 
             // Synchronisation Supabase avec la colonne costume_id
