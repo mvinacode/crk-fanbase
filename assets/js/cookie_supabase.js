@@ -58,25 +58,24 @@ let cookieId = urlParams.get('id') || 'fa4da28e-bff9-441e-b466-a6464c1d266a';
 // Nettoyer l'ID : enlever les chevrons < > s'ils sont présents
 cookieId = cookieId.trim().replace(/^<|>$/g, '').trim();
 
-// Correction spéciale pour cookie téméraire :
-// Si l'id reçu est "cookie-temeraire", on le remplace par l'UUID Supabase
 if (cookieId === 'cookie-temeraire') {
   cookieId = 'fa4da28e-bff9-441e-b466-a6464c1d266a';
 }
 
-// Correction spéciale pour cookie fraise :
 if (cookieId === 'cookie-fraise') {
   cookieId = '9a419714-296e-449f-815c-1842448d7234';
 }
 
-// Correction spéciale pour cookie fraise :
 if (cookieId === 'cookie-sorcier') {
   cookieId = 'b01c71b1-19b0-46ff-894f-f22d3008f585';
 }
 
-// Correction spéciale pour cookie fraise :
 if (cookieId === 'cookie-ninja') {
   cookieId = '6f0371f8-a990-46f5-83b5-fcb476744825';
+}
+
+if (cookieId === 'cookie-ange') {
+  cookieId = 'fbe1a5be-bfac-44af-b1a1-10446abf35b0';
 }
 
 // Fonction pour charger dynamiquement un fichier CSS
@@ -452,19 +451,22 @@ function applyIllustrationStyles() {
     console.warn('[applyIllustrationStyles] Applying Ninja Costume (Cache) styles for:', src);
     img.style.width = '200px';
     img.style.height = 'auto';
-    img.style.left = '350px'; // Valeurs utilisateur
-    img.style.top = '320px';  // Valeurs utilisateur
+    img.style.left = '350px';
+    img.style.top = '320px';
   } else if (src.includes('cookie_ninja') || (src.includes('ninja') && src.includes('original'))) {
     console.warn('[applyIllustrationStyles] Applying Ninja styles for:', src);
     img.style.width = '412px';
     img.style.height = '444px';
     img.style.left = '200px';
     img.style.top = '140px';
+  } else if (src.includes('chef') || src.includes('chœur')) {
+    console.warn('[applyIllustrationStyles] Applying Ange Costume (Cache) styles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '390px';
+    img.style.top = '360px';
   }
 }
-
-
-
 
 // --- SAUVEGARDE SIMPLE DANS LE LOCALSTORAGE ---
 // --- SAUVEGARDE ILLUSTRATION (système cookie_temeraire.js) ---
