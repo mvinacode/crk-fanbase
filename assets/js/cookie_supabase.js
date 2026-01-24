@@ -299,7 +299,8 @@ async function loadCookieData() {
     // --- RÉCUPÉRATION DE LA NAVIGATION LOCALE (FALLBACK) ---
     let localNavigation = {};
     try {
-      const navResponse = await fetch('../assets/data/navigation.json');
+      // Ajout d'un timestamp pour éviter le cache du navigateur
+      const navResponse = await fetch(`../assets/data/navigation.json?t=${Date.now()}`);
       if (navResponse.ok) {
         localNavigation = await navResponse.json();
       }
@@ -421,6 +422,12 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '250px';
     img.style.top = '120px';
+  } else if (src.includes('sorcier') && src.includes('gnome')) {
+    // Cas SPÉCIFIQUE : Cookie Sorcier en costume Gnome (Garde la taille normale)
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '260px';
+    img.style.top = '190px';
   } else if (src.includes('gnome')) {
     img.style.width = '200px';
     img.style.height = 'auto';
@@ -431,6 +438,11 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '270px';
     img.style.top = '140px';
+  } else if (src.includes('fete') || src.includes('preparee')) {
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '400px';
+    img.style.top = '350px';
   }
   // Ajoute ici d'autres règles si besoin
 }
@@ -687,7 +699,7 @@ function renderCookie(data) {
     `).join('')}
  </div>
 
- <div class="biscuits">
+ <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 

@@ -389,6 +389,10 @@ body:not(.accueil) .header .user-info {
     gap: 10px;
 }
 
+.biscuits.biscuits-sorcier {
+    top: 390px;
+}
+
 .promotion {
     top: 590px;
     right: 840px;

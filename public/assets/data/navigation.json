@@ -14,5 +14,13 @@
     "cookie-fraise": {
         "suivant": "b01c71b1-19b0-46ff-894f-f22d3008f585",
         "precedent": "fa4da28e-bff9-441e-b466-a6464c1d266a"
+    },
+    "cookie-sorcier": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "9a419714-296e-449f-815c-1842448d7234"
+    },
+    "b01c71b1-19b0-46ff-894f-f22d3008f585": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "9a419714-296e-449f-815c-1842448d7234"
     }
 }
