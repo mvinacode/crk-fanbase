@@ -16,11 +16,19 @@
         "precedent": "fa4da28e-bff9-441e-b466-a6464c1d266a"
     },
     "cookie-sorcier": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "6f0371f8-a990-46f5-83b5-fcb476744825",
         "precedent": "9a419714-296e-449f-815c-1842448d7234"
     },
     "b01c71b1-19b0-46ff-894f-f22d3008f585": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "6f0371f8-a990-46f5-83b5-fcb476744825",
         "precedent": "9a419714-296e-449f-815c-1842448d7234"
+    },
+    "cookie-ninja": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "b01c71b1-19b0-46ff-894f-f22d3008f585"
+    },
+    "6f0371f8-a990-46f5-83b5-fcb476744825": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "b01c71b1-19b0-46ff-894f-f22d3008f585"
     }
 }

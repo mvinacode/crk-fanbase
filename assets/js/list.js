@@ -356,7 +356,15 @@ document.addEventListener("DOMContentLoaded", () => {
     resultats = resultats.filter(cookie => cookie.nom.toLowerCase().includes(recherche));
 
     if (rareteActive !== "") {
-      resultats = resultats.filter(cookie => cookie.rarete.includes(rareteActive));
+      const keyword = rareteActive.replace('.webp', '').toLowerCase();
+      resultats = resultats.filter(cookie => {
+        const rareteUrl = (cookie.rarete || "").toLowerCase();
+        // Gestion de l'overlap "epique" vs "super_epique"
+        if (keyword === 'epique' && rareteUrl.includes('super_epique')) {
+          return false;
+        }
+        return rareteUrl.includes(keyword);
+      });
     }
 
     if (roleActif !== "") {

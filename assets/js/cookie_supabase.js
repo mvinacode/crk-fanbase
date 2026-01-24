@@ -74,6 +74,11 @@ if (cookieId === 'cookie-sorcier') {
   cookieId = 'b01c71b1-19b0-46ff-894f-f22d3008f585';
 }
 
+// Correction spéciale pour cookie fraise :
+if (cookieId === 'cookie-ninja') {
+  cookieId = '6f0371f8-a990-46f5-83b5-fcb476744825';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -443,8 +448,19 @@ function applyIllustrationStyles() {
     img.style.height = 'auto';
     img.style.left = '400px';
     img.style.top = '350px';
+  } else if (src.includes('cache') || src.includes('ombre')) {
+    console.warn('[applyIllustrationStyles] Applying Ninja Costume (Cache) styles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '350px'; // Valeurs utilisateur
+    img.style.top = '320px';  // Valeurs utilisateur
+  } else if (src.includes('cookie_ninja') || (src.includes('ninja') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Ninja styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '200px';
+    img.style.top = '140px';
   }
-  // Ajoute ici d'autres règles si besoin
 }
 
 
