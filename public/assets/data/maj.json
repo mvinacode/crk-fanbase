@@ -271,8 +271,8 @@
   },
   {
     "nom": "Cookie Sorcier",
-    "image": "cookies/cookie_sorcier/cookie_sorcier_carte.webp",
-    "link": "cookie_sorcier.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769276703/cookie_sorcier_carte_bo5agx.webp",
+    "link": "cookie_detail.html?id=cookie-sorcier",
     "date": "2026-01-14T19:51:00",
     "type": "update"
   },

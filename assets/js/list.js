@@ -55,8 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (index !== -1) {
-          // Fusionner : on garde les données Supabase en priorité pour les liens
-          merged[index] = { ...merged[index], ...dbCookie };
+          // Fusionner : on garde les données Supabase en priorité mais on ne s'écrase pas avec du vide
+          const dbData = { ...dbCookie };
+
+          // Nettoyage des champs vides pour ne pas écraser les données locales valides
+          if (!dbData.image) delete dbData.image;
+          if (!dbData.rarete) delete dbData.rarete;
+          if (!dbData.role) delete dbData.role;
+          if (!dbData.element) delete dbData.element;
+
+          merged[index] = { ...merged[index], ...dbData };
         } else {
           merged.push(dbCookie);
         }

@@ -939,56 +939,129 @@ function setupImageCycles(cookieData) {
   });
 }
 // --- GESTION DE LA PAGE D'ACCUEIL (INDEX) ---
-function initHomePage() {
+// --- GESTION DE LA PAGE D'ACCUEIL (INDEX) ---
+async function initHomePage() {
   const container = document.querySelector(".cartes-cookies");
   if (!container) return;
 
-  fetch("assets/data/maj.json")
-    .then(response => response.json())
-    .then(data => {
-      // Trie par date décroissante
-      data.sort((a, b) => new Date(b.date) - new Date(a.date));
+  try {
+    const response = await fetch(`assets/data/maj.json?t=${Date.now()}`);
+    if (!response.ok) throw new Error("Impossible de charger maj.json");
 
-      // Ne garder que les 22 plus récents (comme dans l'original)
-      const recentCookies = data.slice(0, 22);
+    const data = await response.json();
 
-      container.innerHTML = ""; // Nettoyer
-      recentCookies.forEach(cookie => {
-        const link = document.createElement("a");
-        link.href = "pages/" + cookie.link;
-        link.className = "carte-cookie-wrapper";
+    // Trie par date décroissante
+    data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        const img = document.createElement("img");
-        img.src = "assets/images/" + cookie.image;
-        img.alt = cookie.name;
-        img.className = "carte-cookie";
+    // Ne garder que les 22 plus récents
+    const recentCookies = data.slice(0, 22);
 
-        link.appendChild(img);
+    // Récupérer les données Supabase pour ces cookies (pour l'image "carte" et l'ID)
+    const cookieNames = recentCookies.map(c => c.nom).filter(n => n);
 
-        // Afficher l'icône NEW ou UP selon le type et la date
-        const cookieDate = new Date(cookie.date);
-        const today = new Date();
-        const daysDifference = Math.floor((today - cookieDate) / (1000 * 60 * 60 * 24));
+    let supabaseMap = {};
+    if (cookieNames.length > 0) {
+      try {
+        const { data: supabaseCookies, error } = await supabase
+          .from('cookies')
+          .select('nom, carte, id, slug')
+          .in('nom', cookieNames);
 
-        if (daysDifference <= 30 && cookie.type) {
-          const icon = document.createElement("img");
-          if (cookie.type === "new") {
-            icon.src = "assets/images/icones/icon_new.webp";
-            icon.alt = "New";
-          } else if (cookie.type === "update") {
-            icon.src = "assets/images/icones/icon_up.webp";
-            icon.alt = "Update";
-          }
-          icon.className = "icon-new";
-          link.appendChild(icon);
+        if (!error && supabaseCookies) {
+          supabaseCookies.forEach(sc => {
+            if (sc.nom) supabaseMap[sc.nom.toLowerCase()] = sc;
+          });
+          console.log("Données Homepage chargées depuis Supabase pour", supabaseCookies.length, "cookies.");
         }
+      } catch (err) {
+        console.warn("Erreur chargement Supabase Homepage:", err);
+      }
+    }
 
-        container.appendChild(link);
-      });
+    container.innerHTML = ""; // Nettoyer
 
-      // Réattacher les événements de boutons après le rendu des cartes
-      setupButtonAnimations();
+    recentCookies.forEach(cookie => {
+      const sbData = cookie.nom ? supabaseMap[cookie.nom.toLowerCase()] : null;
+
+      const link = document.createElement("a");
+      // Priorité au lien généré via ID/Slug Supabase, sinon lien JSON
+      if (sbData && (sbData.id || sbData.slug)) {
+        link.href = `pages/cookie_detail.html?id=${sbData.id || sbData.slug}`;
+      } else {
+        // Gestion lien JSON (relatif ou absolu)
+        if (cookie.link.startsWith('http')) {
+          link.href = cookie.link;
+        } else {
+          link.href = "pages/" + cookie.link;
+        }
+      }
+      link.className = "carte-cookie-wrapper";
+
+      const img = document.createElement("img");
+      let finalImageSrc = "";
+
+
+      // Logique de priorité intelligente :
+      // 1. Si Supabase a une URL absolue (Cloudinary/Storage), c'est la source de vérité.
+      // 2. Si le JSON a une URL absolue (Correction manuelle/Patch), ça l'emporte sur un chemin local Supabase potentiellement cassé.
+      // 3. Sinon, on utilise Supabase (Chemin local)
+      // 4. Enfin, fallback sur JSON (Chemin local)
+
+      const sbHasAbsolute = sbData && sbData.carte && sbData.carte.startsWith('http');
+      const jsonHasAbsolute = cookie.image && cookie.image.startsWith('http');
+
+      if (sbHasAbsolute) {
+        finalImageSrc = sbData.carte;
+      } else if (jsonHasAbsolute) {
+        finalImageSrc = cookie.image;
+      } else if (sbData && sbData.carte) {
+        // Chemin local Supabase
+        let cartePath = sbData.carte;
+        if (!cartePath.startsWith('assets/') && !cartePath.startsWith('/')) {
+          cartePath = "assets/images/" + cartePath;
+        }
+        finalImageSrc = cartePath;
+      } else {
+        // Fallback JSON local
+        if (cookie.image) {
+          finalImageSrc = cookie.image.startsWith('assets/') ? cookie.image : "assets/images/" + cookie.image;
+        }
+      }
+
+      img.src = finalImageSrc;
+
+      img.alt = cookie.nom || "Cookie";
+      img.className = "carte-cookie";
+
+      link.appendChild(img);
+
+      // Afficher l'icône NEW ou UP selon le type et la date
+      const cookieDate = new Date(cookie.date);
+      const today = new Date();
+      const daysDifference = Math.floor((today - cookieDate) / (1000 * 60 * 60 * 24));
+
+      if (daysDifference <= 30 && cookie.type) {
+        const icon = document.createElement("img");
+        if (cookie.type === "new") {
+          icon.src = "assets/images/icones/icon_new.webp";
+          icon.alt = "New";
+        } else if (cookie.type === "update") {
+          icon.src = "assets/images/icones/icon_up.webp";
+          icon.alt = "Update";
+        }
+        icon.className = "icon-new";
+        link.appendChild(icon);
+      }
+
+      container.appendChild(link);
     });
+
+    // Réattacher les événements de boutons après le rendu des cartes
+    setupButtonAnimations();
+
+  } catch (error) {
+    console.error("Erreur initHomePage:", error);
+  }
 }
 
 // --- ANIMATION DES BOUTONS (MIGRÉ DE INDEX.JS) ---
