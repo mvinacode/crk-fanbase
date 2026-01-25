@@ -8,8 +8,8 @@
   },
   {
     "nom": "Cookie Alchimiste",
-    "image": "cookies/cookie_alchimiste/cookie_alchimiste_carte.webp",
-    "link": "cookie_alchimiste.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769335740/cookie_alchimiste_carte_ozbjrz.webp",
+    "link": "cookie_detail.html?id=cookie-alchimiste",
     "date": "2026-01-14T19:53:00",
     "type": "update"
   },

@@ -82,6 +82,14 @@ if (cookieId === 'cookie-costaud') {
   cookieId = '5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7';
 }
 
+if (cookieId === 'cookie-aventurier') {
+  cookieId = 'c94ab484-756e-40dd-9451-da840179f983';
+}
+
+if (cookieId === 'cookie-alchimiste') {
+  cookieId = 'e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -474,6 +482,23 @@ function applyIllustrationStyles() {
     img.style.height = 'auto';
     img.style.left = '380px';
     img.style.top = '340px';
+  } else if (src.includes('camouflage') || src.includes('jungle')) {
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '300px';
+    img.style.top = '120px';
+  } else if (src.includes('erreur') || src.includes('debutant')) {
+    console.warn('[applyIllustrationStyles] Applying Alchimiste Costume (Erreur) styles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '360px';
+  } else if (src.includes('cookie_alchimiste') || (src.includes('alchimiste') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Alchimiste styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '150px';
   }
 }
 
@@ -587,12 +612,15 @@ function applyDynamicTheme(data) {
   if (data.theme_text) root.style.setProperty('--theme-text', data.theme_text);
 
   // 2. Backgrounds
+  // 2. Backgrounds (Lobby)
   if (data.bg_color) root.style.setProperty('--bg-color', data.bg_color);
-  if (data.bg_image) {
+
+  const bgSource = data.lobby || data.bg_image;
+  if (bgSource) {
     // Gérer images relatives ou absolues
-    const bgUrl = data.bg_image.startsWith('http') || data.bg_image.startsWith('..')
-      ? `url("${data.bg_image}")`
-      : `url("../${data.bg_image}")`;
+    const bgUrl = bgSource.startsWith('http') || bgSource.startsWith('..') || bgSource.startsWith('/')
+      ? `url("${bgSource}")`
+      : `url("../${bgSource}")`;
     root.style.setProperty('--bg-image', bgUrl);
   }
 
@@ -726,7 +754,8 @@ function renderCookie(data) {
     `).join('')}
  </div>
 
- <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''}">
+ <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
+ ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 

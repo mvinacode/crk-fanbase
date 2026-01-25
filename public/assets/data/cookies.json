@@ -1541,7 +1541,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_poison.webp",
-    "lien": "cookie_alchimiste.html"
+    "lien": "cookie_detail.html?id=cookie-alchimiste"
   },
   {
     "id": "cookie-aventurier",
@@ -1550,7 +1550,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/embuscade.webp",
     "element": "",
-    "lien": "cookie_aventurier.html"
+    "lien": "cookie_detail.html?id=cookie-aventurier"
   },
   {
     "id": "cookie-costaud",
