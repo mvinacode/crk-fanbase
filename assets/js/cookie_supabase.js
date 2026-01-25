@@ -98,6 +98,10 @@ if (cookieId === 'cookie-betterave') {
   cookieId = '09dfe6bb-6a87-4984-8afb-96b94444c08d';
 }
 
+if (cookieId === 'cookie-mure') {
+  cookieId = '806edfc7-e9c6-4f31-9797-2e9455f6544e';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -241,7 +245,8 @@ async function loadCookieData() {
         .from('builds')
         .select('*')
         .eq('cookie_id', cookieData.id)
-        .in('type', buildTypes);
+        .in('type', buildTypes)
+        .order('type', { ascending: true });
 
       if (fallbackData && fallbackData.length > 0) {
         console.log(`Fallback builds utilisé pour "${categorySlug}"`);
@@ -768,7 +773,8 @@ function renderCookie(data) {
  </div>
 
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
- ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}">
+ ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
+ ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 

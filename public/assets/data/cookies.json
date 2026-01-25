@@ -1514,7 +1514,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/magie.webp",
     "element": "",
-    "lien": "cookie_mure.html"
+    "lien": "cookie_detail.html?id=cookie-mure"
   },
   {
     "id": "cookie-betterave",
