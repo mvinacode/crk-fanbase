@@ -325,9 +325,9 @@ body:not(.accueil) .header .user-info {
 
 .nom-cookie {
     position: absolute;
-    top: -40px;
+    top: var(--title-top, -40px);
     right: 50px;
-    font-size: 80px;
+    font-size: var(--title-size, 80px);
     font-weight: 900;
     line-height: 1;
     text-align: right;

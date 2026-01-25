@@ -1463,13 +1463,13 @@
     "lien": "cookie_chevalier.html"
   },
   {
-    "id": "cookie-crème-patissière-iii",
-    "nom": "Cookie Crème Patissière III",
+    "id": "cookie-creme-patissiere-iii",
+    "nom": "Cookie Crème Pâtissière III",
     "image": "cookies/cookie_creme_patissiere_iii/cookie_creme_patissiere_iii_tete.webp",
     "rarete": "rarete/rare.webp",
     "role": "classe/soin.webp",
     "element": "",
-    "lien": "cookie_creme_patissiere_iii.html"
+    "lien": "cookie_detail.html?id=cookie-creme-patissiere-iii"
   },
   {
     "id": "cookie-trèfle",

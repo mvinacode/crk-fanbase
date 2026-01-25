@@ -77,7 +77,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  loadAllCookies();
+  // --- Synchronization Supabase (NEW) ---
+  async function syncOwnershipFromSupabase() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+
+    const { data: myCookies, error } = await supabase
+      .from('cookies_users')
+      .select('cookie_id')
+      .eq('user_id', session.user.id);
+
+    if (myCookies) {
+      myCookies.forEach(row => {
+        if (row.cookie_id) {
+          localStorage.setItem(row.cookie_id, "true");
+        }
+      });
+      // Re-apply visual state
+      document.querySelectorAll(".btn-obtenu").forEach(btn => {
+        if (localStorage.getItem(btn.dataset.cookieId) === "true") {
+          btn.classList.add("obtenu");
+          btn.closest(".carte-cookie")?.classList.add("obtenu");
+        }
+      });
+    }
+  }
+
+  loadAllCookies().then(() => {
+    syncOwnershipFromSupabase();
+  });
 
   function afficherCookies(liste) {
     cookiesFiltres = liste;
@@ -428,6 +456,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (filtreObtenu.checked || filtreNonObtenu.checked) {
           appliquerFiltres();
         }
+
+        // Sync with Supabase
+        (async () => {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            if (estObtenu) {
+              await supabase.from('cookies_users').upsert({ user_id: session.user.id, cookie_id: id }, { onConflict: 'user_id, cookie_id' });
+            } else {
+              await supabase.from('cookies_users').delete().eq('user_id', session.user.id).eq('cookie_id', id);
+            }
+          }
+        })();
       });
     });
   }

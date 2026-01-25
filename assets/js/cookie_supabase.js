@@ -118,6 +118,10 @@ if (cookieId === 'cookie-trefle') {
   cookieId = '33d1bacf-7921-4f3d-a95c-5f44cc92de90';
 }
 
+if (cookieId === 'cookie-creme-patissiere-iii') {
+  cookieId = 'dd1be758-122d-4597-86e7-bb4b2b61718c';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -700,6 +704,13 @@ function applyDynamicTheme(data) {
 
   // 3. Titre
   if (data.title_color) root.style.setProperty('--title-color', data.title_color);
+
+  // Ajustement de la taille du titre si besoin (ex: noms très longs)
+  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere'))) {
+    root.style.setProperty('--title-size', '70px');
+  } else {
+    root.style.removeProperty('--title-size');
+  }
 
   // 4. Positions (Illustration)
   // On peut imaginer des champs 'pos_illustration_top' et 'pos_illustration_left' dans un objet JSON 'style_config' ou colonnes directes
