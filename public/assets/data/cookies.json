@@ -1487,7 +1487,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_piment.html"
+    "lien": "cookie_detail.html?id=cookie-piment"
   },
   {
     "id": "cookie-cerise",

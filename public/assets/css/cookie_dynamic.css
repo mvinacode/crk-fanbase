@@ -421,6 +421,10 @@ body:not(.accueil) .header .user-info {
     top: 390px;
 }
 
+.biscuits.biscuits-piment {
+    top: 390px;
+}
+
 .promotion {
     top: 590px;
     right: 840px;

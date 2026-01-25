@@ -110,6 +110,10 @@ if (cookieId === 'cookie-cerise') {
   cookieId = '638e6269-caad-4d3b-ab53-c0ea87e4034a';
 }
 
+if (cookieId === 'cookie-piment') {
+  cookieId = 'ac08d696-014e-4ad7-9510-e5ac5a47d7ea';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -548,6 +552,18 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '240px';
     img.style.top = '120px';
+  } else if (src.includes('prisonniere') || src.includes('evasion')) {
+    console.warn('[applyIllustrationStyles] Applying Piment Costume (Prisonnière) styles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '320px';
+  } else if (src.includes('cookie_piment') || (src.includes('piment') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Piment styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '160px';
   }
 }
 
@@ -806,7 +822,7 @@ function renderCookie(data) {
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
  ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
  ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
- ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''}">
+ ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 
