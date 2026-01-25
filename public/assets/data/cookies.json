@@ -1478,7 +1478,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_trefle.html"
+    "lien": "cookie_detail.html?id=cookie-trefle"
   },
   {
     "id": "cookie-piment",

@@ -114,6 +114,10 @@ if (cookieId === 'cookie-piment') {
   cookieId = 'ac08d696-014e-4ad7-9510-e5ac5a47d7ea';
 }
 
+if (cookieId === 'cookie-trefle') {
+  cookieId = '33d1bacf-7921-4f3d-a95c-5f44cc92de90';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -564,6 +568,11 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '270px';
     img.style.top = '160px';
+  } else if (src.includes('vagabond') || src.includes('automne')) {
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '250px';
+    img.style.top = '100px';
   }
 }
 
