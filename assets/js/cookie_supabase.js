@@ -106,6 +106,10 @@ if (cookieId === 'cookie-carotte') {
   cookieId = '9d9bd274-c85b-4b4e-b6dc-9b5115b87471';
 }
 
+if (cookieId === 'cookie-cerise') {
+  cookieId = '638e6269-caad-4d3b-ab53-c0ea87e4034a';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -526,6 +530,24 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '280px';
     img.style.top = '110px';
+  } else if (src.includes('explosion') || src.includes('bombe')) {
+    console.warn('[applyIllustrationStyles] Applying Cerise Costume (Explosion) styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '280px';
+    img.style.top = '150px';
+  } else if (src.includes('poches') || src.includes('chance')) {
+    console.warn('[applyIllustrationStyles] Applying Cerise Costume (Poches) styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '290px';
+    img.style.top = '150px';
+  } else if (src.includes('cookie_cerise') || (src.includes('cerise') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Cerise styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '240px';
+    img.style.top = '120px';
   }
 }
 
@@ -783,7 +805,8 @@ function renderCookie(data) {
 
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
  ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
- ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''}">
+ ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
+ ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 

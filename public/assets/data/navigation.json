@@ -88,11 +88,19 @@
         "precedent": "09dfe6bb-6a87-4984-8afb-96b94444c08d"
     },
     "cookie-carotte": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "638e6269-caad-4d3b-ab53-c0ea87e4034a",
         "precedent": "806edfc7-e9c6-4f31-9797-2e9455f6544e"
     },
     "9d9bd274-c85b-4b4e-b6dc-9b5115b87471": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "638e6269-caad-4d3b-ab53-c0ea87e4034a",
         "precedent": "806edfc7-e9c6-4f31-9797-2e9455f6544e"
+    },
+    "cookie-cerise": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "9d9bd274-c85b-4b4e-b6dc-9b5115b87471"
+    },
+    "638e6269-caad-4d3b-ab53-c0ea87e4034a": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "9d9bd274-c85b-4b4e-b6dc-9b5115b87471"
     }
 }
