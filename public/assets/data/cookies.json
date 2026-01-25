@@ -1532,7 +1532,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_avocat.html"
+    "lien": "cookie_detail.html?id=cookie-avocat"
   },
   {
     "id": "cookie-alchimiste",

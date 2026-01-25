@@ -90,6 +90,10 @@ if (cookieId === 'cookie-alchimiste') {
   cookieId = 'e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca';
 }
 
+if (cookieId === 'cookie-avocat') {
+  cookieId = '8f0007c7-0641-455e-b184-3d41569e85d5';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -755,7 +759,7 @@ function renderCookie(data) {
  </div>
 
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
- ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''}">
+ ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 
