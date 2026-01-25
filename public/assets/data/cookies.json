@@ -1523,7 +1523,7 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/tir.webp",
     "element": "",
-    "lien": "cookie_betterave.html"
+    "lien": "cookie_detail.html?id=cookie-betterave"
   },
   {
     "id": "cookie-avocat",
