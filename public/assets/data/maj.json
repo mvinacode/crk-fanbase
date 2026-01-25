@@ -105,8 +105,8 @@
   },
   {
     "nom": "Cookie Costaud",
-    "image": "cookies/cookie_costaud/cookie_costaud_carte.webp",
-    "link": "cookie_costaud.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769329957/cookie_costaud_carte_yl3hd7.webp",
+    "link": "cookie_detail.html?id=cookie-costaud",
     "date": "2026-01-14T19:52:00",
     "type": "update"
   },

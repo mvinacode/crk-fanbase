@@ -32,11 +32,19 @@
         "precedent": "b01c71b1-19b0-46ff-894f-f22d3008f585"
     },
     "cookie-ange": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7",
         "precedent": "6f0371f8-a990-46f5-83b5-fcb476744825"
     },
     "fbe1a5be-bfac-44af-b1a1-10446abf35b0": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7",
         "precedent": "6f0371f8-a990-46f5-83b5-fcb476744825"
+    },
+    "cookie-costaud": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "fbe1a5be-bfac-44af-b1a1-10446abf35b0"
+    },
+    "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "fbe1a5be-bfac-44af-b1a1-10446abf35b0"
     }
 }

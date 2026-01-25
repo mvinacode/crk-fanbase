@@ -1559,7 +1559,7 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_costaud.html"
+    "lien": "cookie_detail.html?id=cookie-costaud"
   },
   {
     "id": "cookie-ange",
@@ -1568,7 +1568,7 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/soin.webp",
     "element": "",
-    "lien": "cookie_ange.html"
+    "lien": "cookie_detail.html?id=cookie-ange"
   },
   {
     "id": "cookie-ninja",
@@ -1577,7 +1577,7 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/embuscade.webp",
     "element": "",
-    "lien": "cookie_ninja.html"
+    "lien": "cookie_detail.html?id=cookie-ninja"
   },
   {
     "id": "cookie-sorcier",
@@ -1586,7 +1586,7 @@
     "rarete": "rarete/normal.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_sorcier.html"
+    "lien": "cookie_detail.html?id=cookie-sorcier"
   },
   {
     "id": "cookie-fraise",

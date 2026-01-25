@@ -78,6 +78,10 @@ if (cookieId === 'cookie-ange') {
   cookieId = 'fbe1a5be-bfac-44af-b1a1-10446abf35b0';
 }
 
+if (cookieId === 'cookie-costaud') {
+  cookieId = '5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -465,6 +469,11 @@ function applyIllustrationStyles() {
     img.style.height = 'auto';
     img.style.left = '390px';
     img.style.top = '360px';
+  } else if (src.includes('pull')) {
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '340px';
   }
 }
 
@@ -717,7 +726,7 @@ function renderCookie(data) {
     `).join('')}
  </div>
 
- <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''}">
+ <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 
