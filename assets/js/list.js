@@ -457,14 +457,37 @@ document.addEventListener("DOMContentLoaded", () => {
           appliquerFiltres();
         }
 
-        // Sync with Supabase
+        // Sync with Supabase (Smart Delete)
         (async () => {
           const { data: { session } } = await supabase.auth.getSession();
           if (session) {
             if (estObtenu) {
               await supabase.from('cookies_users').upsert({ user_id: session.user.id, cookie_id: id }, { onConflict: 'user_id, cookie_id' });
             } else {
-              await supabase.from('cookies_users').delete().eq('user_id', session.user.id).eq('cookie_id', id);
+              // Smart Delete: Check if row has valuable data before deleting
+              const { data: existingRow, error } = await supabase
+                .from('cookies_users')
+                .select('*')
+                .eq('user_id', session.user.id)
+                .eq('cookie_id', id)
+                .maybeSingle();
+
+              if (existingRow) {
+                // Check for any non-metadata columns that have values
+                const metadataCols = ['id', 'user_id', 'cookie_id', 'created_at', 'updated_at'];
+                const hasValuableData = Object.keys(existingRow).some(key =>
+                  !metadataCols.includes(key) && existingRow[key] !== null && existingRow[key] !== ''
+                );
+
+                if (!hasValuableData) {
+                  console.log("Suppression de la ligne (aucune donnée importante trouvée)");
+                  await supabase.from('cookies_users').delete().eq('user_id', session.user.id).eq('cookie_id', id);
+                } else {
+                  console.log("Conservation de la ligne (données importantes détectées : costumes, builds, etc.)");
+                }
+              } else {
+                // Row doesn't exist, nothing to delete
+              }
             }
           }
         })();
