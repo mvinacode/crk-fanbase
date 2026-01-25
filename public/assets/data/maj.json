@@ -59,15 +59,15 @@
   },
   {
     "nom": "Cookie Carotte",
-    "image": "cookies/cookie_carotte/cookie_carotte_carte.webp",
-    "link": "cookie_carotte.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769344518/cookie_carotte_carte_lvpbc0.webp",
+    "link": "cookie_detail.html?id=cookie-carotte",
     "date": "2026-01-14T20:05:00",
     "type": "update"
   },
   {
     "nom": "Cookie Champignon vénéneux",
     "image": "cookies/cookie_champignon_veneneux/cookie_champignon_veneneux_carte.webp",
-    "link": "cookie_champignon_veneneux.html",
+    "link": "cookie_detail.html?id=cookie-champignon-veneneux",
     "date": "2026-01-14T21:58:00",
     "type": "update"
   },
