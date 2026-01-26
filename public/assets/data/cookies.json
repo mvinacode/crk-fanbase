@@ -1415,7 +1415,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soin.webp",
     "element": "",
-    "lien": "cookie_jardinier.html"
+    "lien": "cookie_detail.html?id=cookie-jardinier"
   },
   {
     "id": "cookie-boule-de-gomme",
@@ -1424,7 +1424,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/explosion.webp",
     "element": "",
-    "lien": "cookie_boule_de_gomme.html"
+    "lien": "cookie_detail.html?id=cookie-boule-de-gomme"
   },
   {
     "id": "cookie-princesse",
@@ -1433,7 +1433,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/assaut.webp",
     "element": "",
-    "lien": "cookie_princesse.html"
+    "lien": "cookie_detail.html?id=cookie-princesse"
   },
   {
     "id": "cookie-pancake",
@@ -1442,7 +1442,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/embuscade.webp",
     "element": "",
-    "lien": "cookie_pancake.html"
+    "lien": "cookie_detail.html?id=cookie-pancake"
   },
   {
     "id": "cookie-oignon",
@@ -1451,7 +1451,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_oignon.html"
+    "lien": "cookie_detail.html?id=cookie-oignon"
   },
   {
     "id": "cookie-chevalier",
@@ -1460,7 +1460,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_chevalier.html"
+    "lien": "cookie_detail.html?id=cookie-chevalier"
   },
   {
     "id": "cookie-creme-patissiere-iii",

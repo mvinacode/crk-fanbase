@@ -122,6 +122,30 @@ if (cookieId === 'cookie-creme-patissiere-iii') {
   cookieId = 'dd1be758-122d-4597-86e7-bb4b2b61718c';
 }
 
+if (cookieId === 'cookie-chevalier') {
+  cookieId = '886acc5d-30e5-4b38-9488-28b3349faddc';
+}
+
+if (cookieId === 'cookie-oignon') {
+  cookieId = 'bda640ab-89be-447c-8210-16616fa9de53';
+}
+
+if (cookieId === 'cookie-pancake') {
+  cookieId = 'a8f85028-e661-4378-a193-e3a951b66d05';
+}
+
+if (cookieId === 'cookie-princesse') {
+  cookieId = '5ab8cd4a-61c0-498a-8f17-9f6d63577cbe';
+}
+
+if (cookieId === 'cookie-boule-de-gomme') {
+  cookieId = '86e05b59-a249-4218-bac6-d3fe3fc733a6';
+}
+
+if (cookieId === 'cookie-jardinier') {
+  cookieId = 'b9c41288-16d4-42ef-a887-a53639ca572c';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -456,6 +480,12 @@ function applyIllustrationStyles() {
     img.style.height = 'auto';
     img.style.left = '380px';
     img.style.top = '300px';
+  } else if (src.includes('feuilles') || (src.includes('automne') && src.includes('jardinier')) || (img.dataset.costumeName && (img.dataset.costumeName.includes('feuilles') || img.dataset.costumeName.includes('automne')))) {
+    console.warn('[applyIllustrationStyles] Applying Jardinier Costume (Feuilles) styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '290px';
+    img.style.top = '100px';
   } else if (src.includes('anniversaire')) {
     img.style.width = '412px';
     img.style.height = '444px';
@@ -576,6 +606,83 @@ function applyIllustrationStyles() {
     img.style.width = '412px';
     img.style.height = '444px';
     img.style.left = '250px';
+    img.style.top = '100px';
+  } else if (src.includes('honorable') || src.includes('descendant')) {
+    console.warn('[applyIllustrationStyles] Applying Creme Patissiere III Costume (Honorable) styles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '390px';
+    img.style.top = '300px';
+  } else if (src.includes('cookie_creme_patissiere_iii') || (src.includes('creme_patissiere_iii') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Creme Patissiere III styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '120px';
+  } else if (src.includes('Gardien') || src.includes('doux')) {
+    console.warn('[applyIllustrationStyles] Applying Chevalier Costume (Gardien) styles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '360px';
+    img.style.top = '320px';
+  } else if (src.includes('larmes') || src.includes('blanches')) {
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '250px';
+    img.style.top = '100px';
+  } else if (src.includes('oignon') || (src.includes('oignon') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Oignon styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '120px';
+  } else if (src.includes('Legerement') || src.includes('brule')) {
+    console.warn('[applyIllustrationStyles] Applying Pancake Costume (Legerement) tyles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '270px';
+  } else if (src.includes('mascotte') || src.includes('choeur')) {
+    console.warn('[applyIllustrationStyles] Applying Pancake Costume (Mascotte) tyles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '270px';
+  } else if (src.includes('pancake') || (src.includes('pancake') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Pancake styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '120px';
+  } else if (src.includes('joies') || src.includes('ete')) {
+    console.warn('[applyIllustrationStyles] Applying Princesse Costume (Joies) tyles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '320px';
+  } else if (src.includes('princesse') || (src.includes('princesse') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Princesse styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '300px';
+    img.style.top = '100px';
+  } else if (src.includes('boule-de-gomme') || src.includes('boule_de_gomme') || (src.includes('boule-de-gomme') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Boule-de-gomme styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '250px';
+    img.style.top = '180px';
+  } else if (src.includes('menthe') || src.includes('glacee')) {
+    console.warn('[applyIllustrationStyles] Applying Menthe styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '270px';
+    img.style.top = '100px';
+  } else if (src.includes('jardinier') || (src.includes('jardinier') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Jardinier styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '290px';
     img.style.top = '100px';
   }
 }
@@ -738,10 +845,18 @@ function renderCookie(data) {
 
   // 1. Priorité Supabase (si l'info a été injectée par loadCookieData)
   if (data.activeCostumeId) {
-    const active = data.costumes?.find(c => c.id === data.activeCostumeId);
-    if (active && active.illustrationReplace) {
-      costumeIllustration = formatImagePath(active.illustrationReplace);
+    const activeCostume = data.costumes?.find(c => c.id === data.activeCostumeId);
+    if (activeCostume && activeCostume.illustrationReplace) {
+      costumeIllustration = formatImagePath(activeCostume.illustrationReplace);
       console.log('[Costume] Priorité 1 : Restauration depuis Supabase (actif):', costumeIllustration);
+      // Set costumeName on the image element for style application
+      const imgElement = document.querySelector('.illustration-cookie img');
+      if (imgElement) {
+        if (activeCostume.nom) {
+          imgElement.dataset.costumeName = activeCostume.nom.toLowerCase();
+          console.log('[Costume] Setting dataset.costumeName:', activeCostume.nom.toLowerCase());
+        }
+      }
     }
   }
 
@@ -842,7 +957,8 @@ function renderCookie(data) {
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
  ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
  ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
- ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''}">
+ ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''} ${data.nom && data.nom.includes('Chevalier') ? 'biscuits-chevalier' : ''} 
+ ${data.nom && data.nom.includes('Boule de gomme') ? 'biscuits-boule-de-gomme' : ''}">
     ${(data.biscuits || []).map(b => `
         <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
              data-id="${b.id}" 
@@ -1062,6 +1178,11 @@ function setupImageCycles(cookieData) {
             saveCookieIllustration(cookieId, this.dataset.illustrationReplace);
             // Synchronisation Supabase avec la colonne costume_id
             saveSelectionToSupabase(cookieId, this.dataset.id);
+
+            // Set data attribute for styling
+            if (this.alt) {
+              illustration.dataset.costumeName = this.alt.toLowerCase();
+            }
 
             console.log('[Costume] Nouvelle illustration active :', {
               id: this.dataset.id,

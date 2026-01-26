@@ -1,11 +1,11 @@
 {
     "fa4da28e-bff9-441e-b466-a6464c1d266a": {
         "suivant": "9a419714-296e-449f-815c-1842448d7234",
-        "precedent": "dd1be758-122d-4597-86e7-bb4b2b61718c"
+        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
     },
     "cookie-temeraire": {
         "suivant": "9a419714-296e-449f-815c-1842448d7234",
-        "precedent": "dd1be758-122d-4597-86e7-bb4b2b61718c"
+        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
     },
     "9a419714-296e-449f-815c-1842448d7234": {
         "suivant": "b01c71b1-19b0-46ff-894f-f22d3008f585",
@@ -120,11 +120,59 @@
         "precedent": "ac08d696-014e-4ad7-9510-e5ac5a47d7ea"
     },
     "cookie-creme-patissiere-iii": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "886acc5d-30e5-4b38-9488-28b3349faddc",
         "precedent": "33d1bacf-7921-4f3d-a95c-5f44cc92de90"
     },
     "dd1be758-122d-4597-86e7-bb4b2b61718c": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "886acc5d-30e5-4b38-9488-28b3349faddc",
         "precedent": "33d1bacf-7921-4f3d-a95c-5f44cc92de90"
+    },
+    "cookie-chevalier": {
+        "suivant": "bda640ab-89be-447c-8210-16616fa9de53",
+        "precedent": "dd1be758-122d-4597-86e7-bb4b2b61718c"
+    },
+    "886acc5d-30e5-4b38-9488-28b3349faddc": {
+        "suivant": "bda640ab-89be-447c-8210-16616fa9de53",
+        "precedent": "dd1be758-122d-4597-86e7-bb4b2b61718c"
+    },
+    "cookie-oignon": {
+        "suivant": "a8f85028-e661-4378-a193-e3a951b66d05",
+        "precedent": "886acc5d-30e5-4b38-9488-28b3349faddc"
+    },
+    "bda640ab-89be-447c-8210-16616fa9de53": {
+        "suivant": "a8f85028-e661-4378-a193-e3a951b66d05",
+        "precedent": "886acc5d-30e5-4b38-9488-28b3349faddc"
+    },
+    "cookie-pancake": {
+        "suivant": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe",
+        "precedent": "bda640ab-89be-447c-8210-16616fa9de53"
+    },
+    "a8f85028-e661-4378-a193-e3a951b66d05": {
+        "suivant": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe",
+        "precedent": "bda640ab-89be-447c-8210-16616fa9de53"
+    },
+    "cookie-princesse": {
+        "suivant": "86e05b59-a249-4218-bac6-d3fe3fc733a6",
+        "precedent": "a8f85028-e661-4378-a193-e3a951b66d05"
+    },
+    "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe": {
+        "suivant": "86e05b59-a249-4218-bac6-d3fe3fc733a6",
+        "precedent": "a8f85028-e661-4378-a193-e3a951b66d05"
+    },
+    "cookie-boule-de-gomme": {
+        "suivant": "b9c41288-16d4-42ef-a887-a53639ca572c",
+        "precedent": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe"
+    },
+    "86e05b59-a249-4218-bac6-d3fe3fc733a6": {
+        "suivant": "b9c41288-16d4-42ef-a887-a53639ca572c",
+        "precedent": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe"
+    },
+    "cookie-jardinier": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
+    },
+    "b9c41288-16d4-42ef-a887-a53639ca572c": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
     }
 }
