@@ -146,6 +146,10 @@ if (cookieId === 'cookie-jardinier') {
   cookieId = 'b9c41288-16d4-42ef-a887-a53639ca572c';
 }
 
+if (cookieId === 'cookie-choco-noir') {
+  cookieId = '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -330,13 +334,11 @@ async function loadCookieData() {
     // --- CHARGEMENT DES DIFFÉRENTES CATÉGORIES ---
     // --- Récupération du cookie depuis Supabase (doit être AVANT les fetchCategoryDataWithId) ---
     // ... code existant pour récupérer cookieData ...
-
-    // 1. Toppings (pas de reset)
     // 1. Toppings : reset step si modifié
     const prevToppingsRaw = localStorage.getItem(`toppings-data:${cookieId}`);
     let prevToppings = [];
     try { prevToppings = prevToppingsRaw ? JSON.parse(prevToppingsRaw) : []; } catch (e) { prevToppings = []; }
-    const newToppings = await fetchCategoryDataWithId('toppings', ['topping1', 'topping2', 'topping3', 'topping4', 'topping5'], 'Garniture', cookieData.id);
+    const newToppings = await fetchCategoryDataWithId('toppings', ['topping'], 'Garniture', cookieData.id);
     newToppings.forEach(t => {
       const prev = prevToppings.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -352,7 +354,7 @@ async function loadCookieData() {
     const prevTartelettesRaw = localStorage.getItem(`tartelettes-data:${cookieId}`);
     let prevTartelettes = [];
     try { prevTartelettes = prevTartelettesRaw ? JSON.parse(prevTartelettesRaw) : []; } catch (e) { prevTartelettes = []; }
-    const newTartelettes = await fetchCategoryDataWithId('tartelettes', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5'], 'Tartelette', cookieData.id);
+    const newTartelettes = await fetchCategoryDataWithId('tartelettes', ['tartelette'], 'Tartelette', cookieData.id);
     newTartelettes.forEach(t => {
       const prev = prevTartelettes.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -368,7 +370,7 @@ async function loadCookieData() {
     const prevBiscuitsRaw = localStorage.getItem(`biscuits-data:${cookieId}`);
     let prevBiscuits = [];
     try { prevBiscuits = prevBiscuitsRaw ? JSON.parse(prevBiscuitsRaw) : []; } catch (e) { prevBiscuits = []; }
-    const newBiscuits = await fetchCategoryDataWithId('biscuits', ['biscuit1', 'biscuit2', 'biscuit3'], 'Biscuit', cookieData.id);
+    const newBiscuits = await fetchCategoryDataWithId('biscuits', ['biscuit'], 'Biscuit', cookieData.id);
     newBiscuits.forEach(t => {
       const prev = prevBiscuits.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -1080,6 +1082,16 @@ function renderCookie(data) {
              src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
     `).join('')}
  </div>
+ 
+ <div class="info-frame">
+     <div class="info-frame-header">
+         <img class="info-frame-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
+         <h3>Attributs recommandés</h3>
+     </div>
+     <div class="info-frame-content">
+         ${(data.toppings_stats || ['???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
+     </div>
+ </div>
 
  <div class="tartelettes">
     ${(data.tartelettes || []).map(t => `
@@ -1089,6 +1101,16 @@ function renderCookie(data) {
              data-step="${t.selectedStep || 0}" 
              src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
     `).join('')}
+ </div>
+
+  <div class="info-frame2">
+     <div class="info-frame2-header">
+         <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
+         <h3>Attributs recommandés</h3>
+     </div>
+     <div class="info-frame2-content">
+         ${(data.beascuit_stats || ['???', '???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
+     </div>
  </div>
 
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 

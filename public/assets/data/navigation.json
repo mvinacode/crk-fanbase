@@ -168,11 +168,19 @@
         "precedent": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe"
     },
     "cookie-jardinier": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c",
         "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
     },
     "b9c41288-16d4-42ef-a887-a53639ca572c": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c",
         "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
+    },
+    "cookie-choco-noir": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
+    },
+    "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
     }
 }

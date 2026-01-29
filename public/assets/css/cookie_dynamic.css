@@ -369,24 +369,176 @@ body:not(.accueil) .header .user-info {
 .ascension {
     position: absolute;
     display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Cadre d'informations (Attributs recommandés) - Style Figma */
+.info-frame {
+    position: absolute;
+    left: 1135px;
+    top: 160px;
+    width: 221px;
+    height: 198px;
+    background: rgba(134, 92, 67, 0.42);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'CookieRun-Bold', sans-serif;
+    color: #FFF0DC;
+    z-index: 20;
+    /* Ensure on top */
+}
+
+.info-frame-header {
+    width: 100%;
+    height: 57px;
+    background: rgba(134, 92, 67, 0.61);
+    border-radius: 20px 20px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.info-frame-icon {
+    position: absolute;
+    left: 10px;
+    width: 34px;
+    height: auto;
+}
+
+.info-frame h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: none;
+    border: none;
+    padding: 0;
+    width: calc(100% - 60px);
+    margin-left: 30px;
+    text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
+}
+
+.info-frame-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.info-frame p {
+    margin: 0;
+    font-family: 'CookieRun-Bold', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
+}
+
+/* Cadre d'informations (Attributs recommandés) - Style Figma */
+.info-frame2 {
+    position: absolute;
+    left: 1080px;
+    /* Adjust left to center slightly better if widening, or keep user pref */
+    top: 450px;
+    width: 280px;
+    /* Wider */
+    height: 160px;
+    /* Shorter height for rectangular look */
+    background: rgba(134, 92, 67, 0.42);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'CookieRun-Bold', sans-serif;
+    color: #FFF0DC;
+    z-index: 20;
+    /* Ensure on top */
+}
+
+.info-frame2-header {
+    width: 100%;
+    height: 57px;
+    background: rgba(134, 92, 67, 0.61);
+    border-radius: 20px 20px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.info-frame2-icon {
+    position: absolute;
+    left: 10px;
+    width: 34px;
+    height: auto;
+}
+
+.info-frame2 h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: none;
+    border: none;
+    padding: 0;
+    width: calc(100% - 60px);
+    margin-left: 30px;
+    text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
+}
+
+.info-frame2-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto auto;
+    /* Pack columns based on content size */
+    justify-content: center;
+    /* Center the grid in the frame */
+    align-items: center;
+    align-content: center;
+    /* Pack rows in center */
+    column-gap: 40px;
+    /* Preserve horizontal gap */
+    row-gap: 0px;
+    /* Minimize vertical gap */
+    /* Specific gap between columns */
+    padding: 0 10px;
+}
+
+.info-frame2 p {
+    margin: 0;
+    font-family: 'CookieRun-Bold', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    /* Dark brown outline matching request */
+    text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
 }
 
 .toppings {
-    top: 130px;
-    right: 60px;
-    gap: 20px;
+    top: 170px;
+    right: 530px;
 }
 
 .tartelettes {
-    top: 260px;
-    right: 60px;
-    gap: 20px;
+    top: 170px;
+    right: 335px;
 }
 
 .biscuits {
-    top: 370px;
-    right: 60px;
-    gap: 10px;
+    top: 390px;
+    right: 395px;
 }
 
 .biscuits.biscuits-sorcier {
@@ -435,12 +587,14 @@ body:not(.accueil) .header .user-info {
 
 .promotion {
     top: 590px;
-    right: 840px;
+    right: 865px;
+    gap: 5px;
+    /* Force minimum gap */
 }
 
 .ascension {
     top: 640px;
-    right: 865px;
+    right: 875px;
 }
 
 /* Animations & Cycles */
@@ -456,15 +610,17 @@ body:not(.accueil) .header .user-info {
 
 .garniture-cycle,
 .tartelette-cycle {
-    width: 110px;
+    width: 180px;
 }
 
 .biscuit-cycle {
-    width: 210px;
+    width: 270px;
 }
 
 .promotion-cycle {
     width: 45px;
+    margin-right: -10px;
+    /* Pull them closer */
 }
 
 .ascension-cycle {

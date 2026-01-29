@@ -98,6 +98,13 @@
     "date": "2025-12-07T14:54:00"
   },
   {
+    "nom": "Cookie Choco Noir",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769708982/cookie_choco_noir_carte_rmwuc4.webp",
+    "link": "cookie_detail.html?id=cookie-choco-noir",
+    "date": "2026-01-29T18:56:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Citron jaune",
     "image": "cookies/cookie_citron_jaune/cookie_citron_jaune_epouvantail_carte.webp",
     "link": "cookie_citron_jaune.html",
