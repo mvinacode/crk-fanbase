@@ -167,92 +167,95 @@ function loadCookieDynamicCSS() {
   console.log('✅ CSS chargé : ' + path);
 }
 
+// --- HELPER FETCH CATEGORY DATA ---
+async function fetchCategoryData(categorySlug, buildTypes, defaultNom) {
+  try {
+    // 1. Tentative sur la nouvelle table (ex: 'toppings')
+    // cookieId n'est pas global ici, il faut le passer en paramètre
+    throw new Error('fetchCategoryData doit recevoir cookieId en paramètre');
+
+    if (!newError && newData && newData.length > 0) {
+      console.log(`Données trouvées dans la nouvelle table "${categorySlug}"`);
+      return newData.map(item => ({
+        id: item.id,
+        nom: item.nom || item.type || defaultNom,
+        images: Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? JSON.parse(item.images) : [])
+      }));
+    }
+  } catch (e) {
+    console.log(`Table "${categorySlug}" non trouvée ou erreur, tentative fallback builds...`);
+  }
+
+  // 2. Fallback sur la table 'builds'
+  const { data: fallbackData } = await supabase
+    .from('builds')
+    .select('*')
+    .eq('cookie_id', cookieId)
+    .in('type', buildTypes)
+    .order('type', { ascending: true });
+
+  if (fallbackData && fallbackData.length > 0) {
+    console.log(`Fallback builds utilisé pour "${categorySlug}"`);
+    return fallbackData.map(row => {
+      const images = Object.keys(row)
+        .filter(key => key.startsWith('image') && row[key])
+        .sort()
+        .map(key => row[key]);
+      return {
+        id: row.id,
+        nom: row.nom || row.type || defaultNom,
+        images: images
+      };
+    });
+  }
+  return [];
+}
+
 // Charger les données du cookie depuis Supabase
 async function loadCookieData() {
-      // 7. Bonbons : reset step si modifié
-      const prevBonbonsRaw = localStorage.getItem(`bonbons-data:${cookieId}`);
-      let prevBonbons = [];
-      try { prevBonbons = prevBonbonsRaw ? JSON.parse(prevBonbonsRaw) : []; } catch (e) { prevBonbons = []; }
-      const newBonbons = await fetchCategoryData('bonbons', ['bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon');
-      newBonbons.forEach(t => {
-        const prev = prevBonbons.find(pt => pt.id === t.id);
-        if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
-          if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
-            saveEtatForId(t.id, 0);
-          }
-        }
-      });
-      localStorage.setItem(`bonbons-data:${cookieId}`, JSON.stringify(newBonbons));
-      cookieData.bonbons = newBonbons;
   try {
-    // Récupérer le cookie depuis Supabase
-    console.log("Tentative de chargement pour ID:", cookieId);
-
-    // Récupération intelligente : par ID (UUID) ou par Slug
+    // --- CHARGEMENT DES DONNÉES DU COOKIE (SUPABASE ou LOCAL) ---
     let cookieData = null;
     let error = null;
-    let response;
 
-    // Si l'ID ressemble à un UUID, on cherche par ID, sinon par slug
-    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cookieId);
-
-    if (isUuid) {
-      response = await supabase
+    try {
+      // 1. Tentative Supabase
+      // On suppose que la table principale s'appelle 'cookies' (ou adapter selon votre schéma)
+      const { data, error: sbError } = await supabase
         .from('cookies')
         .select('*')
         .eq('id', cookieId)
         .maybeSingle();
-      cookieData = response.data;
-      error = response.error;
-    } else {
-      console.log("ID n'est pas un UUID, on cherche par slug:", cookieId);
-      // Tentative par slug
-      response = await supabase
-        .from('cookies')
-        .select('*')
-        .eq('slug', cookieId)
-        .maybeSingle();
 
-      cookieData = response.data;
-      error = response.error;
+      if (sbError) throw sbError;
 
-      // FALLBACK : Si la colonne slug n'existe pas ou si rien n'est trouvé
-      // On tolère l'erreur de colonne inexistante (42703 en PostgreSQL)
-      if (!cookieData || (error && (error.code === '42703' || error.message.includes('slug')))) {
-        console.log("Recherche par slug échouée ou colonne absente, tentative via cookies.json + recherche par nom...");
-        try {
-          const localResponse = await fetch('../assets/data/cookies.json');
-          if (localResponse.ok) {
-            const localCookies = await localResponse.json();
-            // On cherche le cookie qui a cet ID dans le JSON (ex: "cookie-fraise")
-            const localEntry = localCookies.find(c =>
-              c.id === cookieId ||
-              (c.nom && c.nom.toLowerCase().replace(/\s+/g, '-') === cookieId.toLowerCase())
-            );
+      if (data) {
+        cookieData = data;
+      } else {
+        throw new Error('Cookie introuvable dans Supabase');
+      }
 
-            if (localEntry) {
-              console.log("Correspondance trouvée dans cookies.json:", localEntry.nom);
-              // On tente une recherche par nom exact dans Supabase
-              const nameResponse = await supabase
-                .from('cookies')
-                .select('*')
-                .ilike('nom', localEntry.nom)
-                .maybeSingle();
+    } catch (sbErr) {
+      error = sbErr;
+      console.warn("Échec Supabase, tentative fallback local...", sbErr);
 
-              if (nameResponse.data) {
-                console.log("Cookie trouvé en base via son nom !");
-                cookieData = nameResponse.data;
-                error = null;
-              } else {
-                console.log("Cookie non trouvé en base sous ce nom, utilisation des données locales.");
-                cookieData = localEntry;
-                error = null;
-              }
-            }
+      try {
+        // 2. Fallback Local (cookies.json)
+        // Ajustez le chemin si nécessaire (assets/data/cookies.json)
+        const resp = await fetch('assets/data/cookies.json');
+        if (resp.ok) {
+          const localCookies = await resp.json();
+          const localEntry = localCookies.find(c => c.id === cookieId);
+
+          if (localEntry) {
+            console.log("Cookie trouvé localement (fallback).");
+            cookieData = localEntry;
+            // On efface l'erreur car on a trouvé une solution
+            error = null;
           }
-        } catch (localErr) {
-          console.error("Erreur lors du fallback local:", localErr);
         }
+      } catch (localErr) {
+        console.error("Erreur lors du fallback local:", localErr);
       }
     }
 
@@ -325,14 +328,31 @@ async function loadCookieData() {
     }
 
     // --- CHARGEMENT DES DIFFÉRENTES CATÉGORIES ---
+    // --- Récupération du cookie depuis Supabase (doit être AVANT les fetchCategoryDataWithId) ---
+    // ... code existant pour récupérer cookieData ...
+
     // 1. Toppings (pas de reset)
-    cookieData.toppings = await fetchCategoryData('toppings', ['topping1', 'topping2', 'topping3', 'topping4', 'topping5'], 'Garniture');
+    // 1. Toppings : reset step si modifié
+    const prevToppingsRaw = localStorage.getItem(`toppings-data:${cookieId}`);
+    let prevToppings = [];
+    try { prevToppings = prevToppingsRaw ? JSON.parse(prevToppingsRaw) : []; } catch (e) { prevToppings = []; }
+    const newToppings = await fetchCategoryDataWithId('toppings', ['topping1', 'topping2', 'topping3', 'topping4', 'topping5'], 'Garniture', cookieData.id);
+    newToppings.forEach(t => {
+      const prev = prevToppings.find(pt => pt.id === t.id);
+      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
+        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
+          saveEtatForId(t.id, 0);
+        }
+      }
+    });
+    localStorage.setItem(`toppings-data:${cookieId}`, JSON.stringify(newToppings));
+    cookieData.toppings = newToppings;
 
     // 2. Tartelettes : reset step si modifié
     const prevTartelettesRaw = localStorage.getItem(`tartelettes-data:${cookieId}`);
     let prevTartelettes = [];
     try { prevTartelettes = prevTartelettesRaw ? JSON.parse(prevTartelettesRaw) : []; } catch (e) { prevTartelettes = []; }
-    const newTartelettes = await fetchCategoryData('tartelettes', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5'], 'Tartelette');
+    const newTartelettes = await fetchCategoryDataWithId('tartelettes', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5'], 'Tartelette', cookieData.id);
     newTartelettes.forEach(t => {
       const prev = prevTartelettes.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -348,7 +368,7 @@ async function loadCookieData() {
     const prevBiscuitsRaw = localStorage.getItem(`biscuits-data:${cookieId}`);
     let prevBiscuits = [];
     try { prevBiscuits = prevBiscuitsRaw ? JSON.parse(prevBiscuitsRaw) : []; } catch (e) { prevBiscuits = []; }
-    const newBiscuits = await fetchCategoryData('biscuits', ['biscuit1', 'biscuit2', 'biscuit3'], 'Biscuit');
+    const newBiscuits = await fetchCategoryDataWithId('biscuits', ['biscuit1', 'biscuit2', 'biscuit3'], 'Biscuit', cookieData.id);
     newBiscuits.forEach(t => {
       const prev = prevBiscuits.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -361,13 +381,13 @@ async function loadCookieData() {
     cookieData.biscuits = newBiscuits;
 
     // 4. Promotions (pas de reset)
-    cookieData.promotions = await fetchCategoryData('promotions', ['promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion');
+    cookieData.promotions = await fetchCategoryDataWithId('promotions', ['promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion', cookieData.id);
 
     // 5. Pierres de confiture : reset step si modifié
     const prevPierresRaw = localStorage.getItem(`pierres-data:${cookieId}`);
     let prevPierres = [];
     try { prevPierres = prevPierresRaw ? JSON.parse(prevPierresRaw) : []; } catch (e) { prevPierres = []; }
-    const pierresItems = await fetchCategoryData('pierres_de_confiture', ['pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture');
+    const pierresItems = await fetchCategoryDataWithId('pierres_de_confiture', ['pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture', cookieData.id);
     pierresItems.forEach(t => {
       const prev = prevPierres.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -380,8 +400,61 @@ async function loadCookieData() {
     cookieData.pierres_de_confiture = pierresItems;
 
     // 6. Ascension (pas de reset, inchangé)
-    const ascensionItems = await fetchCategoryData('ascension', ['ascension'], 'Ascension');
+    const ascensionItems = await fetchCategoryDataWithId('ascension', ['ascension'], 'Ascension', cookieData.id);
     cookieData.ascension = { etoiles: ascensionItems };
+    // 7. Bonbons : reset step si modifié
+    const prevBonbonsRaw = localStorage.getItem(`bonbons-data:${cookieId}`);
+    let prevBonbons = [];
+    try { prevBonbons = prevBonbonsRaw ? JSON.parse(prevBonbonsRaw) : []; } catch (e) { prevBonbons = []; }
+    const newBonbons = await fetchCategoryDataWithId('bonbons', ['bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon', cookieData.id);
+    newBonbons.forEach(t => {
+      const prev = prevBonbons.find(pt => pt.id === t.id);
+      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
+        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
+          saveEtatForId(t.id, 0);
+        }
+      }
+    });
+    localStorage.setItem(`bonbons-data:${cookieId}`, JSON.stringify(newBonbons));
+    cookieData.bonbons = newBonbons;
+
+    // Nouvelle version de fetchCategoryData qui prend cookieId en paramètre
+    async function fetchCategoryDataWithId(categorySlug, buildTypes, defaultNom, cookieId) {
+      try {
+        const { data: newData, error: newError } = await supabase
+          .from(categorySlug)
+          .select('*')
+          .eq('cookie_id', cookieId)
+          .order('position', { ascending: true });
+        if (!newError && newData && newData.length > 0) {
+          return newData.map(item => ({
+            id: item.id,
+            nom: item.nom || item.type || defaultNom,
+            images: Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? JSON.parse(item.images) : [])
+          }));
+        }
+      } catch (e) { }
+      const { data: fallbackData } = await supabase
+        .from('builds')
+        .select('*')
+        .eq('cookie_id', cookieId)
+        .in('type', buildTypes)
+        .order('type', { ascending: true });
+      if (fallbackData && fallbackData.length > 0) {
+        return fallbackData.map(row => {
+          const images = Object.keys(row)
+            .filter(key => key.startsWith('image') && row[key])
+            .sort()
+            .map(key => row[key]);
+          return {
+            id: row.id,
+            nom: row.nom || row.type || defaultNom,
+            images: images
+          };
+        });
+      }
+      return [];
+    }
 
     // --- Récupération de tous les costumes (table "costumes") ---
     let costumesResponse = await supabase
