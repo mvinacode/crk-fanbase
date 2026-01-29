@@ -169,6 +169,21 @@ function loadCookieDynamicCSS() {
 
 // Charger les données du cookie depuis Supabase
 async function loadCookieData() {
+      // 7. Bonbons : reset step si modifié
+      const prevBonbonsRaw = localStorage.getItem(`bonbons-data:${cookieId}`);
+      let prevBonbons = [];
+      try { prevBonbons = prevBonbonsRaw ? JSON.parse(prevBonbonsRaw) : []; } catch (e) { prevBonbons = []; }
+      const newBonbons = await fetchCategoryData('bonbons', ['bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon');
+      newBonbons.forEach(t => {
+        const prev = prevBonbons.find(pt => pt.id === t.id);
+        if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
+          if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
+            saveEtatForId(t.id, 0);
+          }
+        }
+      });
+      localStorage.setItem(`bonbons-data:${cookieId}`, JSON.stringify(newBonbons));
+      cookieData.bonbons = newBonbons;
   try {
     // Récupérer le cookie depuis Supabase
     console.log("Tentative de chargement pour ID:", cookieId);
@@ -310,12 +325,61 @@ async function loadCookieData() {
     }
 
     // --- CHARGEMENT DES DIFFÉRENTES CATÉGORIES ---
+    // 1. Toppings (pas de reset)
     cookieData.toppings = await fetchCategoryData('toppings', ['topping1', 'topping2', 'topping3', 'topping4', 'topping5'], 'Garniture');
-    cookieData.tartelettes = await fetchCategoryData('tartelettes', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5'], 'Tartelette');
-    cookieData.biscuits = await fetchCategoryData('biscuits', ['biscuit1', 'biscuit2', 'biscuit3'], 'Biscuit');
+
+    // 2. Tartelettes : reset step si modifié
+    const prevTartelettesRaw = localStorage.getItem(`tartelettes-data:${cookieId}`);
+    let prevTartelettes = [];
+    try { prevTartelettes = prevTartelettesRaw ? JSON.parse(prevTartelettesRaw) : []; } catch (e) { prevTartelettes = []; }
+    const newTartelettes = await fetchCategoryData('tartelettes', ['tartelette1', 'tartelette2', 'tartelette3', 'tartelette4', 'tartelette5'], 'Tartelette');
+    newTartelettes.forEach(t => {
+      const prev = prevTartelettes.find(pt => pt.id === t.id);
+      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
+        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
+          saveEtatForId(t.id, 0);
+        }
+      }
+    });
+    localStorage.setItem(`tartelettes-data:${cookieId}`, JSON.stringify(newTartelettes));
+    cookieData.tartelettes = newTartelettes;
+
+    // 3. Biscuits : reset step si modifié
+    const prevBiscuitsRaw = localStorage.getItem(`biscuits-data:${cookieId}`);
+    let prevBiscuits = [];
+    try { prevBiscuits = prevBiscuitsRaw ? JSON.parse(prevBiscuitsRaw) : []; } catch (e) { prevBiscuits = []; }
+    const newBiscuits = await fetchCategoryData('biscuits', ['biscuit1', 'biscuit2', 'biscuit3'], 'Biscuit');
+    newBiscuits.forEach(t => {
+      const prev = prevBiscuits.find(pt => pt.id === t.id);
+      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
+        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
+          saveEtatForId(t.id, 0);
+        }
+      }
+    });
+    localStorage.setItem(`biscuits-data:${cookieId}`, JSON.stringify(newBiscuits));
+    cookieData.biscuits = newBiscuits;
+
+    // 4. Promotions (pas de reset)
     cookieData.promotions = await fetchCategoryData('promotions', ['promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion');
 
-    // Pour l'ascension, la structure est un peu différente dans cookieData
+    // 5. Pierres de confiture : reset step si modifié
+    const prevPierresRaw = localStorage.getItem(`pierres-data:${cookieId}`);
+    let prevPierres = [];
+    try { prevPierres = prevPierresRaw ? JSON.parse(prevPierresRaw) : []; } catch (e) { prevPierres = []; }
+    const pierresItems = await fetchCategoryData('pierres_de_confiture', ['pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture');
+    pierresItems.forEach(t => {
+      const prev = prevPierres.find(pt => pt.id === t.id);
+      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
+        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
+          saveEtatForId(t.id, 0);
+        }
+      }
+    });
+    localStorage.setItem(`pierres-data:${cookieId}`, JSON.stringify(pierresItems));
+    cookieData.pierres_de_confiture = pierresItems;
+
+    // 6. Ascension (pas de reset, inchangé)
     const ascensionItems = await fetchCategoryData('ascension', ['ascension'], 'Ascension');
     cookieData.ascension = { etoiles: ascensionItems };
 

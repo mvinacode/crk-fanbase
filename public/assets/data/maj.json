@@ -231,6 +231,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Piment",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769348334/cookie_piment_carte_cyd4qb.webp",
+    "link": "cookie_detail.html?id=cookie-piment",
+    "date": "2026-01-29T12:25:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Pomme d'amour",
     "image": "cookies/cookie_pomme_d_amour/cookie_pomme_d_amour_carte.webp",
     "link": "cookie_pomme_d_amour.html",
