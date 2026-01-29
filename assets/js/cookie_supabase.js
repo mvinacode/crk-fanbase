@@ -1103,15 +1103,22 @@ function renderCookie(data) {
     `).join('')}
  </div>
 
-  <div class="info-frame2">
-     <div class="info-frame2-header">
-         <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
-         <h3>Attributs recommandés</h3>
+  ${(() => {
+      const stats = data.beascuit_stats || ['DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité'];
+      const isWide = stats.some(s => s.length > 15);
+      const isSmallText = stats.some(s => s.length > 15); // Lower threshold to catch 18-char strings
+      return `
+     <div class="info-frame2 ${isWide ? 'wide-mode' : ''} ${isSmallText ? 'small-text' : ''}">
+         <div class="info-frame2-header">
+             <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
+             <h3>Attributs recommandés</h3>
+         </div>
+         <div class="info-frame2-content">
+             ${stats.map(stat => `<p>${stat}</p>`).join('')}
+         </div>
      </div>
-     <div class="info-frame2-content">
-         ${(data.beascuit_stats || ['???', '???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
-     </div>
- </div>
+     `;
+    })()}
 
  <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
  ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}

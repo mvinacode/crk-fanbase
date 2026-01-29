@@ -446,22 +446,32 @@ body:not(.accueil) .header .user-info {
 /* Cadre d'informations (Attributs recommandés) - Style Figma */
 .info-frame2 {
     position: absolute;
-    left: 1080px;
-    /* Adjust left to center slightly better if widening, or keep user pref */
-    top: 450px;
-    width: 280px;
-    /* Wider */
+    left: 1060px;
+    /* Standard centered position */
+    top: 445px;
+    /* Vertically centered with Biscuit (390+135 = 525 - 80 = 445) */
+    width: 320px;
+    /* Standard width */
     height: 160px;
-    /* Shorter height for rectangular look */
     background: rgba(134, 92, 67, 0.42);
+    /* Restored background */
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    /* Restored shadow */
     border-radius: 20px;
+    transition: width 0.3s ease, left 0.3s ease;
+    /* Ensure transition is here */
     display: flex;
     flex-direction: column;
     font-family: 'CookieRun-Bold', sans-serif;
     color: #FFF0DC;
     z-index: 20;
     /* Ensure on top */
+}
+
+.info-frame2.wide-mode {
+    width: 355px;
+    left: 1050px;
+    /* Perfectly centered relative to normal mode (Center X = 1220px) */
 }
 
 .info-frame2-header {
@@ -521,9 +531,19 @@ body:not(.accueil) .header .user-info {
     font-weight: 900;
     font-size: 20px;
     line-height: 40px;
+    white-space: nowrap;
+    /* Prevent wrapping */
     text-align: center;
     /* Dark brown outline matching request */
     text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
+}
+
+.info-frame2.small-text p {
+    font-size: 18px;
+    /* Slightly smaller */
+    line-height: 40px;
+    letter-spacing: -0.5px;
+    /* Tighten letters slightly */
 }
 
 .toppings {
