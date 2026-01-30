@@ -366,7 +366,8 @@ body:not(.accueil) .header .user-info {
 .tartelettes,
 .biscuits,
 .promotion,
-.ascension {
+.ascension,
+.bonbons {
     position: absolute;
     display: flex;
     align-items: flex-start;
@@ -617,12 +618,18 @@ body:not(.accueil) .header .user-info {
     right: 875px;
 }
 
+.bonbons {
+    top: 170px;
+    left: 60px;
+}
+
 /* Animations & Cycles */
 .garniture-cycle,
 .tartelette-cycle,
 .biscuit-cycle,
 .promotion-cycle,
-.ascension-cycle {
+.ascension-cycle,
+.bonbon-cycle {
     cursor: pointer;
     transition: transform 0.2s ease;
     height: auto;
@@ -647,11 +654,16 @@ body:not(.accueil) .header .user-info {
     width: 170px;
 }
 
+.bonbon-cycle {
+    width: 180px;
+}
+
 .garniture-cycle:hover,
 .tartelette-cycle:hover,
 .biscuit-cycle:hover,
 .promotion-cycle:hover,
-.ascension-cycle:hover {
+.ascension-cycle:hover,
+.bonbon-cycle:hover {
     transform: scale(1.1);
 }
 

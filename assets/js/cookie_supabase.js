@@ -150,6 +150,10 @@ if (cookieId === 'cookie-choco-noir') {
   cookieId = '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c';
 }
 
+if (cookieId === 'cookie-espresso') {
+  cookieId = '67175204-d395-48f9-b909-a77e426af7cc';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -408,7 +412,7 @@ async function loadCookieData() {
     const prevBonbonsRaw = localStorage.getItem(`bonbons-data:${cookieId}`);
     let prevBonbons = [];
     try { prevBonbons = prevBonbonsRaw ? JSON.parse(prevBonbonsRaw) : []; } catch (e) { prevBonbons = []; }
-    const newBonbons = await fetchCategoryDataWithId('bonbons', ['bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon', cookieData.id);
+    const newBonbons = await fetchCategoryDataWithId('bonbons', ['bonbon', 'bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon', cookieData.id);
     newBonbons.forEach(t => {
       const prev = prevBonbons.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -480,6 +484,16 @@ async function loadCookieData() {
           illustrationReplace: costumeRow.illustrationReplace || null,
           rareteIcon: costumeRow.rareteIcon || null
         };
+      });
+
+      // Tri pour mettre le costume "Original" en premier
+      cookieData.costumes.sort((a, b) => {
+        const isAOriginal = a.nom && a.nom.toLowerCase().includes('original');
+        const isBOriginal = b.nom && b.nom.toLowerCase().includes('original');
+
+        if (isAOriginal && !isBOriginal) return -1;
+        if (!isAOriginal && isBOriginal) return 1;
+        return 0;
       });
     } else {
       cookieData.costumes = [];
@@ -656,6 +670,12 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '270px';
     img.style.top = '140px';
+  } else if (src.includes('joyeuses')) {
+    console.warn('[applyIllustrationStyles] Applying Choco Noir Costume (Joyeuses) tyles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '370px';
+    img.style.top = '350px';
   } else if (src.includes('fete') || src.includes('preparee')) {
     img.style.width = '200px';
     img.style.height = 'auto';
@@ -823,6 +843,42 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '290px';
     img.style.top = '100px';
+  } else if (src.includes('prince') || src.includes('royaume')) {
+    console.warn('[applyIllustrationStyles] Applying Choco Noir Costume (Prince) tyles for:', src);
+    img.style.width = '200px';
+    img.style.height = 'auto';
+    img.style.left = '370px';
+    img.style.top = '360px';
+  } else if (src.includes('vieux') || src.includes('souvenirs')) {
+    console.warn('[applyIllustrationStyles] Applying Choco Noir Costume (Vieux) tyles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '280px';
+    img.style.top = '150px';
+  } else if (src.includes('choco-noir') || src.includes('choco_noir') || (src.includes('choco-noir') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Choco Noir styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '260px';
+    img.style.top = '180px';
+  } else if (src.includes('roti')) {
+    console.warn('[applyIllustrationStyles] Applying Espresso Costume (Roti) tyles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '250px';
+    img.style.top = '110px';
+  } else if (src.includes('erudit')) {
+    console.warn('[applyIllustrationStyles] Applying Espresso Costume (Erudit) tyles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '230px';
+    img.style.top = '120px';
+  } else if (src.includes('espresso') || (src.includes('espresso') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Espresso styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '250px';
+    img.style.top = '170px';
   }
 }
 
@@ -1105,8 +1161,8 @@ function renderCookie(data) {
 
   ${(() => {
       const stats = data.beascuit_stats || ['DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité'];
-      const isWide = stats.some(s => s.length > 15);
-      const isSmallText = stats.some(s => s.length > 15); // Lower threshold to catch 18-char strings
+      const isWide = stats.some(s => s.length > 12);
+      const isSmallText = stats.some(s => s.length > 12); // Lower threshold to catch 18-char strings
       return `
      <div class="info-frame2 ${isWide ? 'wide-mode' : ''} ${isSmallText ? 'small-text' : ''}">
          <div class="info-frame2-header">
@@ -1156,6 +1212,17 @@ function renderCookie(data) {
              src="${formatImagePath(images[step] || '')}"/>
     `}).join('')}
  </div>
+ 
+ <div class="bonbons">
+    ${(data.bonbons || []).map(b => `
+        <img alt="${b.nom || 'Bonbon'}" class="bonbon-cycle" 
+             data-id="${b.id}" 
+             data-images='${safeJsonStringify(b.images)}'
+             data-step="${b.selectedStep || 0}" 
+             src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
+    `).join('')}
+ </div>
+
 
   <a class="btn-costume" href="#"><span>Costumes</span></a>
   ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><span>Cookie précédent</span></a>` : ''}
@@ -1283,7 +1350,7 @@ function setupImageCycles(cookieData) {
     });
   }
 
-  document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .costume-toggle').forEach(element => {
+  document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .bonbon-cycle, .costume-toggle').forEach(element => {
     // Restaure l'état sauvegardé au chargement
     const id = element.dataset.id;
     const savedStep = id ? getEtatForId(id) : null;
@@ -1368,7 +1435,7 @@ function setupImageCycles(cookieData) {
     });
   });
 }
-// --- GESTION DE LA PAGE D'ACCUEIL (INDEX) ---
+
 // --- GESTION DE LA PAGE D'ACCUEIL (INDEX) ---
 async function initHomePage() {
   const container = document.querySelector(".cartes-cookies");
@@ -1383,8 +1450,8 @@ async function initHomePage() {
     // Trie par date décroissante
     data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // Ne garder que les 22 plus récents
-    const recentCookies = data.slice(0, 22);
+    // Ne garder que les 24 plus récents
+    const recentCookies = data.slice(0, 24);
 
     // Récupérer les données Supabase pour ces cookies (pour l'image "carte" et l'ID)
     const cookieNames = recentCookies.map(c => c.nom).filter(n => n);
@@ -1470,7 +1537,7 @@ async function initHomePage() {
       const today = new Date();
       const daysDifference = Math.floor((today - cookieDate) / (1000 * 60 * 60 * 24));
 
-      if (daysDifference <= 30 && cookie.type) {
+      if (daysDifference <= 20 && cookie.type) {
         const icon = document.createElement("img");
         if (cookie.type === "new") {
           icon.src = "assets/images/icones/icon_new.webp";

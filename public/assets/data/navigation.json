@@ -1,11 +1,11 @@
 {
     "fa4da28e-bff9-441e-b466-a6464c1d266a": {
         "suivant": "9a419714-296e-449f-815c-1842448d7234",
-        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
+        "precedent": "67175204-d395-48f9-b909-a77e426af7cc"
     },
     "cookie-temeraire": {
         "suivant": "9a419714-296e-449f-815c-1842448d7234",
-        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
+        "precedent": "67175204-d395-48f9-b909-a77e426af7cc"
     },
     "9a419714-296e-449f-815c-1842448d7234": {
         "suivant": "b01c71b1-19b0-46ff-894f-f22d3008f585",
@@ -176,11 +176,19 @@
         "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
     },
     "cookie-choco-noir": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "67175204-d395-48f9-b909-a77e426af7cc",
         "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
     },
     "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "suivant": "67175204-d395-48f9-b909-a77e426af7cc",
         "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
+    },
+    "cookie-espresso": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c"
+    },
+    "67175204-d395-48f9-b909-a77e426af7cc": {
+        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
+        "precedent": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c"
     }
 }
