@@ -1388,7 +1388,7 @@
       "elements_crk/element_poison.webp",
       "elements_crk/element_chaos.webp"
     ],
-    "lien": "cookie_reglisse.html"
+    "lien": "cookie_detail.html?id=cookie-reglisse"
   },
   {
     "id": "cookie-espresso",

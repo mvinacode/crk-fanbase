@@ -154,6 +154,10 @@ if (cookieId === 'cookie-espresso') {
   cookieId = '67175204-d395-48f9-b909-a77e426af7cc';
 }
 
+if (cookieId === 'cookie-reglisse') {
+  cookieId = '4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -879,6 +883,18 @@ function applyIllustrationStyles() {
     img.style.height = '444px';
     img.style.left = '250px';
     img.style.top = '170px';
+  } else if (src.includes('zz') || src.includes('skull')) {
+    console.warn('[applyIllustrationStyles] Applying Reglisse Costume (ZZ) tyles for:', src);
+    img.style.width = '400px';
+    img.style.height = 'auto';
+    img.style.left = '380px';
+    img.style.top = '290px';
+  } else if (src.includes('reglisse') || (src.includes('reglisse') && src.includes('original'))) {
+    console.warn('[applyIllustrationStyles] Applying Reglisse styles for:', src);
+    img.style.width = '412px';
+    img.style.height = '444px';
+    img.style.left = '240px';
+    img.style.top = '170px';
   }
 }
 
@@ -1102,6 +1118,12 @@ function renderCookie(data) {
     `).join('');
   console.log('HTML généré pour toppings :', toppingsHTML);
 
+  // LOGIQUE DE DIMENSIONNEMENT DYNAMIQUE (Calculée avant le rendu)
+  const stats = data.beascuit_stats || ['DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité'];
+  const isWide = stats.some(s => s.length > 12);
+  const isExtraWide = stats.some(s => s.length > 18);
+  const isSmallText = stats.some(s => s.length > 12);
+
   const cookieHTML = `
   <div class="bloc-fond-cookie">
    <div class="fond-floute"></div>
@@ -1112,13 +1134,37 @@ function renderCookie(data) {
       // Support des deux formats : colonnes directes (rarete, classe, element) OU format JSON (badges.rarete, etc.)
       const rarete = data.rarete || data.badges?.rarete || '';
       const classe = data.classe || data.badges?.classe || '';
-      const element = data.element || data.badges?.element || null;
+      const elementRaw = data.element || data.badges?.element || null;
 
       // Ne pas afficher les badges vides pour éviter les espaces
       let badgesHTML = '';
       if (rarete) badgesHTML += `<img alt="Rareté" class="badge" src="${formatImagePath(rarete)}"/>`;
       if (classe) badgesHTML += `<img alt="Classe" class="badge" src="${formatImagePath(classe)}"/>`;
-      if (element) badgesHTML += `<img alt="Élément" class="badge" src="${formatImagePath(element)}"/>`;
+
+      // Gestion des éléments multiples (String JSON ou String simple)
+      if (elementRaw) {
+        let elementsList = [];
+        if (typeof elementRaw === 'string' && elementRaw.trim().startsWith('[')) {
+          try {
+            elementsList = JSON.parse(elementRaw);
+          } catch (e) {
+            elementsList = [elementRaw];
+          }
+        } else if (Array.isArray(elementRaw)) {
+          elementsList = elementRaw;
+        } else {
+          elementsList = [elementRaw];
+        }
+
+        let elementsHTML = '';
+        elementsList.forEach(el => {
+          if (el) elementsHTML += `<img alt="Élément" class="badge" src="${formatImagePath(el)}"/>`;
+        });
+
+        if (elementsHTML) {
+          badgesHTML += `<div class="badges-elements">${elementsHTML}</div>`;
+        }
+      }
 
       return badgesHTML;
     })()}
@@ -1159,12 +1205,10 @@ function renderCookie(data) {
     `).join('')}
  </div>
 
-  ${(() => {
-      const stats = data.beascuit_stats || ['DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité'];
-      const isWide = stats.some(s => s.length > 12);
-      const isSmallText = stats.some(s => s.length > 12); // Lower threshold to catch 18-char strings
+   ${(() => {
+      // Logic moved up
       return `
-     <div class="info-frame2 ${isWide ? 'wide-mode' : ''} ${isSmallText ? 'small-text' : ''}">
+     <div class="info-frame2 ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
          <div class="info-frame2-header">
              <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
              <h3>Attributs recommandés</h3>
@@ -1176,7 +1220,7 @@ function renderCookie(data) {
      `;
     })()}
 
- <div class="biscuits ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
+ <div class="biscuits ${isExtraWide ? 'shift-left-dynamic' : ''} ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
  ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
  ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
  ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''} ${data.nom && data.nom.includes('Chevalier') ? 'biscuits-chevalier' : ''} 

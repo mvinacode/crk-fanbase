@@ -361,6 +361,11 @@ body:not(.accueil) .header .user-info {
     width: auto;
 }
 
+.badges-elements {
+    display: flex;
+    gap: 0px;
+}
+
 /* Positions Toppings, Biscuits, etc. */
 .toppings,
 .tartelettes,
@@ -475,6 +480,11 @@ body:not(.accueil) .header .user-info {
     /* Perfectly centered relative to normal mode (Center X = 1220px) */
 }
 
+.info-frame2.extra-wide-mode {
+    width: 390px;
+    left: 1010px;
+}
+
 .info-frame2-header {
     width: 100%;
     height: 57px;
@@ -560,6 +570,13 @@ body:not(.accueil) .header .user-info {
 .biscuits {
     top: 390px;
     right: 395px;
+    transition: right 0.3s ease;
+    /* Smooth transition */
+}
+
+.biscuits.shift-left-dynamic {
+    right: 440px;
+    /* Shifted left by ~85px to avoid overlap */
 }
 
 .biscuits.biscuits-sorcier {
@@ -620,7 +637,7 @@ body:not(.accueil) .header .user-info {
 
 .bonbons {
     top: 170px;
-    left: 60px;
+    left: 20px;
 }
 
 /* Animations & Cycles */

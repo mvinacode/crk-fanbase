@@ -266,8 +266,8 @@
   },
   {
     "nom": "Cookie Réglisse",
-    "image": "cookies/cookie_reglisse/cookie_reglisse_carte.webp",
-    "link": "cookie_reglisse.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769943499/cookie_reglisse_carte_np5i17.webp",
+    "link": "cookie_detail.html?id=cookie-reglisse",
     "date": "2026-01-14T21:50:00",
     "type": "update"
   },
