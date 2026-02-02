@@ -1375,7 +1375,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_madeleine.html"
+    "lien": "cookie_detail.html?id=cookie-madeleine"
   },
   {
     "id": "cookie-reglisse",
