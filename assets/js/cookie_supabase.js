@@ -162,6 +162,10 @@ if (cookieId === 'cookie-madeleine') {
   cookieId = '84f24310-256d-4e4f-addc-ae201bedacc9';
 }
 
+if (cookieId === 'cookie-lait') {
+  cookieId = 'db8de6ac-1857-409a-af44-cb19fd2d6277';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -641,13 +645,9 @@ async function loadCookieData() {
 const COSTUME_STYLES = [
   // == CUSTOM ==
   { ids: ['feuilles', 'automne'], conditions: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } }, // Jardinier Automne
-  { ids: ['baie', 'verte'], style: { width: '412px', height: '444px', left: '250px', top: '120px' } },
 
   // Cas SPÉCIFIQUE : Sorcier Gnome (doit être checké avant 'gnome' seul)
   { ids: ['sorcier'], conditions: ['gnome'], style: { width: '412px', height: '444px', left: '260px', top: '190px' } },
-  { ids: ['gnome'], style: { width: '200px', height: 'auto', left: '350px', top: '300px' } },
-
-  { ids: ['hiver', 'chaud'], style: { width: '412px', height: '444px', left: '270px', top: '140px' } },
   { ids: ['joyeuses'], style: { width: '200px', height: 'auto', left: '370px', top: '350px' } },
   { ids: ['fete', 'preparee'], style: { width: '200px', height: 'auto', left: '400px', top: '350px' } },
   { ids: ['cache', 'ombre'], style: { width: '200px', height: 'auto', left: '350px', top: '320px' } },

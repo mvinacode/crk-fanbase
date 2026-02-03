@@ -1366,7 +1366,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "",
-    "lien": "cookie_lait.html"
+    "lien": "cookie_detail.html?id=cookie-lait"
   },
   {
     "id": "cookie-madeleine",

@@ -456,7 +456,7 @@ body:not(.accueil) .header .user-info {
     /* Standard centered position */
     top: 445px;
     /* Vertically centered with Biscuit (390+135 = 525 - 80 = 445) */
-    width: 320px;
+    width: 330px;
     /* Standard width */
     height: 160px;
     background: rgba(134, 92, 67, 0.42);
@@ -475,8 +475,8 @@ body:not(.accueil) .header .user-info {
 }
 
 .info-frame2.wide-mode {
-    width: 380px;
-    left: 1035px;
+    width: 390px;
+    left: 1020px;
     /* Perfectly centered relative to normal mode (Center X = 1220px) */
 }
 
@@ -608,7 +608,7 @@ body:not(.accueil) .header .user-info {
 
 .biscuits {
     top: 390px;
-    right: 400px;
+    right: 415px;
     transition: right 0.3s ease;
     /* Smooth transition */
 }
