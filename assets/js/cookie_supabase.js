@@ -166,6 +166,10 @@ if (cookieId === 'cookie-lait') {
   cookieId = 'db8de6ac-1857-409a-af44-cb19fd2d6277';
 }
 
+if (cookieId === 'cookie-choco-menthe') {
+  cookieId = 'd3ba8976-3225-4b7a-b448-2acf77d44f28';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -645,11 +649,7 @@ async function loadCookieData() {
 const COSTUME_STYLES = [
   // == CUSTOM ==
   { ids: ['feuilles', 'automne'], conditions: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } }, // Jardinier Automne
-
-  // Cas SPÉCIFIQUE : Sorcier Gnome (doit être checké avant 'gnome' seul)
-  { ids: ['sorcier'], conditions: ['gnome'], style: { width: '412px', height: '444px', left: '260px', top: '190px' } },
   { ids: ['joyeuses'], style: { width: '200px', height: 'auto', left: '370px', top: '350px' } },
-  { ids: ['fete', 'preparee'], style: { width: '200px', height: 'auto', left: '400px', top: '350px' } },
   { ids: ['cache', 'ombre'], style: { width: '200px', height: 'auto', left: '350px', top: '320px' } },
   { ids: ['cookie_ninja', 'ninja'], style: { width: '412px', height: '444px', left: '200px', top: '140px' } },
   { ids: ['chef', 'chœur'], style: { width: '200px', height: 'auto', left: '390px', top: '360px' } },

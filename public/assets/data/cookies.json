@@ -1357,7 +1357,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_vent.webp",
-    "lien": "cookie_choco_menthe.html"
+    "lien": "cookie_detail.html?id=cookie-choco-menthe"
   },
   {
     "id": "cookie-lait",
