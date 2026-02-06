@@ -178,6 +178,10 @@ if (cookieId === 'cookie-grenade') {
   cookieId = '8ee2d6c0-3850-4583-a3ca-472a5734bd73';
 }
 
+if (cookieId === 'cookie-patate-douce') {
+  cookieId = 'a709bc50-4e3d-4b31-86db-8ab021e8801c';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé

@@ -219,9 +219,10 @@
   },
   {
     "nom": "Cookie Patate douce",
-    "image": "cookies/cookie_patate_douce/cookie_patate_douce_carte.webp",
-    "link": "cookie_patate_douce.html",
-    "date": "2025-10-06"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1770408474/cookie_patate_douce_carte_hhhqu5.webp",
+    "link": "cookie_detail.html?id=cookie-patate-douce",
+    "date": "2026-02-06T21:26:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Pâte moisie",
