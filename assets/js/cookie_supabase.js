@@ -174,6 +174,10 @@ if (cookieId === 'cookie-champignon-veneneux') {
   cookieId = '208193a2-2738-407f-a369-0e9d33abdbac';
 }
 
+if (cookieId === 'cookie-grenade') {
+  cookieId = '8ee2d6c0-3850-4583-a3ca-472a5734bd73';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé

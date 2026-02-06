@@ -1330,7 +1330,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_patate_douce.html"
+    "lien": "cookie_detail.html?id=cookie-patate-douce"
   },
   {
     "id": "cookie-grenade",
