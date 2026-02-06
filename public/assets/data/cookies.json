@@ -1339,7 +1339,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_grenade.html"
+    "lien": "cookie_detail.html?id=cookie-grenade"
   },
   {
     "id": "cookie-champignon-veneneux",
@@ -1348,7 +1348,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_poison.webp",
-    "lien": "cookie_champignon_veneneux.html"
+    "lien": "cookie_detail.html?id=cookie-champignon-veneneux"
   },
   {
     "id": "cookie-choco-menthe",

@@ -170,6 +170,10 @@ if (cookieId === 'cookie-choco-menthe') {
   cookieId = 'd3ba8976-3225-4b7a-b448-2acf77d44f28';
 }
 
+if (cookieId === 'cookie-champignon-veneneux') {
+  cookieId = '208193a2-2738-407f-a369-0e9d33abdbac';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -906,10 +910,12 @@ function applyDynamicTheme(data) {
   if (data.title_color) root.style.setProperty('--title-color', data.title_color);
 
   // Ajustement de la taille du titre si besoin (ex: noms très longs)
-  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere'))) {
-    root.style.setProperty('--title-size', '70px');
+  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon'))) {
+    root.style.setProperty('--title-size', '50px');
+    root.style.setProperty('--title-top', '-10px');
   } else {
     root.style.removeProperty('--title-size');
+    root.style.removeProperty('--title-top');
   }
 
   // 4. Positions (Illustration)

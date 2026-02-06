@@ -238,16 +238,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return `../assets/images/${path}`;
       };
 
-      let multiElementsClass = Array.isArray(cookie.element) && cookie.element.length > 1 ? "multi-elements" : "";
+      let elements = [];
+      if (Array.isArray(cookie.element)) {
+        elements = cookie.element;
+      } else if (typeof cookie.element === 'string') {
+        if (cookie.element.trim().startsWith('[')) {
+          try {
+            elements = JSON.parse(cookie.element);
+          } catch (e) {
+            elements = [cookie.element];
+          }
+        } else if (cookie.element.trim() !== "") {
+          elements = [cookie.element];
+        }
+      }
+
+      let multiElementsClass = elements.length > 1 ? "multi-elements" : "";
       let blocCentreHTML = `<div class="bloc-centre ${multiElementsClass}"><img src="${getImgSrc(cookie.role)}" alt="Rôle" class="badge-icon">`;
 
-      if (Array.isArray(cookie.element)) {
-        cookie.element.forEach(elem => {
-          blocCentreHTML += `<img src="${getImgSrc(elem)}" alt="Élément" class="badge-icon">`;
-        });
-      } else if (cookie.element && cookie.element !== "") {
-        blocCentreHTML += `<img src="${getImgSrc(cookie.element)}" alt="Élément" class="badge-icon">`;
-      }
+      elements.forEach(elem => {
+        blocCentreHTML += `<img src="${getImgSrc(elem)}" alt="Élément" class="badge-icon">`;
+      });
 
       blocCentreHTML += `</div>`;
 
