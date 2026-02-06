@@ -1321,7 +1321,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_seigle.html"
+    "lien": "cookie_detail.html?id=cookie-seigle"
   },
   {
     "id": "cookie-patate-douce",

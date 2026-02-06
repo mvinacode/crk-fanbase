@@ -279,6 +279,13 @@
     "date": "2025-11-07"
   },
   {
+    "nom": "Cookie Seigle",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1770411580/cookie_seigle_carte_tlkdkd.webp",
+    "link": "cookie_detail.html?id=cookie-seigle",
+    "date": "2026-02-06T22:05:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Sel Silencieux",
     "image": "cookies/cookie_sel_silencieux/cookie_sel_silencieux_carte.webp",
     "link": "cookie_sel_silencieux.html",

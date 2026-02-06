@@ -182,6 +182,10 @@ if (cookieId === 'cookie-patate-douce') {
   cookieId = 'a709bc50-4e3d-4b31-86db-8ab021e8801c';
 }
 
+if (cookieId === 'cookie-seigle') {
+  cookieId = '2a64cf1b-013e-4d83-b3f2-4db3c9c43375';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
