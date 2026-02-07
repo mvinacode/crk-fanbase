@@ -186,6 +186,10 @@ if (cookieId === 'cookie-seigle') {
   cookieId = '2a64cf1b-013e-4d83-b3f2-4db3c9c43375';
 }
 
+if (cookieId === 'cookie-sucre-glace') {
+  cookieId = '18f2de53-0fed-42c9-86ef-c5e19f0b3f0a';
+}
+
 // Fonction pour charger dynamiquement un fichier CSS
 function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
@@ -664,7 +668,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['feuilles', 'automne'], conditions: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } }, // Jardinier Automne
   { ids: ['joyeuses'], style: { width: '200px', height: 'auto', left: '370px', top: '350px' } },
   { ids: ['cache', 'ombre'], style: { width: '200px', height: 'auto', left: '350px', top: '320px' } },
   { ids: ['cookie_ninja', 'ninja'], style: { width: '412px', height: '444px', left: '200px', top: '140px' } },
