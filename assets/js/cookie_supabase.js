@@ -58,136 +58,45 @@ let cookieId = urlParams.get('id') || 'fa4da28e-bff9-441e-b466-a6464c1d266a';
 // Nettoyer l'ID : enlever les chevrons < > s'ils sont présents
 cookieId = cookieId.trim().replace(/^<|>$/g, '').trim();
 
-if (cookieId === 'cookie-temeraire') {
-  cookieId = 'fa4da28e-bff9-441e-b466-a6464c1d266a';
-}
+const cookieMap = {
+  'cookie-temeraire': 'fa4da28e-bff9-441e-b466-a6464c1d266a',
+  'cookie-fraise': '9a419714-296e-449f-815c-1842448d7234',
+  'cookie-sorcier': 'b01c71b1-19b0-46ff-894f-f22d3008f585',
+  'cookie-ninja': '6f0371f8-a990-46f5-83b5-fcb476744825',
+  'cookie-ange': 'fbe1a5be-bfac-44af-b1a1-10446abf35b0',
+  'cookie-costaud': '5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7',
+  'cookie-aventurier': 'c94ab484-756e-40dd-9451-da840179f983',
+  'cookie-alchimiste': 'e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca',
+  'cookie-avocat': '8f0007c7-0641-455e-b184-3d41569e85d5',
+  'cookie-betterave': '09dfe6bb-6a87-4984-8afb-96b94444c08d',
+  'cookie-mure': '806edfc7-e9c6-4f31-9797-2e9455f6544e',
+  'cookie-carotte': '9d9bd274-c85b-4b4e-b6dc-9b5115b87471',
+  'cookie-cerise': '638e6269-caad-4d3b-ab53-c0ea87e4034a',
+  'cookie-piment': 'ac08d696-014e-4ad7-9510-e5ac5a47d7ea',
+  'cookie-trefle': '33d1bacf-7921-4f3d-a95c-5f44cc92de90',
+  'cookie-creme-patissiere-iii': 'dd1be758-122d-4597-86e7-bb4b2b61718c',
+  'cookie-chevalier': '886acc5d-30e5-4b38-9488-28b3349faddc',
+  'cookie-oignon': 'bda640ab-89be-447c-8210-16616fa9de53',
+  'cookie-pancake': 'a8f85028-e661-4378-a193-e3a951b66d05',
+  'cookie-princesse': '5ab8cd4a-61c0-498a-8f17-9f6d63577cbe',
+  'cookie-boule-de-gomme': '86e05b59-a249-4218-bac6-d3fe3fc733a6',
+  'cookie-jardinier': 'b9c41288-16d4-42ef-a887-a53639ca572c',
+  'cookie-choco-noir': '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c',
+  'cookie-espresso': '67175204-d395-48f9-b909-a77e426af7cc',
+  'cookie-reglisse': '4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc',
+  'cookie-madeleine': '84f24310-256d-4e4f-addc-ae201bedacc9',
+  'cookie-lait': 'db8de6ac-1857-409a-af44-cb19fd2d6277',
+  'cookie-choco-menthe': 'd3ba8976-3225-4b7a-b448-2acf77d44f28',
+  'cookie-champignon-veneneux': '208193a2-2738-407f-a369-0e9d33abdbac',
+  'cookie-grenade': '8ee2d6c0-3850-4583-a3ca-472a5734bd73',
+  'cookie-patate-douce': 'a709bc50-4e3d-4b31-86db-8ab021e8801c',
+  'cookie-seigle': '2a64cf1b-013e-4d83-b3f2-4db3c9c43375',
+  'cookie-sucre-glace': '18f2de53-0fed-42c9-86ef-c5e19f0b3f0a',
+  'cookie-petillant': '93db6fb5-267a-43be-a9ee-d219157ff816'
+};
 
-if (cookieId === 'cookie-fraise') {
-  cookieId = '9a419714-296e-449f-815c-1842448d7234';
-}
-
-if (cookieId === 'cookie-sorcier') {
-  cookieId = 'b01c71b1-19b0-46ff-894f-f22d3008f585';
-}
-
-if (cookieId === 'cookie-ninja') {
-  cookieId = '6f0371f8-a990-46f5-83b5-fcb476744825';
-}
-
-if (cookieId === 'cookie-ange') {
-  cookieId = 'fbe1a5be-bfac-44af-b1a1-10446abf35b0';
-}
-
-if (cookieId === 'cookie-costaud') {
-  cookieId = '5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7';
-}
-
-if (cookieId === 'cookie-aventurier') {
-  cookieId = 'c94ab484-756e-40dd-9451-da840179f983';
-}
-
-if (cookieId === 'cookie-alchimiste') {
-  cookieId = 'e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca';
-}
-
-if (cookieId === 'cookie-avocat') {
-  cookieId = '8f0007c7-0641-455e-b184-3d41569e85d5';
-}
-
-if (cookieId === 'cookie-betterave') {
-  cookieId = '09dfe6bb-6a87-4984-8afb-96b94444c08d';
-}
-
-if (cookieId === 'cookie-mure') {
-  cookieId = '806edfc7-e9c6-4f31-9797-2e9455f6544e';
-}
-
-if (cookieId === 'cookie-carotte') {
-  cookieId = '9d9bd274-c85b-4b4e-b6dc-9b5115b87471';
-}
-
-if (cookieId === 'cookie-cerise') {
-  cookieId = '638e6269-caad-4d3b-ab53-c0ea87e4034a';
-}
-
-if (cookieId === 'cookie-piment') {
-  cookieId = 'ac08d696-014e-4ad7-9510-e5ac5a47d7ea';
-}
-
-if (cookieId === 'cookie-trefle') {
-  cookieId = '33d1bacf-7921-4f3d-a95c-5f44cc92de90';
-}
-
-if (cookieId === 'cookie-creme-patissiere-iii') {
-  cookieId = 'dd1be758-122d-4597-86e7-bb4b2b61718c';
-}
-
-if (cookieId === 'cookie-chevalier') {
-  cookieId = '886acc5d-30e5-4b38-9488-28b3349faddc';
-}
-
-if (cookieId === 'cookie-oignon') {
-  cookieId = 'bda640ab-89be-447c-8210-16616fa9de53';
-}
-
-if (cookieId === 'cookie-pancake') {
-  cookieId = 'a8f85028-e661-4378-a193-e3a951b66d05';
-}
-
-if (cookieId === 'cookie-princesse') {
-  cookieId = '5ab8cd4a-61c0-498a-8f17-9f6d63577cbe';
-}
-
-if (cookieId === 'cookie-boule-de-gomme') {
-  cookieId = '86e05b59-a249-4218-bac6-d3fe3fc733a6';
-}
-
-if (cookieId === 'cookie-jardinier') {
-  cookieId = 'b9c41288-16d4-42ef-a887-a53639ca572c';
-}
-
-if (cookieId === 'cookie-choco-noir') {
-  cookieId = '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c';
-}
-
-if (cookieId === 'cookie-espresso') {
-  cookieId = '67175204-d395-48f9-b909-a77e426af7cc';
-}
-
-if (cookieId === 'cookie-reglisse') {
-  cookieId = '4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc';
-}
-
-if (cookieId === 'cookie-madeleine') {
-  cookieId = '84f24310-256d-4e4f-addc-ae201bedacc9';
-}
-
-if (cookieId === 'cookie-lait') {
-  cookieId = 'db8de6ac-1857-409a-af44-cb19fd2d6277';
-}
-
-if (cookieId === 'cookie-choco-menthe') {
-  cookieId = 'd3ba8976-3225-4b7a-b448-2acf77d44f28';
-}
-
-if (cookieId === 'cookie-champignon-veneneux') {
-  cookieId = '208193a2-2738-407f-a369-0e9d33abdbac';
-}
-
-if (cookieId === 'cookie-grenade') {
-  cookieId = '8ee2d6c0-3850-4583-a3ca-472a5734bd73';
-}
-
-if (cookieId === 'cookie-patate-douce') {
-  cookieId = 'a709bc50-4e3d-4b31-86db-8ab021e8801c';
-}
-
-if (cookieId === 'cookie-seigle') {
-  cookieId = '2a64cf1b-013e-4d83-b3f2-4db3c9c43375';
-}
-
-if (cookieId === 'cookie-sucre-glace') {
-  cookieId = '18f2de53-0fed-42c9-86ef-c5e19f0b3f0a';
+if (cookieMap[cookieId]) {
+  cookieId = cookieMap[cookieId];
 }
 
 // Fonction pour charger dynamiquement un fichier CSS
@@ -566,7 +475,7 @@ async function loadCookieData() {
     }
 
     // --- RÉCUPÉRATION DE LA NAVIGATION LOCALE (FALLBACK) ---
-    let localNavigation = {};
+    let localNavigation = []; // Par défaut on attend un tableau (nouvelle version)
     try {
       // Ajout d'un timestamp pour éviter le cache du navigateur
       const navResponse = await fetch(`../assets/data/navigation.json?t=${Date.now()}`);
@@ -577,9 +486,35 @@ async function loadCookieData() {
       console.warn('Erreur chargement navigation.json:', e);
     }
 
-    // Fusionner la navigation (Local + Supabase)
+    // Calcul de la navigation (Ordre circulaire)
+    let calculatedNav = {};
+
+    // Si c'est un tableau (format allégé)
+    if (Array.isArray(localNavigation) && localNavigation.length > 0) {
+      // On cherche l'index de l'ID actuel
+      const currentIndex = localNavigation.indexOf(cookieData.id);
+
+      if (currentIndex !== -1) {
+        // Calcul circulaire (modulo)
+        const prevIndex = (currentIndex - 1 + localNavigation.length) % localNavigation.length;
+        const nextIndex = (currentIndex + 1) % localNavigation.length;
+
+        calculatedNav = {
+          precedent: localNavigation[prevIndex],
+          suivant: localNavigation[nextIndex]
+        };
+      } else {
+        console.warn(`Cookie ID ${cookieData.id} non trouvé dans navigation.json`);
+      }
+    }
+    // Si c'est encore un objet (ancien format, au cas où)
+    else if (localNavigation && typeof localNavigation === 'object') {
+      calculatedNav = localNavigation[cookieData.id] || localNavigation[urlParams.get('id')] || {};
+    }
+
+    // Fusionner la navigation (Calculée + Surcharges Supabase si existantes)
     const cookieNav = {
-      ...(localNavigation[cookieData.id] || localNavigation[urlParams.get('id')] || {}),
+      ...calculatedNav,
       ...(cookieData.navigation || {})
     };
     cookieData.navigation = cookieNav;
@@ -668,7 +603,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['joyeuses'], style: { width: '200px', height: 'auto', left: '370px', top: '350px' } },
   { ids: ['cache', 'ombre'], style: { width: '200px', height: 'auto', left: '350px', top: '320px' } },
   { ids: ['cookie_ninja', 'ninja'], style: { width: '412px', height: '444px', left: '200px', top: '140px' } },
   { ids: ['chef', 'chœur'], style: { width: '200px', height: 'auto', left: '390px', top: '360px' } },

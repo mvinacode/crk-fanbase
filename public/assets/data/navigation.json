@@ -1,266 +1,36 @@
-{
-    "fa4da28e-bff9-441e-b466-a6464c1d266a": {
-        "suivant": "9a419714-296e-449f-815c-1842448d7234",
-        "precedent": "18f2de53-0fed-42c9-86ef-c5e19f0b3f0a"
-    },
-    "cookie-temeraire": {
-        "suivant": "9a419714-296e-449f-815c-1842448d7234",
-        "precedent": "18f2de53-0fed-42c9-86ef-c5e19f0b3f0a"
-    },
-    "9a419714-296e-449f-815c-1842448d7234": {
-        "suivant": "b01c71b1-19b0-46ff-894f-f22d3008f585",
-        "precedent": "fa4da28e-bff9-441e-b466-a6464c1d266a"
-    },
-    "cookie-fraise": {
-        "suivant": "b01c71b1-19b0-46ff-894f-f22d3008f585",
-        "precedent": "fa4da28e-bff9-441e-b466-a6464c1d266a"
-    },
-    "cookie-sorcier": {
-        "suivant": "6f0371f8-a990-46f5-83b5-fcb476744825",
-        "precedent": "9a419714-296e-449f-815c-1842448d7234"
-    },
-    "b01c71b1-19b0-46ff-894f-f22d3008f585": {
-        "suivant": "6f0371f8-a990-46f5-83b5-fcb476744825",
-        "precedent": "9a419714-296e-449f-815c-1842448d7234"
-    },
-    "cookie-ninja": {
-        "suivant": "fbe1a5be-bfac-44af-b1a1-10446abf35b0",
-        "precedent": "b01c71b1-19b0-46ff-894f-f22d3008f585"
-    },
-    "6f0371f8-a990-46f5-83b5-fcb476744825": {
-        "suivant": "fbe1a5be-bfac-44af-b1a1-10446abf35b0",
-        "precedent": "b01c71b1-19b0-46ff-894f-f22d3008f585"
-    },
-    "cookie-ange": {
-        "suivant": "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7",
-        "precedent": "6f0371f8-a990-46f5-83b5-fcb476744825"
-    },
-    "fbe1a5be-bfac-44af-b1a1-10446abf35b0": {
-        "suivant": "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7",
-        "precedent": "6f0371f8-a990-46f5-83b5-fcb476744825"
-    },
-    "cookie-costaud": {
-        "suivant": "c94ab484-756e-40dd-9451-da840179f983",
-        "precedent": "fbe1a5be-bfac-44af-b1a1-10446abf35b0"
-    },
-    "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7": {
-        "suivant": "c94ab484-756e-40dd-9451-da840179f983",
-        "precedent": "fbe1a5be-bfac-44af-b1a1-10446abf35b0"
-    },
-    "cookie-aventurier": {
-        "suivant": "e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca",
-        "precedent": "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7"
-    },
-    "c94ab484-756e-40dd-9451-da840179f983": {
-        "suivant": "e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca",
-        "precedent": "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7"
-    },
-    "cookie-alchimiste": {
-        "suivant": "8f0007c7-0641-455e-b184-3d41569e85d5",
-        "precedent": "c94ab484-756e-40dd-9451-da840179f983"
-    },
-    "e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca": {
-        "suivant": "8f0007c7-0641-455e-b184-3d41569e85d5",
-        "precedent": "c94ab484-756e-40dd-9451-da840179f983"
-    },
-    "cookie-avocat": {
-        "suivant": "09dfe6bb-6a87-4984-8afb-96b94444c08d",
-        "precedent": "e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca"
-    },
-    "8f0007c7-0641-455e-b184-3d41569e85d5": {
-        "suivant": "09dfe6bb-6a87-4984-8afb-96b94444c08d",
-        "precedent": "e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca"
-    },
-    "cookie-betterave": {
-        "suivant": "806edfc7-e9c6-4f31-9797-2e9455f6544e",
-        "precedent": "8f0007c7-0641-455e-b184-3d41569e85d5"
-    },
-    "09dfe6bb-6a87-4984-8afb-96b94444c08d": {
-        "suivant": "806edfc7-e9c6-4f31-9797-2e9455f6544e",
-        "precedent": "8f0007c7-0641-455e-b184-3d41569e85d5"
-    },
-    "cookie-mure": {
-        "suivant": "9d9bd274-c85b-4b4e-b6dc-9b5115b87471",
-        "precedent": "09dfe6bb-6a87-4984-8afb-96b94444c08d"
-    },
-    "806edfc7-e9c6-4f31-9797-2e9455f6544e": {
-        "suivant": "9d9bd274-c85b-4b4e-b6dc-9b5115b87471",
-        "precedent": "09dfe6bb-6a87-4984-8afb-96b94444c08d"
-    },
-    "cookie-carotte": {
-        "suivant": "638e6269-caad-4d3b-ab53-c0ea87e4034a",
-        "precedent": "806edfc7-e9c6-4f31-9797-2e9455f6544e"
-    },
-    "9d9bd274-c85b-4b4e-b6dc-9b5115b87471": {
-        "suivant": "638e6269-caad-4d3b-ab53-c0ea87e4034a",
-        "precedent": "806edfc7-e9c6-4f31-9797-2e9455f6544e"
-    },
-    "cookie-cerise": {
-        "suivant": "ac08d696-014e-4ad7-9510-e5ac5a47d7ea",
-        "precedent": "9d9bd274-c85b-4b4e-b6dc-9b5115b87471"
-    },
-    "638e6269-caad-4d3b-ab53-c0ea87e4034a": {
-        "suivant": "ac08d696-014e-4ad7-9510-e5ac5a47d7ea",
-        "precedent": "9d9bd274-c85b-4b4e-b6dc-9b5115b87471"
-    },
-    "cookie-piment": {
-        "suivant": "33d1bacf-7921-4f3d-a95c-5f44cc92de90",
-        "precedent": "638e6269-caad-4d3b-ab53-c0ea87e4034a"
-    },
-    "ac08d696-014e-4ad7-9510-e5ac5a47d7ea": {
-        "suivant": "33d1bacf-7921-4f3d-a95c-5f44cc92de90",
-        "precedent": "638e6269-caad-4d3b-ab53-c0ea87e4034a"
-    },
-    "cookie-trefle": {
-        "suivant": "dd1be758-122d-4597-86e7-bb4b2b61718c",
-        "precedent": "ac08d696-014e-4ad7-9510-e5ac5a47d7ea"
-    },
-    "33d1bacf-7921-4f3d-a95c-5f44cc92de90": {
-        "suivant": "dd1be758-122d-4597-86e7-bb4b2b61718c",
-        "precedent": "ac08d696-014e-4ad7-9510-e5ac5a47d7ea"
-    },
-    "cookie-creme-patissiere-iii": {
-        "suivant": "886acc5d-30e5-4b38-9488-28b3349faddc",
-        "precedent": "33d1bacf-7921-4f3d-a95c-5f44cc92de90"
-    },
-    "dd1be758-122d-4597-86e7-bb4b2b61718c": {
-        "suivant": "886acc5d-30e5-4b38-9488-28b3349faddc",
-        "precedent": "33d1bacf-7921-4f3d-a95c-5f44cc92de90"
-    },
-    "cookie-chevalier": {
-        "suivant": "bda640ab-89be-447c-8210-16616fa9de53",
-        "precedent": "dd1be758-122d-4597-86e7-bb4b2b61718c"
-    },
-    "886acc5d-30e5-4b38-9488-28b3349faddc": {
-        "suivant": "bda640ab-89be-447c-8210-16616fa9de53",
-        "precedent": "dd1be758-122d-4597-86e7-bb4b2b61718c"
-    },
-    "cookie-oignon": {
-        "suivant": "a8f85028-e661-4378-a193-e3a951b66d05",
-        "precedent": "886acc5d-30e5-4b38-9488-28b3349faddc"
-    },
-    "bda640ab-89be-447c-8210-16616fa9de53": {
-        "suivant": "a8f85028-e661-4378-a193-e3a951b66d05",
-        "precedent": "886acc5d-30e5-4b38-9488-28b3349faddc"
-    },
-    "cookie-pancake": {
-        "suivant": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe",
-        "precedent": "bda640ab-89be-447c-8210-16616fa9de53"
-    },
-    "a8f85028-e661-4378-a193-e3a951b66d05": {
-        "suivant": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe",
-        "precedent": "bda640ab-89be-447c-8210-16616fa9de53"
-    },
-    "cookie-princesse": {
-        "suivant": "86e05b59-a249-4218-bac6-d3fe3fc733a6",
-        "precedent": "a8f85028-e661-4378-a193-e3a951b66d05"
-    },
-    "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe": {
-        "suivant": "86e05b59-a249-4218-bac6-d3fe3fc733a6",
-        "precedent": "a8f85028-e661-4378-a193-e3a951b66d05"
-    },
-    "cookie-boule-de-gomme": {
-        "suivant": "b9c41288-16d4-42ef-a887-a53639ca572c",
-        "precedent": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe"
-    },
-    "86e05b59-a249-4218-bac6-d3fe3fc733a6": {
-        "suivant": "b9c41288-16d4-42ef-a887-a53639ca572c",
-        "precedent": "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe"
-    },
-    "cookie-jardinier": {
-        "suivant": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c",
-        "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
-    },
-    "b9c41288-16d4-42ef-a887-a53639ca572c": {
-        "suivant": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c",
-        "precedent": "86e05b59-a249-4218-bac6-d3fe3fc733a6"
-    },
-    "cookie-choco-noir": {
-        "suivant": "67175204-d395-48f9-b909-a77e426af7cc",
-        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
-    },
-    "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c": {
-        "suivant": "67175204-d395-48f9-b909-a77e426af7cc",
-        "precedent": "b9c41288-16d4-42ef-a887-a53639ca572c"
-    },
-    "cookie-espresso": {
-        "suivant": "4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc",
-        "precedent": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c"
-    },
-    "67175204-d395-48f9-b909-a77e426af7cc": {
-        "suivant": "4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc",
-        "precedent": "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c"
-    },
-    "cookie-reglisse": {
-        "suivant": "84f24310-256d-4e4f-addc-ae201bedacc9",
-        "precedent": "67175204-d395-48f9-b909-a77e426af7cc"
-    },
-    "4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc": {
-        "suivant": "84f24310-256d-4e4f-addc-ae201bedacc9",
-        "precedent": "67175204-d395-48f9-b909-a77e426af7cc"
-    },
-    "cookie-madeleine": {
-        "suivant": "db8de6ac-1857-409a-af44-cb19fd2d6277",
-        "precedent": "4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc"
-    },
-    "84f24310-256d-4e4f-addc-ae201bedacc9": {
-        "suivant": "db8de6ac-1857-409a-af44-cb19fd2d6277",
-        "precedent": "4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc"
-    },
-    "cookie-lait": {
-        "suivant": "d3ba8976-3225-4b7a-b448-2acf77d44f28",
-        "precedent": "84f24310-256d-4e4f-addc-ae201bedacc9"
-    },
-    "db8de6ac-1857-409a-af44-cb19fd2d6277": {
-        "suivant": "d3ba8976-3225-4b7a-b448-2acf77d44f28",
-        "precedent": "84f24310-256d-4e4f-addc-ae201bedacc9"
-    },
-    "cookie-choco-menthe": {
-        "suivant": "208193a2-2738-407f-a369-0e9d33abdbac",
-        "precedent": "db8de6ac-1857-409a-af44-cb19fd2d6277"
-    },
-    "d3ba8976-3225-4b7a-b448-2acf77d44f28": {
-        "suivant": "208193a2-2738-407f-a369-0e9d33abdbac",
-        "precedent": "db8de6ac-1857-409a-af44-cb19fd2d6277"
-    },
-    "cookie-champignon-veneneux": {
-        "suivant": "8ee2d6c0-3850-4583-a3ca-472a5734bd73",
-        "precedent": "d3ba8976-3225-4b7a-b448-2acf77d44f28"
-    },
-    "208193a2-2738-407f-a369-0e9d33abdbac": {
-        "suivant": "8ee2d6c0-3850-4583-a3ca-472a5734bd73",
-        "precedent": "d3ba8976-3225-4b7a-b448-2acf77d44f28"
-    },
-    "cookie-grenade": {
-        "suivant": "a709bc50-4e3d-4b31-86db-8ab021e8801c",
-        "precedent": "208193a2-2738-407f-a369-0e9d33abdbac"
-    },
-    "8ee2d6c0-3850-4583-a3ca-472a5734bd73": {
-        "suivant": "a709bc50-4e3d-4b31-86db-8ab021e8801c",
-        "precedent": "208193a2-2738-407f-a369-0e9d33abdbac"
-    },
-    "cookie-patate-douce": {
-        "suivant": "2a64cf1b-013e-4d83-b3f2-4db3c9c43375",
-        "precedent": "8ee2d6c0-3850-4583-a3ca-472a5734bd73"
-    },
-    "a709bc50-4e3d-4b31-86db-8ab021e8801c": {
-        "suivant": "2a64cf1b-013e-4d83-b3f2-4db3c9c43375",
-        "precedent": "8ee2d6c0-3850-4583-a3ca-472a5734bd73"
-    },
-    "cookie-seigle": {
-        "suivant": "18f2de53-0fed-42c9-86ef-c5e19f0b3f0a",
-        "precedent": "a709bc50-4e3d-4b31-86db-8ab021e8801c"
-    },
-    "2a64cf1b-013e-4d83-b3f2-4db3c9c43375": {
-        "suivant": "18f2de53-0fed-42c9-86ef-c5e19f0b3f0a",
-        "precedent": "a709bc50-4e3d-4b31-86db-8ab021e8801c"
-    },
-    "cookie-sucre-glace": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
-        "precedent": "2a64cf1b-013e-4d83-b3f2-4db3c9c43375"
-    },
-    "18f2de53-0fed-42c9-86ef-c5e19f0b3f0a": {
-        "suivant": "fa4da28e-bff9-441e-b466-a6464c1d266a",
-        "precedent": "2a64cf1b-013e-4d83-b3f2-4db3c9c43375"
-    }
-}
+[
+    "fa4da28e-bff9-441e-b466-a6464c1d266a",
+    "9a419714-296e-449f-815c-1842448d7234",
+    "b01c71b1-19b0-46ff-894f-f22d3008f585",
+    "6f0371f8-a990-46f5-83b5-fcb476744825",
+    "fbe1a5be-bfac-44af-b1a1-10446abf35b0",
+    "5b3df6bd-fb10-4538-9e2f-b6d85c5d8eb7",
+    "c94ab484-756e-40dd-9451-da840179f983",
+    "e2dfc10a-4f2a-4ce8-9c5d-6bb18e0ff5ca",
+    "8f0007c7-0641-455e-b184-3d41569e85d5",
+    "09dfe6bb-6a87-4984-8afb-96b94444c08d",
+    "806edfc7-e9c6-4f31-9797-2e9455f6544e",
+    "9d9bd274-c85b-4b4e-b6dc-9b5115b87471",
+    "638e6269-caad-4d3b-ab53-c0ea87e4034a",
+    "ac08d696-014e-4ad7-9510-e5ac5a47d7ea",
+    "33d1bacf-7921-4f3d-a95c-5f44cc92de90",
+    "dd1be758-122d-4597-86e7-bb4b2b61718c",
+    "886acc5d-30e5-4b38-9488-28b3349faddc",
+    "bda640ab-89be-447c-8210-16616fa9de53",
+    "a8f85028-e661-4378-a193-e3a951b66d05",
+    "5ab8cd4a-61c0-498a-8f17-9f6d63577cbe",
+    "86e05b59-a249-4218-bac6-d3fe3fc733a6",
+    "b9c41288-16d4-42ef-a887-a53639ca572c",
+    "2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c",
+    "67175204-d395-48f9-b909-a77e426af7cc",
+    "4e2b26fd-01c4-489e-bb1a-7c9c78cf1dcc",
+    "84f24310-256d-4e4f-addc-ae201bedacc9",
+    "db8de6ac-1857-409a-af44-cb19fd2d6277",
+    "d3ba8976-3225-4b7a-b448-2acf77d44f28",
+    "208193a2-2738-407f-a369-0e9d33abdbac",
+    "8ee2d6c0-3850-4583-a3ca-472a5734bd73",
+    "a709bc50-4e3d-4b31-86db-8ab021e8801c",
+    "2a64cf1b-013e-4d83-b3f2-4db3c9c43375",
+    "18f2de53-0fed-42c9-86ef-c5e19f0b3f0a",
+    "93db6fb5-267a-43be-a9ee-d219157ff816"
+]

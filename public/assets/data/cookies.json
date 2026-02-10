@@ -1303,7 +1303,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soin.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_petillant.html"
+    "lien": "cookie_detail.html?id=cookie-petillant"
   },
   {
     "id": "cookie-sucre-glace",
@@ -1343,7 +1343,7 @@
   },
   {
     "id": "cookie-champignon-veneneux",
-    "nom": "Cookie Champignon veneneux",
+    "nom": "Cookie Champignon vénéneux",
     "image": "cookies/cookie_champignon_veneneux/cookie_champignon_veneneux_tete.webp",
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
