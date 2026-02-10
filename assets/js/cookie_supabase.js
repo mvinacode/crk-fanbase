@@ -94,6 +94,7 @@ const cookieMap = {
   'cookie-sucre-glace': '18f2de53-0fed-42c9-86ef-c5e19f0b3f0a',
   'cookie-petillant': '93db6fb5-267a-43be-a9ee-d219157ff816',
   'cookie-lys-tigre': '38ce4017-fb02-429e-93b0-3402678dacfc',
+  'cookie-vampire': 'd118c11e-6048-420e-9174-5f9fc2c780e5'
 };
 
 if (cookieMap[cookieId]) {
@@ -604,7 +605,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['cookie_ninja', 'ninja'], style: { width: '412px', height: '444px', left: '200px', top: '140px' } },
   { ids: ['chef', 'chœur'], style: { width: '200px', height: 'auto', left: '390px', top: '360px' } },
   { ids: ['pull'], style: { width: '200px', height: 'auto', left: '380px', top: '340px' } },
   { ids: ['camouflage', 'jungle'], style: { width: '412px', height: '444px', left: '300px', top: '120px' } },

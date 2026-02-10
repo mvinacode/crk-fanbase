@@ -1285,7 +1285,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "",
-    "lien": "cookie_vampire.html"
+    "lien": "cookie_detail.html?id=cookie-vampire"
   },
   {
     "id": "cookie-lys-tigre",
