@@ -1294,7 +1294,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "",
-    "lien": "cookie_lys_tigre.html"
+    "lien": "cookie_detail.html?id=cookie-lys-tigre"
   },
   {
     "id": "cookie-petillant",

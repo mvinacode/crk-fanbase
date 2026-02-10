@@ -92,7 +92,8 @@ const cookieMap = {
   'cookie-patate-douce': 'a709bc50-4e3d-4b31-86db-8ab021e8801c',
   'cookie-seigle': '2a64cf1b-013e-4d83-b3f2-4db3c9c43375',
   'cookie-sucre-glace': '18f2de53-0fed-42c9-86ef-c5e19f0b3f0a',
-  'cookie-petillant': '93db6fb5-267a-43be-a9ee-d219157ff816'
+  'cookie-petillant': '93db6fb5-267a-43be-a9ee-d219157ff816',
+  'cookie-lys-tigre': '38ce4017-fb02-429e-93b0-3402678dacfc',
 };
 
 if (cookieMap[cookieId]) {
@@ -427,8 +428,8 @@ async function loadCookieData() {
           id: costumeRow.id,
           nom: costumeRow.nom || 'Costume',
           images: costumeImages,
-          illustrationReplace: costumeRow.illustrationReplace || null,
-          rareteIcon: costumeRow.rareteIcon || null,
+          illustrationReplace: costumeRow.illustrationReplace || costumeRow.illustration_replace || null,
+          rareteIcon: costumeRow.rareteIcon || costumeRow.rarete_icon || null,
           style: {
             width: costumeRow.style_width,
             height: costumeRow.style_height,
@@ -603,7 +604,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['cache', 'ombre'], style: { width: '200px', height: 'auto', left: '350px', top: '320px' } },
   { ids: ['cookie_ninja', 'ninja'], style: { width: '412px', height: '444px', left: '200px', top: '140px' } },
   { ids: ['chef', 'chœur'], style: { width: '200px', height: 'auto', left: '390px', top: '360px' } },
   { ids: ['pull'], style: { width: '200px', height: 'auto', left: '380px', top: '340px' } },
@@ -1351,7 +1351,11 @@ function setupImageCycles(cookieData) {
 
       if (this.classList.contains('costume-toggle')) {
         const costumeName = this.alt?.toLowerCase() || '';
-        const isNB = costumeName.includes('nb') || (images[parseInt(this.dataset.step || 0)]?.toLowerCase().includes('nb'));
+        const currentImageSrc = images[parseInt(this.dataset.step || 0)]?.toLowerCase() || '';
+        // Correction : éviter les faux positifs si l'URL contient "nb" par hasard (ex: .../v123456/nb... )
+        // On cherche "_nb" ou "(nb)" ou " nb" spécifiquement
+        const isNB = costumeName.includes('(nb)') || costumeName.includes(' nb') ||
+          currentImageSrc.includes('_nb.') || currentImageSrc.includes('_nb_');
 
         const page = document.getElementById('page-cookie');
         const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
