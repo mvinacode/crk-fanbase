@@ -1267,7 +1267,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_vent.webp",
-    "lien": "cookie_kumiho.html"
+    "lien": "cookie_detail.html?id=cookie-kumiho"
   },
   {
     "id": "cookie-loup-garou",

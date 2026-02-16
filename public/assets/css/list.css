@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'CookieRun-Bold';
-    src: url('../fonts/CookieRun\ Bold.ttf');
+  font-family: 'CookieRun-Bold';
+  src: url('../fonts/CookieRun\ Bold.ttf');
 }
 
 body.list {
@@ -17,6 +17,16 @@ body.list {
   gap: 150px;
   flex-wrap: wrap;
   position: relative;
+  justify-content: center;
+  /* Centrage global */
+}
+
+.header-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 150px;
 }
 
 .user-info {
@@ -50,13 +60,14 @@ body.list {
 }
 
 .logo {
-  width: 450px;
+  width: 350px;
   height: auto;
 }
 
 .patch-container {
   position: relative;
-  width: 700px; /* Agrandi pour correspondre à ta maquette */
+  width: 550px;
+  /* Réduit selon demande */
   max-width: 100%;
   overflow: hidden;
 }
@@ -124,7 +135,7 @@ body.list {
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filtre-rarete-options {
@@ -162,6 +173,7 @@ body.list {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -175,7 +187,8 @@ body.list {
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
-  padding: 10px 0; /* pour que le hover aie une vraie zone */
+  padding: 10px 0;
+  /* pour que le hover aie une vraie zone */
   font-size: 18px;
 }
 
@@ -212,7 +225,7 @@ body.list {
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filtre-role-options {
@@ -246,12 +259,15 @@ body.list {
 .filtre-role-options li {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* pour que le texte suive l'image */
-  gap: 10px; /* <-- espace entre image et texte */
+  justify-content: flex-start;
+  /* pour que le texte suive l'image */
+  gap: 10px;
+  /* <-- espace entre image et texte */
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
-  padding: 5px 30px; /* un peu de confort visuel */
+  padding: 5px 30px;
+  /* un peu de confort visuel */
   font-size: 18px;
 }
 
@@ -288,7 +304,7 @@ body.list {
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filtre-element-options {
@@ -322,12 +338,15 @@ body.list {
 .filtre-element-options li {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* pour que le texte suive l'image */
-  gap: 10px; /* <-- espace entre image et texte */
+  justify-content: flex-start;
+  /* pour que le texte suive l'image */
+  gap: 10px;
+  /* <-- espace entre image et texte */
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
-  padding: 5px 30px; /* un peu de confort visuel */
+  padding: 5px 30px;
+  /* un peu de confort visuel */
   font-size: 18px;
 }
 
@@ -379,7 +398,7 @@ body.list {
   cursor: pointer;
   position: relative;
   box-shadow: inset 0px 0px 10px rgba(134, 92, 67, 0.15),
-              0px 4px 8px rgba(0, 0, 0, 0.2);
+    0px 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
 }
 
@@ -453,7 +472,7 @@ body.list {
   width: 100%;
   height: 195px;
   box-sizing: border-box;
-  
+
   /* Animation au scroll avec effet de rebond */
   opacity: 0;
   transform: translateY(50px) scale(0.9);
@@ -475,10 +494,12 @@ body.list {
     opacity: 0;
     transform: translateY(50px) scale(0.9);
   }
+
   60% {
     opacity: 1;
     transform: translateY(-8px) scale(1.02);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -490,10 +511,12 @@ body.list {
     opacity: 0;
     transform: translateY(50px) scale(0.9);
   }
+
   60% {
     opacity: 0.4;
     transform: translateY(-8px) scale(1.02);
   }
+
   100% {
     opacity: 0.4;
     transform: translateY(0) scale(1);
@@ -508,13 +531,13 @@ body.list {
 /* Style glossy test pour une carte */
 .carte-cookie-glossy {
   box-shadow: inset 0px 0px 20px rgba(212, 196, 176, 0.5),
-              inset 0px -4px 8px rgba(196, 181, 160, 0.4),
-              inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
-              inset 0px 20px 30px -10px rgba(196, 181, 160, 0.7),
-              inset 0px -20px 30px -10px rgba(196, 181, 160, 0.7),
-              inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
-              inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
-              0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+    inset 0px -4px 8px rgba(196, 181, 160, 0.4),
+    inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
+    inset 0px 20px 30px -10px rgba(196, 181, 160, 0.7),
+    inset 0px -20px 30px -10px rgba(196, 181, 160, 0.7),
+    inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
+    inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
+    0px 8px 16px rgba(0, 0, 0, 0.2) !important;
   position: relative;
 }
 
@@ -588,10 +611,12 @@ body.list {
 /* Cas avec plusieurs elements_crk */
 .bloc-centre.multi-elements {
   flex-direction: row;
-  flex-wrap: wrap; /* C’est le point clé */
+  flex-wrap: wrap;
+  /* C’est le point clé */
   gap: 5px;
   justify-content: flex-start;
-  max-width: 105px; /* à ajuster selon ton design */
+  max-width: 105px;
+  /* à ajuster selon ton design */
 }
 
 
@@ -609,8 +634,8 @@ body.list {
 }
 
 @font-face {
-    font-family: 'CookieRun-Regular';
-    src: url('../fonts/CookieRun\ Regular.ttf');
+  font-family: 'CookieRun-Regular';
+  src: url('../fonts/CookieRun\ Regular.ttf');
 }
 
 .nom-cookie {
@@ -655,7 +680,8 @@ body.list {
 }
 
 .btn-obtenu.obtenu {
-  background-color: #4CAF50; /* Vert quand obtenu */
+  background-color: #4CAF50;
+  /* Vert quand obtenu */
 }
 
 .btn-obtenu.obtenu .checkmark-svg path {
@@ -669,14 +695,14 @@ body.list {
 
 .carte-cookie[data-awakened="true"] {
   box-shadow: 0 0 15px rgba(218, 165, 32, 0.9),
-              0 0 25px rgba(218, 165, 32, 0.6),
-              0 0 35px rgba(218, 165, 32, 0.3),
-              inset 0px 0px 20px rgba(212, 196, 176, 0.5),
-              inset 0px -4px 8px rgba(196, 181, 160, 0.4),
-              inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
-              inset 0px 20px 30px -10px rgba(196, 181, 160, 0.7),
-              inset 0px -20px 30px -10px rgba(196, 181, 160, 0.7),
-              inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
-              inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
-              0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+    0 0 25px rgba(218, 165, 32, 0.6),
+    0 0 35px rgba(218, 165, 32, 0.3),
+    inset 0px 0px 20px rgba(212, 196, 176, 0.5),
+    inset 0px -4px 8px rgba(196, 181, 160, 0.4),
+    inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
+    inset 0px 20px 30px -10px rgba(196, 181, 160, 0.7),
+    inset 0px -20px 30px -10px rgba(196, 181, 160, 0.7),
+    inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
+    inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
+    0px 8px 16px rgba(0, 0, 0, 0.2) !important;
 }

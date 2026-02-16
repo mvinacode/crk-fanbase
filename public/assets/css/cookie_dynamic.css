@@ -701,8 +701,8 @@ body:not(.accueil) .header .user-info {
 }
 
 .promotion-cycle {
-    width: 45px;
-    margin-right: -10px;
+    width: 42px;
+    margin-right: -7px;
     /* Pull them closer */
 }
 

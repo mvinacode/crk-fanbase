@@ -604,6 +604,25 @@ document.addEventListener("DOMContentLoaded", () => {
       appliquerFiltres();
     });
   });
+
+  // --- Chargement du Header ---
+  function loadHeader() {
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (headerPlaceholder) {
+      fetch('../includes/header_list.html')
+        .then(response => {
+          if (!response.ok) throw new Error("Header not found");
+          return response.text();
+        })
+        .then(data => {
+          headerPlaceholder.innerHTML = data;
+          document.dispatchEvent(new CustomEvent('headerLoaded'));
+        })
+        .catch(err => console.error("Erreur chargement header:", err));
+    }
+  }
+
+  loadHeader();
 });
 
 // Animation de bouton pressé avec délai avant navigation

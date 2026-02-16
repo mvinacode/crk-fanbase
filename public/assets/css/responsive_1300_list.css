@@ -5,18 +5,20 @@
   .header {
     max-width: 1460px;
     margin-inline: auto;
-    gap: 250px;         /* réduit un peu le gap énorme de 150px */
-    flex-wrap: nowrap; /* évite que ça saute à la ligne */
+    gap: 250px;
+    /* réduit un peu le gap énorme de 150px */
+    flex-wrap: nowrap;
+    /* évite que ça saute à la ligne */
     padding: 30px 50px;
   }
 
   .logo {
-    width: 450px;   /* on garde la taille “normale” */
+    width: 350px;
     height: auto;
   }
 
   .patch-container {
-    width: 700px;
+    width: 550px;
     max-width: 100%;
   }
 
@@ -32,10 +34,11 @@
     gap: 40px;
     justify-content: center;
   }
+
   .btn {
     font-size: 50px;
   }
-  
+
   .btn span {
     padding: 20px 40px;
   }
@@ -54,7 +57,8 @@
 
   /* Cartes */
   .grille-cookies {
-    gap: 30px; /* réduit le grand vide entre les cartes */
+    gap: 30px;
+    /* réduit le grand vide entre les cartes */
     align-items: center;
   }
 
