@@ -1249,7 +1249,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_chouquette.html"
+    "lien": "cookie_detail.html?id=cookie-chouquette"
   },
   {
     "id": "cookie-latte",
