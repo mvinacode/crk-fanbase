@@ -96,7 +96,8 @@ const cookieMap = {
   'cookie-lys-tigre': '38ce4017-fb02-429e-93b0-3402678dacfc',
   'cookie-vampire': 'd118c11e-6048-420e-9174-5f9fc2c780e5',
   'cookie-loup-garou': 'd5fbf15b-d256-4f89-845c-28cba230090a',
-  'cookie-kumiho': '61abe8df-ca00-4e39-9f40-907b1817174e'
+  'cookie-kumiho': '61abe8df-ca00-4e39-9f40-907b1817174e',
+  'cookie-latte': '056e7c48-9653-4905-8578-4ebc43ec2a28'
 };
 
 if (cookieMap[cookieId]) {
@@ -607,7 +608,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['camouflage', 'jungle'], style: { width: '412px', height: '444px', left: '300px', top: '120px' } },
   { ids: ['erreur', 'debutant'], style: { width: '200px', height: 'auto', left: '380px', top: '360px' } },
   { ids: ['cookie_alchimiste', 'alchimiste'], style: { width: '412px', height: '444px', left: '270px', top: '150px' } },
   { ids: ['chasseuse', 'occasionnelle'], style: { width: '412px', height: '444px', left: '310px', top: '110px' } },
