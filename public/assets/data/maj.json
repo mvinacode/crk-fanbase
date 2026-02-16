@@ -14,6 +14,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Amande",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771269971/cookie_amande_carte_uzw0dw.webp",
+    "link": "cookie_detail.html?id=cookie-amande",
+    "date": "2026-02-16T20:32:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Arbre Millénaire",
     "image": "cookies/cookie_arbre_millenaire/cookie_arbre_millenaire_coeur_des_saisons_carte.webp",
     "link": "cookie_arbre_millenaire.html",

@@ -98,7 +98,8 @@ const cookieMap = {
   'cookie-loup-garou': 'd5fbf15b-d256-4f89-845c-28cba230090a',
   'cookie-kumiho': '61abe8df-ca00-4e39-9f40-907b1817174e',
   'cookie-latte': '056e7c48-9653-4905-8578-4ebc43ec2a28',
-  'cookie-chouquette': 'a8cc42f1-8c98-43ee-9851-76208bc71e00'
+  'cookie-chouquette': 'a8cc42f1-8c98-43ee-9851-76208bc71e00',
+  'cookie-amande': '43e3e0ac-0129-40f9-a72b-eeb0b8cf96f8'
 };
 
 if (cookieMap[cookieId]) {
@@ -609,7 +610,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['cookie_alchimiste', 'alchimiste'], style: { width: '412px', height: '444px', left: '270px', top: '150px' } },
   { ids: ['chasseuse', 'occasionnelle'], style: { width: '412px', height: '444px', left: '310px', top: '110px' } },
   { ids: ['fermiere', 'fashionista'], style: { width: '412px', height: '444px', left: '280px', top: '110px' } },
   { ids: ['explosion', 'bombe'], style: { width: '412px', height: '444px', left: '280px', top: '150px' } },
