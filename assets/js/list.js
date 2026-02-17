@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
           id: db.id,
           nom: db.nom,
           image: db.icon_tete || db.tete || "", // Mapping vers image
+          tete_eveil: db.tete_eveil || "", // Nouvelle colonne
           rarete: db.rarete || "",
           role: db.classe || "", // Mapping vers role
           element: db.element || "",
@@ -84,13 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const { data: myCookies, error } = await supabase
       .from('cookies_users')
-      .select('cookie_id')
+      .select('cookie_id, is_awakened')
       .eq('user_id', session.user.id);
 
     if (myCookies) {
       myCookies.forEach(row => {
         if (row.cookie_id) {
           localStorage.setItem(row.cookie_id, "true");
+          // Stocker l'état éveillé
+          if (row.is_awakened) {
+            localStorage.setItem(`is_awakened_${row.cookie_id}`, "true");
+          } else {
+            localStorage.removeItem(`is_awakened_${row.cookie_id}`);
+          }
         }
       });
       // Re-apply visual state
@@ -155,67 +162,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const carte = document.createElement("a");
       // Par défaut, lien dynamique vers la page détail avec l'id
       carte.href = `cookie_detail.html?id=${encodeURIComponent(cookie.id)}`;
-      // --- Redirection automatique vers la page éveillée si possédé ---
-      // (on garde la logique existante, mais la valeur par défaut du href est maintenant cookie_detail.html?id=...)
-      const cookieKeyFromLink = (href) => {
-        const file = (href || "").split("/").pop() || "";
-        return file.replace(/\.html?$/i, "");
-      };
+      // --- GESTION DYNAMIQUE DE L'IMAGE ÉVEILLÉE ---
+      // On vérifie si le cookie est marqué comme "éveillé" dans le localStorage (sync via Supabase)
+      const isAwakened = localStorage.getItem(`is_awakened_${cookie.id}`) === "true";
 
-      const toHyphen = (s) => (s || "").toLowerCase().replace(/_/g, "-");
-      const toUnderscore = (s) => (s || "").toLowerCase().replace(/-/g, "_");
-
-      const linkKey = cookieKeyFromLink(cookie.lien);
-      const idKey = (cookie.id || "");
-      const candidates = new Set([
-        linkKey,
-        toHyphen(linkKey),
-        toUnderscore(linkKey),
-        idKey,
-        toHyphen(idKey),
-        toUnderscore(idKey),
-      ]);
-
-      let hasAwakened = false;
-      let canonical = null;
-      for (const key of candidates) {
-        const val = localStorage.getItem(`cookie-awakened-owned:${key}`);
-        if (val === "1") {
-          hasAwakened = true;
-          canonical = toHyphen(key);
-          break;
-        }
-      }
-
-      if (hasAwakened && canonical) {
-        localStorage.setItem(`cookie-awakened-owned:${canonical}`, "1");
-      }
-
-      const isLysBlanc = ["cookie-lys-blanc", "cookie_lys_blanc"].includes(canonical || toHyphen(linkKey));
-      const isVanillePure = ["cookie-vanille-pure", "cookie_vanille_pure"].includes(canonical || toHyphen(linkKey));
-      const isBaieHoux = ["cookie-baie-de-houx", "cookie_baie_de_houx"].includes(canonical || toHyphen(linkKey));
-      const isCacaoNoir = ["cookie-cacao-noir", "cookie_cacao_noir"].includes(canonical || toHyphen(linkKey));
-      const isFromageDore = ["cookie-fromage-dore", "cookie_fromage_dore"].includes(canonical || toHyphen(linkKey));
-      if (hasAwakened && isLysBlanc) {
-        carte.href = "cookie_lys_blanc_eveil.html";
+      // Si éveillé et qu'une image "tête éveil" existe, on l'utilise
+      if (isAwakened && cookie.tete_eveil) {
+        cookie.image = cookie.tete_eveil;
+        // Optionnel : Ajouter un marquage data-awakened sur la carte
         carte.dataset.awakened = "true";
       }
-      if (hasAwakened && isVanillePure) {
-        carte.href = "cookie_vanille_pure_eveil.html";
-        carte.dataset.awakened = "true";
-      }
-      if (hasAwakened && isBaieHoux) {
-        carte.href = "cookie_baie_de_houx_eveil.html";
-        carte.dataset.awakened = "true";
-      }
-      if (hasAwakened && isCacaoNoir) {
-        carte.href = "cookie_cacao_noir_eveil.html";
-        carte.dataset.awakened = "true";
-      }
-      if (hasAwakened && isFromageDore) {
-        carte.href = "cookie_fromage_dore_eveil.html";
-        carte.dataset.awakened = "true";
-      }
+
+      // FIN GESTION DYNAMIQUE
 
       // Vérifier l'état obtenu dès le début
       const estObtenu = localStorage.getItem(cookie.id) === "true";
@@ -283,76 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
           </button>
         </div>
       `;
-
-      // --- Changement d'image si Lys Blanc éveillé ---
-      if (cookie.id === "cookie-lys-blanc") {
-        const awakenKey1 = localStorage.getItem('cookie-awakened-owned:cookie-lys-blanc') === "1";
-        const awakenKey2 = localStorage.getItem('cookie-awakened-owned:cookie_lys_blanc') === "1";
-        const isAwakened = awakenKey1 || awakenKey2;
-
-        if (isAwakened) {
-          const headImg = carte.querySelector(".cookie-head");
-          if (headImg) {
-            headImg.src = "../assets/images/cookies/cookie_lys_blanc/cookie_lys_blanc_eveil_tete.webp";
-          }
-        }
-      }
-
-      // --- Changement d'image si Vanille Pure éveillé ---
-      if (cookie.id === "cookie-vanille-pure") {
-        const awakenKey1 = localStorage.getItem('cookie-awakened-owned:cookie-vanille-pure') === "1";
-        const awakenKey2 = localStorage.getItem('cookie-awakened-owned:cookie_vanille_pure') === "1";
-        const isAwakened = awakenKey1 || awakenKey2;
-
-        if (isAwakened) {
-          const headImg = carte.querySelector(".cookie-head");
-          if (headImg) {
-            headImg.src = "../assets/images/cookies/cookie_vanille_pure/cookie_vanille_pure_eveil_tete.webp";
-          }
-        }
-      }
-
-      // --- Changement d'image si Baie de Houx éveillé ---
-      if (cookie.id === "cookie-baie-de-houx") {
-        const awakenKey1 = localStorage.getItem('cookie-awakened-owned:cookie-baie-de-houx') === "1";
-        const awakenKey2 = localStorage.getItem('cookie-awakened-owned:cookie_baie_de_houx') === "1";
-        const isAwakened = awakenKey1 || awakenKey2;
-
-        if (isAwakened) {
-          const headImg = carte.querySelector(".cookie-head");
-          if (headImg) {
-            headImg.src = "../assets/images/cookies/cookie_baie_de_houx/cookie_baie_de_houx_eveil_tete.webp";
-          }
-        }
-      }
-
-      // --- Changement d'image si Cacao Noir éveillé ---
-      if (cookie.id === "cookie-cacao-noir") {
-        const awakenKey1 = localStorage.getItem('cookie-awakened-owned:cookie-cacao-noir') === "1";
-        const awakenKey2 = localStorage.getItem('cookie-awakened-owned:cookie_cacao_noir') === "1";
-        const isAwakened = awakenKey1 || awakenKey2;
-
-        if (isAwakened) {
-          const headImg = carte.querySelector(".cookie-head");
-          if (headImg) {
-            headImg.src = "../assets/images/cookies/cookie_cacao_noir/cookie_cacao_noir_eveil_tete.webp";
-          }
-        }
-      }
-
-      // --- Changement d'image si Fromage Doré éveillé ---
-      if (cookie.id === "cookie-fromage-dore") {
-        const awakenKey1 = localStorage.getItem('cookie-awakened-owned:cookie-fromage-dore') === "1";
-        const awakenKey2 = localStorage.getItem('cookie-awakened-owned:cookie_fromage_dore') === "1";
-        const isAwakened = awakenKey1 || awakenKey2;
-
-        if (isAwakened) {
-          const headImg = carte.querySelector(".cookie-head");
-          if (headImg) {
-            headImg.src = "../assets/images/cookies/cookie_fromage_dore/cookie_fromage_dore_eveil_tete.webp";
-          }
-        }
-      }
 
       container.appendChild(carte);
     });

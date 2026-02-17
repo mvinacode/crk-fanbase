@@ -1231,7 +1231,7 @@
     "rarete": "rarete/antique.webp",
     "role": "classe/soin.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_vanille_pure.html"
+    "lien": "cookie_detail.html?id=cookie-vanille-pure"
   },
   {
     "id": "cookie-amande",

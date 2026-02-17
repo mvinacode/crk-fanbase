@@ -99,7 +99,8 @@ const cookieMap = {
   'cookie-kumiho': '61abe8df-ca00-4e39-9f40-907b1817174e',
   'cookie-latte': '056e7c48-9653-4905-8578-4ebc43ec2a28',
   'cookie-chouquette': 'a8cc42f1-8c98-43ee-9851-76208bc71e00',
-  'cookie-amande': '43e3e0ac-0129-40f9-a72b-eeb0b8cf96f8'
+  'cookie-amande': '43e3e0ac-0129-40f9-a72b-eeb0b8cf96f8',
+  'cookie-vanille-pure': 'c539079c-f705-4e01-83a0-46ceef597e98'
 };
 
 if (cookieMap[cookieId]) {
@@ -240,6 +241,40 @@ async function loadCookieData() {
       .eq('cookie_id', cookieData.id);
     console.log('Toutes les lignes builds pour ce cookie_id :', allBuildsResponse);
 
+    // --- CHARGEMENT DES COSTUMES (Si table séparée) ---
+    const { data: costumesData, error: costumesError } = await supabase
+      .from('costumes')
+      .select('*')
+      .eq('cookie_id', cookieData.id)
+      .order('id'); // ou autre ordre
+
+    if (costumesError) {
+      console.error("Erreur lors du chargement des costumes:", costumesError);
+    }
+
+    if (costumesData && costumesData.length > 0) {
+      // Transformation des données pour correspondre à la structure attendue
+      // La table 'costumes' a des colonnes image1, image2, image3
+      // Mais le code attend un tableau 'images'
+      const formattedCostumes = costumesData.map(c => {
+        const imgs = [];
+        if (c.image1) imgs.push(c.image1);
+        if (c.image2) imgs.push(c.image2);
+        if (c.image3) imgs.push(c.image3);
+
+        return {
+          ...c,
+          images: imgs, // Création du tableau attendu
+          image3: c.image3 // On s'assure que image3 est bien là pour le check mythique
+        };
+      });
+
+      console.log("Costumes formatés pour affichage:", formattedCostumes);
+      cookieData.costumes = formattedCostumes;
+    } else {
+      console.warn("Aucun costume trouvé dans la table 'costumes' pour ce cookie_id:", cookieData.id);
+    }
+
     // --- HELPER FETCH CATEGORY DATA ---
     async function fetchCategoryData(categorySlug, buildTypes, defaultNom) {
       try {
@@ -376,6 +411,9 @@ async function loadCookieData() {
     localStorage.setItem(`bonbons-data:${cookieId}`, JSON.stringify(newBonbons));
     cookieData.bonbons = newBonbons;
 
+    // 8. Eveil (pas de reset)
+    cookieData.eveil = await fetchCategoryDataWithId('eveil', ['eveil', 'eveil1', 'eveil2', 'eveil3', 'eveil4', 'eveil5', 'eveil6', 'eveil7'], 'Éveil', cookieData.id);
+
     // Nouvelle version de fetchCategoryData qui prend cookieId en paramètre
     async function fetchCategoryDataWithId(categorySlug, buildTypes, defaultNom, cookieId) {
       try {
@@ -435,6 +473,7 @@ async function loadCookieData() {
           nom: costumeRow.nom || 'Costume',
           images: costumeImages,
           illustrationReplace: costumeRow.illustrationReplace || costumeRow.illustration_replace || null,
+          illustrationReplaceOr: costumeRow.illustrationReplaceOr || costumeRow.illustration_replace_or || null,
           rareteIcon: costumeRow.rareteIcon || costumeRow.rarete_icon || null,
           style: {
             width: costumeRow.style_width,
@@ -454,6 +493,25 @@ async function loadCookieData() {
         if (!isAOriginal && isBOriginal) return 1;
         return 0;
       });
+
+      // --- GESTION COSTUME ÉVEILLÉ ---
+      // Debug : afficher tous les noms de costume pour vérifier
+      console.log('[Costume Éveillé] Noms de tous les costumes:', cookieData.costumes.map(c => c.nom));
+
+      // Extraire le costume éveillé (ne pas l'afficher dans la galerie)
+      const eveilIndex = cookieData.costumes.findIndex(c => {
+        if (!c.nom) return false;
+        const nomLower = c.nom.toLowerCase();
+        return nomLower.includes('éveillé') || nomLower.includes('eveille') ||
+          nomLower.includes('éveil') || nomLower.includes('eveil');
+      });
+      console.log('[Costume Éveillé] Index trouvé:', eveilIndex);
+      if (eveilIndex !== -1) {
+        cookieData.costumeEveil = cookieData.costumes.splice(eveilIndex, 1)[0];
+        console.log('[Costume Éveillé] Trouvé et extrait:', cookieData.costumeEveil.nom, '| images:', cookieData.costumeEveil.images);
+      } else {
+        console.log('[Costume Éveillé] Aucun costume éveillé trouvé dans la liste');
+      }
     } else {
       cookieData.costumes = [];
     }
@@ -532,7 +590,7 @@ async function loadCookieData() {
       console.log('[DEBUG] Utilisateur connecté:', authData.user.id);
       const { data: userSelection, error: selectError } = await supabase
         .from('cookies_users')
-        .select('costume_id, builds, stats_checks')
+        .select('costume_id, builds, stats_checks, is_awakened')
         .eq('user_id', authData.user.id)
         .eq('cookie_id', cookieId) // cookieId est déjà l'UUID ici
         .maybeSingle();
@@ -547,10 +605,27 @@ async function loadCookieData() {
           const selectedCostume = cookieData.costumes?.find(c => c.id === userSelection.costume_id);
           console.log('[DEBUG] Costume correspondant trouvé dans data:', selectedCostume?.nom);
 
-          if (selectedCostume && selectedCostume.illustrationReplace) {
-            cookieData.activeCostumeId = selectedCostume.id;
-            saveCookieIllustration(cookieData.id, formatImagePath(selectedCostume.illustrationReplace));
-            saveEtatForId(selectedCostume.id, 1);
+          if (selectedCostume) {
+            let step = 0;
+            // Vérifier si un step est sauvegardé dans builds pour ce costume
+            if (userSelection.builds && userSelection.builds[selectedCostume.id] !== undefined) {
+              step = userSelection.builds[selectedCostume.id];
+            }
+
+            // Déterminer l'illustration à afficher
+            let illustrationUrl = selectedCostume.illustrationReplace;
+            if (step === 2 && selectedCostume.illustrationReplaceOr) {
+              illustrationUrl = selectedCostume.illustrationReplaceOr;
+            }
+
+            if (illustrationUrl) {
+              cookieData.activeCostumeId = selectedCostume.id;
+              // Sauvegarde locale TEMPORAIRE pour que le chargement initial fonctionne (sera écrasé si re-sauvegarde)
+              // Mais l'utilisateur veut du full Supabase.
+              // Ici on set l'illustration pour le chargement initial de la page.
+              saveCookieIllustration(cookieData.id, formatImagePath(illustrationUrl));
+              saveEtatForId(selectedCostume.id, step);
+            }
           }
         }
 
@@ -577,6 +652,7 @@ async function loadCookieData() {
           applyStep(cookieData.biscuits);
           applyStep(cookieData.promotions);
           if (cookieData.ascension?.etoiles) applyStep(cookieData.ascension.etoiles);
+          applyStep(cookieData.eveil);
         }
 
         // 3. Restauration des stats checks (JSONB)
@@ -584,6 +660,12 @@ async function loadCookieData() {
           console.log('[DEBUG] Stats checks trouvés en base:', userSelection.stats_checks);
           // On met à jour le localStorage pour que renderCookie l'utilise
           localStorage.setItem(`cookie_stats_checks_${cookieId}`, JSON.stringify(userSelection.stats_checks));
+        }
+
+        // 4. Restauration de l'état Éveillé
+        if (userSelection.is_awakened) {
+          console.log('[DEBUG] État Éveillé trouvé en base:', userSelection.is_awakened);
+          cookieData.isAwakened = userSelection.is_awakened;
         }
       }
     }
@@ -593,6 +675,40 @@ async function loadCookieData() {
     renderCookie(cookieData);
 
     // Afficher la galerie de costumes si présente (après renderCookie pour que le DOM existe)
+    // SWAP Costume Éveillé AVANT le rendu (isAwakened est maintenant défini)
+    console.log('[Costume Éveillé] Vérification swap:', {
+      isAwakened: cookieData.isAwakened,
+      hasCostumeEveil: !!cookieData.costumeEveil,
+      costumeEveilNom: cookieData.costumeEveil?.nom,
+      costumesRestants: cookieData.costumes?.map(c => c.nom)
+    });
+    if (cookieData.isAwakened && cookieData.costumeEveil) {
+      const originalCostume = cookieData.costumes?.find(c =>
+        c.nom && c.nom.toLowerCase().includes('original')
+      );
+      console.log('[Costume Éveillé] Costume Original trouvé:', originalCostume?.nom, '| images:', originalCostume?.images);
+      if (originalCostume && cookieData.costumeEveil.images?.length >= 1) {
+        // Sauvegarder les originaux pour restauration
+        originalCostume._originalImage0 = originalCostume.images[0];
+        originalCostume._originalRareteIcon = originalCostume.rareteIcon;
+        // Swapper l'image et l'icône de rareté
+        originalCostume.images[0] = cookieData.costumeEveil.images[0];
+        if (cookieData.costumeEveil.rareteIcon) {
+          originalCostume.rareteIcon = cookieData.costumeEveil.rareteIcon;
+        }
+        // Flag pour agrandissement spécifique dans la galerie
+        originalCostume.isAwakenedSwap = true;
+
+        // Si le costume éveillé a un illustrationReplace, on le met aussi
+        if (cookieData.costumeEveil.illustrationReplace) {
+          originalCostume._originalIllustrationReplace = originalCostume.illustrationReplace;
+          originalCostume.illustrationReplace = cookieData.costumeEveil.illustrationReplace;
+        }
+        console.log('[Costume Éveillé] Swap appliqué! Nouveau images[0]:', originalCostume.images[0]);
+      } else {
+        console.log('[Costume Éveillé] Swap NON appliqué - originalCostume:', !!originalCostume, '| eveil images count:', cookieData.costumeEveil.images?.length);
+      }
+    }
     if (cookieData.costumes && cookieData.costumes.length > 0) {
       renderCostumes(cookieData.costumes);
     }
@@ -610,7 +726,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['chasseuse', 'occasionnelle'], style: { width: '412px', height: '444px', left: '310px', top: '110px' } },
   { ids: ['fermiere', 'fashionista'], style: { width: '412px', height: '444px', left: '280px', top: '110px' } },
   { ids: ['explosion', 'bombe'], style: { width: '412px', height: '444px', left: '280px', top: '150px' } },
   { ids: ['poches', 'chance'], style: { width: '412px', height: '444px', left: '290px', top: '150px' } },
@@ -822,6 +937,43 @@ async function saveStatsToSupabase(cookieId, checks) {
   }
 }
 
+async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  try {
+    // Récupérer l'existant pour ne pas écraser les autres données
+    const { data: current } = await supabase
+      .from('cookies_users')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('cookie_id', cookieId)
+      .maybeSingle();
+
+    const payload = {
+      user_id: user.id,
+      cookie_id: cookieId,
+      is_awakened: isAwakened
+    };
+
+    // Si une entrée existe déjà, on garde ses valeurs pour les autres champs
+    if (current) {
+      if (current.costume_id) payload.costume_id = current.costume_id;
+      if (current.builds) payload.builds = current.builds;
+      if (current.stats_checks) payload.stats_checks = current.stats_checks;
+    }
+
+    const { error } = await supabase
+      .from('cookies_users')
+      .upsert(payload, { onConflict: 'user_id, cookie_id' });
+
+    if (error) throw error;
+    console.log(`✅ État Éveillé (${isAwakened}) sauvegardé sur Supabase`);
+  } catch (err) {
+    console.error('🔴 Erreur Save Awakened State:', err);
+  }
+}
+
 // --- FIN SAUVEGARDE SIMPLE ---
 
 // Lancer le chargement
@@ -877,10 +1029,71 @@ function applyDynamicTheme(data) {
      }
   */
   // Fallback/Support direct si colonnes existent
-  if (data.pos_illustration_top) root.style.setProperty('--pos-illustration-top', data.pos_illustration_top);
   if (data.pos_illustration_left) root.style.setProperty('--pos-illustration-left', data.pos_illustration_left);
 
+  // 5. Gestion de la classe Rareté (Antique) sur le body
+  // Support des deux formats : colonnes directes (rarete) OU format JSON (badges.rarete)
+  const raretePath = data.rarete || data.badges?.rarete || '';
+  if (raretePath.includes('antique')) {
+    document.body.classList.add('rarity-antique');
+  } else {
+    document.body.classList.remove('rarity-antique');
+  }
+
+  // 6. Gestion des styles spécifiques (Boutons Éveil) via ID
+  // Map des styles par défaut pour les cookies Antiques connus
+  const cookieStyles = {
+    // Pure Vanilla
+    'c539079c-f705-4e01-83a0-46ceef597e98': {
+      btnBg: '#F4B843', btnHover: '#f7cc77', glow: 'rgb(237, 201, 23)'
+    },
+    // White Lily (Lys Blanc)
+    'cookie-lys-blanc': { // Si l'ID est le slug
+      btnBg: '#237D56', btnHover: '#3dba84', glow: 'rgba(0, 255, 200, .35)'
+    },
+    '73956799-d46e-4f5b-8db8-1765cb131656': { // UUID Lys Blanc (supposition, à vérifier)
+      btnBg: '#237D56', btnHover: '#3dba84', glow: 'rgba(0, 255, 200, .35)'
+    },
+    // Dark Cacao (Cacao Noir)
+    'cookie-cacao-noir': {
+      btnBg: '#541F5D', btnHover: '#8b5f93', glow: 'rgb(66, 6, 122)'
+    },
+    '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c': { // UUID Cacao Noir
+      btnBg: '#541F5D', btnHover: '#8b5f93', glow: 'rgb(66, 6, 122)'
+    },
+    // Golden Cheese (Fromage Doré)
+    'cookie-fromage-dore': {
+      btnBg: '#CC662A', btnHover: '#d8895b', glow: 'rgb(255, 53, 3)'
+    },
+    // Hollyberry (Baie de Houx)
+    'cookie-baie-de-houx': {
+      btnBg: '#FF0498', btnHover: '#f98fcd', glow: 'rgb(172, 7, 81)'
+    },
+    'd7f43376-7489-4b68-80d5-3165582f6e91': { // UUID Baie de Houx
+      btnBg: '#FF0498', btnHover: '#f98fcd', glow: 'rgb(172, 7, 81)'
+    }
+  };
+
+  // On essaie de trouver le style par UUID ou par Slug (nom normalisé)
+  const style = cookieStyles[data.id] || cookieStyles['cookie-' + data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e")];
+
+  if (style) {
+    root.style.setProperty('--btn-eveil-bg', style.btnBg);
+    root.style.setProperty('--btn-eveil-hover', style.btnHover);
+    root.style.setProperty('--awaken-glow', style.glow);
+  } else {
+    // Fallback par défaut (Theme Primary)
+    root.style.setProperty('--btn-eveil-bg', 'var(--theme-primary)');
+    root.style.setProperty('--btn-eveil-hover', 'var(--theme-accent)');
+    root.style.setProperty('--awaken-glow', 'rgba(255, 255, 255, 0.5)');
+  }
+
   console.log("Thème dynamique appliqué pour :", data.nom);
+
+  // Ajouter un slug pour ciblage CSS cookie-spécifique
+  const slug = data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e");
+  const pageContainer = document.getElementById('page-cookie');
+  if (pageContainer) pageContainer.setAttribute('data-cookie-slug', slug);
 }
 
 function renderCookie(data) {
@@ -1147,6 +1360,16 @@ function renderCookie(data) {
     `}).join('')}
  </div>
  
+ <div class="eveil">
+    ${(data.eveil || []).map(e => `
+        <img alt="${e.nom || 'Éveil'}" class="eveil-cycle" 
+             data-id="${e.id}" 
+             data-images='${safeJsonStringify(e.images)}'
+             data-step="${e.selectedStep || 0}" 
+             src="${formatImagePath(e.images ? e.images[e.selectedStep || 0] : '')}"/>
+    `).join('')}
+ </div>
+
  <div class="bonbons">
     ${(data.bonbons || []).map(b => `
         <img alt="${b.nom || 'Bonbon'}" class="bonbon-cycle" 
@@ -1156,7 +1379,6 @@ function renderCookie(data) {
              src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
     `).join('')}
  </div>
-
 
   <a class="btn-costume" href="#"><span>Costumes</span></a>
   ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><span>Cookie précédent</span></a>` : ''}
@@ -1184,6 +1406,303 @@ function renderCookie(data) {
       });
     });
   }
+
+  // 7. Injection dynamique du bouton Éveil (si applicable)
+  injectAwakenButton(data);
+
+  // 8. Gestion des costumes (Popup et Changement d'image)
+  setupCostumeLogic(data);
+}
+
+// Configuration des données d'Éveil pour les cookies Antiques
+const cookieAwakenData = {
+  'cookie-vanille-pure': { // ID
+    eveilUrl: 'cookie_vanille_pure_eveil.html',
+    buttonLabel: 'Sage Éveillé'
+  },
+  'c539079c-f705-4e01-83a0-46ceef597e98': { // UUID
+    eveilUrl: 'cookie_vanille_pure_eveil.html',
+    buttonLabel: 'Sage Éveillé'
+  },
+  'cookie-lys-blanc': {
+    eveilUrl: 'cookie_lys_blanc_eveil.html',
+    buttonLabel: 'Fleur Éveillée'
+  },
+  '73956799-d46e-4f5b-8db8-1765cb131656': { // UUID Lys Blanc
+    eveilUrl: 'cookie_lys_blanc_eveil.html',
+    buttonLabel: 'Fleur Éveillée'
+  },
+  'cookie-cacao-noir': {
+    eveilUrl: 'cookie_cacao_noir_eveil.html',
+    buttonLabel: 'Dragon Éveillé'
+  },
+  '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c': { // UUID Cacao Noir
+    eveilUrl: 'cookie_cacao_noir_eveil.html',
+    buttonLabel: 'Dragon Éveillé'
+  },
+  'cookie-fromage-dore': {
+    eveilUrl: 'cookie_fromage_dore_eveil.html',
+    buttonLabel: 'Aile Éveillée'
+  },
+  'cookie-baie-de-houx': {
+    eveilUrl: 'cookie_baie_de_houx_eveil.html',
+    buttonLabel: 'Bouclier Éveillé'
+  },
+  'd7f43376-7489-4b68-80d5-3165582f6e91': { // UUID Baie de Houx
+    eveilUrl: 'cookie_baie_de_houx_eveil.html',
+    buttonLabel: 'Bouclier Éveillé'
+  }
+};
+
+function injectAwakenButton(data) {
+  const awakenData = cookieAwakenData[data.id] || cookieAwakenData['cookie-' + data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a")];
+
+  if (!awakenData) return; // Pas de données d'éveil pour ce cookie
+
+  // On évite les doublons si déjà injecté
+  if (document.getElementById('awaken-toggle')) return;
+
+  const container = document.querySelector('.page-cookie');
+  if (!container) return;
+
+  // Gestion de la source des images (Supabase uniquement)
+  let toggleImageNb = null;
+  let toggleImageColor = null;
+
+  if (data.confiture_ames) {
+    try {
+      // Support du format Array : ["chemin/nb.webp", "chemin/color.webp"]
+      // Ou format JSON Object (rétro-compatibilité) : { "nb": "...", "color": "..." }
+      const confiture = typeof data.confiture_ames === 'string' ? JSON.parse(data.confiture_ames) : data.confiture_ames;
+
+      if (Array.isArray(confiture) && confiture.length >= 2) {
+        // Format Array : Index 0 = NB, Index 1 = Couleur
+        toggleImageNb = formatImagePath(confiture[0]);
+        toggleImageColor = formatImagePath(confiture[1]);
+      } else if (confiture && confiture.nb && confiture.color) {
+        // Format Objet
+        toggleImageNb = formatImagePath(confiture.nb);
+        toggleImageColor = formatImagePath(confiture.color);
+      }
+    } catch (e) {
+      console.warn("Erreur lors du parsing de confiture_ames pour", data.nom, e);
+    }
+  }
+
+  // Si pas d'images trouvées dans Supabase, on n'affiche rien
+  if (!toggleImageNb || !toggleImageColor) return;
+
+  // Gestion du Favicon
+  const faviconLink = document.querySelector("link[rel='icon']") || document.createElement('link');
+  faviconLink.rel = 'icon';
+  document.head.appendChild(faviconLink); // S'assure qu'il est dans le head
+
+  // Sauvegarde du favicon d'origine (icon_tete ou favicon par défaut)
+  // On priorise icon_tete de Supabase s'il existe
+  const originalFavicon = data.icon_tete ? formatImagePath(data.icon_tete) : faviconLink.href;
+
+  // Appliquer icon_tete par défaut au chargement si disponible
+  if (data.icon_tete) {
+    faviconLink.href = originalFavicon;
+  }
+
+  // Création du bouton-image Toggle
+  const toggleImg = document.createElement('img');
+  toggleImg.id = 'awaken-toggle';
+  toggleImg.className = 'awaken-toggle';
+  toggleImg.alt = "Marquer l'Éveil obtenu";
+  toggleImg.width = 96;
+  toggleImg.height = 96;
+  toggleImg.src = toggleImageNb; // Par défaut en NB
+  toggleImg.dataset.state = 'nb'; // État initial
+  if (data.illustration_eveil) {
+    toggleImg.dataset.awakenedSrc = formatImagePath(data.illustration_eveil);
+  }
+
+  // Création du bouton lien (Visible mais désactivé)
+  const btnEveil = document.createElement('a');
+  btnEveil.id = 'btn-open-awakened';
+  btnEveil.className = 'btn-eveil';
+  btnEveil.href = `../pages/${awakenData.eveilUrl}`;
+  btnEveil.textContent = awakenData.buttonLabel;
+  btnEveil.hidden = false; // Toujours visible
+  btnEveil.setAttribute('aria-disabled', 'true'); // Toujours désactivé (visuellement)
+  btnEveil.style.opacity = '0.5'; // Départ grisé
+  btnEveil.style.pointerEvents = 'none'; // Désactiver le clic
+
+  // --- INITIALISATION DE L'ÉTAT (Si sauvegardé) ---
+  const mainIllustration = document.querySelector('.illustration-cookie img');
+  const root = document.documentElement; // Pour changer la variable CSS
+  const defaultLobby = getComputedStyle(root).getPropertyValue('--bg-image'); // Sauvegarder la valeur par défaut
+
+  if (data.isAwakened) {
+    toggleImg.src = toggleImageColor;
+    toggleImg.classList.add('active-glow');
+    toggleImg.dataset.state = 'color';
+    btnEveil.style.opacity = '1';
+
+    // Favicon
+    if (data.icon_tete_eveil) {
+      faviconLink.href = formatImagePath(data.icon_tete_eveil);
+    }
+
+    // Illustration Principale
+    if (mainIllustration && data.illustration_eveil) {
+      mainIllustration.src = formatImagePath(data.illustration_eveil);
+    }
+
+    // Lobby (Arrière-plan)
+    if (data.lobby_eveil) {
+      root.style.setProperty('--bg-image', `url('${formatImagePath(data.lobby_eveil)}')`);
+    }
+  }
+
+  // Ajout au DOM
+  container.appendChild(toggleImg);
+  container.appendChild(btnEveil);
+
+  // Logique du Toggle au clic
+  toggleImg.addEventListener('click', () => {
+    // Animation 'pop'
+    toggleImg.classList.remove('pop');
+    void toggleImg.offsetWidth; // Trigger reflow
+    toggleImg.classList.add('pop');
+
+    let isAwakenedState = false;
+
+    if (toggleImg.dataset.state === 'nb') {
+      // Activer l'éveil (Visuel uniquement)
+      toggleImg.src = toggleImageColor;
+      toggleImg.classList.add('active-glow');
+      toggleImg.dataset.state = 'color';
+
+      // Bouton : Devient coloré mais reste non-cliquable (demande utilisateur)
+      btnEveil.style.opacity = '1';
+
+      // Favicon : Changer pour icon_tete_eveil si disponible
+      if (data.icon_tete_eveil) {
+        faviconLink.href = formatImagePath(data.icon_tete_eveil);
+      }
+
+      // Illustration Principale : Changer pour illustration_eveil
+      if (mainIllustration && data.illustration_eveil) {
+        mainIllustration.classList.remove('illustration-swap-anim');
+        void mainIllustration.offsetWidth; // Trigger reflow
+        mainIllustration.src = formatImagePath(data.illustration_eveil);
+        mainIllustration.classList.add('illustration-swap-anim');
+      }
+
+      // Lobby (Arrière-plan)
+      if (data.lobby_eveil) {
+        root.style.setProperty('--bg-image', `url('${formatImagePath(data.lobby_eveil)}')`);
+      }
+
+      isAwakenedState = true;
+
+    } else {
+      // Désactiver l'éveil
+      toggleImg.src = toggleImageNb;
+      toggleImg.classList.remove('active-glow');
+      toggleImg.dataset.state = 'nb';
+
+      // Bouton : Redevient grisé
+      btnEveil.style.opacity = '0.5';
+
+      // Favicon : Revenir à l'original
+      faviconLink.href = originalFavicon;
+
+      // Illustration Principale : Revenir à l'original (base)
+      if (mainIllustration && window._cookieOriginalImage) {
+        mainIllustration.classList.remove('illustration-swap-anim');
+        void mainIllustration.offsetWidth; // Trigger reflow
+        mainIllustration.src = window._cookieOriginalImage;
+        mainIllustration.classList.add('illustration-swap-anim');
+      }
+
+      // Lobby (Arrière-plan) : Retour à la valeur par défaut
+      if (defaultLobby && defaultLobby.trim()) {
+        root.style.setProperty('--bg-image', defaultLobby);
+      } else {
+        root.style.removeProperty('--bg-image');
+      }
+
+      isAwakenedState = false;
+    }
+
+    // --- SWAP COSTUME ORIGINAL <-> ÉVEILLÉ dans le DOM ---
+    if (data.costumeEveil) {
+      const gallery = document.getElementById('popup-costume-gallery');
+      if (gallery) {
+        // Trouver le costume-toggle du costume "Original"
+        const allToggles = gallery.querySelectorAll('.costume-toggle');
+        allToggles.forEach(toggle => {
+          const toggleName = toggle.alt?.toLowerCase() || '';
+          if (toggleName.includes('original')) {
+            const images = JSON.parse(toggle.dataset.images || '[]');
+            const costumeItem = toggle.closest('.costume-item');
+            const iconImg = costumeItem?.querySelector('.costume-icon img');
+
+            if (isAwakenedState && data.costumeEveil.images?.length >= 1) {
+              // Sauvegarder les valeurs originales si pas déjà fait
+              if (!toggle.dataset.originalImage0) {
+                toggle.dataset.originalImage0 = images[0] || '';
+              }
+              if (iconImg && !iconImg.dataset.originalRareteIcon) {
+                iconImg.dataset.originalRareteIcon = iconImg.src;
+              }
+              // Remplacer image[0] avec celle du costume éveillé
+              images[0] = formatImagePath(data.costumeEveil.images[0]);
+              toggle.dataset.images = JSON.stringify(images);
+              // Si le toggle est actuellement sur step 0, mettre à jour le src affiché
+              const currentStep = parseInt(toggle.dataset.step || 0);
+              if (currentStep === 0) {
+                toggle.src = formatImagePath(data.costumeEveil.images[0]);
+              }
+              // Remplacer l'icône de rareté
+              if (iconImg && data.costumeEveil.rareteIcon) {
+                iconImg.src = formatImagePath(data.costumeEveil.rareteIcon);
+              }
+              // Agrandissement spécifique
+              costumeItem.classList.add('is-awakened-swap');
+              console.log('[Costume Éveillé] Swap DOM activé');
+            } else {
+              // Restaurer les valeurs originales
+              if (toggle.dataset.originalImage0) {
+                images[0] = toggle.dataset.originalImage0;
+                toggle.dataset.images = JSON.stringify(images);
+                const currentStep = parseInt(toggle.dataset.step || 0);
+                if (currentStep === 0) {
+                  toggle.src = toggle.dataset.originalImage0;
+                }
+              }
+              if (iconImg && iconImg.dataset.originalRareteIcon) {
+                iconImg.src = iconImg.dataset.originalRareteIcon;
+              }
+              // Retrait agrandissement spécifique
+              costumeItem.classList.remove('is-awakened-swap');
+              console.log('[Costume Éveillé] Swap DOM désactivé');
+            }
+          }
+        });
+      }
+    }
+
+    // Sauvegarder l'état dans Supabase
+    saveAwakenedStateToSupabase(data.id, isAwakenedState);
+  });
+
+  console.log('Bouton Éveil injecté dynamiquement pour :', data.nom);
+}
+
+function setupCostumeLogic(data) {
+  // Rendre les costumes dans le popup
+  renderCostumes(data.costumes);
+
+  // Configurer l'ouverture/fermeture du popup
+  setupCostumePopup();
+
+  // Configurer les cycles d'images (pour costumes et autres éléments)
+  setupImageCycles(data);
 }
 
 // Fonction pour formater les chemins d'images
@@ -1237,12 +1756,13 @@ function renderCostumes(costumes) {
   if (!costumes) return;
 
   const costumesHTML = costumes.map(c => `
-      <div class="costume-item">
+    <div class="costume-item ${c.isAwakenedSwap ? 'is-awakened-swap' : ''}">
         <div class="costume-toggle-wrapper">
           <img alt="${c.nom}" class="costume-toggle" 
                data-id="${c.id || 'costume-' + Math.random()}" 
                data-images='${safeJsonStringify(c.images)}'
                ${c.illustrationReplace ? `data-illustration-replace="${formatImagePath(c.illustrationReplace)}"` : ''}
+               ${c.illustrationReplaceOr ? `data-illustration-replace-or="${formatImagePath(c.illustrationReplaceOr)}"` : ''}
                data-style-width="${c.style?.width || ''}"
                data-style-height="${c.style?.height || ''}"
                data-style-top="${c.style?.top || ''}"
@@ -1253,7 +1773,10 @@ function renderCostumes(costumes) {
         <div class="costume-icon">
             <img alt="Rareté" src="${formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp')}"/>
         </div>
-        <p class="costume-name">${c.nom}</p>
+        <p class="costume-name">
+            ${c.nom}
+            ${(c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude') || c.nom.toLowerCase().includes('émeraude')))) ? `<img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034044/icone_mythique_k862nj.webp" alt="Mythique" style="width: 20px; height: auto; margin-left: 5px; vertical-align: middle;">` : ''}
+        </p>
       </div>
     `).join('');
 
@@ -1309,79 +1832,129 @@ function setupImageCycles(cookieData) {
     }
   }
 
-  document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .bonbon-cycle, .costume-toggle').forEach(element => {
-    // Restaure l'état sauvegardé au chargement
-    const id = element.dataset.id;
-    const savedStep = id ? getEtatForId(id) : null;
-    const images = JSON.parse(element.dataset.images || '[]');
-    if (savedStep !== null && !isNaN(savedStep) && images[savedStep]) {
-      element.dataset.step = savedStep;
-      element.src = images[savedStep];
+  let attempts = 0;
+  function attachListeners() {
+    const cycles = document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .bonbon-cycle, .eveil-cycle, .costume-toggle');
+    console.log('[setupImageCycles] Found elements:', cycles.length);
+
+    if (cycles.length === 0 && attempts < 50) {
+      attempts++;
+      setTimeout(attachListeners, 100);
+      return;
     }
-    element.addEventListener('click', function () {
-      let step = parseInt(this.dataset.step || 0);
-      if (images.length > 1) {
-        step = (step + 1) % images.length;
-        this.dataset.step = step;
-        this.src = images[step];
-        // Sauvegarde l'état (nouvelle clé)
-        if (id) saveEtatForId(id, step);
 
-        // Synchronisation Supabase pour les "builds" (si ce n'est pas un costume)
-        if (!this.classList.contains('costume-toggle')) {
-          const page = document.getElementById('page-cookie');
-          const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
-          if (cookieId && id) {
-            saveBuildToSupabase(cookieId, id, step);
-          }
-        }
-      }
-      // Costume : gestion illustration
-      const illustration = document.querySelector('.illustration-cookie img');
-      let illustrationChanged = false;
+    cycles.forEach(element => {
+      // Eviter d'attacher plusieurs fois
+      if (element.dataset.listenerAttached) return;
+      element.dataset.listenerAttached = 'true';
 
-      // Nettoyage préalable des styles pour éviter les conflits
-      if (illustration) {
-        delete illustration.dataset.styleWidth;
-        delete illustration.dataset.styleHeight;
-        delete illustration.dataset.styleTop;
-        delete illustration.dataset.styleLeft;
-        delete illustration.dataset.costumeName;
+      const id = element.dataset.id;
+      const images = JSON.parse(element.dataset.images || '[]');
+
+      // Restaure l'état sauvegardé au chargement (si pas déjà fait par le HTML)
+      const savedStep = id ? getEtatForId(id) : null;
+      if (savedStep !== null && !isNaN(savedStep) && images[savedStep]) {
+        element.dataset.step = savedStep;
+        element.src = images[savedStep];
       }
 
-      if (this.classList.contains('costume-toggle')) {
-        const costumeName = this.alt?.toLowerCase() || '';
-        const currentImageSrc = images[parseInt(this.dataset.step || 0)]?.toLowerCase() || '';
-        // Correction : éviter les faux positifs si l'URL contient "nb" par hasard (ex: .../v123456/nb... )
-        // On cherche "_nb" ou "(nb)" ou " nb" spécifiquement
-        const isNB = costumeName.includes('(nb)') || costumeName.includes(' nb') ||
-          currentImageSrc.includes('_nb.') || currentImageSrc.includes('_nb_');
+      element.addEventListener('click', function () {
+        let step = parseInt(this.dataset.step || 0);
+        if (images.length > 1) {
+          step = (step + 1) % images.length;
+          this.dataset.step = step;
+          this.src = images[step];
+          // Sauvegarde l'état (nouvelle clé)
+          if (id) saveEtatForId(id, step);
 
-        const page = document.getElementById('page-cookie');
-        const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
-
-        if (isNB && illustration) {
-          // Si on repasse en NB, on vérifie si c'était l'illustration active
-          const currentIllustration = illustration.src;
-          const isThisCostumeActive = currentIllustration === this.dataset.illustrationReplace;
-
-          if (isThisCostumeActive && window._cookieOriginalImage) {
-            console.log('[Costume] Désactivation de l\'illustration active, retour à l\'original...');
-            illustration.src = window._cookieOriginalImage;
-            illustrationChanged = true;
-
+          if (this.dataset.id) {
+            const page = document.getElementById('page-cookie');
+            const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
+            // On sauvegarde le step dans 'builds' pour TOUS les éléments (y compris costumes pour savoir si Mythique/Or)
             if (cookieId) {
-              saveSelectionToSupabase(cookieId, null);
-              localStorage.removeItem(`cookie-illustration:${cookieId}`);
+              saveBuildToSupabase(cookieId, this.dataset.id, step);
             }
           }
-        } else if (this.dataset.illustrationReplace && illustration) {
-          // Si on passe en Couleur, on définit comme illustration active
-          illustration.src = this.dataset.illustrationReplace;
-          illustrationChanged = true;
+        }
+        // Costume : gestion illustration
+        const illustration = document.querySelector('.illustration-cookie img');
+        let illustrationChanged = false;
+
+        // Nettoyage préalable des styles pour éviter les conflits
+        if (illustration) {
+          delete illustration.dataset.styleWidth;
+          delete illustration.dataset.styleHeight;
+          delete illustration.dataset.styleTop;
+          delete illustration.dataset.styleLeft;
+          delete illustration.dataset.costumeName;
+        }
+
+        if (this.classList.contains('costume-toggle')) {
+          const costumeName = this.alt?.toLowerCase() || '';
+          const currentImageSrc = images[parseInt(this.dataset.step || 0)]?.toLowerCase() || '';
+          // Correction : éviter les faux positifs si l'URL contient "nb" par hasard (ex: .../v123456/nb... )
+          // On cherche "_nb" ou "(nb)" ou " nb" spécifiquement
+          const isNB = costumeName.includes('(nb)') || costumeName.includes(' nb') ||
+            currentImageSrc.includes('_nb.') || currentImageSrc.includes('_nb_');
+
+          const page = document.getElementById('page-cookie');
+          const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
+
+          if (isNB && illustration) {
+            // Si on repasse en NB, on vérifie si c'était l'illustration active
+            const currentIllustration = illustration.src;
+            const isThisCostumeActive = currentIllustration === this.dataset.illustrationReplace || currentIllustration === this.dataset.illustrationReplaceOr;
+
+            if (isThisCostumeActive && window._cookieOriginalImage) {
+              console.log('[Costume] Désactivation de l\'illustration active, retour à l\'original...');
+
+              // Vérifier si le mode Éveillé est actif
+              const awakenToggle = document.getElementById('awaken-toggle');
+              console.log('[DEBUG] Click costume handler:', {
+                step: step,
+                isNB: isNB,
+                hasOr: !!this.dataset.illustrationReplaceOr,
+                valOr: this.dataset.illustrationReplaceOr
+              });
+              if (awakenToggle && awakenToggle.dataset.state === 'color' && awakenToggle.dataset.awakenedSrc) {
+                illustration.src = awakenToggle.dataset.awakenedSrc;
+              } else {
+                illustration.src = window._cookieOriginalImage;
+              }
+
+              illustrationChanged = true;
+
+              if (cookieId) {
+                saveSelectionToSupabase(cookieId, null);
+                localStorage.removeItem(`cookie - illustration:${cookieId} `);
+              }
+            }
+          } else if (this.dataset.illustrationReplaceOr && illustration && step === 2) {
+            // Si on passe en Mythique (image3 / step 2), on utilise l'illustration OR
+            illustration.src = this.dataset.illustrationReplaceOr;
+            illustrationChanged = true;
+
+          } else if (this.dataset.illustrationReplace && illustration) {
+            // Si on passe en Couleur, on définit comme illustration active
+            illustration.src = this.dataset.illustrationReplace;
+            illustrationChanged = true;
+          }
+
+          // GESTION ICONE RARETE DYNAMIQUE
+          // Si step 2 (Mythique), on change l'icone
+          const iconImg = this.closest('.costume-item').querySelector('.costume-icon img');
+          if (iconImg) {
+            if (step === 2) {
+              // Sauvegarde l'original si pas déjà fait
+              if (!iconImg.dataset.originalSrc) iconImg.dataset.originalSrc = iconImg.src;
+              iconImg.src = "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035463/mythique_costume_ia9ohj.webp";
+            } else {
+              // Restaure l'original si on n'est pas en step 2
+              if (iconImg.dataset.originalSrc) iconImg.src = iconImg.dataset.originalSrc;
+            }
+          }
 
           if (cookieId) {
-            saveCookieIllustration(cookieId, this.dataset.illustrationReplace);
             // Synchronisation Supabase avec la colonne costume_id
             saveSelectionToSupabase(cookieId, this.dataset.id);
 
@@ -1400,17 +1973,20 @@ function setupImageCycles(cookieData) {
             });
           }
         }
-      }
-      else if (this.dataset.illustrationReplace && illustration) {
-        illustration.src = this.dataset.illustrationReplace;
-        illustrationChanged = true;
-      }
-      // Réapplique les styles dynamiques si l'illustration a changé
-      if (illustrationChanged) {
-        applyIllustrationStyles();
-      }
+        else if (this.dataset.illustrationReplace && illustration) {
+          illustration.src = this.dataset.illustrationReplace;
+          illustrationChanged = true;
+        }
+        // Réapplique les styles dynamiques si l'illustration a changé
+        if (illustrationChanged) {
+          applyIllustrationStyles();
+        }
+      });
     });
-  });
+  }
+
+  // Démarrer l'attachement des listeners
+  attachListeners();
 }
 
 // --- GESTION DE LA PAGE D'ACCUEIL (INDEX) ---
@@ -1419,7 +1995,7 @@ async function initHomePage() {
   if (!container) return;
 
   try {
-    const response = await fetch(`assets/data/maj.json?t=${Date.now()}`);
+    const response = await fetch(`assets / data / maj.json ? t = ${Date.now()} `);
     if (!response.ok) throw new Error("Impossible de charger maj.json");
 
     const data = await response.json();
@@ -1460,7 +2036,7 @@ async function initHomePage() {
       const link = document.createElement("a");
       // Priorité au lien généré via ID/Slug Supabase, sinon lien JSON
       if (sbData && (sbData.id || sbData.slug)) {
-        link.href = `pages/cookie_detail.html?id=${sbData.id || sbData.slug}`;
+        link.href = `pages / cookie_detail.html ? id = ${sbData.id || sbData.slug} `;
       } else {
         // Gestion lien JSON (relatif ou absolu)
         if (cookie.link.startsWith('http')) {
