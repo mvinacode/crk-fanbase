@@ -1213,7 +1213,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "",
-    "lien": "cookie_crepe_a_la_fraise.html"
+    "lien": "cookie_detail.html?id=cookie-crepe-a-la-fraise"
   },
   {
     "id": "cookie-raisin-sec",

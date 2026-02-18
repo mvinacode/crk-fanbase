@@ -50,6 +50,16 @@ body.rarity-antique .nom-cookie {
     color: #60206C !important;
 }
 
+/* Rareté Rare (Gestion dynamique) */
+body.rarity-rare .nom-cookie {
+    color: #629FC6 !important;
+}
+
+/* Rareté Epique (Gestion dynamique) */
+body.rarity-epic .nom-cookie {
+    color: #F766A7 !important;
+}
+
 /* ==========================================================================
    COMPOSANTS PARTAGÉS (BOUTONS)
    ========================================================================== */

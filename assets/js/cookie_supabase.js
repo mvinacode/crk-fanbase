@@ -1049,6 +1049,24 @@ function applyDynamicTheme(data) {
     document.body.classList.remove('rarity-antique');
   }
 
+  // Rareté Rare (Demande spécifique couleur #629FC6)
+  // Rareté Rare (Demande spécifique couleur #629FC6)
+  // On utilise la colonne 'rarete' mais on fait attention à ne pas matcher le dossier asset 'rarete/'
+  // Logique : Si ça contient 'rare' ailleurs que dans 'rarete/'
+  const cleanedPath = raretePath.toLowerCase().replace('rarete', ''); // Enlève le mot du dossier
+  if (cleanedPath.includes('rare')) {
+    document.body.classList.add('rarity-rare');
+  } else {
+    document.body.classList.remove('rarity-rare');
+  }
+
+  // Rareté Epique (Demande spécifique couleur #F766A7)
+  if (cleanedPath.includes('epique')) {
+    document.body.classList.add('rarity-epic');
+  } else {
+    document.body.classList.remove('rarity-epic');
+  }
+
   // 6. Gestion des styles spécifiques (Boutons Éveil) via ID
   // Map des styles par défaut pour les cookies Antiques connus
   const cookieStyles = {
