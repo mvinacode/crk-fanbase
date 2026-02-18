@@ -100,7 +100,8 @@ const cookieMap = {
   'cookie-latte': '056e7c48-9653-4905-8578-4ebc43ec2a28',
   'cookie-chouquette': 'a8cc42f1-8c98-43ee-9851-76208bc71e00',
   'cookie-amande': '43e3e0ac-0129-40f9-a72b-eeb0b8cf96f8',
-  'cookie-vanille-pure': 'c539079c-f705-4e01-83a0-46ceef597e98'
+  'cookie-vanille-pure': 'c539079c-f705-4e01-83a0-46ceef597e98',
+  'cookie-raisin-sec': 'fb2c3d82-4df1-4b0b-a5ad-5e10d8f45310'
 };
 
 if (cookieMap[cookieId]) {
@@ -122,7 +123,7 @@ function loadCookieDynamicCSS() {
   const isDetailPage = document.getElementById('page-cookie');
   const path = isDetailPage ? '../assets/css/cookie_dynamic.css' : 'assets/css/cookie_dynamic.css';
 
-  link.href = path;
+  link.href = path + '?v=' + new Date().getTime();
   link.id = id;
   document.head.appendChild(link);
   console.log('✅ CSS chargé : ' + path);
@@ -704,6 +705,11 @@ async function loadCookieData() {
           originalCostume._originalIllustrationReplace = originalCostume.illustrationReplace;
           originalCostume.illustrationReplace = cookieData.costumeEveil.illustrationReplace;
         }
+
+        // Remplacer le nom pour "Costume éveillé"
+        originalCostume._originalName = originalCostume.nom;
+        originalCostume.nom = "Costume éveillé";
+
         console.log('[Costume Éveillé] Swap appliqué! Nouveau images[0]:', originalCostume.images[0]);
       } else {
         console.log('[Costume Éveillé] Swap NON appliqué - originalCostume:', !!originalCostume, '| eveil images count:', cookieData.costumeEveil.images?.length);
@@ -712,6 +718,8 @@ async function loadCookieData() {
     if (cookieData.costumes && cookieData.costumes.length > 0) {
       renderCostumes(cookieData.costumes);
     }
+
+
 
     // Appliquer dynamiquement les styles d'illustration selon l'image
     applyIllustrationStyles();
@@ -723,10 +731,11 @@ async function loadCookieData() {
   }
 }
 
+
+
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['fermiere', 'fashionista'], style: { width: '412px', height: '444px', left: '280px', top: '110px' } },
   { ids: ['explosion', 'bombe'], style: { width: '412px', height: '444px', left: '280px', top: '150px' } },
   { ids: ['poches', 'chance'], style: { width: '412px', height: '444px', left: '290px', top: '150px' } },
   { ids: ['cookie_cerise', 'cerise'], style: { width: '412px', height: '444px', left: '240px', top: '120px' } },
@@ -1547,8 +1556,20 @@ function injectAwakenButton(data) {
     }
 
     // Illustration Principale
-    if (mainIllustration && data.illustration_eveil) {
-      mainIllustration.src = formatImagePath(data.illustration_eveil);
+    const awakenedIllu = (data.costumeEveil && data.costumeEveil.illustrationReplace)
+      ? formatImagePath(data.costumeEveil.illustrationReplace)
+      : (data.illustration_eveil ? formatImagePath(data.illustration_eveil) : null);
+
+    if (mainIllustration && awakenedIllu) {
+      mainIllustration.src = awakenedIllu;
+
+      // Appliquer les styles du costume éveillé SI DISPONIBLES
+      if (data.costumeEveil && data.costumeEveil.style) {
+        if (data.costumeEveil.style.top) mainIllustration.dataset.styleTop = data.costumeEveil.style.top;
+        if (data.costumeEveil.style.left) mainIllustration.dataset.styleLeft = data.costumeEveil.style.left;
+        if (data.costumeEveil.style.width) mainIllustration.dataset.styleWidth = data.costumeEveil.style.width;
+        if (data.costumeEveil.style.height) mainIllustration.dataset.styleHeight = data.costumeEveil.style.height;
+      }
     }
 
     // Lobby (Arrière-plan)
@@ -1584,12 +1605,31 @@ function injectAwakenButton(data) {
         faviconLink.href = formatImagePath(data.icon_tete_eveil);
       }
 
-      // Illustration Principale : Changer pour illustration_eveil
-      if (mainIllustration && data.illustration_eveil) {
+      // Illustration Principale : Changer pour illustration_eveil (ou celle du costume si définie)
+      const awakenedIllustrationSrc = (data.costumeEveil && data.costumeEveil.illustrationReplace)
+        ? formatImagePath(data.costumeEveil.illustrationReplace)
+        : (data.illustration_eveil ? formatImagePath(data.illustration_eveil) : null);
+
+      if (mainIllustration && awakenedIllustrationSrc) {
         mainIllustration.classList.remove('illustration-swap-anim');
         void mainIllustration.offsetWidth; // Trigger reflow
-        mainIllustration.src = formatImagePath(data.illustration_eveil);
+        mainIllustration.src = awakenedIllustrationSrc;
         mainIllustration.classList.add('illustration-swap-anim');
+
+        // Initialiser les backups si nécessaire
+        // On sauvegarde les dataset qui pilotent applyIllustrationStyles
+        if (!mainIllustration.dataset.originalStyleTop && mainIllustration.dataset.styleTop) mainIllustration.dataset.originalStyleTop = mainIllustration.dataset.styleTop;
+        if (!mainIllustration.dataset.originalStyleLeft && mainIllustration.dataset.styleLeft) mainIllustration.dataset.originalStyleLeft = mainIllustration.dataset.styleLeft;
+        if (!mainIllustration.dataset.originalStyleWidth && mainIllustration.dataset.styleWidth) mainIllustration.dataset.originalStyleWidth = mainIllustration.dataset.styleWidth;
+        if (!mainIllustration.dataset.originalStyleHeight && mainIllustration.dataset.styleHeight) mainIllustration.dataset.originalStyleHeight = mainIllustration.dataset.styleHeight;
+
+        // Appliquer les styles du costume éveillé via dataset
+        if (data.costumeEveil && data.costumeEveil.style) {
+          if (data.costumeEveil.style.top) mainIllustration.dataset.styleTop = data.costumeEveil.style.top;
+          if (data.costumeEveil.style.left) mainIllustration.dataset.styleLeft = data.costumeEveil.style.left;
+          if (data.costumeEveil.style.width) mainIllustration.dataset.styleWidth = data.costumeEveil.style.width;
+          if (data.costumeEveil.style.height) mainIllustration.dataset.styleHeight = data.costumeEveil.style.height;
+        }
       }
 
       // Lobby (Arrière-plan)
@@ -1617,6 +1657,19 @@ function injectAwakenButton(data) {
         void mainIllustration.offsetWidth; // Trigger reflow
         mainIllustration.src = window._cookieOriginalImage;
         mainIllustration.classList.add('illustration-swap-anim');
+
+        // Restaurer les styles originaux (dataset)
+        if (mainIllustration.dataset.originalStyleTop !== undefined) mainIllustration.dataset.styleTop = mainIllustration.dataset.originalStyleTop; else delete mainIllustration.dataset.styleTop;
+        if (mainIllustration.dataset.originalStyleLeft !== undefined) mainIllustration.dataset.styleLeft = mainIllustration.dataset.originalStyleLeft; else delete mainIllustration.dataset.styleLeft;
+        if (mainIllustration.dataset.originalStyleWidth !== undefined) mainIllustration.dataset.styleWidth = mainIllustration.dataset.originalStyleWidth; else delete mainIllustration.dataset.styleWidth;
+        if (mainIllustration.dataset.originalStyleHeight !== undefined) mainIllustration.dataset.styleHeight = mainIllustration.dataset.originalStyleHeight; else delete mainIllustration.dataset.styleHeight;
+
+        // Nettoyer les backups (optionnel)
+        // Mais important pour re-permettre le backup si l'user re-clique
+        delete mainIllustration.dataset.originalStyleTop;
+        delete mainIllustration.dataset.originalStyleLeft;
+        delete mainIllustration.dataset.originalStyleWidth;
+        delete mainIllustration.dataset.originalStyleHeight;
       }
 
       // Lobby (Arrière-plan) : Retour à la valeur par défaut
@@ -1633,11 +1686,12 @@ function injectAwakenButton(data) {
     if (data.costumeEveil) {
       const gallery = document.getElementById('popup-costume-gallery');
       if (gallery) {
-        // Trouver le costume-toggle du costume "Original"
+        // Trouver le costume-toggle du costume "Original" (ou "Costume éveillé" si déjà swappé)
         const allToggles = gallery.querySelectorAll('.costume-toggle');
         allToggles.forEach(toggle => {
           const toggleName = toggle.alt?.toLowerCase() || '';
-          if (toggleName.includes('original')) {
+          // Si le nom contient "original" OU si on a déjà swappé (data-original-image0 présent)
+          if (toggleName.includes('original') || toggle.dataset.originalImage0) {
             const images = JSON.parse(toggle.dataset.images || '[]');
             const costumeItem = toggle.closest('.costume-item');
             const iconImg = costumeItem?.querySelector('.costume-icon img');
@@ -1662,9 +1716,40 @@ function injectAwakenButton(data) {
               if (iconImg && data.costumeEveil.rareteIcon) {
                 iconImg.src = formatImagePath(data.costumeEveil.rareteIcon);
               }
+
+              // Remplacer le nom
+              const nameEl = costumeItem.querySelector('.costume-name');
+              if (nameEl) {
+                // Sauvegarde du nom original si pas déjà fait
+                if (!nameEl.dataset.originalName) {
+                  nameEl.dataset.originalName = nameEl.innerHTML; // Utiliser innerHTML pour garder l'image mythique si présente
+                }
+                nameEl.textContent = "Costume éveillé";
+              }
+
               // Agrandissement spécifique
               costumeItem.classList.add('is-awakened-swap');
-              console.log('[Costume Éveillé] Swap DOM activé');
+
+              // --- MISE À JOUR DES ATTRIBUTS DE STYLE & ILLUSTRATION ---
+              // Sauvegarde
+              if (!toggle.dataset.originalIllustrationReplace) toggle.dataset.originalIllustrationReplace = toggle.dataset.illustrationReplace || '';
+              if (!toggle.dataset.originalStyleWidth) toggle.dataset.originalStyleWidth = toggle.dataset.styleWidth || '';
+              if (!toggle.dataset.originalStyleHeight) toggle.dataset.originalStyleHeight = toggle.dataset.styleHeight || '';
+              if (!toggle.dataset.originalStyleTop) toggle.dataset.originalStyleTop = toggle.dataset.styleTop || '';
+              if (!toggle.dataset.originalStyleLeft) toggle.dataset.originalStyleLeft = toggle.dataset.styleLeft || '';
+
+              // Remplacement
+              if (data.costumeEveil.illustrationReplace) {
+                toggle.dataset.illustrationReplace = formatImagePath(data.costumeEveil.illustrationReplace);
+              }
+              if (data.costumeEveil.style) {
+                toggle.dataset.styleWidth = data.costumeEveil.style.width || '';
+                toggle.dataset.styleHeight = data.costumeEveil.style.height || '';
+                toggle.dataset.styleTop = data.costumeEveil.style.top || '';
+                toggle.dataset.styleLeft = data.costumeEveil.style.left || ''; // C'est ici que le 'left' est appliqué !
+              }
+
+              console.log('[Costume éveillé] Swap DOM activé + Styles mis à jour');
             } else {
               // Restaurer les valeurs originales
               if (toggle.dataset.originalImage0) {
@@ -1678,9 +1763,23 @@ function injectAwakenButton(data) {
               if (iconImg && iconImg.dataset.originalRareteIcon) {
                 iconImg.src = iconImg.dataset.originalRareteIcon;
               }
+
+              // Restaurer le nom
+              const nameEl = costumeItem.querySelector('.costume-name');
+              if (nameEl && nameEl.dataset.originalName) {
+                nameEl.innerHTML = nameEl.dataset.originalName;
+              }
+
+              // RESTAURATION DES ATTRIBUTS DE STYLE
+              if (toggle.dataset.originalIllustrationReplace !== undefined) toggle.dataset.illustrationReplace = toggle.dataset.originalIllustrationReplace;
+              if (toggle.dataset.originalStyleWidth !== undefined) toggle.dataset.styleWidth = toggle.dataset.originalStyleWidth;
+              if (toggle.dataset.originalStyleHeight !== undefined) toggle.dataset.styleHeight = toggle.dataset.originalStyleHeight;
+              if (toggle.dataset.originalStyleTop !== undefined) toggle.dataset.styleTop = toggle.dataset.originalStyleTop;
+              if (toggle.dataset.originalStyleLeft !== undefined) toggle.dataset.styleLeft = toggle.dataset.originalStyleLeft;
+
               // Retrait agrandissement spécifique
               costumeItem.classList.remove('is-awakened-swap');
-              console.log('[Costume Éveillé] Swap DOM désactivé');
+              console.log('[Costume Éveillé] Swap DOM désactivé + Styles restaurés');
             }
           }
         });
@@ -1768,12 +1867,15 @@ function renderCostumes(costumes) {
                data-style-top="${c.style?.top || ''}"
                data-style-left="${c.style?.left || ''}"
                data-step="0" 
+               ${c._originalImage0 ? `data-original-image0="${formatImagePath(c._originalImage0)}"` : ''}
                src="${formatImagePath(c.images[0])}"/>
         </div>
         <div class="costume-icon">
-            <img alt="Rareté" src="${formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp')}"/>
+            <img alt="Rareté" 
+                 ${c._originalRareteIcon ? `data-original-rarete-icon="${formatImagePath(c._originalRareteIcon)}"` : ''}
+                 src="${formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp')}"/>
         </div>
-        <p class="costume-name">
+        <p class="costume-name" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
             ${c.nom}
             ${(c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude') || c.nom.toLowerCase().includes('émeraude')))) ? `<img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034044/icone_mythique_k862nj.webp" alt="Mythique" style="width: 20px; height: auto; margin-left: 5px; vertical-align: middle;">` : ''}
         </p>
@@ -1995,7 +2097,7 @@ async function initHomePage() {
   if (!container) return;
 
   try {
-    const response = await fetch(`assets / data / maj.json ? t = ${Date.now()} `);
+    const response = await fetch(`assets/data/maj.json?t=${Date.now()}`);
     if (!response.ok) throw new Error("Impossible de charger maj.json");
 
     const data = await response.json();
@@ -2036,7 +2138,7 @@ async function initHomePage() {
       const link = document.createElement("a");
       // Priorité au lien généré via ID/Slug Supabase, sinon lien JSON
       if (sbData && (sbData.id || sbData.slug)) {
-        link.href = `pages / cookie_detail.html ? id = ${sbData.id || sbData.slug} `;
+        link.href = `pages/cookie_detail.html?id=${sbData.id || sbData.slug}`;
       } else {
         // Gestion lien JSON (relatif ou absolu)
         if (cookie.link.startsWith('http')) {

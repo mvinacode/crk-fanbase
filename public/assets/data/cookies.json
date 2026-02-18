@@ -1222,7 +1222,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_raisin_sec.html"
+    "lien": "cookie_detail.html?id=cookie-raisin-sec"
   },
   {
     "id": "cookie-vanille-pure",
