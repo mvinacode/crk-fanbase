@@ -102,7 +102,8 @@ const cookieMap = {
   'cookie-amande': '43e3e0ac-0129-40f9-a72b-eeb0b8cf96f8',
   'cookie-vanille-pure': 'c539079c-f705-4e01-83a0-46ceef597e98',
   'cookie-raisin-sec': 'fb2c3d82-4df1-4b0b-a5ad-5e10d8f45310',
-  'cookie-crepe-a-la-fraise': '957c7b32-64e1-4f62-a84f-e15486b4e10e'
+  'cookie-crepe-a-la-fraise': '957c7b32-64e1-4f62-a84f-e15486b4e10e',
+  'cookie-figue': '5eddb8e7-2757-4175-b4f8-f9743d816200'
 };
 
 if (cookieMap[cookieId]) {
@@ -608,10 +609,14 @@ async function loadCookieData() {
           console.log('[DEBUG] Costume correspondant trouvé dans data:', selectedCostume?.nom);
 
           if (selectedCostume) {
+            console.log('[DEBUG] Costume trouvé dans la liste:', selectedCostume.nom, selectedCostume.id);
             let step = 0;
             // Vérifier si un step est sauvegardé dans builds pour ce costume
             if (userSelection.builds && userSelection.builds[selectedCostume.id] !== undefined) {
               step = userSelection.builds[selectedCostume.id];
+              console.log('[DEBUG] Build step pour ce costume:', step);
+            } else {
+              console.log('[DEBUG] Pas de build step trouvé, defaut à 0');
             }
 
             // Déterminer l'illustration à afficher
@@ -622,6 +627,7 @@ async function loadCookieData() {
 
             if (illustrationUrl) {
               cookieData.activeCostumeId = selectedCostume.id;
+              cookieData.activeCostumeUrl = illustrationUrl;
               // Sauvegarde locale TEMPORAIRE pour que le chargement initial fonctionne (sera écrasé si re-sauvegarde)
               // Mais l'utilisateur veut du full Supabase.
               // Ici on set l'illustration pour le chargement initial de la page.
@@ -737,7 +743,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['poches', 'chance'], style: { width: '412px', height: '444px', left: '290px', top: '150px' } },
   { ids: ['cookie_cerise', 'cerise'], style: { width: '412px', height: '444px', left: '240px', top: '120px' } },
   { ids: ['prisonniere', 'evasion'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
   { ids: ['cookie_piment', 'piment'], style: { width: '412px', height: '444px', left: '270px', top: '160px' } },
@@ -883,18 +888,34 @@ async function saveSelectionToSupabase(cookieId, costumeId = null) {
   }
 
   try {
+    // 1. Récupérer l'existant pour ne pas écraser builds/stats_checks
+    const { data: current } = await supabase
+      .from('cookies_users')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('cookie_id', cookieId)
+      .maybeSingle();
+
     const payload = {
       user_id: user.id,
       cookie_id: cookieId,
-      costume_id: costumeId // Sera null si non fourni, ce qui vide la colonne
+      costume_id: costumeId // Sera null si non fourni
     };
+
+    // Si une entrée existe, on préserve les champs manquants dans payload
+    if (current) {
+      if (current.builds) payload.builds = current.builds;
+      if (current.stats_checks) payload.stats_checks = current.stats_checks;
+      if (current.is_awakened !== undefined) payload.is_awakened = current.is_awakened;
+      console.log('[Supabase] Fusion avec données existantes:', payload);
+    }
 
     const { error } = await supabase
       .from('cookies_users')
       .upsert(payload, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
-    console.log('✅ Choix synchronisé sur Supabase');
+    console.log('✅ Choix costume synchronisé sur Supabase:', costumeId);
   } catch (err) {
     console.error('🔴 Erreur Supabase:', err.message);
   }
@@ -1135,9 +1156,15 @@ function renderCookie(data) {
   // 1. Priorité Supabase (si l'info a été injectée par loadCookieData)
   if (data.activeCostumeId) {
     const activeCostume = data.costumes?.find(c => c.id === data.activeCostumeId);
-    if (activeCostume && activeCostume.illustrationReplace) {
+
+    // Déterminer l'illustration (Priorité à celle calculée dans loadCookieData pour gérer le Mythique/Or)
+    if (data.activeCostumeUrl) {
+      costumeIllustration = formatImagePath(data.activeCostumeUrl);
+    } else if (activeCostume && activeCostume.illustrationReplace) {
       costumeIllustration = formatImagePath(activeCostume.illustrationReplace);
-      console.log('[Costume] Priorité 1 : Restauration depuis Supabase (actif):', costumeIllustration);
+    }
+
+    if (activeCostume && costumeIllustration) {
       console.log('[Costume] Priorité 1 : Restauration depuis Supabase (actif):', costumeIllustration);
 
       // Préparation des attributs de style pour l'injection HTML directe (car le DOM n'est pas encore créé)

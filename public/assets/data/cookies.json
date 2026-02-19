@@ -1204,7 +1204,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_figue.html"
+    "lien": "cookie_detail.html?id=cookie-figue"
   },
   {
     "id": "cookie-crepe-a-la-fraise",
