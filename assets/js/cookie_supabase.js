@@ -101,7 +101,8 @@ const cookieMap = {
   'cookie-chouquette': 'a8cc42f1-8c98-43ee-9851-76208bc71e00',
   'cookie-amande': '43e3e0ac-0129-40f9-a72b-eeb0b8cf96f8',
   'cookie-vanille-pure': 'c539079c-f705-4e01-83a0-46ceef597e98',
-  'cookie-raisin-sec': 'fb2c3d82-4df1-4b0b-a5ad-5e10d8f45310'
+  'cookie-raisin-sec': 'fb2c3d82-4df1-4b0b-a5ad-5e10d8f45310',
+  'cookie-crepe-a-la-fraise': '957c7b32-64e1-4f62-a84f-e15486b4e10e'
 };
 
 if (cookieMap[cookieId]) {
@@ -736,7 +737,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['explosion', 'bombe'], style: { width: '412px', height: '444px', left: '280px', top: '150px' } },
   { ids: ['poches', 'chance'], style: { width: '412px', height: '444px', left: '290px', top: '150px' } },
   { ids: ['cookie_cerise', 'cerise'], style: { width: '412px', height: '444px', left: '240px', top: '120px' } },
   { ids: ['prisonniere', 'evasion'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
