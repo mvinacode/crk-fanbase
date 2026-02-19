@@ -103,7 +103,8 @@ const cookieMap = {
   'cookie-vanille-pure': 'c539079c-f705-4e01-83a0-46ceef597e98',
   'cookie-raisin-sec': 'fb2c3d82-4df1-4b0b-a5ad-5e10d8f45310',
   'cookie-crepe-a-la-fraise': '957c7b32-64e1-4f62-a84f-e15486b4e10e',
-  'cookie-figue': '5eddb8e7-2757-4175-b4f8-f9743d816200'
+  'cookie-figue': '5eddb8e7-2757-4175-b4f8-f9743d816200',
+  'cookie-patisserie': 'f28d3d9e-2b3d-45cb-8792-50e535e672b7'
 };
 
 if (cookieMap[cookieId]) {
@@ -743,7 +744,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['cookie_cerise', 'cerise'], style: { width: '412px', height: '444px', left: '240px', top: '120px' } },
   { ids: ['prisonniere', 'evasion'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
   { ids: ['cookie_piment', 'piment'], style: { width: '412px', height: '444px', left: '270px', top: '160px' } },
   { ids: ['vagabond', 'automne'], style: { width: '412px', height: '444px', left: '250px', top: '100px' } },
@@ -878,7 +878,7 @@ async function saveBuildToSupabase(cookieId, buildId, step) {
   }
 }
 
-async function saveSelectionToSupabase(cookieId, costumeId = null) {
+async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpdate = null, stepValue = null) {
   console.log('--- Tentative de synchronisation Supabase ---');
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -908,6 +908,13 @@ async function saveSelectionToSupabase(cookieId, costumeId = null) {
       if (current.stats_checks) payload.stats_checks = current.stats_checks;
       if (current.is_awakened !== undefined) payload.is_awakened = current.is_awakened;
       console.log('[Supabase] Fusion avec données existantes:', payload);
+    }
+
+    // Appliquer la mise à jour du build spécifique SI DEMANDÉ (fusion intelligente)
+    if (buildIdToUpdate !== null && stepValue !== null) {
+      if (!payload.builds) payload.builds = {};
+      payload.builds[buildIdToUpdate] = stepValue;
+      console.log(`[Supabase] Build update intégré pour ${buildIdToUpdate} -> ${stepValue}`);
     }
 
     const { error } = await supabase
@@ -2017,8 +2024,8 @@ function setupImageCycles(cookieData) {
           if (this.dataset.id) {
             const page = document.getElementById('page-cookie');
             const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
-            // On sauvegarde le step dans 'builds' pour TOUS les éléments (y compris costumes pour savoir si Mythique/Or)
-            if (cookieId) {
+            // On sauvegarde le step dans 'builds' pour TOUS les éléments SAUF costumes (géré par saveSelectionToSupabase)
+            if (cookieId && !this.classList.contains('costume-toggle')) {
               saveBuildToSupabase(cookieId, this.dataset.id, step);
             }
           }
@@ -2102,8 +2109,8 @@ function setupImageCycles(cookieData) {
           }
 
           if (cookieId) {
-            // Synchronisation Supabase avec la colonne costume_id
-            saveSelectionToSupabase(cookieId, this.dataset.id);
+            // Synchronisation Supabase consolidée (Costume ID + Step) pour éviter race condition
+            saveSelectionToSupabase(cookieId, this.dataset.id, this.dataset.id, step);
 
             // Set data attribute for styling
             if (this.alt) {

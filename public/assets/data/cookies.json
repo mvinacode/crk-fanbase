@@ -1195,7 +1195,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_vent.webp",
-    "lien": "cookie_patisserie.html"
+    "lien": "cookie_detail.html?id=cookie-patisserie"
   },
   {
     "id": "cookie-figue",
