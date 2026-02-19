@@ -267,8 +267,8 @@
   },
   {
     "nom": "Cookie Red Velvet",
-    "image": "cookies/cookie_red_velvet/cookie_red_velvet_carte.webp",
-    "link": "cookie_red_velvet.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771507407/cookie_red_velvet_carte_k98jqy.webp",
+    "link": "cookie_detail.html?id=cookie-red-velvet",
     "date": "2026-01-14T23:06:00",
     "type": "update"
   },

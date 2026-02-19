@@ -1186,7 +1186,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_red_velvet.html"
+    "lien": "cookie_detail.html?id=cookie-red-velvet"
   },
   {
     "id": "cookie-patisserie",

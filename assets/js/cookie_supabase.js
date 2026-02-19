@@ -104,7 +104,8 @@ const cookieMap = {
   'cookie-raisin-sec': 'fb2c3d82-4df1-4b0b-a5ad-5e10d8f45310',
   'cookie-crepe-a-la-fraise': '957c7b32-64e1-4f62-a84f-e15486b4e10e',
   'cookie-figue': '5eddb8e7-2757-4175-b4f8-f9743d816200',
-  'cookie-patisserie': 'f28d3d9e-2b3d-45cb-8792-50e535e672b7'
+  'cookie-patisserie': 'f28d3d9e-2b3d-45cb-8792-50e535e672b7',
+  'cookie-red-velvet': 'b5a8de06-efde-48f0-85cc-ef1a26414769'
 };
 
 if (cookieMap[cookieId]) {
@@ -744,7 +745,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['prisonniere', 'evasion'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
   { ids: ['cookie_piment', 'piment'], style: { width: '412px', height: '444px', left: '270px', top: '160px' } },
   { ids: ['vagabond', 'automne'], style: { width: '412px', height: '444px', left: '250px', top: '100px' } },
   { ids: ['honorable', 'descendant'], style: { width: '200px', height: 'auto', left: '390px', top: '300px' } },
