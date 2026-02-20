@@ -194,6 +194,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Lilas",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771614774/cookie_lilas_carte_lconyg.webp",
+    "link": "cookie_detail.html?id=cookie-lilas",
+    "date": "2026-02-20T20:36:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Lys Blanc",
     "image": "cookies/cookie_lys_blanc/cookie_lys_blanc_carte.webp",
     "link": "cookie_lys_blanc.html",

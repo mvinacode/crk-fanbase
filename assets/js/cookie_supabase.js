@@ -108,7 +108,8 @@ const cookieMap = {
   'cookie-red-velvet': 'b5a8de06-efde-48f0-85cc-ef1a26414769',
   'cookie-diablotin': 'b9a16c30-2b55-41a7-92bf-3c3fad13f88b',
   'cookie-mangue': '8901774a-ef65-4c51-b10d-b1323b697a71',
-  'cookie-fee-des-mers': 'bc754397-6362-4171-9d7e-3ce890bba255'
+  'cookie-fee-des-mers': 'bc754397-6362-4171-9d7e-3ce890bba255',
+  'cookie-lilas': '55d071df-4504-44e2-b90f-b0aeb2d7ab01'
 };
 
 if (cookieMap[cookieId]) {
@@ -748,7 +749,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['cookie_creme_patissiere_iii', 'creme_patissiere_iii'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
   { ids: ['Gardien', 'doux'], style: { width: '200px', height: 'auto', left: '360px', top: '320px' } },
   { ids: ['larmes', 'blanches'], style: { width: '412px', height: '444px', left: '250px', top: '100px' } },
   { ids: ['oignon'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },

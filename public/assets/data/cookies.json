@@ -1150,7 +1150,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_lilas.html"
+    "lien": "cookie_detail.html?id=cookie-lilas"
   },
   {
     "id": "cookie-fée-des-mers",
