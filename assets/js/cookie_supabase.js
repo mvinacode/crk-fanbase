@@ -106,7 +106,8 @@ const cookieMap = {
   'cookie-figue': '5eddb8e7-2757-4175-b4f8-f9743d816200',
   'cookie-patisserie': 'f28d3d9e-2b3d-45cb-8792-50e535e672b7',
   'cookie-red-velvet': 'b5a8de06-efde-48f0-85cc-ef1a26414769',
-  'cookie-diablotin': 'b9a16c30-2b55-41a7-92bf-3c3fad13f88b'
+  'cookie-diablotin': 'b9a16c30-2b55-41a7-92bf-3c3fad13f88b',
+  'cookie-mangue': '8901774a-ef65-4c51-b10d-b1323b697a71'
 };
 
 if (cookieMap[cookieId]) {
@@ -746,7 +747,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['vagabond', 'automne'], style: { width: '412px', height: '444px', left: '250px', top: '100px' } },
   { ids: ['honorable', 'descendant'], style: { width: '200px', height: 'auto', left: '390px', top: '300px' } },
   { ids: ['cookie_creme_patissiere_iii', 'creme_patissiere_iii'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
   { ids: ['Gardien', 'doux'], style: { width: '200px', height: 'auto', left: '360px', top: '320px' } },

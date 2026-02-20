@@ -1168,7 +1168,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_mangue.html"
+    "lien": "cookie_detail.html?id=cookie-mangue"
   },
   {
     "id": "cookie-diablotin",
