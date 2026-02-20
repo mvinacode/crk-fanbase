@@ -1177,7 +1177,7 @@
     "rarete": "rarete/rare.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_diablotin.html"
+    "lien": "cookie_detail.html?id=cookie-diablotin"
   },
   {
     "id": "cookie-red-velvet",
