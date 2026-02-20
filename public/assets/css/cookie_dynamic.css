@@ -60,6 +60,17 @@ body.rarity-epic .nom-cookie {
     color: #F766A7 !important;
 }
 
+/* Rareté Légendaire (Gestion dynamique) */
+body.rarity-legendary .nom-cookie {
+    background: linear-gradient(135deg, #8A2BE2 0%, #1E90FF 40%, #55d155 75%, #55d155 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    filter: drop-shadow(0px 4px 4px rgba(12, 12, 12, 0.3));
+}
+
 /* ==========================================================================
    COMPOSANTS PARTAGÉS (BOUTONS)
    ========================================================================== */
@@ -453,7 +464,8 @@ body:not(.accueil) .header .user-info {
 .promotion,
 .ascension,
 .eveil,
-.bonbons {
+.bonbons,
+.pierre-confiture {
     position: absolute;
     display: flex;
     align-items: flex-start;
@@ -537,7 +549,7 @@ body:not(.accueil) .header .user-info {
     /* Standard centered position */
     top: 445px;
     /* Vertically centered with Biscuit (390+135 = 525 - 80 = 445) */
-    width: 330px;
+    width: 335px;
     /* Standard width */
     height: 160px;
     background: rgba(134, 92, 67, 0.42);
@@ -773,9 +785,22 @@ body:not(.accueil) .header .user-info {
     right: 840px;
 }
 
+[data-cookie-slug="cookie-fee-des-mers"] .promotion {
+    right: 830px;
+}
+
+[data-cookie-slug="cookie-fee-des-mers"] .ascension {
+    right: 840px;
+}
+
 .bonbons {
     top: 170px;
     left: 20px;
+}
+
+.pierre-confiture {
+    top: 170px;
+    left: 30px;
 }
 
 /* Animations & Cycles */
@@ -785,7 +810,8 @@ body:not(.accueil) .header .user-info {
 .promotion-cycle,
 .ascension-cycle,
 .eveil-cycle,
-.bonbon-cycle {
+.bonbon-cycle,
+.pierre-cycle {
     cursor: pointer;
     transition: transform 0.2s ease;
     height: auto;
@@ -810,7 +836,8 @@ body:not(.accueil) .header .user-info {
     width: 170px;
 }
 
-.bonbon-cycle {
+.bonbon-cycle,
+.pierre-cycle {
     width: 180px;
 }
 
@@ -824,7 +851,8 @@ body:not(.accueil) .header .user-info {
 .promotion-cycle:hover,
 .ascension-cycle:hover,
 .eveil-cycle:hover,
-.bonbon-cycle:hover {
+.bonbon-cycle:hover,
+.pierre-cycle:hover {
     transform: scale(1.1);
 }
 

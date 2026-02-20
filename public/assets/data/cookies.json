@@ -1159,7 +1159,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_fee_des_mers.html"
+    "lien": "cookie_detail.html?id=cookie-fee-des-mers"
   },
   {
     "id": "cookie-mangue",

@@ -107,7 +107,8 @@ const cookieMap = {
   'cookie-patisserie': 'f28d3d9e-2b3d-45cb-8792-50e535e672b7',
   'cookie-red-velvet': 'b5a8de06-efde-48f0-85cc-ef1a26414769',
   'cookie-diablotin': 'b9a16c30-2b55-41a7-92bf-3c3fad13f88b',
-  'cookie-mangue': '8901774a-ef65-4c51-b10d-b1323b697a71'
+  'cookie-mangue': '8901774a-ef65-4c51-b10d-b1323b697a71',
+  'cookie-fee-des-mers': 'bc754397-6362-4171-9d7e-3ce890bba255'
 };
 
 if (cookieMap[cookieId]) {
@@ -387,7 +388,7 @@ async function loadCookieData() {
     const prevPierresRaw = localStorage.getItem(`pierres-data:${cookieId}`);
     let prevPierres = [];
     try { prevPierres = prevPierresRaw ? JSON.parse(prevPierresRaw) : []; } catch (e) { prevPierres = []; }
-    const pierresItems = await fetchCategoryDataWithId('pierres_de_confiture', ['pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture', cookieData.id);
+    const pierresItems = await fetchCategoryDataWithId('pierres_de_confiture', ['pierre_de_confiture', 'pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture', cookieData.id);
     pierresItems.forEach(t => {
       const prev = prevPierres.find(pt => pt.id === t.id);
       if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
@@ -397,7 +398,7 @@ async function loadCookieData() {
       }
     });
     localStorage.setItem(`pierres-data:${cookieId}`, JSON.stringify(pierresItems));
-    cookieData.pierres_de_confiture = pierresItems;
+    cookieData.pierre_de_confiture = pierresItems;
 
     // 6. Ascension (pas de reset, inchangé)
     const ascensionItems = await fetchCategoryDataWithId('ascension', ['ascension'], 'Ascension', cookieData.id);
@@ -747,7 +748,6 @@ async function loadCookieData() {
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
   // == CUSTOM ==
-  { ids: ['honorable', 'descendant'], style: { width: '200px', height: 'auto', left: '390px', top: '300px' } },
   { ids: ['cookie_creme_patissiere_iii', 'creme_patissiere_iii'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
   { ids: ['Gardien', 'doux'], style: { width: '200px', height: 'auto', left: '360px', top: '320px' } },
   { ids: ['larmes', 'blanches'], style: { width: '412px', height: '444px', left: '250px', top: '100px' } },
@@ -1095,6 +1095,13 @@ function applyDynamicTheme(data) {
     document.body.classList.remove('rarity-epic');
   }
 
+  // Rareté Légendaire (Demande spécifique dégradé)
+  if (cleanedPath.includes('legend') || cleanedPath.includes('légend')) {
+    document.body.classList.add('rarity-legendary');
+  } else {
+    document.body.classList.remove('rarity-legendary');
+  }
+
   // 6. Gestion des styles spécifiques (Boutons Éveil) via ID
   // Map des styles par défaut pour les cookies Antiques connus
   const cookieStyles = {
@@ -1438,6 +1445,16 @@ function renderCookie(data) {
              data-images='${safeJsonStringify(b.images)}'
              data-step="${b.selectedStep || 0}" 
              src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
+    `).join('')}
+ </div>
+
+ <div class="pierre-confiture">
+    ${(data.pierre_de_confiture || []).map(p => `
+        <img alt="${p.nom || 'Pierre de confiture'}" class="pierre-cycle" 
+             data-id="${p.id}" 
+             data-images='${safeJsonStringify(p.images)}'
+             data-step="${p.selectedStep || 0}" 
+             src="${formatImagePath(p.images ? p.images[p.selectedStep || 0] : '')}"/>
     `).join('')}
  </div>
 
@@ -1988,7 +2005,7 @@ function setupImageCycles(cookieData) {
 
   let attempts = 0;
   function attachListeners() {
-    const cycles = document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .bonbon-cycle, .eveil-cycle, .costume-toggle');
+    const cycles = document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .bonbon-cycle, .pierre-cycle, .eveil-cycle, .costume-toggle');
     console.log('[setupImageCycles] Found elements:', cycles.length);
 
     if (cycles.length === 0 && attempts < 50) {
