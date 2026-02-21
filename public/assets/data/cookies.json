@@ -1132,7 +1132,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_requin_sorbet.html"
+    "lien": "cookie_detail.html?id=cookie-requin-sorbet"
   },
   {
     "id": "cookie-encre-de-seiche",
