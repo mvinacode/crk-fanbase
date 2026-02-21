@@ -1141,7 +1141,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_encre_de_seiche.html"
+    "lien": "cookie_detail.html?id=cookie-encre-de-seiche"
   },
   {
     "id": "cookie-lilas",

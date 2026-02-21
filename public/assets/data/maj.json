@@ -137,6 +137,13 @@
     "date": "2025-12-12T17:43:00"
   },
   {
+    "nom": "Cookie Encre de Seiche",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771677635/cookie_encre_de_seiche_carte_bnt4ux.webp",
+    "link": "cookie_detail.html?id=cookie-encre-de-seiche",
+    "date": "2026-02-21T14:20:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Farine Mystique",
     "image": "cookies/cookie_farine_mystique/cookie_farine_mystique_ascete_du_nirvana_carte.webp",
     "link": "cookie_farine_mystique.html",

@@ -97,6 +97,15 @@ body.list {
 .recherche-cookies {
   text-align: center;
   margin: 80px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.recherche-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 #recherche {
@@ -109,7 +118,9 @@ body.list {
   background-color: #FFF0DC;
   color: #865C43;
   font-family: 'CookieRun-Regular', sans-serif;
+  box-sizing: border-box;
 }
+
 
 /* SECTION FILTRE */
 .filtres {
@@ -117,14 +128,16 @@ body.list {
   margin: 10px 0;
 }
 
-.filtre-rarete-wrapper {
+.filtre-rarete-wrapper,
+.filtre-tri-wrapper {
   position: relative;
   display: inline-block;
   font-family: 'CookieRun-Regular', sans-serif;
   margin-bottom: 30px;
 }
 
-.filtre-rarete-toggle {
+.filtre-rarete-toggle,
+.filtre-tri-toggle {
   background-color: #FFF0DC;
   border: 2px solid #865C43;
   border-radius: 10px;
@@ -136,6 +149,31 @@ body.list {
   align-items: center;
   gap: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.2s;
+  user-select: none;
+}
+
+.filtre-rarete-toggle:hover,
+.filtre-tri-toggle:hover,
+.filtre-role-toggle:hover,
+.filtre-element-toggle:hover {
+  background-color: #f7e6ce;
+  transform: translateY(-2px);
+}
+
+.filtre-rarete-toggle:active,
+.filtre-tri-toggle:active,
+.filtre-role-toggle:active,
+.filtre-element-toggle:active {
+  transform: translateY(0);
+}
+
+.tri-icon {
+  transition: transform 0.3s ease;
+}
+
+.tri-icon.reversed {
+  transform: rotate(180deg);
 }
 
 .filtre-rarete-options {
@@ -226,6 +264,7 @@ body.list {
   align-items: center;
   gap: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .filtre-role-options {
@@ -305,6 +344,7 @@ body.list {
   align-items: center;
   gap: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .filtre-element-options {

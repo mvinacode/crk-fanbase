@@ -23,10 +23,22 @@
     </nav>
 
     <section class="recherche-cookies">
-      <input type="text" id="recherche" placeholder="Rechercher un cookie...">
+      <div class="recherche-container">
+        <input type="text" id="recherche" placeholder="Rechercher un cookie...">
+      </div>
     </section>
 
     <section class="filtres">
+      <div class="filtre-tri-wrapper" style="margin-bottom: 30px; margin-right: 10px; display: inline-block;">
+        <div id="btn-tri" class="filtre-tri-toggle" title="Trier du plus ancien au plus récent">
+          Trier
+          <svg class="tri-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </div>
+      </div>
+
       <div class="filtre-rarete-wrapper">
         <div class="filtre-rarete-toggle" onclick="toggleRareteOptions()">
           Filtrer par rareté

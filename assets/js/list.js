@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let rareteActive = "";
   let roleActif = "";
   let elementActif = "";
+  let ordreTri = "desc"; // desc = plus récent d'abord (défaut), asc = plus ancien d'abord
 
   async function loadAllCookies() {
     try {
@@ -277,20 +278,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function appliquerFiltres() {
-    let resultats = tousLesCookies;
+    let resultats = [...tousLesCookies]; // Copy to avoid mutating original
 
     const recherche = rechercheInput.value.toLowerCase();
     resultats = resultats.filter(cookie => cookie.nom.toLowerCase().includes(recherche));
 
+    if (ordreTri === "asc") {
+      resultats.reverse();
+    }
+
     if (rareteActive !== "") {
-      const keyword = rareteActive.replace('.webp', '').toLowerCase();
+      const dbKeyword = rareteActive.replace('.webp', '').toLowerCase();
+      const searchStr = '/' + dbKeyword;
+
       resultats = resultats.filter(cookie => {
-        const rareteUrl = (cookie.rarete || "").toLowerCase();
-        // Gestion de l'overlap "epique" vs "super_epique"
-        if (keyword === 'epique' && rareteUrl.includes('super_epique')) {
-          return false;
+        const rareteVal = (cookie.rarete || "").toLowerCase();
+
+        // Match exact Supabase string if no '/' is present (meaning it's the DB value directly)
+        if (!rareteVal.includes('/')) {
+          // Normaliser "épique"/"super_epique" vs DB "épique"
+          let dbVal = rareteVal;
+          if (dbVal === 'épique' && dbKeyword === 'epique') return true;
+          if (dbVal === 'légendaire' && dbKeyword === 'legendaire') return true;
+          if (dbVal === 'bête' && dbKeyword === 'bete') return true;
+          if (dbVal === 'sorcière' && dbKeyword === 'sorciere') return true;
+
+          return dbVal === dbKeyword;
         }
-        return rareteUrl.includes(keyword);
+
+        // Fallback for image paths from local JSON
+        return rareteVal.includes(searchStr);
       });
     }
 
@@ -318,6 +335,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     afficherCookies(resultats);
+  }
+
+  const btnTri = document.getElementById("btn-tri");
+  if (btnTri) {
+    btnTri.addEventListener("click", () => {
+      const icon = btnTri.querySelector(".tri-icon");
+      if (ordreTri === "desc") {
+        ordreTri = "asc";
+        btnTri.title = `Trier du plus récent au plus ancien`;
+        if (icon) icon.classList.add("reversed");
+      } else {
+        ordreTri = "desc";
+        btnTri.title = `Trier du plus ancien au plus récent`;
+        if (icon) icon.classList.remove("reversed");
+      }
+      appliquerFiltres();
+    });
   }
 
   rechercheInput.addEventListener("input", appliquerFiltres);
