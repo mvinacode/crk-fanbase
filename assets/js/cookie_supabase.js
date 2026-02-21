@@ -111,7 +111,8 @@ const cookieMap = {
   'cookie-fee-des-mers': 'bc754397-6362-4171-9d7e-3ce890bba255',
   'cookie-lilas': '55d071df-4504-44e2-b90f-b0aeb2d7ab01',
   'cookie-encre-de-seiche': '9eaec7dc-3c7d-4ab3-b66e-cab7da78e62f',
-  'cookie-requin-sorbet': 'a0a8476c-c7ec-4328-9117-19756f136006'
+  'cookie-requin-sorbet': 'a0a8476c-c7ec-4328-9117-19756f136006',
+  'cookie-parfait': '812272d8-c8f9-41bd-bca5-c71e4cdfd2a6'
 };
 
 if (cookieMap[cookieId]) {
@@ -750,7 +751,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['oignon'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
   { ids: ['Legerement', 'brule'], style: { width: '200px', height: 'auto', left: '380px', top: '270px' } },
   { ids: ['mascotte', 'choeur'], style: { width: '200px', height: 'auto', left: '380px', top: '270px' } },
   { ids: ['pancake'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
