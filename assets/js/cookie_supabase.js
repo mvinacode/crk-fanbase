@@ -112,7 +112,8 @@ const cookieMap = {
   'cookie-lilas': '55d071df-4504-44e2-b90f-b0aeb2d7ab01',
   'cookie-encre-de-seiche': '9eaec7dc-3c7d-4ab3-b66e-cab7da78e62f',
   'cookie-requin-sorbet': 'a0a8476c-c7ec-4328-9117-19756f136006',
-  'cookie-parfait': '812272d8-c8f9-41bd-bca5-c71e4cdfd2a6'
+  'cookie-parfait': '812272d8-c8f9-41bd-bca5-c71e4cdfd2a6',
+  'cookie-baie-de-houx': '9300b136-ab31-4ea5-b65a-6dc17af34c3c'
 };
 
 if (cookieMap[cookieId]) {
@@ -751,7 +752,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['Legerement', 'brule'], style: { width: '200px', height: 'auto', left: '380px', top: '270px' } },
   { ids: ['mascotte', 'choeur'], style: { width: '200px', height: 'auto', left: '380px', top: '270px' } },
   { ids: ['pancake'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
   { ids: ['joies', 'ete'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
@@ -1136,7 +1136,9 @@ function applyDynamicTheme(data) {
   };
 
   // On essaie de trouver le style par UUID ou par Slug (nom normalisé)
-  const style = cookieStyles[data.id] || cookieStyles['cookie-' + data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e")];
+  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e") : '';
+  const searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
+  const style = cookieStyles[data.id] || cookieStyles[searchSlug];
 
   if (style) {
     root.style.setProperty('--btn-eveil-bg', style.btnBg);
@@ -1152,9 +1154,8 @@ function applyDynamicTheme(data) {
   console.log("Thème dynamique appliqué pour :", data.nom);
 
   // Ajouter un slug pour ciblage CSS cookie-spécifique
-  const slug = data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e");
   const pageContainer = document.getElementById('page-cookie');
-  if (pageContainer) pageContainer.setAttribute('data-cookie-slug', slug);
+  if (pageContainer) pageContainer.setAttribute('data-cookie-slug', searchSlug);
 }
 
 function renderCookie(data) {
@@ -1495,44 +1496,65 @@ function renderCookie(data) {
 const cookieAwakenData = {
   'cookie-vanille-pure': { // ID
     eveilUrl: 'cookie_vanille_pure_eveil.html',
-    buttonLabel: 'Sage Éveillé'
+    buttonLabel: 'Sage Éveillé',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_pure_vanilla_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_pure_vanilla_jam.webp'
   },
   'c539079c-f705-4e01-83a0-46ceef597e98': { // UUID
     eveilUrl: 'cookie_vanille_pure_eveil.html',
-    buttonLabel: 'Sage Éveillé'
+    buttonLabel: 'Sage Éveillé',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_pure_vanilla_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_pure_vanilla_jam.webp'
   },
   'cookie-lys-blanc': {
     eveilUrl: 'cookie_lys_blanc_eveil.html',
-    buttonLabel: 'Fleur Éveillée'
+    buttonLabel: 'Fleur Éveillée',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_white_lily_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_white_lily_jam.webp'
   },
   '73956799-d46e-4f5b-8db8-1765cb131656': { // UUID Lys Blanc
     eveilUrl: 'cookie_lys_blanc_eveil.html',
-    buttonLabel: 'Fleur Éveillée'
+    buttonLabel: 'Fleur Éveillée',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_white_lily_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_white_lily_jam.webp'
   },
   'cookie-cacao-noir': {
     eveilUrl: 'cookie_cacao_noir_eveil.html',
-    buttonLabel: 'Dragon Éveillé'
+    buttonLabel: 'Dragon Éveillé',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam.webp'
   },
   '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c': { // UUID Cacao Noir
     eveilUrl: 'cookie_cacao_noir_eveil.html',
-    buttonLabel: 'Dragon Éveillé'
+    buttonLabel: 'Dragon Éveillé',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam.webp'
   },
   'cookie-fromage-dore': {
     eveilUrl: 'cookie_fromage_dore_eveil.html',
-    buttonLabel: 'Aile Éveillée'
+    buttonLabel: 'Aile Éveillée',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_golden_cheese_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_golden_cheese_jam.webp'
   },
   'cookie-baie-de-houx': {
     eveilUrl: 'cookie_baie_de_houx_eveil.html',
-    buttonLabel: 'Bouclier Éveillé'
+    buttonLabel: 'Aegis',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_hollyberry_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_hollyberry_jam.webp'
   },
   'd7f43376-7489-4b68-80d5-3165582f6e91': { // UUID Baie de Houx
     eveilUrl: 'cookie_baie_de_houx_eveil.html',
-    buttonLabel: 'Bouclier Éveillé'
+    buttonLabel: 'Aegis',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_hollyberry_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_hollyberry_jam.webp'
   }
 };
 
 function injectAwakenButton(data) {
-  const awakenData = cookieAwakenData[data.id] || cookieAwakenData['cookie-' + data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a")];
+  // Rendre le nom de recherche robuste (".startsWith('cookie-')" évite les "cookie-cookie-baie...")
+  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e") : '';
+  const searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
+  const awakenData = cookieAwakenData[data.id] || cookieAwakenData[searchSlug];
 
   if (!awakenData) return; // Pas de données d'éveil pour ce cookie
 
@@ -1548,25 +1570,52 @@ function injectAwakenButton(data) {
 
   if (data.confiture_ames) {
     try {
-      // Support du format Array : ["chemin/nb.webp", "chemin/color.webp"]
-      // Ou format JSON Object (rétro-compatibilité) : { "nb": "...", "color": "..." }
-      const confiture = typeof data.confiture_ames === 'string' ? JSON.parse(data.confiture_ames) : data.confiture_ames;
-
-      if (Array.isArray(confiture) && confiture.length >= 2) {
-        // Format Array : Index 0 = NB, Index 1 = Couleur
-        toggleImageNb = formatImagePath(confiture[0]);
-        toggleImageColor = formatImagePath(confiture[1]);
-      } else if (confiture && confiture.nb && confiture.color) {
-        // Format Objet
-        toggleImageNb = formatImagePath(confiture.nb);
-        toggleImageColor = formatImagePath(confiture.color);
+      if (typeof data.confiture_ames === 'string') {
+        const strVal = data.confiture_ames.trim();
+        // Si ça ressemble à un tableau JSON ["...", "..."]
+        if (strVal.startsWith('[')) {
+          const confiture = JSON.parse(strVal);
+          if (Array.isArray(confiture) && confiture.length >= 2) {
+            toggleImageNb = formatImagePath(confiture[0]);
+            toggleImageColor = formatImagePath(confiture[1]);
+          }
+        }
+        // Si c'est un object JSON {"nb": "...", "color": "..."}
+        else if (strVal.startsWith('{')) {
+          const confiture = JSON.parse(strVal);
+          if (confiture && confiture.nb && confiture.color) {
+            toggleImageNb = formatImagePath(confiture.nb);
+            toggleImageColor = formatImagePath(confiture.color);
+          }
+        }
+        // Séparé par des virgules : "image1, image2"
+        else if (strVal.includes(',')) {
+          const parts = strVal.split(',').map(s => s.trim());
+          if (parts.length >= 2) {
+            toggleImageNb = formatImagePath(parts[0]);
+            toggleImageColor = formatImagePath(parts[1]);
+          }
+        }
+        // Sinon (une seule image, ou erreur), on ignore et fallback prendra le relais
+      } else if (Array.isArray(data.confiture_ames) && data.confiture_ames.length >= 2) {
+        toggleImageNb = formatImagePath(data.confiture_ames[0]);
+        toggleImageColor = formatImagePath(data.confiture_ames[1]);
+      } else if (data.confiture_ames.nb && data.confiture_ames.color) {
+        toggleImageNb = formatImagePath(data.confiture_ames.nb);
+        toggleImageColor = formatImagePath(data.confiture_ames.color);
       }
     } catch (e) {
       console.warn("Erreur lors du parsing de confiture_ames pour", data.nom, e);
     }
   }
 
-  // Si pas d'images trouvées dans Supabase, on n'affiche rien
+  // Fallback local si Supabase ne renvoie pas confiture_ames (ou pas correctement parsé)
+  if ((!toggleImageNb || !toggleImageColor) && awakenData.confitureNb && awakenData.confitureColor) {
+    toggleImageNb = formatImagePath(awakenData.confitureNb);
+    toggleImageColor = formatImagePath(awakenData.confitureColor);
+  }
+
+  // Si pas d'images trouvées dans Supabase ou en fallback, on n'affiche rien
   if (!toggleImageNb || !toggleImageColor) return;
 
   // Gestion du Favicon

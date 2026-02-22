@@ -35,9 +35,10 @@
   },
   {
     "nom": "Cookie Baie de Houx",
-    "image": "cookies/cookie_baie_de_houx/cookie_baie_de_houx_carte.webp",
-    "link": "cookie_baie_de_houx.html",
-    "date": "2025-11-08"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771764347/cookie_baie_de_houx_carte_cwkxn9.webp",
+    "link": "cookie_detail.html?id=cookie-baie-de-houx",
+    "date": "2026-02-22T14:02:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Brioche beurrée",

@@ -189,7 +189,7 @@ body.rarity-legendary .nom-cookie {
     height: 67px;
     background-color: var(--btn-eveil-bg);
     color: #FFF0DC;
-    font-size: 30px;
+    font-size: 40px;
     /* Taille standardisée */
     font-weight: 900;
     font-family: 'CookieRun-Bold', sans-serif;
@@ -773,15 +773,18 @@ body:not(.accueil) .header .user-info {
 }
 
 /* --- Overrides spécifiques par cookie --- */
-[data-cookie-slug="cookie-vanille-pure"] .promotion {
+[data-cookie-slug="cookie-vanille-pure"] .promotion,
+[data-cookie-slug="cookie-baie-de-houx"] .promotion {
     right: 830px;
 }
 
-[data-cookie-slug="cookie-vanille-pure"] .ascension {
+[data-cookie-slug="cookie-vanille-pure"] .ascension,
+[data-cookie-slug="cookie-baie-de-houx"] .ascension {
     right: 840px;
 }
 
-[data-cookie-slug="cookie-vanille-pure"] .eveil {
+[data-cookie-slug="cookie-vanille-pure"] .eveil,
+[data-cookie-slug="cookie-baie-de-houx"] .eveil {
     right: 840px;
 }
 
@@ -980,7 +983,7 @@ body:not(.accueil) .header .user-info {
     background-color: var(--theme-text);
     padding: 30px;
     border-radius: 20px;
-    max-width: 800px;
+    max-width: 900px;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
@@ -1011,7 +1014,7 @@ body:not(.accueil) .header .user-info {
 .costume-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px 30px;
+    gap: 65px;
     margin-top: 30px;
     justify-content: center;
     align-items: flex-start;
@@ -1029,12 +1032,6 @@ body:not(.accueil) .header .user-info {
 .costume-item.is-awakened-swap {
     width: auto;
     max-width: 200px;
-    margin-right: 40px;
-}
-
-.costume-item.is-awakened-swap img.costume-toggle {
-    width: auto;
-    max-height: 100%;
 }
 
 .costume-toggle-wrapper {

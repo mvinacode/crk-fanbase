@@ -1114,7 +1114,7 @@
     "rarete": "rarete/antique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_baie_de_houx.html"
+    "lien": "cookie_detail.html?id=cookie-baie-de-houx"
   },
   {
     "id": "cookie-parfait",
