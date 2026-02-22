@@ -1078,7 +1078,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/embuscade.webp",
     "element": "",
-    "lien": "cookie_tails.html"
+    "lien": "cookie_detail.html?id=cookie-tails"
   },
   {
     "id": "cookie-sonic",
@@ -1087,7 +1087,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/embuscade.webp",
     "element": "",
-    "lien": "cookie_sonic.html"
+    "lien": "cookie_detail.html?id=cookie-sonic"
   },
   {
     "id": "cookie-lapin-de-la-lune",

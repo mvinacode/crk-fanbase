@@ -71,6 +71,11 @@ body.rarity-legendary .nom-cookie {
     filter: drop-shadow(0px 4px 4px rgba(12, 12, 12, 0.3));
 }
 
+/* Rareté Spécial (Gestion dynamique) */
+body.rarity-special .nom-cookie {
+    color: #FAC534 !important;
+}
+
 /* ==========================================================================
    COMPOSANTS PARTAGÉS (BOUTONS)
    ========================================================================== */

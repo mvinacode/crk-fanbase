@@ -115,7 +115,8 @@ const cookieMap = {
   'cookie-parfait': '812272d8-c8f9-41bd-bca5-c71e4cdfd2a6',
   'cookie-baie-de-houx': '9300b136-ab31-4ea5-b65a-6dc17af34c3c',
   'cookie-framboise': 'ae6d7617-891b-4cde-9bfb-b8a12b9b2ec1',
-  'cookie-lapin-de-la-lune': '8de64fc6-4335-4c94-8045-f82175b66922'
+  'cookie-lapin-de-la-lune': '8de64fc6-4335-4c94-8045-f82175b66922',
+  'cookie-sonic': 'dbb848d4-4bd6-4ff5-94a5-b16a3945749a'
 };
 
 if (cookieMap[cookieId]) {
@@ -754,7 +755,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['joies', 'ete'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
   { ids: ['princesse'], style: { width: '412px', height: '444px', left: '300px', top: '100px' } },
   { ids: ['boule-de-gomme', 'boule_de_gomme'], style: { width: '412px', height: '444px', left: '250px', top: '180px' } },
   { ids: ['menthe', 'glacee'], style: { width: '412px', height: '444px', left: '270px', top: '100px' } },
@@ -1099,6 +1099,13 @@ function applyDynamicTheme(data) {
     document.body.classList.add('rarity-legendary');
   } else {
     document.body.classList.remove('rarity-legendary');
+  }
+
+  // Rareté Spécial (Demande spécifique couleur #FAC534)
+  if (cleanedPath.includes('special') || cleanedPath.includes('spécial')) {
+    document.body.classList.add('rarity-special');
+  } else {
+    document.body.classList.remove('rarity-special');
   }
 
   // 6. Gestion des styles spécifiques (Boutons Éveil) via ID
