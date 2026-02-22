@@ -113,7 +113,8 @@ const cookieMap = {
   'cookie-encre-de-seiche': '9eaec7dc-3c7d-4ab3-b66e-cab7da78e62f',
   'cookie-requin-sorbet': 'a0a8476c-c7ec-4328-9117-19756f136006',
   'cookie-parfait': '812272d8-c8f9-41bd-bca5-c71e4cdfd2a6',
-  'cookie-baie-de-houx': '9300b136-ab31-4ea5-b65a-6dc17af34c3c'
+  'cookie-baie-de-houx': '9300b136-ab31-4ea5-b65a-6dc17af34c3c',
+  'cookie-framboise': 'ae6d7617-891b-4cde-9bfb-b8a12b9b2ec1'
 };
 
 if (cookieMap[cookieId]) {
@@ -752,7 +753,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['mascotte', 'choeur'], style: { width: '200px', height: 'auto', left: '380px', top: '270px' } },
   { ids: ['pancake'], style: { width: '412px', height: '444px', left: '270px', top: '120px' } },
   { ids: ['joies', 'ete'], style: { width: '200px', height: 'auto', left: '380px', top: '320px' } },
   { ids: ['princesse'], style: { width: '412px', height: '444px', left: '300px', top: '100px' } },
@@ -1677,7 +1677,16 @@ function injectAwakenButton(data) {
       ? formatImagePath(data.costumeEveil.illustrationReplace)
       : (data.illustration_eveil ? formatImagePath(data.illustration_eveil) : null);
 
-    if (mainIllustration && awakenedIllu) {
+    // Ne remplacer l'illustration QUE SI aucun autre costume n'est sélectionné
+    let shouldOverrideWithAwakened = false;
+    if (mainIllustration) {
+      const activeCostumeName = mainIllustration.dataset.costumeName || '';
+      if (!activeCostumeName || activeCostumeName.includes('original') || activeCostumeName.includes('défaut') || activeCostumeName.includes('defaut') || activeCostumeName.includes('eveille') || activeCostumeName.includes('éveillé')) {
+        shouldOverrideWithAwakened = true;
+      }
+    }
+
+    if (shouldOverrideWithAwakened && mainIllustration && awakenedIllu) {
       mainIllustration.src = awakenedIllu;
 
       // Appliquer les styles du costume éveillé SI DISPONIBLES
@@ -1727,7 +1736,15 @@ function injectAwakenButton(data) {
         ? formatImagePath(data.costumeEveil.illustrationReplace)
         : (data.illustration_eveil ? formatImagePath(data.illustration_eveil) : null);
 
-      if (mainIllustration && awakenedIllustrationSrc) {
+      let shouldOverrideToggle = false;
+      if (mainIllustration) {
+        const activeCostumeName = mainIllustration.dataset.costumeName || '';
+        if (!activeCostumeName || activeCostumeName.includes('original') || activeCostumeName.includes('défaut') || activeCostumeName.includes('defaut') || activeCostumeName.includes('eveille') || activeCostumeName.includes('éveillé')) {
+          shouldOverrideToggle = true;
+        }
+      }
+
+      if (shouldOverrideToggle && mainIllustration && awakenedIllustrationSrc) {
         mainIllustration.classList.remove('illustration-swap-anim');
         void mainIllustration.offsetWidth; // Trigger reflow
         mainIllustration.src = awakenedIllustrationSrc;
@@ -1768,8 +1785,16 @@ function injectAwakenButton(data) {
       // Favicon : Revenir à l'original
       faviconLink.href = originalFavicon;
 
+      let shouldRestoreOriginalToggle = false;
+      if (mainIllustration) {
+        const activeCostumeName = mainIllustration.dataset.costumeName || '';
+        if (!activeCostumeName || activeCostumeName.includes('original') || activeCostumeName.includes('défaut') || activeCostumeName.includes('defaut') || activeCostumeName.includes('eveille') || activeCostumeName.includes('éveillé')) {
+          shouldRestoreOriginalToggle = true;
+        }
+      }
+
       // Illustration Principale : Revenir à l'original (base)
-      if (mainIllustration && window._cookieOriginalImage) {
+      if (shouldRestoreOriginalToggle && mainIllustration && window._cookieOriginalImage) {
         mainIllustration.classList.remove('illustration-swap-anim');
         void mainIllustration.offsetWidth; // Trigger reflow
         mainIllustration.src = window._cookieOriginalImage;
