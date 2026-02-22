@@ -1096,7 +1096,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "",
-    "lien": "cookie_lapin_de_la_lune.html"
+    "lien": "cookie_detail.html?id=cookie-lapin-de-la-lune"
   },
   {
     "id": "cookie-framboise",
