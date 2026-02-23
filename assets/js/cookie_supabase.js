@@ -117,7 +117,8 @@ const cookieMap = {
   'cookie-framboise': 'ae6d7617-891b-4cde-9bfb-b8a12b9b2ec1',
   'cookie-lapin-de-la-lune': '8de64fc6-4335-4c94-8045-f82175b66922',
   'cookie-sonic': 'dbb848d4-4bd6-4ff5-94a5-b16a3945749a',
-  'cookie-tails': '282bed3b-8473-4fa5-b539-e507885cb71e'
+  'cookie-tails': '282bed3b-8473-4fa5-b539-e507885cb71e',
+  'cookie-mala': '85d8c04b-2a26-4724-8960-82f5a9039444'
 };
 
 if (cookieMap[cookieId]) {
@@ -756,7 +757,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['boule-de-gomme', 'boule_de_gomme'], style: { width: '412px', height: '444px', left: '250px', top: '180px' } },
   { ids: ['menthe', 'glacee'], style: { width: '412px', height: '444px', left: '270px', top: '100px' } },
   { ids: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } },
   { ids: ['prince', 'royaume'], style: { width: '200px', height: 'auto', left: '370px', top: '360px' } },

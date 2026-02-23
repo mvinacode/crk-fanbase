@@ -221,6 +221,13 @@
     "date": "2025-11-11"
   },
   {
+    "nom": "Cookie Mala",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771873823/cookie_mala_carte_hhh2sc.webp",
+    "link": "cookie_detail.html?id=cookie-mala",
+    "date": "2026-02-23T20:40:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Matcha",
     "image": "cookies/cookie_matcha/cookie_matcha_carte.webp",
     "link": "cookie_matcha.html",

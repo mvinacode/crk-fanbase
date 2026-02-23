@@ -1069,7 +1069,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_mala.html"
+    "lien": "cookie_detail.html?id=cookie-mala"
   },
   {
     "id": "cookie-tails",
