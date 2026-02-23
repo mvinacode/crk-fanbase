@@ -116,7 +116,8 @@ const cookieMap = {
   'cookie-baie-de-houx': '9300b136-ab31-4ea5-b65a-6dc17af34c3c',
   'cookie-framboise': 'ae6d7617-891b-4cde-9bfb-b8a12b9b2ec1',
   'cookie-lapin-de-la-lune': '8de64fc6-4335-4c94-8045-f82175b66922',
-  'cookie-sonic': 'dbb848d4-4bd6-4ff5-94a5-b16a3945749a'
+  'cookie-sonic': 'dbb848d4-4bd6-4ff5-94a5-b16a3945749a',
+  'cookie-tails': '282bed3b-8473-4fa5-b539-e507885cb71e'
 };
 
 if (cookieMap[cookieId]) {
@@ -755,7 +756,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['princesse'], style: { width: '412px', height: '444px', left: '300px', top: '100px' } },
   { ids: ['boule-de-gomme', 'boule_de_gomme'], style: { width: '412px', height: '444px', left: '250px', top: '180px' } },
   { ids: ['menthe', 'glacee'], style: { width: '412px', height: '444px', left: '270px', top: '100px' } },
   { ids: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } },
@@ -1526,12 +1526,6 @@ const cookieAwakenData = {
     confitureColor: '../assets/images/confiture_d_ames/awaken_white_lily_jam.webp'
   },
   'cookie-cacao-noir': {
-    eveilUrl: 'cookie_cacao_noir_eveil.html',
-    buttonLabel: 'Dragon Éveillé',
-    confitureNb: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam_nb.webp',
-    confitureColor: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam.webp'
-  },
-  '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c': { // UUID Cacao Noir
     eveilUrl: 'cookie_cacao_noir_eveil.html',
     buttonLabel: 'Dragon Éveillé',
     confitureNb: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam_nb.webp',
