@@ -1051,7 +1051,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_tarte_a_la_citrouille.html"
+    "lien": "cookie_detail.html?id=cookie-tarte-a-la-citrouille"
   },
   {
     "id": "cookie-bonbon-tourbillon",

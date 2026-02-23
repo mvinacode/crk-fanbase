@@ -119,7 +119,8 @@ const cookieMap = {
   'cookie-sonic': 'dbb848d4-4bd6-4ff5-94a5-b16a3945749a',
   'cookie-tails': '282bed3b-8473-4fa5-b539-e507885cb71e',
   'cookie-mala': '85d8c04b-2a26-4724-8960-82f5a9039444',
-  'cookie-bonbon-tourbillon': '8fa1f53b-a89a-4a94-9e43-050a8bca3706'
+  'cookie-bonbon-tourbillon': '8fa1f53b-a89a-4a94-9e43-050a8bca3706',
+  'cookie-tarte-a-la-citrouille': 'cd51cbcf-a6cd-4368-90a3-4248bae1257b'
 };
 
 if (cookieMap[cookieId]) {
@@ -758,7 +759,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } },
   { ids: ['prince', 'royaume'], style: { width: '200px', height: 'auto', left: '370px', top: '360px' } },
   { ids: ['vieux', 'souvenirs'], style: { width: '412px', height: '444px', left: '280px', top: '150px' } },
   { ids: ['choco-noir', 'choco_noir'], style: { width: '412px', height: '444px', left: '260px', top: '180px' } },
@@ -1046,7 +1046,7 @@ function applyDynamicTheme(data) {
   if (data.title_color) root.style.setProperty('--title-color', data.title_color);
 
   // Ajustement de la taille du titre si besoin (ex: noms très longs)
-  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon'))) {
+  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon') || data.nom.includes('Tarte à la citrouille'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
