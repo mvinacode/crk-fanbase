@@ -118,7 +118,8 @@ const cookieMap = {
   'cookie-lapin-de-la-lune': '8de64fc6-4335-4c94-8045-f82175b66922',
   'cookie-sonic': 'dbb848d4-4bd6-4ff5-94a5-b16a3945749a',
   'cookie-tails': '282bed3b-8473-4fa5-b539-e507885cb71e',
-  'cookie-mala': '85d8c04b-2a26-4724-8960-82f5a9039444'
+  'cookie-mala': '85d8c04b-2a26-4724-8960-82f5a9039444',
+  'cookie-bonbon-tourbillon': '8fa1f53b-a89a-4a94-9e43-050a8bca3706'
 };
 
 if (cookieMap[cookieId]) {
@@ -757,7 +758,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['menthe', 'glacee'], style: { width: '412px', height: '444px', left: '270px', top: '100px' } },
   { ids: ['jardinier'], style: { width: '412px', height: '444px', left: '290px', top: '100px' } },
   { ids: ['prince', 'royaume'], style: { width: '200px', height: 'auto', left: '370px', top: '360px' } },
   { ids: ['vieux', 'souvenirs'], style: { width: '412px', height: '444px', left: '280px', top: '150px' } },
@@ -837,7 +837,7 @@ function getEtatForId(id) {
   if (!id) return null;
   return localStorage.getItem(`etat-${id}`);
 }
-// --- SAUVEGARDE DYNAMIQUE SUR SUPABASE ---
+
 // --- SAUVEGARDE DYNAMIQUE SUR SUPABASE ---
 /**
  * Sauvegarde le 'step' d'un élément de build (topping, biscuit, etc.) dans Supabase
@@ -1012,7 +1012,6 @@ async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
 
 // --- FIN SAUVEGARDE SIMPLE ---
 
-// Lancer le chargement
 // Lancer le chargement seulement si on est sur une page de détail
 if (document.getElementById('page-cookie')) {
   loadCookieData();
@@ -1047,7 +1046,7 @@ function applyDynamicTheme(data) {
   if (data.title_color) root.style.setProperty('--title-color', data.title_color);
 
   // Ajustement de la taille du titre si besoin (ex: noms très longs)
-  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon'))) {
+  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
@@ -1076,7 +1075,6 @@ function applyDynamicTheme(data) {
     document.body.classList.remove('rarity-antique');
   }
 
-  // Rareté Rare (Demande spécifique couleur #629FC6)
   // Rareté Rare (Demande spécifique couleur #629FC6)
   // On utilise la colonne 'rarete' mais on fait attention à ne pas matcher le dossier asset 'rarete/'
   // Logique : Si ça contient 'rare' ailleurs que dans 'rarete/'

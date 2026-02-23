@@ -1060,7 +1060,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_bonbon_tourbillon.html"
+    "lien": "cookie_detail.html?id=cookie-bonbon-tourbillon"
   },
   {
     "id": "cookie-mala",

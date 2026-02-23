@@ -41,6 +41,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Bonbon Tourbillon",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771877005/cookie_bonbon_tourbillon_carte_eto0nv.webp",
+    "link": "cookie_detail.html?id=cookie-bonbon-tourbillon",
+    "date": "2026-02-23T21:21:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Brioche beurrée",
     "image": "cookies/cookie_brioche_beurree/cookie_brioche_beurree_carte.webp",
     "link": "cookie_brioche_beurree.html",
