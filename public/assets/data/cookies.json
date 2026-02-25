@@ -1033,7 +1033,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_glace.webp",
-    "lien": "cookie_reine_de_givre.html"
+    "lien": "cookie_detail.html?id=cookie-reine-de-givre"
   },
   {
     "id": "cookie-coton",

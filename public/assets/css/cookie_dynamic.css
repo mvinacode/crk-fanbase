@@ -801,6 +801,15 @@ body:not(.accueil) .header .user-info {
     right: 840px;
 }
 
+[data-cookie-slug="cookie-reine-de-givre"] .promotion {
+    right: 810px;
+}
+
+[data-cookie-slug="cookie-reine-de-givre"] .ascension {
+    right: 820px;
+}
+
+
 .bonbons {
     top: 170px;
     left: 20px;
