@@ -1015,7 +1015,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_eclair.html"
+    "lien": "cookie_detail.html?id=cookie-eclair"
   },
   {
     "id": "cookie-cacao",
