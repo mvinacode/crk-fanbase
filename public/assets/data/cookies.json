@@ -1024,7 +1024,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "",
-    "lien": "cookie_cacao.html"
+    "lien": "cookie_detail.html?id=cookie-cacao"
   },
   {
     "id": "cookie-reine-de-givre",

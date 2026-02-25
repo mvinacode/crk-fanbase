@@ -122,7 +122,8 @@ const cookieMap = {
   'cookie-bonbon-tourbillon': '8fa1f53b-a89a-4a94-9e43-050a8bca3706',
   'cookie-tarte-a-la-citrouille': 'cd51cbcf-a6cd-4368-90a3-4248bae1257b',
   'cookie-coton': 'c4136d63-36ee-4036-87ef-517adaa65add',
-  'cookie-reine-de-givre': '25034954-c053-479f-a9a6-0a43c34d484f'
+  'cookie-reine-de-givre': '25034954-c053-479f-a9a6-0a43c34d484f',
+  'cookie-cacao': 'f01f9671-11ba-434a-a7b7-4ee15a87a4fb'
 };
 
 if (cookieMap[cookieId]) {
@@ -761,7 +762,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['choco-noir', 'choco_noir'], style: { width: '412px', height: '444px', left: '260px', top: '180px' } },
   { ids: ['roti'], style: { width: '412px', height: '444px', left: '250px', top: '110px' } },
   { ids: ['erudit'], style: { width: '412px', height: '444px', left: '230px', top: '120px' } },
   { ids: ['espresso'], style: { width: '412px', height: '444px', left: '250px', top: '170px' } },
