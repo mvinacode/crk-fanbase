@@ -101,9 +101,9 @@
   },
   {
     "nom": "Cookie Chevalier Ceylan",
-    "image": "cookies/cookie_chevalier_ceylan/cookie_chevalier_ceylan_carte.webp",
-    "link": "cookie_chevalier_ceylan.html",
-    "date": "2026-01-14T23:20:00",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772034793/cookie_chevalier_ceylan_carte_oo2feh.webp",
+    "link": "cookie_detail.html?id=cookie-chevalier-ceylan",
+    "date": "2026-02-25T17:01:00",
     "type": "update"
   },
   {

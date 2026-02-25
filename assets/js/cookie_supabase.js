@@ -124,7 +124,8 @@ const cookieMap = {
   'cookie-coton': 'c4136d63-36ee-4036-87ef-517adaa65add',
   'cookie-reine-de-givre': '25034954-c053-479f-a9a6-0a43c34d484f',
   'cookie-cacao': 'f01f9671-11ba-434a-a7b7-4ee15a87a4fb',
-  'cookie-eclair': '1f40f60d-3193-40df-bb19-d7f89593185e'
+  'cookie-eclair': '1f40f60d-3193-40df-bb19-d7f89593185e',
+  'cookie-chevalier-ceylan': '639950ec-8d7a-4d53-8a89-8050b2c027ca'
 };
 
 if (cookieMap[cookieId]) {
@@ -763,7 +764,6 @@ async function loadCookieData() {
 
 // --- CONFIGURATION DES POSITIONS COSTUMES ---
 const COSTUME_STYLES = [
-  { ids: ['erudit'], style: { width: '412px', height: '444px', left: '230px', top: '120px' } },
   { ids: ['espresso'], style: { width: '412px', height: '444px', left: '250px', top: '170px' } },
   { ids: ['zz', 'skull'], style: { width: '400px', height: 'auto', left: '380px', top: '290px' } },
   { ids: ['reglisse'], style: { width: '412px', height: '444px', left: '240px', top: '170px' } },

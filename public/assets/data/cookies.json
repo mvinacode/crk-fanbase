@@ -1006,7 +1006,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_chevalier_ceylan.html"
+    "lien": "cookie_detail.html?id=cookie-chevalier-ceylan"
   },
   {
     "id": "cookie-eclair",
