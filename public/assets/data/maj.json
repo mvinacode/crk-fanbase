@@ -56,15 +56,10 @@
   },
   {
     "nom": "Cookie Cacao Noir",
-    "image": "cookies/cookie_cacao_noir/cookie_cacao_noir_carte.webp",
-    "link": "cookie_cacao_noir.html",
-    "date": "2025-11-19"
-  },
-  {
-    "nom": "Cookie Cacao Noir Éveil",
-    "image": "cookies/cookie_cacao_noir/cookie_cacao_noir_eveil_carte.webp",
-    "link": "cookie_cacao_noir_eveil.html",
-    "date": "2025-11-19"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772110504/cookie_cacao_noir_eveil_carte_jx50as.webp",
+    "link": "cookie_detail.html?id=cookie-cacao-noir",
+    "date": "2025-11-19",
+    "type": "update"
   },
   {
     "nom": "Cookie Capsaïcine",

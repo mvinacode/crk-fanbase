@@ -126,7 +126,8 @@ const cookieMap = {
   'cookie-cacao': 'f01f9671-11ba-434a-a7b7-4ee15a87a4fb',
   'cookie-eclair': '1f40f60d-3193-40df-bb19-d7f89593185e',
   'cookie-chevalier-ceylan': '639950ec-8d7a-4d53-8a89-8050b2c027ca',
-  'cookie-affogato': 'b43736f0-4ee1-41c1-9552-68609e3d7098'
+  'cookie-affogato': 'b43736f0-4ee1-41c1-9552-68609e3d7098',
+  'cookie-cacao-noir': 'ca65f53e-1aa0-4367-8017-cee910782ba5'
 };
 
 if (cookieMap[cookieId]) {
@@ -1117,7 +1118,7 @@ function applyDynamicTheme(data) {
     'cookie-cacao-noir': {
       btnBg: '#541F5D', btnHover: '#8b5f93', glow: 'rgb(66, 6, 122)'
     },
-    '2334ec6a-3e4c-497a-93bf-ddf3ee70bb8c': { // UUID Cacao Noir
+    'ca65f53e-1aa0-4367-8017-cee910782ba5': { // UUID Cacao Noir
       btnBg: '#541F5D', btnHover: '#8b5f93', glow: 'rgb(66, 6, 122)'
     },
     // Golden Cheese (Fromage Doré)
@@ -1522,7 +1523,13 @@ const cookieAwakenData = {
   },
   'cookie-cacao-noir': {
     eveilUrl: 'cookie_cacao_noir_eveil.html',
-    buttonLabel: 'Dragon Éveillé',
+    buttonLabel: 'Seigneur Dragon',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam.webp'
+  },
+  'ca65f53e-1aa0-4367-8017-cee910782ba5': {
+    eveilUrl: 'cookie_cacao_noir_eveil.html',
+    buttonLabel: 'Seigneur Dragon',
     confitureNb: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam_nb.webp',
     confitureColor: '../assets/images/confiture_d_ames/awaken_dark_cacao_jam.webp'
   },

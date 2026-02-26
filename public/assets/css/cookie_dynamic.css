@@ -778,18 +778,25 @@ body:not(.accueil) .header .user-info {
 }
 
 /* --- Overrides spécifiques par cookie --- */
+[data-cookie-slug="cookie-cacao-noir"] .btn-eveil {
+    font-size: 28px;
+}
+
 [data-cookie-slug="cookie-vanille-pure"] .promotion,
-[data-cookie-slug="cookie-baie-de-houx"] .promotion {
+[data-cookie-slug="cookie-baie-de-houx"] .promotion,
+[data-cookie-slug="cookie-cacao-noir"] .promotion {
     right: 830px;
 }
 
 [data-cookie-slug="cookie-vanille-pure"] .ascension,
-[data-cookie-slug="cookie-baie-de-houx"] .ascension {
+[data-cookie-slug="cookie-baie-de-houx"] .ascension,
+[data-cookie-slug="cookie-cacao-noir"] .ascension {
     right: 840px;
 }
 
 [data-cookie-slug="cookie-vanille-pure"] .eveil,
-[data-cookie-slug="cookie-baie-de-houx"] .eveil {
+[data-cookie-slug="cookie-baie-de-houx"] .eveil,
+[data-cookie-slug="cookie-cacao-noir"] .eveil {
     right: 840px;
 }
 

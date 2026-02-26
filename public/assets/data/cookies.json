@@ -988,7 +988,7 @@
     "rarete": "rarete/antique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_cacao_noir.html"
+    "lien": "cookie_detail.html?id=cookie-cacao-noir"
   },
   {
     "id": "cookie-affogato",
