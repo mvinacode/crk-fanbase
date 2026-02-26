@@ -125,7 +125,8 @@ const cookieMap = {
   'cookie-reine-de-givre': '25034954-c053-479f-a9a6-0a43c34d484f',
   'cookie-cacao': 'f01f9671-11ba-434a-a7b7-4ee15a87a4fb',
   'cookie-eclair': '1f40f60d-3193-40df-bb19-d7f89593185e',
-  'cookie-chevalier-ceylan': '639950ec-8d7a-4d53-8a89-8050b2c027ca'
+  'cookie-chevalier-ceylan': '639950ec-8d7a-4d53-8a89-8050b2c027ca',
+  'cookie-affogato': 'b43736f0-4ee1-41c1-9552-68609e3d7098'
 };
 
 if (cookieMap[cookieId]) {
@@ -760,15 +761,6 @@ async function loadCookieData() {
   }
 }
 
-
-
-// --- CONFIGURATION DES POSITIONS COSTUMES ---
-const COSTUME_STYLES = [
-  { ids: ['espresso'], style: { width: '412px', height: '444px', left: '250px', top: '170px' } },
-  { ids: ['zz', 'skull'], style: { width: '400px', height: 'auto', left: '380px', top: '290px' } },
-  { ids: ['reglisse'], style: { width: '412px', height: '444px', left: '240px', top: '170px' } },
-];
-
 // Applique dynamiquement les styles d'illustration selon le nom ou l'URL de l'image
 function applyIllustrationStyles() {
   const img = document.querySelector('.illustration-cookie img');
@@ -785,7 +777,8 @@ function applyIllustrationStyles() {
 
   // 1. Identifier la règle Hardcoded (Fallback)
   let finalStyle = {};
-  const rule = COSTUME_STYLES.find(r => {
+  const costumeStylesList = window.COSTUME_STYLES || [];
+  const rule = costumeStylesList.find(r => {
     const matchId = r.ids.some(id => src.includes(id.toLowerCase()) || costumeName.includes(id.toLowerCase()));
     if (matchId && r.conditions) {
       return r.conditions.every(c => src.includes(c.toLowerCase()) || costumeName.includes(c.toLowerCase()));
@@ -1250,6 +1243,10 @@ function renderCookie(data) {
         if (matchingDefault.style.height) activeStyleAttributes += ` data-style-height="${matchingDefault.style.height}"`;
         if (matchingDefault.style.top) activeStyleAttributes += ` data-style-top="${matchingDefault.style.top}"`;
         if (matchingDefault.style.left) activeStyleAttributes += ` data-style-left="${matchingDefault.style.left}"`;
+      }
+      if (matchingDefault.illustrationReplace) {
+        currentIllustration = formatImagePath(matchingDefault.illustrationReplace);
+        window._cookieOriginalImage = currentIllustration;
       }
     }
   }

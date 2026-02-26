@@ -1,9 +1,9 @@
 [
   {
     "nom": "Cookie Affogato",
-    "image": "cookies/cookie_affogato/cookie_affogato_carte.webp",
-    "link": "cookie_affogato.html",
-    "date": "2026-01-14T23:32:00",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772106526/cookie_affogato_carte_s2th1o.webp",
+    "link": "cookie_detail.html?id=cookie-affogato",
+    "date": "2026-02-26T13:11:00",
     "type": "update"
   },
   {

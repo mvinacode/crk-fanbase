@@ -997,7 +997,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_poison.webp",
-    "lien": "cookie_affogato.html"
+    "lien": "cookie_detail.html?id=cookie-affogato"
   },
   {
     "id": "cookie-chevalier-ceylan",
