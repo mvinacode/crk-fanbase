@@ -970,7 +970,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_fleur_de_cerisier.html"
+    "lien": "cookie_detail.html?id=cookie-fleur-de-cerisier"
   },
   {
     "id": "cookie-vergeoise-brune",

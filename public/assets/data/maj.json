@@ -161,9 +161,10 @@
   },
   {
     "nom": "Cookie Fleur de cerisier",
-    "image": "cookies/cookie_fleur_de_cerisier/cookie_fleur_de_cerisier_carte.webp",
-    "link": "cookie_fleur_de_cerisier.html",
-    "date": "2025-09-24"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772118052/cookie_fleur_de_cerisier_carte_fzc0ie.webp",
+    "link": "cookie_detail.html?id=cookie-fleur-de-cerisier",
+    "date": "2026-02-26T16:12:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Fromage Doré",
