@@ -127,7 +127,8 @@ const cookieMap = {
   'cookie-eclair': '1f40f60d-3193-40df-bb19-d7f89593185e',
   'cookie-chevalier-ceylan': '639950ec-8d7a-4d53-8a89-8050b2c027ca',
   'cookie-affogato': 'b43736f0-4ee1-41c1-9552-68609e3d7098',
-  'cookie-cacao-noir': 'ca65f53e-1aa0-4367-8017-cee910782ba5'
+  'cookie-cacao-noir': 'ca65f53e-1aa0-4367-8017-cee910782ba5',
+  'cookie-vergeoise-brune': 'dea4947d-c594-419d-9a78-3325fafde2e4'
 };
 
 if (cookieMap[cookieId]) {

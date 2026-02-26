@@ -979,7 +979,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_vergeoise_brune.html"
+    "lien": "cookie_detail.html?id=cookie-vergeoise-brune"
   },
   {
     "id": "cookie-cacao-noir",
