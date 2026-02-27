@@ -943,7 +943,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_choco_croquant.html"
+    "lien": "cookie_detail.html?id=cookie-choco-croquant"
   },
   {
     "id": "cookie-baie-sauvage",
