@@ -133,7 +133,8 @@ const cookieMap = {
   'cookie-creme-fraiche': '55f1e17c-1f98-454d-b5f5-588c8f8ef93b',
   'cookie-baie-sauvage': '2dd10722-c3c1-4cb7-a0e8-611fd12fa99f',
   'cookie-choco-croquant': '128f3a10-c23e-4b86-a772-c76fb5284b62',
-  'cookie-huitre': '3979830f-afdd-46fd-80c9-f5b7c816a3d3'
+  'cookie-huitre': '3979830f-afdd-46fd-80c9-f5b7c816a3d3',
+  'cookie-financier': '1d21faed-402c-4743-a44d-51579a3e2126'
 };
 
 if (cookieMap[cookieId]) {

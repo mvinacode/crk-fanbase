@@ -925,7 +925,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_financier.html"
+    "lien": "cookie_detail.html?id=cookie-financier"
   },
   {
     "id": "cookie-huitre",
