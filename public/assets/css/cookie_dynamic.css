@@ -821,11 +821,13 @@ body:not(.accueil) .header .user-info {
     right: 820px;
 }
 
-[data-cookie-slug="cookie-creme-fraiche"] .promotion {
+[data-cookie-slug="cookie-creme-fraiche"] .promotion,
+[data-cookie-slug="cookie-huitre"] .promotion {
     right: 825px;
 }
 
-[data-cookie-slug="cookie-creme-fraiche"] .ascension {
+[data-cookie-slug="cookie-creme-fraiche"] .ascension,
+[data-cookie-slug="cookie-huitre"] .ascension {
     right: 835px;
 }
 

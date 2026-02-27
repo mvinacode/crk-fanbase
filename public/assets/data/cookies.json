@@ -934,7 +934,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_huitre.html"
+    "lien": "cookie_detail.html?id=cookie-huitre"
   },
   {
     "id": "cookie-choco-croquant",
