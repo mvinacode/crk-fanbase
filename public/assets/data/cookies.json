@@ -952,7 +952,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_baie_sauvage.html"
+    "lien": "cookie_detail.html?id=cookie-baie-sauvage"
   },
   {
     "id": "cookie-creme-fraiche",

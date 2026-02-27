@@ -130,7 +130,8 @@ const cookieMap = {
   'cookie-cacao-noir': 'ca65f53e-1aa0-4367-8017-cee910782ba5',
   'cookie-vergeoise-brune': 'dea4947d-c594-419d-9a78-3325fafde2e4',
   'cookie-fleur-de-cerisier': '42b907d7-7f15-4b10-abed-d46577ce02ec',
-  'cookie-creme-fraiche': '55f1e17c-1f98-454d-b5f5-588c8f8ef93b'
+  'cookie-creme-fraiche': '55f1e17c-1f98-454d-b5f5-588c8f8ef93b',
+  'cookie-baie-sauvage': '2dd10722-c3c1-4cb7-a0e8-611fd12fa99f'
 };
 
 if (cookieMap[cookieId]) {
