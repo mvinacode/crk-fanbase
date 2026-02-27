@@ -55,6 +55,11 @@ body.rarity-rare .nom-cookie {
     color: #629FC6 !important;
 }
 
+/* Rareté Super Epique (Gestion dynamique) */
+body.rarity-superepic .nom-cookie {
+    color: #D161C6 !important;
+}
+
 /* Rareté Epique (Gestion dynamique) */
 body.rarity-epic .nom-cookie {
     color: #F766A7 !important;
@@ -814,6 +819,14 @@ body:not(.accueil) .header .user-info {
 
 [data-cookie-slug="cookie-reine-de-givre"] .ascension {
     right: 820px;
+}
+
+[data-cookie-slug="cookie-creme-fraiche"] .promotion {
+    right: 825px;
+}
+
+[data-cookie-slug="cookie-creme-fraiche"] .ascension {
+    right: 835px;
 }
 
 

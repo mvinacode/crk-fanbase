@@ -129,7 +129,8 @@ const cookieMap = {
   'cookie-affogato': 'b43736f0-4ee1-41c1-9552-68609e3d7098',
   'cookie-cacao-noir': 'ca65f53e-1aa0-4367-8017-cee910782ba5',
   'cookie-vergeoise-brune': 'dea4947d-c594-419d-9a78-3325fafde2e4',
-  'cookie-fleur-de-cerisier': '42b907d7-7f15-4b10-abed-d46577ce02ec'
+  'cookie-fleur-de-cerisier': '42b907d7-7f15-4b10-abed-d46577ce02ec',
+  'cookie-creme-fraiche': '55f1e17c-1f98-454d-b5f5-588c8f8ef93b'
 };
 
 if (cookieMap[cookieId]) {
@@ -1081,8 +1082,15 @@ function applyDynamicTheme(data) {
     document.body.classList.remove('rarity-rare');
   }
 
+  // Rareté Super Epique (Demande spécifique couleur #D161C6)
+  if (cleanedPath.includes('super')) {
+    document.body.classList.add('rarity-superepic');
+  } else {
+    document.body.classList.remove('rarity-superepic');
+  }
+
   // Rareté Epique (Demande spécifique couleur #F766A7)
-  if (cleanedPath.includes('epique')) {
+  if (cleanedPath.includes('epique') && !cleanedPath.includes('super')) {
     document.body.classList.add('rarity-epic');
   } else {
     document.body.classList.remove('rarity-epic');
@@ -1137,7 +1145,7 @@ function applyDynamicTheme(data) {
   };
 
   // On essaie de trouver le style par UUID ou par Slug (nom normalisé)
-  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e") : '';
+  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e").replace(/[ìíîï]/g, "i").replace(/[òóôõö]/g, "o").replace(/[ùúûü]/g, "u") : '';
   const searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
   const style = cookieStyles[data.id] || cookieStyles[searchSlug];
 
@@ -1557,7 +1565,7 @@ const cookieAwakenData = {
 
 function injectAwakenButton(data) {
   // Rendre le nom de recherche robuste (".startsWith('cookie-')" évite les "cookie-cookie-baie...")
-  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e") : '';
+  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e").replace(/[ìíîï]/g, "i").replace(/[òóôõö]/g, "o").replace(/[ùúûü]/g, "u") : '';
   const searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
   const awakenData = cookieAwakenData[data.id] || cookieAwakenData[searchSlug];
 

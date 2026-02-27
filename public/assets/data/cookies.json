@@ -961,7 +961,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_creme_fraiche.html"
+    "lien": "cookie_detail.html?id=cookie-creme-fraiche"
   },
   {
     "id": "cookie-fleur-de-cerisier",
