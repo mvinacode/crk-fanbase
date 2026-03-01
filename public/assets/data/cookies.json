@@ -796,7 +796,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_glace.webp",
-    "lien": "cookie_sorbet.html"
+    "lien": "cookie_detail.html?id=cookie-sorbet"
   },
   {
     "id": "cookie-macaron",
