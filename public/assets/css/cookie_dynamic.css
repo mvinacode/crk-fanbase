@@ -839,11 +839,13 @@ body:not(.accueil) .header .user-info {
     right: 835px;
 }
 
-[data-cookie-slug="cookie-jung-kook"] .promotion {
+[data-cookie-slug="cookie-jung-kook"] .promotion,
+[data-cookie-slug="cookie-v"] .promotion {
     right: 830px;
 }
 
-[data-cookie-slug="cookie-jung-kook"] .ascension {
+[data-cookie-slug="cookie-jung-kook"] .ascension,
+[data-cookie-slug="cookie-v"] .ascension {
     right: 840px;
 }
 

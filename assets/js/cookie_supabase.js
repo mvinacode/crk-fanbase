@@ -140,7 +140,8 @@ const cookieMap = {
   'cookie-perle-noire': '4322e8e8-d433-4ba3-a5cc-dbd81e378dd4',
   'cookie-bonbon-plongeur': '8abdfeb1-bc8e-405f-9b18-829ff9d9f299',
   'schwarzwalder': 'c7155728-2d16-46a7-9ab0-ec7a2f3f01cb',
-  'cookie-jung-kook': '07285106-535e-4cf1-b30a-3c6f63c78666'
+  'cookie-jung-kook': '07285106-535e-4cf1-b30a-3c6f63c78666',
+  'cookie-v': '242ad7a1-45ab-4faa-a955-64b539a10df7'
 };
 
 if (cookieMap[cookieId]) {
