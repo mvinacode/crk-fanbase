@@ -135,6 +135,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie de l'Avent",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772382126/cookie_de_l_avent_carte_yqe8cu.webp",
+    "link": "cookie_detail.html?id=cookie-de-l-avent",
+    "date": "2026-03-01T17:26:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Eau gazeuse",
     "image": "cookies/cookie_eau_gazeuse/cookie_eau_gazeuse_chorale_apaisante_carte.webp",
     "link": "cookie_eau_gazeuse.html",
