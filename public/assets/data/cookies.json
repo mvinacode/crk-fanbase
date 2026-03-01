@@ -889,7 +889,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_bonbon_plongeur.html"
+    "lien": "cookie_detail.html?id=cookie-bonbon-plongeur"
   },
   {
     "id": "cookie-perle-noire",

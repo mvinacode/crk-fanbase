@@ -137,7 +137,8 @@ const cookieMap = {
   'cookie-financier': '1d21faed-402c-4743-a44d-51579a3e2126',
   'cookie-licorne-a-la-creme': '795aa9f1-02f8-4dc2-bc42-ffedad971415',
   'cookie-capitaine-caviar': 'ca86f14c-6861-47db-a96e-e90b2c58f68b',
-  'cookie-perle-noire': '4322e8e8-d433-4ba3-a5cc-dbd81e378dd4'
+  'cookie-perle-noire': '4322e8e8-d433-4ba3-a5cc-dbd81e378dd4',
+  'cookie-bonbon-plongeur': '8abdfeb1-bc8e-405f-9b18-829ff9d9f299'
 };
 
 if (cookieMap[cookieId]) {
