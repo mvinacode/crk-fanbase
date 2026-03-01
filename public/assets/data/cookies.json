@@ -769,7 +769,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_prophete.html"
+    "lien": "cookie_detail.html?id=cookie-prophete"
   },
   {
     "id": "cookie-pomme-de-pin",
