@@ -62,6 +62,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Capitaine Caviar",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772359645/cookie_capitaine_caviar_carte_xlt51g.webp",
+    "link": "cookie_detail.html?id=cookie-capitaine-caviar",
+    "date": "2026-03-01T11:11:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Capsaïcine",
     "image": "cookies/cookie_capsaicine/cookie_capsaicine_carte.webp",
     "link": "cookie_capsaicine.html",

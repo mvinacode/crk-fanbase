@@ -907,7 +907,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_capitaine_caviar.html"
+    "lien": "cookie_detail.html?id=cookie-capitaine-caviar"
   },
   {
     "id": "cookie-licorne-a-la-creme",
