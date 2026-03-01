@@ -839,6 +839,13 @@ body:not(.accueil) .header .user-info {
     right: 835px;
 }
 
+[data-cookie-slug="cookie-jung-kook"] .promotion {
+    right: 830px;
+}
+
+[data-cookie-slug="cookie-jung-kook"] .ascension {
+    right: 840px;
+}
 
 .bonbons {
     top: 170px;

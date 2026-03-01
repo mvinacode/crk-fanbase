@@ -139,7 +139,8 @@ const cookieMap = {
   'cookie-capitaine-caviar': 'ca86f14c-6861-47db-a96e-e90b2c58f68b',
   'cookie-perle-noire': '4322e8e8-d433-4ba3-a5cc-dbd81e378dd4',
   'cookie-bonbon-plongeur': '8abdfeb1-bc8e-405f-9b18-829ff9d9f299',
-  'schwarzwalder': 'c7155728-2d16-46a7-9ab0-ec7a2f3f01cb'
+  'schwarzwalder': 'c7155728-2d16-46a7-9ab0-ec7a2f3f01cb',
+  'cookie-jung-kook': '07285106-535e-4cf1-b30a-3c6f63c78666'
 };
 
 if (cookieMap[cookieId]) {
@@ -1393,6 +1394,9 @@ function renderCookie(data) {
 
    ${(() => {
       // Logic moved up
+      const classe = data.classe || data.badges?.classe || '';
+      if (classe.includes('bts')) return '';
+
       return `
      <div class="info-frame2 ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
          <div class="info-frame2-header">
