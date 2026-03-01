@@ -787,7 +787,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soin.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_de_l_avent.html"
+    "lien": "cookie_detail.html?id=cookie-de-l-avent"
   },
   {
     "id": "cookie-sorbet",

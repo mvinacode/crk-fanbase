@@ -143,7 +143,8 @@ const cookieMap = {
   'cookie-jung-kook': '07285106-535e-4cf1-b30a-3c6f63c78666',
   'cookie-v': '242ad7a1-45ab-4faa-a955-64b539a10df7',
   'cookie-jimin': '48a5d856-4866-461c-b587-052c9f5d8acc',
-  'cookie-j-hope': '2104f800-74ba-4fae-96f1-b00706e09e75'
+  'cookie-j-hope': '2104f800-74ba-4fae-96f1-b00706e09e75',
+  'cookie-suga': 'c4a58656-95eb-4c54-8b98-0fa99e757c80'
 };
 
 if (cookieMap[cookieId]) {
