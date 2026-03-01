@@ -366,9 +366,9 @@
   },
   {
     "nom": "Schwarzwälder",
-    "image": "cookies/schwarzwalder/schwarzwalder_carte.webp",
-    "link": "schwarzwalder.html",
-    "date": "2026-01-14T23:43:00",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772364537/schwarzwalder_carte_xzjwke.webp",
+    "link": "cookie_detail.html?id=schwarzwalder",
+    "date": "2026-03-01T12:34:00",
     "type": "update"
   }
 ]
