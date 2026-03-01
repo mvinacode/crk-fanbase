@@ -149,7 +149,8 @@ const cookieMap = {
   'cookie-rm': '5dd97eec-b6c0-4064-8c66-a51e7a9a063c',
   'cookie-macaron': 'a6b9058e-ab92-40cf-ab1e-bfc2622a3739',
   'cookie-sorbet': 'a3390805-88c8-4652-a66b-69bbd9b19c3b',
-  'cookie-de-l-avent': 'e6539b9d-8e56-443c-b893-c849dc8548f6'
+  'cookie-de-l-avent': 'e6539b9d-8e56-443c-b893-c849dc8548f6',
+  'cookie-pomme-de-pin': '4739777f-ca34-42fa-86c7-ee6337a37934'
 };
 
 if (cookieMap[cookieId]) {
