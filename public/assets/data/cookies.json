@@ -916,7 +916,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soin.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_licorne_a_la_creme.html"
+    "lien": "cookie_detail.html?id=cookie-licorne-a-la-creme"
   },
   {
     "id": "cookie-financier",
