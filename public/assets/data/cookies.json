@@ -751,7 +751,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/magie.webp",
     "element": "",
-    "lien": "cookie_clair_de_lune.html"
+    "lien": "cookie_detail.html?id=cookie-clair-de-lune"
   },
   {
     "id": "cookie-voie-lactee",

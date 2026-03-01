@@ -147,7 +147,8 @@ const cookieMap = {
   'cookie-suga': 'c4a58656-95eb-4c54-8b98-0fa99e757c80',
   'cookie-jin': 'ae4dfedf-2fb1-49c9-8784-41cb8e24f554',
   'cookie-rm': '5dd97eec-b6c0-4064-8c66-a51e7a9a063c',
-  'cookie-macaron': 'a6b9058e-ab92-40cf-ab1e-bfc2622a3739'
+  'cookie-macaron': 'a6b9058e-ab92-40cf-ab1e-bfc2622a3739',
+  'cookie-sorbet': 'a3390805-88c8-4652-a66b-69bbd9b19c3b'
 };
 
 if (cookieMap[cookieId]) {

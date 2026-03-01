@@ -830,12 +830,14 @@ body:not(.accueil) .header .user-info {
 }
 
 [data-cookie-slug="cookie-creme-fraiche"] .promotion,
-[data-cookie-slug="cookie-huitre"] .promotion {
+[data-cookie-slug="cookie-huitre"] .promotion,
+[data-cookie-slug="cookie-sorbet"] .promotion {
     right: 825px;
 }
 
 [data-cookie-slug="cookie-creme-fraiche"] .ascension,
-[data-cookie-slug="cookie-huitre"] .ascension {
+[data-cookie-slug="cookie-huitre"] .ascension,
+[data-cookie-slug="cookie-sorbet"] .ascension {
     right: 835px;
 }
 
