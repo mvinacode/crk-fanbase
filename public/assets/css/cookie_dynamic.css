@@ -843,7 +843,8 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-v"] .promotion,
 [data-cookie-slug="cookie-jimin"] .promotion,
 [data-cookie-slug="cookie-j-hope"] .promotion,
-[data-cookie-slug="cookie-suga"] .promotion {
+[data-cookie-slug="cookie-suga"] .promotion,
+[data-cookie-slug="cookie-jin"] .promotion {
     right: 830px;
 }
 
@@ -851,7 +852,8 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-v"] .ascension,
 [data-cookie-slug="cookie-jimin"] .ascension,
 [data-cookie-slug="cookie-j-hope"] .ascension,
-[data-cookie-slug="cookie-suga"] .ascension {
+[data-cookie-slug="cookie-suga"] .ascension,
+[data-cookie-slug="cookie-jin"] .ascension {
     right: 840px;
 }
 
