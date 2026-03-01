@@ -146,7 +146,8 @@ const cookieMap = {
   'cookie-j-hope': '2104f800-74ba-4fae-96f1-b00706e09e75',
   'cookie-suga': 'c4a58656-95eb-4c54-8b98-0fa99e757c80',
   'cookie-jin': 'ae4dfedf-2fb1-49c9-8784-41cb8e24f554',
-  'cookie-rm': '5dd97eec-b6c0-4064-8c66-a51e7a9a063c'
+  'cookie-rm': '5dd97eec-b6c0-4064-8c66-a51e7a9a063c',
+  'cookie-macaron': 'a6b9058e-ab92-40cf-ab1e-bfc2622a3739'
 };
 
 if (cookieMap[cookieId]) {

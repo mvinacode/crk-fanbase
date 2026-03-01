@@ -760,7 +760,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "",
-    "lien": "cookie_voie_lactee.html"
+    "lien": "cookie_detail.html?id=cookie-voie-lactee"
   },
   {
     "id": "cookie-prophete",
