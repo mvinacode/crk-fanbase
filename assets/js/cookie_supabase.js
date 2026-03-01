@@ -150,7 +150,8 @@ const cookieMap = {
   'cookie-macaron': 'a6b9058e-ab92-40cf-ab1e-bfc2622a3739',
   'cookie-sorbet': 'a3390805-88c8-4652-a66b-69bbd9b19c3b',
   'cookie-de-l-avent': 'e6539b9d-8e56-443c-b893-c849dc8548f6',
-  'cookie-pomme-de-pin': '4739777f-ca34-42fa-86c7-ee6337a37934'
+  'cookie-pomme-de-pin': '4739777f-ca34-42fa-86c7-ee6337a37934',
+  'cookie-prophete': '775317af-3307-4695-b996-7a828a39e8ac'
 };
 
 if (cookieMap[cookieId]) {
