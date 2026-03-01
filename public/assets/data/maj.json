@@ -271,6 +271,13 @@
     "type": "new"
   },
   {
+    "nom": "Cookie Perle Noire",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772361371/cookie_perle_noire_carte_xkkqnw.webp",
+    "link": "cookie_detail.html?id=cookie-perle-noire",
+    "date": "2026-03-01T11:41:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Pions choco",
     "image": "cookies/cookie_pions_choco/cookie_pions_choco_carte.webp",
     "link": "cookie_pions_choco.html",

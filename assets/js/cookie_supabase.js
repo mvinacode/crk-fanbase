@@ -136,7 +136,8 @@ const cookieMap = {
   'cookie-huitre': '3979830f-afdd-46fd-80c9-f5b7c816a3d3',
   'cookie-financier': '1d21faed-402c-4743-a44d-51579a3e2126',
   'cookie-licorne-a-la-creme': '795aa9f1-02f8-4dc2-bc42-ffedad971415',
-  'cookie-capitaine-caviar': 'ca86f14c-6861-47db-a96e-e90b2c58f68b'
+  'cookie-capitaine-caviar': 'ca86f14c-6861-47db-a96e-e90b2c58f68b',
+  'cookie-perle-noire': '4322e8e8-d433-4ba3-a5cc-dbd81e378dd4'
 };
 
 if (cookieMap[cookieId]) {
@@ -2039,7 +2040,9 @@ function renderCostumes(costumes) {
         </div>
         <p class="costume-name" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
             ${c.nom}
-            ${(c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude') || c.nom.toLowerCase().includes('émeraude')))) ? `<img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034044/icone_mythique_k862nj.webp" alt="Mythique" style="width: 20px; height: auto; margin-left: 5px; vertical-align: middle;">` : ''}
+            ${(c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude')
+      || c.nom.toLowerCase().includes('émeraude')) || c.nom.toLowerCase().includes('reine') || c.nom.toLowerCase().includes('Abysses'))) ?
+      `<img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034044/icone_mythique_k862nj.webp" alt="Mythique" style="width: 20px; height: auto; margin-left: 5px; vertical-align: middle;">` : ''}
         </p>
       </div>
     `).join('');

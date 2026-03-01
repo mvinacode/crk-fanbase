@@ -898,7 +898,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_perle_noire.html"
+    "lien": "cookie_detail.html?id=cookie-perle-noire"
   },
   {
     "id": "cookie-capitaine-caviar",
