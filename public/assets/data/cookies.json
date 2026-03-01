@@ -805,7 +805,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "",
-    "lien": "cookie_macaron.html"
+    "lien": "cookie_detail.html?id=cookie-macaron"
   },
   {
     "id": "cookie-rm",
@@ -814,7 +814,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/bts.webp",
     "element": "",
-    "lien": "cookie_rm.html"
+    "lien": "cookie_detail.html?id=cookie-rm"
   },
   {
     "id": "cookie-jin",
@@ -823,7 +823,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/bts.webp",
     "element": "",
-    "lien": "cookie_jin.html"
+    "lien": "cookie_detail.html?id=cookie-jin"
   },
   {
     "id": "cookie-suga",
@@ -832,7 +832,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/bts.webp",
     "element": "",
-    "lien": "cookie_suga.html"
+    "lien": "cookie_detail.html?id=cookie-suga"
   },
   {
     "id": "cookie-j-hope",
@@ -841,7 +841,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/bts.webp",
     "element": "",
-    "lien": "cookie_j_hope.html"
+    "lien": "cookie_detail.html?id=cookie-j-hope"
   },
   {
     "id": "cookie-jimin",
@@ -850,7 +850,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/bts.webp",
     "element": "",
-    "lien": "cookie_jimin.html"
+    "lien": "cookie_detail.html?id=cookie-jimin"
   },
   {
     "id": "cookie-v",

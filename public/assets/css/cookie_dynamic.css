@@ -840,12 +840,14 @@ body:not(.accueil) .header .user-info {
 }
 
 [data-cookie-slug="cookie-jung-kook"] .promotion,
-[data-cookie-slug="cookie-v"] .promotion {
+[data-cookie-slug="cookie-v"] .promotion,
+[data-cookie-slug="cookie-jimin"] .promotion {
     right: 830px;
 }
 
 [data-cookie-slug="cookie-jung-kook"] .ascension,
-[data-cookie-slug="cookie-v"] .ascension {
+[data-cookie-slug="cookie-v"] .ascension,
+[data-cookie-slug="cookie-jimin"] .ascension {
     right: 840px;
 }
 
