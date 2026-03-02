@@ -156,7 +156,8 @@ const cookieMap = {
   'cookie-clair-de-lune': '960662c1-8f82-4893-9606-9d614080566f',
   'cookie-tarte-aux-myrtilles': '03eec11c-15f7-4530-9837-decf39dff4df',
   'cookie-poussiere-d-etoile': 'b2a8dc03-beb5-4b69-b439-3c020e0bd72b',
-  'donut-de-l-espace': 'de406a01-4958-444e-b7d9-73c8b7638101'
+  'donut-de-l-espace': 'de406a01-4958-444e-b7d9-73c8b7638101',
+  'cookie-capsaicine': '6d23f85b-625a-4023-aef1-666616910292'
 };
 
 if (cookieMap[cookieId]) {

@@ -70,9 +70,10 @@
   },
   {
     "nom": "Cookie Capsaïcine",
-    "image": "cookies/cookie_capsaicine/cookie_capsaicine_carte.webp",
-    "link": "cookie_capsaicine.html",
-    "date": "2025-10-06"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772459676/cookie_capsaicine_carte_qds7sp.webp",
+    "link": "cookie_detail.html?id=cookie-capsaicine",
+    "date": "2025-10-06",
+    "type": "update"
   },
   {
     "nom": "Cookie Carotte",

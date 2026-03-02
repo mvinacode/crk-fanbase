@@ -670,7 +670,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_tarte_tatin.html"
+    "lien": "cookie_detail.html?id=cookie-tarte-tatin"
   },
   {
     "id": "cookie-margarine-royale",
