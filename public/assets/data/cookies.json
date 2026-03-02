@@ -679,7 +679,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_poison.webp",
-    "lien": "cookie_margarine_royale.html"
+    "lien": "cookie_detail.html?id=cookie-margarine-royale"
   },
   {
     "id": "cookie-fruit-du-dragon",
