@@ -367,9 +367,10 @@
   },
   {
     "nom": "Cookie Tarte aux myrtilles",
-    "image": "cookies/cookie_tarte_aux_myrtilles/cookie_tarte_aux_myrtilles_carte.webp",
-    "link": "cookie_tarte_aux_myrtilles.html",
-    "date": "2025-10-01"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772451949/cookie_tarte_aux_myrtilles_carte_bxgpmz.webp",
+    "link": "cookie_detail.html?id=cookie-tarte-aux-myrtilles",
+    "date": "2025-10-01",
+    "type": "update"
   },
   {
     "nom": "Schwarzwälder",
