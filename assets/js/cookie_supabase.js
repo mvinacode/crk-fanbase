@@ -154,7 +154,8 @@ const cookieMap = {
   'cookie-prophete': '775317af-3307-4695-b996-7a828a39e8ac',
   'cookie-voie-lactee': 'a7cb6699-79d1-4eea-92ba-e17d70e1363a',
   'cookie-clair-de-lune': '960662c1-8f82-4893-9606-9d614080566f',
-  'cookie-tarte-aux-myrtilles': '03eec11c-15f7-4530-9837-decf39dff4df'
+  'cookie-tarte-aux-myrtilles': '03eec11c-15f7-4530-9837-decf39dff4df',
+  'cookie-poussiere-d-etoile': 'b2a8dc03-beb5-4b69-b439-3c020e0bd72b'
 };
 
 if (cookieMap[cookieId]) {
@@ -1068,7 +1069,8 @@ function applyDynamicTheme(data) {
 
   // Ajustement de la taille du titre si besoin (ex: noms très longs)
   if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon')
-    || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles'))) {
+    || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles')
+    || data.nom.includes('Poussière d\'Étoile'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
@@ -1170,7 +1172,7 @@ function applyDynamicTheme(data) {
   };
 
   // On essaie de trouver le style par UUID ou par Slug (nom normalisé)
-  const baseNom = data.nom ? data.nom.toLowerCase().replace(/ /g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e").replace(/[ìíîï]/g, "i").replace(/[òóôõö]/g, "o").replace(/[ùúûü]/g, "u") : '';
+  const baseNom = data.nom ? data.nom.toLowerCase().replace(/[ \u0027\u2019]/g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e").replace(/[ìíîï]/g, "i").replace(/[òóôõö]/g, "o").replace(/[ùúûü]/g, "u") : '';
   const searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
   const style = cookieStyles[data.id] || cookieStyles[searchSlug];
 

@@ -307,9 +307,10 @@
   },
   {
     "nom": "Cookie Poussière d'Étoile",
-    "image": "cookies/cookie_poussiere_d_etoile/cookie_poussiere_d_etoile_carte.webp",
-    "link": "cookie_poussiere_d_etoile.html",
-    "date": "2025-10-01"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772454899/cookie_poussiere_d_etoile_carte_eqttrg.webp",
+    "link": "cookie_detail.html?id=cookie-poussiere-d-etoile",
+    "date": "2025-10-01",
+    "type": "update"
   },
   {
     "nom": "Cookie Red Velvet",

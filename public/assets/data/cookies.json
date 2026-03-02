@@ -688,7 +688,7 @@
     "rarete": "rarete/dragon.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_fruit_du_dragon.html"
+    "lien": "cookie_detail.html?id=cookie-fruit-du-dragon"
   },
   {
     "id": "cookie-kouign-amann",
