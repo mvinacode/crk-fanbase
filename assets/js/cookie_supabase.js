@@ -157,7 +157,8 @@ const cookieMap = {
   'cookie-tarte-aux-myrtilles': '03eec11c-15f7-4530-9837-decf39dff4df',
   'cookie-poussiere-d-etoile': 'b2a8dc03-beb5-4b69-b439-3c020e0bd72b',
   'donut-de-l-espace': 'de406a01-4958-444e-b7d9-73c8b7638101',
-  'cookie-capsaicine': '6d23f85b-625a-4023-aef1-666616910292'
+  'cookie-capsaicine': '6d23f85b-625a-4023-aef1-666616910292',
+  'cookie-jus-de-pruneaux': '6140e47e-6e10-46fd-9147-932ba91ae428'
 };
 
 if (cookieMap[cookieId]) {
@@ -1072,7 +1073,7 @@ function applyDynamicTheme(data) {
   // Ajustement de la taille du titre si besoin (ex: noms très longs)
   if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon')
     || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles')
-    || data.nom.includes('Poussière d\'Étoile'))) {
+    || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
