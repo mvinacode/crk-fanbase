@@ -152,7 +152,8 @@ const cookieMap = {
   'cookie-de-l-avent': 'e6539b9d-8e56-443c-b893-c849dc8548f6',
   'cookie-pomme-de-pin': '4739777f-ca34-42fa-86c7-ee6337a37934',
   'cookie-prophete': '775317af-3307-4695-b996-7a828a39e8ac',
-  'cookie-voie-lactee': 'a7cb6699-79d1-4eea-92ba-e17d70e1363a'
+  'cookie-voie-lactee': 'a7cb6699-79d1-4eea-92ba-e17d70e1363a',
+  'cookie-clair-de-lune': '960662c1-8f82-4893-9606-9d614080566f'
 };
 
 if (cookieMap[cookieId]) {
@@ -2058,8 +2059,8 @@ function renderCostumes(costumes) {
         </div>
         <p class="costume-name" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
             ${c.nom}
-            ${(c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude')
-      || c.nom.toLowerCase().includes('émeraude')) || c.nom.toLowerCase().includes('reine') || c.nom.toLowerCase().includes('Abysses'))) ?
+            ${c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude')
+      || c.nom.toLowerCase().includes('émeraude')) || c.nom.toLowerCase().includes('reine') || c.nom.toLowerCase().includes('Abysses') || (c.nom.toLowerCase().includes('croissant') && (c.nom.toLowerCase().includes('lune')))) ?
       `<img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034044/icone_mythique_k862nj.webp" alt="Mythique" style="width: 20px; height: auto; margin-left: 5px; vertical-align: middle;">` : ''}
         </p>
       </div>
