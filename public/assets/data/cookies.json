@@ -652,7 +652,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_paillettes_brillantes.html"
+    "lien": "cookie_detail.html?id=cookie-paillettes-brillantes"
   },
   {
     "id": "cookie-sang-dragon",

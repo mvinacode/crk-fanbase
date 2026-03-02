@@ -158,7 +158,8 @@ const cookieMap = {
   'cookie-poussiere-d-etoile': 'b2a8dc03-beb5-4b69-b439-3c020e0bd72b',
   'donut-de-l-espace': 'de406a01-4958-444e-b7d9-73c8b7638101',
   'cookie-capsaicine': '6d23f85b-625a-4023-aef1-666616910292',
-  'cookie-jus-de-pruneaux': '6140e47e-6e10-46fd-9147-932ba91ae428'
+  'cookie-jus-de-pruneaux': '6140e47e-6e10-46fd-9147-932ba91ae428',
+  'cookie-kouign-amann': '0f56a1ca-abf6-4864-9a99-c034fdb82070'
 };
 
 if (cookieMap[cookieId]) {

@@ -208,9 +208,10 @@
   },
   {
     "nom": "Cookie Kouign Amann",
-    "image": "cookies/cookie_kouign_amann/cookie_kouign_amann_carte.webp",
-    "link": "cookie_kouign_amann.html",
-    "date": "2025-10-06"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772463384/cookie_kouign_amann_carte_uzhd2z.webp",
+    "link": "cookie_detail.html?id=cookie-kouign-amann",
+    "date": "2025-10-06",
+    "type": "update"
   },
   {
     "nom": "Cookie Lait de l'ombre",
