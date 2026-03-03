@@ -164,7 +164,8 @@ const cookieMap = {
   'cookie-margarine-royale': '18529ba3-97fe-4fdb-8bc1-b5b916131966',
   'cookie-tarte-tatin': '192250a1-b439-48ab-993b-d378348e811d',
   'cookie-sang-dragon': 'bc5efadb-44c9-427b-9f50-95830715bf1f',
-  'cookie-paillettes-brillantes': '31f2a398-29b2-4198-ac9d-abb3994c6cf6'
+  'cookie-paillettes-brillantes': '31f2a398-29b2-4198-ac9d-abb3994c6cf6',
+  'cookie-rockstar': '8b516b60-508e-47bd-a64f-1f93cabda7e7'
 };
 
 if (cookieMap[cookieId]) {
