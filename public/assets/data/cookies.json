@@ -625,7 +625,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_menthe_poivree.html"
+    "lien": "cookie_detail.html?id=cookie-menthe-poivree"
   },
   {
     "id": "cookie-limonade-noire",
