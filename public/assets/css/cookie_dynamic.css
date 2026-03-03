@@ -81,6 +81,11 @@ body.rarity-special .nom-cookie {
     color: #FAC534 !important;
 }
 
+/* Rareté Dragon (Gestion dynamique) */
+body.rarity-dragon .nom-cookie {
+    color: #BA291A !important;
+}
+
 /* ==========================================================================
    COMPOSANTS PARTAGÉS (BOUTONS)
    ========================================================================== */

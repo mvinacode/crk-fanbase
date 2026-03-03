@@ -643,7 +643,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soin.webp",
     "element": "",
-    "lien": "cookie_rockstar.html"
+    "lien": "cookie_detail.html?id=cookie-rockstar"
   },
   {
     "id": "cookie-paillettes-brillantes",
