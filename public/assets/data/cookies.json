@@ -577,7 +577,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_terre.webp",
-    "lien": "cookie_fettuccine.html"
+    "lien": "cookie_detail.html?id=cookie-fettuccine"
   },
   {
     "id": "cookie-tourteau-fromage",
