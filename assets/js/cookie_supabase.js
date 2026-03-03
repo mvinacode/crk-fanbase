@@ -160,7 +160,8 @@ const cookieMap = {
   'cookie-capsaicine': '6d23f85b-625a-4023-aef1-666616910292',
   'cookie-jus-de-pruneaux': '6140e47e-6e10-46fd-9147-932ba91ae428',
   'cookie-kouign-amann': '0f56a1ca-abf6-4864-9a99-c034fdb82070',
-  'cookie-fruit-du-dragon': '1819829c-b817-447c-aec6-b27a47be014b'
+  'cookie-fruit-du-dragon': '1819829c-b817-447c-aec6-b27a47be014b',
+  'cookie-margarine-royale': '18529ba3-97fe-4fdb-8bc1-b5b916131966'
 };
 
 if (cookieMap[cookieId]) {
@@ -1075,7 +1076,7 @@ function applyDynamicTheme(data) {
   // Ajustement de la taille du titre si besoin (ex: noms très longs)
   if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon')
     || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles')
-    || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux') || data.nom.includes('Fruit du dragon'))) {
+    || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux') || data.nom.includes('Fruit du dragon') || data.nom.includes('Margarine Royale'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {

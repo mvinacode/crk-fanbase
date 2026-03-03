@@ -634,7 +634,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_limonade_noire.html"
+    "lien": "cookie_detail.html?id=cookie-limonade-noire"
   },
   {
     "id": "cookie-rockstar",
