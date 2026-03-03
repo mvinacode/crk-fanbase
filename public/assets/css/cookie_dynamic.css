@@ -846,7 +846,8 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-huitre"] .promotion,
 [data-cookie-slug="cookie-sorbet"] .promotion,
 [data-cookie-slug="cookie-poussiere-d-etoile"] .promotion,
-[data-cookie-slug="cookie-capsaicine"] .promotion {
+[data-cookie-slug="cookie-capsaicine"] .promotion,
+[data-cookie-slug="cookie-paillettes-brillantes"] .promotion {
     right: 825px;
 }
 
@@ -854,7 +855,8 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-huitre"] .ascension,
 [data-cookie-slug="cookie-sorbet"] .ascension,
 [data-cookie-slug="cookie-poussiere-d-etoile"] .ascension,
-[data-cookie-slug="cookie-capsaicine"] .ascension {
+[data-cookie-slug="cookie-capsaicine"] .ascension,
+[data-cookie-slug="cookie-paillettes-brillantes"] .ascension {
     right: 835px;
 }
 

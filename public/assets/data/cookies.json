@@ -607,7 +607,7 @@
       "elements_crk/element_eau.webp",
       "elements_crk/element_electricite.webp"
     ],
-    "lien": "cookie_meduse_mousseline.html"
+    "lien": "cookie_detail.html?id=cookie-meduse-mousseline"
   },
   {
     "id": "cookie-corail-carmin",
