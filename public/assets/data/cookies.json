@@ -586,7 +586,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_terre.webp",
-    "lien": "cookie_tourteau_fromage.html"
+    "lien": "cookie_detail.html?id=cookie-tourteau-fromage"
   },
   {
     "id": "cookie-fromage-dore",
