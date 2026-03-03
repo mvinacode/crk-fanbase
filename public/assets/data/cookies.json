@@ -616,7 +616,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_corail_carmin.html"
+    "lien": "cookie_detail.html?id=cookie-corail-carmin"
   },
   {
     "id": "cookie-menthe-poivree",

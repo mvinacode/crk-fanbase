@@ -162,7 +162,8 @@ const cookieMap = {
   'cookie-kouign-amann': '0f56a1ca-abf6-4864-9a99-c034fdb82070',
   'cookie-fruit-du-dragon': '1819829c-b817-447c-aec6-b27a47be014b',
   'cookie-margarine-royale': '18529ba3-97fe-4fdb-8bc1-b5b916131966',
-  'cookie-tarte-tatin': '192250a1-b439-48ab-993b-d378348e811d'
+  'cookie-tarte-tatin': '192250a1-b439-48ab-993b-d378348e811d',
+  'cookie-sang-dragon': 'bc5efadb-44c9-427b-9f50-95830715bf1f'
 };
 
 if (cookieMap[cookieId]) {
