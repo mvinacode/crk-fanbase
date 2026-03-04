@@ -528,7 +528,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_linzer.html"
+    "lien": "cookie_detail.html?id=cookie-linzer"
   },
   {
     "id": "cookie-creme-brulee",
