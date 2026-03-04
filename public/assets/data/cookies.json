@@ -546,7 +546,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/soin.webp",
     "element": "elements_crk/element_glace.webp",
-    "lien": "cookie_yeti_givre.html"
+    "lien": "cookie_detail.html?id=cookie-yeti-givre"
   },
   {
     "id": "cookie-olive",

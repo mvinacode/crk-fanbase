@@ -792,10 +792,18 @@ body:not(.accueil) .header .user-info {
     font-size: 28px;
 }
 
+[data-cookie-slug="cookie-fromage-dore"] .btn-eveil {
+    font-size: 30px;
+}
+
 [data-cookie-slug="cookie-vanille-pure"] .promotion,
 [data-cookie-slug="cookie-baie-de-houx"] .promotion,
 [data-cookie-slug="cookie-cacao-noir"] .promotion {
     right: 830px;
+}
+
+[data-cookie-slug="cookie-fromage-dore"] .promotion {
+    right: 815px;
 }
 
 [data-cookie-slug="cookie-vanille-pure"] .ascension,
@@ -804,10 +812,18 @@ body:not(.accueil) .header .user-info {
     right: 840px;
 }
 
+[data-cookie-slug="cookie-fromage-dore"] .ascension {
+    right: 825px;
+}
+
 [data-cookie-slug="cookie-vanille-pure"] .eveil,
 [data-cookie-slug="cookie-baie-de-houx"] .eveil,
 [data-cookie-slug="cookie-cacao-noir"] .eveil {
     right: 840px;
+}
+
+[data-cookie-slug="cookie-fromage-dore"] .eveil {
+    right: 825px;
 }
 
 [data-cookie-slug="cookie-fee-des-mers"] .promotion {
@@ -1214,4 +1230,11 @@ body:not(.accueil) .header .user-info {
 
 .illustration-swap-anim {
     animation: illustrationSwap 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mythic-icon-small {
+    height: 20px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 5px;
 }

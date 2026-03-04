@@ -169,7 +169,8 @@ const cookieMap = {
   'cookie-limonade-noire': 'f2577d95-bb1b-4ee7-a140-8ac45fa392c4',
   'cookie-menthe-poivree': 'e68d19eb-bda1-4bfc-8ede-94c5f7df197d',
   'cookie-corail-carmin': 'b25c981e-0bb9-4932-a723-a8d0d2c72301',
-  'cookie-meduse-mousseline': 'd80ab4a8-92c6-4c07-9e08-950e6ab4900c'
+  'cookie-meduse-mousseline': 'd80ab4a8-92c6-4c07-9e08-950e6ab4900c',
+  'cookie-fromage-dore': '9bf9c90e-ea0c-4d16-86fb-4d1f585411e9'
 };
 
 if (cookieMap[cookieId]) {
@@ -313,13 +314,15 @@ async function loadCookieData() {
     // --- CHARGEMENT DES COSTUMES (Si table séparée) ---
     const { data: costumesData, error: costumesError } = await supabase
       .from('costumes')
-      .select('*')
+      .select('*, icon_mythique') // Parfois le select(*) ne prend pas les nouvelles colonnes
       .eq('cookie_id', cookieData.id)
       .order('id'); // ou autre ordre
 
     if (costumesError) {
       console.error("Erreur lors du chargement des costumes:", costumesError);
     }
+
+    console.log("Raw costumes data from Supabase:", costumesData);
 
     if (costumesData && costumesData.length > 0) {
       // Transformation des données pour correspondre à la structure attendue
@@ -334,7 +337,8 @@ async function loadCookieData() {
         return {
           ...c,
           images: imgs, // Création du tableau attendu
-          image3: c.image3 // On s'assure que image3 est bien là pour le check mythique
+          image3: c.image3, // On s'assure que image3 est bien là pour le check mythique
+          icon_mythique: c.icon_mythique // Propager explicitement la colonne icon_mythique
         };
       });
 
@@ -544,6 +548,7 @@ async function loadCookieData() {
           illustrationReplace: costumeRow.illustrationReplace || costumeRow.illustration_replace || null,
           illustrationReplaceOr: costumeRow.illustrationReplaceOr || costumeRow.illustration_replace_or || null,
           rareteIcon: costumeRow.rareteIcon || costumeRow.rarete_icon || null,
+          iconMythique: costumeRow['icon-mythique'] || costumeRow.icon_mythique || null,
           style: {
             width: costumeRow.style_width,
             height: costumeRow.style_height,
@@ -1597,7 +1602,13 @@ const cookieAwakenData = {
   },
   'cookie-fromage-dore': {
     eveilUrl: 'cookie_fromage_dore_eveil.html',
-    buttonLabel: 'Aile Éveillée',
+    buttonLabel: 'Ailes Immortelles',
+    confitureNb: '../assets/images/confiture_d_ames/awaken_golden_cheese_jam_nb.webp',
+    confitureColor: '../assets/images/confiture_d_ames/awaken_golden_cheese_jam.webp'
+  },
+  '9bf9c90e-ea0c-4d16-86fb-4d1f585411e9': { // UUID Fromage Doré
+    eveilUrl: 'cookie_fromage_dore_eveil.html',
+    buttonLabel: 'Ailes Immortelles',
     confitureNb: '../assets/images/confiture_d_ames/awaken_golden_cheese_jam_nb.webp',
     confitureColor: '../assets/images/confiture_d_ames/awaken_golden_cheese_jam.webp'
   },
@@ -2061,7 +2072,10 @@ function renderCostumes(costumes) {
 
   if (!costumes) return;
 
-  const costumesHTML = costumes.map(c => `
+  const costumesHTML = costumes.map(c => {
+    console.log(`[DEBUG] Costume: ${c.nom}, icon_mythique:`, c.icon_mythique);
+    const isMythicClass = (c.icon_mythique || c.image3) ? ' is-mythic' : '';
+    return `
     <div class="costume-item ${c.isAwakenedSwap ? 'is-awakened-swap' : ''}">
         <div class="costume-toggle-wrapper">
           <img alt="${c.nom}" class="costume-toggle" 
@@ -2082,14 +2096,13 @@ function renderCostumes(costumes) {
                  ${c._originalRareteIcon ? `data-original-rarete-icon="${formatImagePath(c._originalRareteIcon)}"` : ''}
                  src="${formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp')}"/>
         </div>
-        <p class="costume-name" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
+        <p class="costume-name${isMythicClass}" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
             ${c.nom}
-            ${c.image3 || (c.nom && (c.nom.toLowerCase().includes('reverie') || c.nom.toLowerCase().includes('rêverie')) && (c.nom.toLowerCase().includes('emeraude')
-      || c.nom.toLowerCase().includes('émeraude')) || c.nom.toLowerCase().includes('reine') || c.nom.toLowerCase().includes('Abysses') || (c.nom.toLowerCase().includes('croissant') && (c.nom.toLowerCase().includes('lune')))) ?
-      `<img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034044/icone_mythique_k862nj.webp" alt="Mythique" style="width: 20px; height: auto; margin-left: 5px; vertical-align: middle;">` : ''}
+            ${c.iconMythique ? `<img src="${formatImagePath(c.iconMythique)}" class="mythic-icon-small" alt="Mythique" />` : ''}
         </p>
       </div>
-    `).join('');
+    `;
+  }).join('');
 
   gallery.innerHTML = costumesHTML;
 }

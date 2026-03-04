@@ -183,9 +183,10 @@
   },
   {
     "nom": "Cookie Fromage Doré",
-    "image": "cookies/cookie_fromage_dore/cookie_fromage_dore_carte.webp",
-    "link": "cookie_fromage_dore.html",
-    "date": "2025-11-12"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772623185/cookie_fromage_dore_eveil_carte_lx4v53.webp",
+    "link": "cookie_detail.html?id=cookie-fromage-dore",
+    "date": "2025-11-12",
+    "type": "update"
   },
   {
     "nom": "Cookie Glinda",
