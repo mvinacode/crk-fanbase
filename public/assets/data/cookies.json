@@ -559,7 +559,7 @@
       "elements_crk/element_feu.webp",
       "elements_crk/element_electricite.webp"
     ],
-    "lien": "cookie_olive.html"
+    "lien": "cookie_detail.html?id=cookie-olive"
   },
   {
     "id": "cookie-mozzarella",
