@@ -173,7 +173,8 @@ const cookieMap = {
   'cookie-fromage-dore': '9bf9c90e-ea0c-4d16-86fb-4d1f585411e9',
   'cookie-tourteau-fromage': '486eb0fc-61c8-4ce0-a704-e0bee0a88a68',
   'cookie-fettuccine': '141eecfd-f254-4869-a3d3-72b57a806603',
-  'cookie-mozzarella': '652c366e-1a70-4a48-bb7d-96df9e89beaa'
+  'cookie-mozzarella': '652c366e-1a70-4a48-bb7d-96df9e89beaa',
+  'cookie-olive': '6d5ee460-ba12-4d77-886c-067c23c3a33b'
 };
 
 if (cookieMap[cookieId]) {

@@ -510,7 +510,7 @@
     "rarete": "rarete/antique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_lys_blanc.html"
+    "lien": "cookie_detail.html?id=cookie-lys-blanc"
   },
   {
     "id": "cookie-justicier",
