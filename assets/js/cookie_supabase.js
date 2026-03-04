@@ -170,7 +170,8 @@ const cookieMap = {
   'cookie-menthe-poivree': 'e68d19eb-bda1-4bfc-8ede-94c5f7df197d',
   'cookie-corail-carmin': 'b25c981e-0bb9-4932-a723-a8d0d2c72301',
   'cookie-meduse-mousseline': 'd80ab4a8-92c6-4c07-9e08-950e6ab4900c',
-  'cookie-fromage-dore': '9bf9c90e-ea0c-4d16-86fb-4d1f585411e9'
+  'cookie-fromage-dore': '9bf9c90e-ea0c-4d16-86fb-4d1f585411e9',
+  'cookie-tourteau-fromage': '486eb0fc-61c8-4ce0-a704-e0bee0a88a68'
 };
 
 if (cookieMap[cookieId]) {
@@ -1090,7 +1091,7 @@ function applyDynamicTheme(data) {
   if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon')
     || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles')
     || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux') || data.nom.includes('Fruit du dragon') || data.nom.includes('Margarine Royale')
-    || data.nom.includes('Paillettes brillantes') || data.nom.includes('Limonade noire') || data.nom.includes('Méduse Mousseline'))) {
+    || data.nom.includes('Paillettes brillantes') || data.nom.includes('Limonade noire') || data.nom.includes('Méduse Mousseline') || data.nom.includes('Tourteau fromagé'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {

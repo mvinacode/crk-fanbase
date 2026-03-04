@@ -537,7 +537,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_lumiere.webp",
-    "lien": "cookie_creme_brulee.html"
+    "lien": "cookie_detail.html?id=cookie-creme-brulee"
   },
   {
     "id": "cookie-yeti-givre",
