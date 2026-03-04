@@ -167,7 +167,8 @@ const cookieMap = {
   'cookie-paillettes-brillantes': '31f2a398-29b2-4198-ac9d-abb3994c6cf6',
   'cookie-rockstar': '8b516b60-508e-47bd-a64f-1f93cabda7e7',
   'cookie-limonade-noire': 'f2577d95-bb1b-4ee7-a140-8ac45fa392c4',
-  'cookie-menthe-poivree': 'e68d19eb-bda1-4bfc-8ede-94c5f7df197d'
+  'cookie-menthe-poivree': 'e68d19eb-bda1-4bfc-8ede-94c5f7df197d',
+  'cookie-corail-carmin': 'b25c981e-0bb9-4932-a723-a8d0d2c72301'
 };
 
 if (cookieMap[cookieId]) {
