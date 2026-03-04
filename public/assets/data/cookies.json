@@ -519,7 +519,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_vent.webp",
-    "lien": "cookie_justicier.html"
+    "lien": "cookie_detail.html?id=cookie-justicier"
   },
   {
     "id": "cookie-linzer",
