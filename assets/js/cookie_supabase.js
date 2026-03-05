@@ -177,7 +177,8 @@ const cookieMap = {
   'cookie-olive': '6d5ee460-ba12-4d77-886c-067c23c3a33b',
   'cookie-yeti-givre': '99276b8e-8236-4772-bdfe-7e3163b0dc82',
   'cookie-creme-brulee': '72303759-4682-4907-8b85-904cc527def6',
-  'cookie-linzer': 'f07056fc-b0cc-46c2-addc-5c4bd7b1fac2'
+  'cookie-linzer': 'f07056fc-b0cc-46c2-addc-5c4bd7b1fac2',
+  'cookie-justicier': '54feab2d-aac1-4fcf-8bd4-8d49e6138061'
 };
 
 if (cookieMap[cookieId]) {

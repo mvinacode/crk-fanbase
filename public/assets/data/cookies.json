@@ -471,7 +471,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/defense.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_roi_des_fees.html"
+    "lien": "cookie_detail.html?id=cookie-roi-des-fees"
   },
   {
     "id": "cookie-matcha",
