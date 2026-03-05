@@ -492,7 +492,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_acier.webp",
-    "lien": "cookie_chevalier_vif_argent.html"
+    "lien": "cookie_detail.html?id=cookie-chevalier-vif-argent"
   },
   {
     "id": "cookie-muguet",
