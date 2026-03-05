@@ -796,6 +796,10 @@ body:not(.accueil) .header .user-info {
     font-size: 30px;
 }
 
+[data-cookie-slug="cookie-lys-blanc"] .btn-eveil {
+    font-size: 28px;
+}
+
 [data-cookie-slug="cookie-vanille-pure"] .promotion,
 [data-cookie-slug="cookie-baie-de-houx"] .promotion,
 [data-cookie-slug="cookie-cacao-noir"] .promotion {

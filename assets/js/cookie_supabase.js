@@ -178,7 +178,8 @@ const cookieMap = {
   'cookie-yeti-givre': '99276b8e-8236-4772-bdfe-7e3163b0dc82',
   'cookie-creme-brulee': '72303759-4682-4907-8b85-904cc527def6',
   'cookie-linzer': 'f07056fc-b0cc-46c2-addc-5c4bd7b1fac2',
-  'cookie-justicier': '54feab2d-aac1-4fcf-8bd4-8d49e6138061'
+  'cookie-justicier': '54feab2d-aac1-4fcf-8bd4-8d49e6138061',
+  'cookie-lys-blanc': '55b92598-3587-44c5-9eab-a40108e727e6'
 };
 
 if (cookieMap[cookieId]) {
@@ -1612,13 +1613,13 @@ const cookieAwakenData = {
   },
   'cookie-lys-blanc': {
     eveilUrl: 'cookie_lys_blanc_eveil.html',
-    buttonLabel: 'Fleur Éveillée',
+    buttonLabel: 'Lumière de l\'Aube',
     confitureNb: '../assets/images/confiture_d_ames/awaken_white_lily_jam_nb.webp',
     confitureColor: '../assets/images/confiture_d_ames/awaken_white_lily_jam.webp'
   },
-  '73956799-d46e-4f5b-8db8-1765cb131656': { // UUID Lys Blanc
+  '55b92598-3587-44c5-9eab-a40108e727e6': { // UUID Lys Blanc
     eveilUrl: 'cookie_lys_blanc_eveil.html',
-    buttonLabel: 'Fleur Éveillée',
+    buttonLabel: 'Lumière de l\'Aube',
     confitureNb: '../assets/images/confiture_d_ames/awaken_white_lily_jam_nb.webp',
     confitureColor: '../assets/images/confiture_d_ames/awaken_white_lily_jam.webp'
   },

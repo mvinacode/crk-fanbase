@@ -462,7 +462,7 @@
       "elements_crk/element_acier.webp",
       "elements_crk/element_chaos.webp"
     ],
-    "lien": "cookie_brioche_beurree.html"
+    "lien": "cookie_detail.html?id=cookie-brioche-beurree"
   },
   {
     "id": "cookie-roi-des-fees",
