@@ -501,7 +501,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_muguet.html"
+    "lien": "cookie_detail.html?id=cookie-muguet"
   },
   {
     "id": "cookie-lys-blanc",
