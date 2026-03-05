@@ -176,7 +176,8 @@ const cookieMap = {
   'cookie-mozzarella': '652c366e-1a70-4a48-bb7d-96df9e89beaa',
   'cookie-olive': '6d5ee460-ba12-4d77-886c-067c23c3a33b',
   'cookie-yeti-givre': '99276b8e-8236-4772-bdfe-7e3163b0dc82',
-  'cookie-creme-brulee': '72303759-4682-4907-8b85-904cc527def6'
+  'cookie-creme-brulee': '72303759-4682-4907-8b85-904cc527def6',
+  'cookie-linzer': 'f07056fc-b0cc-46c2-addc-5c4bd7b1fac2'
 };
 
 if (cookieMap[cookieId]) {
@@ -453,7 +454,33 @@ async function loadCookieData() {
     cookieData.biscuits = newBiscuits;
 
     // 4. Promotions (pas de reset)
-    cookieData.promotions = await fetchCategoryDataWithId('promotions', ['promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion', cookieData.id);
+    let rawPromotions = await fetchCategoryDataWithId('promotions', ['promotions', 'promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion', cookieData.id);
+
+    // Vérifier si on a une ligne "promotions" groupée (la nouvelle méthode avec les tableaux)
+    const groupedPromoIndex = rawPromotions.findIndex(p => p.nom === 'promotions' || (p.images.length > 0 && typeof p.images[0] === 'string' && p.images[0].trim().startsWith('[')));
+
+    if (groupedPromoIndex !== -1) {
+      const groupedPromo = rawPromotions[groupedPromoIndex];
+      const extractedPromos = [];
+      groupedPromo.images.forEach((imgData, i) => {
+        let parsedImgs = [];
+        if (typeof imgData === 'string' && imgData.trim().startsWith('[')) {
+          try { parsedImgs = JSON.parse(imgData); } catch (e) { parsedImgs = [imgData]; }
+        } else if (Array.isArray(imgData)) {
+          parsedImgs = imgData;
+        } else {
+          parsedImgs = [imgData];
+        }
+        extractedPromos.push({
+          id: `${groupedPromo.id}-promo-${i + 1}`,
+          nom: `Promotion ${i + 1}`,
+          images: parsedImgs
+        });
+      });
+      cookieData.promotions = extractedPromos;
+    } else {
+      cookieData.promotions = rawPromotions;
+    }
 
     // 5. Pierres de confiture : reset step si modifié
     const prevPierresRaw = localStorage.getItem(`pierres-data:${cookieId}`);

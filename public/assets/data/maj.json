@@ -235,12 +235,6 @@
     "date": "2025-11-07"
   },
   {
-    "nom": "Cookie Lys Blanc Éveil",
-    "image": "cookies/cookie_lys_blanc/cookie_lys_blanc_eveil_carte.webp",
-    "link": "cookie_lys_blanc_eveil.html",
-    "date": "2025-11-11"
-  },
-  {
     "nom": "Cookie Mala",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1771873823/cookie_mala_carte_hhh2sc.webp",
     "link": "cookie_detail.html?id=cookie-mala",
