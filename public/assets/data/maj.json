@@ -257,9 +257,10 @@
   },
   {
     "nom": "Cookie Muguet",
-    "image": "cookies/cookie_muguet/cookie_muguet_carte.webp",
-    "link": "cookie_muguet.html",
-    "date": "2025-11-07"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772722703/cookie_muguet_carte_qvheqx.webp",
+    "link": "cookie_detail.html?id=cookie-muguet",
+    "date": "2025-11-07",
+    "type": "update"
   },
   {
     "nom": "Cookie Patate douce",

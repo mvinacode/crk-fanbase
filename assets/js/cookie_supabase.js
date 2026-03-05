@@ -179,7 +179,8 @@ const cookieMap = {
   'cookie-creme-brulee': '72303759-4682-4907-8b85-904cc527def6',
   'cookie-linzer': 'f07056fc-b0cc-46c2-addc-5c4bd7b1fac2',
   'cookie-justicier': '54feab2d-aac1-4fcf-8bd4-8d49e6138061',
-  'cookie-lys-blanc': '55b92598-3587-44c5-9eab-a40108e727e6'
+  'cookie-lys-blanc': '55b92598-3587-44c5-9eab-a40108e727e6',
+  'cookie-muguet': '3f844948-1b47-419e-aeae-f8af0f104931'
 };
 
 if (cookieMap[cookieId]) {

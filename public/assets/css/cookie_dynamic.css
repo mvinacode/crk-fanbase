@@ -903,8 +903,8 @@ body:not(.accueil) .header .user-info {
 }
 
 .bonbons {
-    top: 170px;
-    left: 20px;
+    top: 160px;
+    left: 30px;
 }
 
 .pierre-confiture {
@@ -945,7 +945,10 @@ body:not(.accueil) .header .user-info {
     width: 170px;
 }
 
-.bonbon-cycle,
+.bonbon-cycle {
+    width: 130px;
+}
+
 .pierre-cycle {
     width: 180px;
 }

@@ -450,7 +450,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_saint_honore.html"
+    "lien": "cookie_detail.html?id=cookie-saint-honore"
   },
   {
     "id": "cookie-brioche-beurree",
