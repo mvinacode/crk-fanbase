@@ -387,7 +387,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_corail_etoile.html"
+    "lien": "cookie_detail.html?id=cookie-corail-etoile"
   },
   {
     "id": "cookie-belette-a-la-creme",
