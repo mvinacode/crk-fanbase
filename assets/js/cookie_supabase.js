@@ -182,7 +182,8 @@ const cookieMap = {
   'cookie-lys-blanc': '55b92598-3587-44c5-9eab-a40108e727e6',
   'cookie-muguet': '3f844948-1b47-419e-aeae-f8af0f104931',
   'cookie-chevalier-vif-argent': 'd0fd15e2-186c-4574-a827-5badc2ea2dce',
-  'cookie-matcha': '03931bcd-f513-444b-8579-f2e205d504c5'
+  'cookie-matcha': '03931bcd-f513-444b-8579-f2e205d504c5',
+  'cookie-roi-des-fees': '758cb0a8-8061-4faa-b138-365ff11f00c2'
 };
 
 if (cookieMap[cookieId]) {

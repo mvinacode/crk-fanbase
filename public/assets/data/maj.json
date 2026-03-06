@@ -327,6 +327,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Roi des fées",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772798946/cookie_roi_des_fees_carte_jzpwcb.webp",
+    "link": "cookie_detail.html?id=cookie-roi-des-fees",
+    "date": "2026-03-06T13:12:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Salière",
     "image": "cookies/cookie_saliere/cookie_saliere_carte.webp",
     "link": "cookie_saliere.html",
