@@ -189,7 +189,8 @@ const cookieMap = {
   'cookie-oursin': 'b31730eb-7a8d-493a-a733-f441449ae8d2',
   'cookie-brise-tonnerre': '9c267ed3-a476-4410-9972-24b7086062b9',
   'cookie-farine-mystique': 'b5be9b79-b330-49c0-bf7f-63d4ccb6b38b',
-  'cookie-haetae-des-nuages': 'fba81812-bd0b-4c53-8c25-aab40360f908'
+  'cookie-haetae-des-nuages': 'fba81812-bd0b-4c53-8c25-aab40360f908',
+  'cookie-fleur-de-pecher': 'ea00c71d-2d4b-48a1-9e9a-515826fa2f6f'
 };
 
 if (cookieMap[cookieId]) {
