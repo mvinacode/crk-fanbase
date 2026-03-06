@@ -285,7 +285,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soin.webp",
     "element": "",
-    "lien": "cookie_okchun.html"
+    "lien": "cookie_detail.html?id=cookie-okchun"
   },
   {
     "id": "cookie-mousse-au-the-vert",
