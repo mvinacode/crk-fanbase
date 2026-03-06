@@ -185,7 +185,8 @@ const cookieMap = {
   'cookie-matcha': '03931bcd-f513-444b-8579-f2e205d504c5',
   'cookie-roi-des-fees': '758cb0a8-8061-4faa-b138-365ff11f00c2',
   'cookie-brioche-beurree': '0a6fe843-87a0-44a2-b322-4206c9e43cec',
-  'cookie-saint-honore': 'e8350869-ee95-4a22-be96-d6217feeb7e5'
+  'cookie-saint-honore': 'e8350869-ee95-4a22-be96-d6217feeb7e5',
+  'cookie-oursin': 'b31730eb-7a8d-493a-a733-f441449ae8d2'
 };
 
 if (cookieMap[cookieId]) {

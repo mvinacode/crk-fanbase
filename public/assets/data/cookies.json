@@ -396,7 +396,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_belette_a_la_creme.html"
+    "lien": "cookie_detail.html?id=cookie-belette-a-la-creme"
   },
   {
     "id": "cookie-fleur-de-pecher",
