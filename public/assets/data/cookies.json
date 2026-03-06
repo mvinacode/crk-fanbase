@@ -324,7 +324,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_bouton_de_braise.html"
+    "lien": "cookie_detail.html?id=cookie-bouton-de-braise"
   },
   {
     "id": "cookie-bouton-d-or",

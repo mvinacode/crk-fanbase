@@ -917,7 +917,8 @@ body:not(.accueil) .header .user-info {
     right: 840px;
 }
 
-[data-cookie-slug="cookie-farine-mystique"] .eveil {
+[data-cookie-slug="cookie-farine-mystique"] .eveil,
+[data-cookie-slug="cookie-epices-ardentes"] .eveil {
     right: 840px;
     top: 600px;
 }
