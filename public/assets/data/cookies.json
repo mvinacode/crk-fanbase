@@ -405,7 +405,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_fleur_de_pecher.html"
+    "lien": "cookie_detail.html?id=cookie-fleur-de-pecher"
   },
   {
     "id": "cookie-haetae-des-nuages",
