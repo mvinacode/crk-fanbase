@@ -267,7 +267,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "",
-    "lien": "cookie_pomme_d_amour.html"
+    "lien": "cookie_detail.html?id=cookie-pomme-d-amour"
   },
   {
     "id": "cookie-lait-de-l-ombre",

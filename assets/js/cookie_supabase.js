@@ -199,7 +199,8 @@ const cookieMap = {
   'cookie-fromage-fume': 'a570531e-56f8-4471-a03b-1119ddacf4d4',
   'cookie-camelia': '2d33aac0-ba9e-4b60-9430-a77136f597c2',
   'cookie-bouton-d-or': '6ea0caa3-92e7-43eb-962a-90eb56107d1c',
-  'cookie-bouton-de-braise': 'ad9ab8f6-967d-46da-a039-e436d41fee8c'
+  'cookie-bouton-de-braise': 'ad9ab8f6-967d-46da-a039-e436d41fee8c',
+  'cookie-choco-nappe': '5bf77430-c98a-49f3-80d1-46799b102190'
 };
 
 if (cookieMap[cookieId]) {
