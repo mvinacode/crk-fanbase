@@ -369,7 +369,7 @@
     "rarete": "rarete/bete.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_epices_ardentes.html"
+    "lien": "cookie_detail.html?id=cookie-epices-ardentes"
   },
   {
     "id": "cookie-archer-du-vent",
