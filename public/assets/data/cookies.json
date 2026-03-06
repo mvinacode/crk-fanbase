@@ -333,7 +333,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_bouton_d_or.html"
+    "lien": "cookie_detail.html?id=cookie-bouton-d-or"
   },
   {
     "id": "cookie-camelia",

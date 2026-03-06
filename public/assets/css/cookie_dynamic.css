@@ -867,6 +867,14 @@ body:not(.accueil) .header .user-info {
     right: 830px;
 }
 
+[data-cookie-slug="cookie-archer-du-vent"] .promotion {
+    right: 820px;
+}
+
+[data-cookie-slug="cookie-archer-du-vent"] .ascension {
+    right: 830px;
+}
+
 [data-cookie-slug="cookie-creme-fraiche"] .promotion,
 [data-cookie-slug="cookie-huitre"] .promotion,
 [data-cookie-slug="cookie-sorbet"] .promotion,
