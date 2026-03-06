@@ -86,6 +86,11 @@ body.rarity-dragon .nom-cookie {
     color: #BA291A !important;
 }
 
+/* Rareté Bête (Gestion dynamique) */
+body.rarity-bete .nom-cookie {
+    color: #C51F42 !important;
+}
+
 /* ==========================================================================
    COMPOSANTS PARTAGÉS (BOUTONS)
    ========================================================================== */
@@ -902,6 +907,11 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-jin"] .ascension,
 [data-cookie-slug="cookie-rm"] .ascension {
     right: 840px;
+}
+
+[data-cookie-slug="cookie-farine-mystique"] .eveil {
+    right: 840px;
+    top: 600px;
 }
 
 .bonbons {

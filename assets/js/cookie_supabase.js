@@ -187,7 +187,8 @@ const cookieMap = {
   'cookie-brioche-beurree': '0a6fe843-87a0-44a2-b322-4206c9e43cec',
   'cookie-saint-honore': 'e8350869-ee95-4a22-be96-d6217feeb7e5',
   'cookie-oursin': 'b31730eb-7a8d-493a-a733-f441449ae8d2',
-  'cookie-brise-tonnerre': '9c267ed3-a476-4410-9972-24b7086062b9'
+  'cookie-brise-tonnerre': '9c267ed3-a476-4410-9972-24b7086062b9',
+  'cookie-farine-mystique': 'b5be9b79-b330-49c0-bf7f-63d4ccb6b38b'
 };
 
 if (cookieMap[cookieId]) {
@@ -1206,6 +1207,13 @@ function applyDynamicTheme(data) {
     document.body.classList.add('rarity-dragon');
   } else {
     document.body.classList.remove('rarity-dragon');
+  }
+
+  // Rareté Bête (Demande spécifique couleur #C51F42)
+  if (cleanedPath.includes('bete')) {
+    document.body.classList.add('rarity-bete');
+  } else {
+    document.body.classList.remove('rarity-bete');
   }
 
   // 6. Gestion des styles spécifiques (Boutons Éveil) via ID

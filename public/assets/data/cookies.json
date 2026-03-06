@@ -378,7 +378,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/tir.webp",
     "element": "elements_crk/element_vent.webp",
-    "lien": "cookie_archer_du_vent.html"
+    "lien": "cookie_detail.html?id=cookie-archer-du-vent"
   },
   {
     "id": "cookie-corail-etoile",

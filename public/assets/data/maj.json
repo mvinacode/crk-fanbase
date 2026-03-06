@@ -164,9 +164,10 @@
   },
   {
     "nom": "Cookie Farine Mystique",
-    "image": "cookies/cookie_farine_mystique/cookie_farine_mystique_ascete_du_nirvana_carte.webp",
-    "link": "cookie_farine_mystique.html",
-    "date": "2025-12-17T20:13:00"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772808070/cookie_farine_mystique_ascete_du_nirvana_carte_npnr0p.webp",
+    "link": "cookie_detail.html?id=cookie-farine-mystique",
+    "date": "2025-12-17T20:13:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Figue",
