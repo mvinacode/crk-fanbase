@@ -196,7 +196,8 @@ const cookieMap = {
   'cookie-archer-du-vent': 'aeb7544c-2275-47ce-90e6-802d413854e6',
   'cookie-epices-ardentes': '4ec4899c-0ab3-45d5-a92d-6faa45ad1fbe',
   'cookie-muscade-tigree': '7703b0f0-3bf9-43f9-8b12-954d0636f9cf',
-  'cookie-fromage-fume': 'a570531e-56f8-4471-a03b-1119ddacf4d4'
+  'cookie-fromage-fume': 'a570531e-56f8-4471-a03b-1119ddacf4d4',
+  'cookie-camelia': '2d33aac0-ba9e-4b60-9430-a77136f597c2'
 };
 
 if (cookieMap[cookieId]) {
