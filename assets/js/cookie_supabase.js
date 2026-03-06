@@ -191,7 +191,8 @@ const cookieMap = {
   'cookie-farine-mystique': 'b5be9b79-b330-49c0-bf7f-63d4ccb6b38b',
   'cookie-haetae-des-nuages': 'fba81812-bd0b-4c53-8c25-aab40360f908',
   'cookie-fleur-de-pecher': 'ea00c71d-2d4b-48a1-9e9a-515826fa2f6f',
-  'cookie-belette-a-la-creme': '765f7d7f-efd6-48ea-8929-ff3b3b6eec97'
+  'cookie-belette-a-la-creme': '765f7d7f-efd6-48ea-8929-ff3b3b6eec97',
+  'cookie-corail-etoile': '9a1c2e43-0c66-4f55-bc1a-23830992ff80'
 };
 
 if (cookieMap[cookieId]) {

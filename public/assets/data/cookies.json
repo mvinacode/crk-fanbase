@@ -342,7 +342,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_camelia.html"
+    "lien": "cookie_detail.html?id=cookie-camelia"
   },
   {
     "id": "cookie-fromage-fume",
