@@ -194,7 +194,8 @@ const cookieMap = {
   'cookie-belette-a-la-creme': '765f7d7f-efd6-48ea-8929-ff3b3b6eec97',
   'cookie-corail-etoile': '9a1c2e43-0c66-4f55-bc1a-23830992ff80',
   'cookie-archer-du-vent': 'aeb7544c-2275-47ce-90e6-802d413854e6',
-  'cookie-epices-ardentes': '4ec4899c-0ab3-45d5-a92d-6faa45ad1fbe'
+  'cookie-epices-ardentes': '4ec4899c-0ab3-45d5-a92d-6faa45ad1fbe',
+  'cookie-muscade-tigree': '7703b0f0-3bf9-43f9-8b12-954d0636f9cf'
 };
 
 if (cookieMap[cookieId]) {
@@ -1142,7 +1143,7 @@ function applyDynamicTheme(data) {
     || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux') || data.nom.includes('Fruit du dragon') || data.nom.includes('Margarine Royale')
     || data.nom.includes('Paillettes brillantes') || data.nom.includes('Limonade noire') || data.nom.includes('Méduse Mousseline') || data.nom.includes('Tourteau fromagé')
     || data.nom.includes('Chevalier vif-argent') || data.nom.includes('Brioche beurrée') || data.nom.includes('Brise-tonnerre') || data.nom.includes('Haetae des nuages')
-    || data.nom.includes('Belette à la crème') || data.nom.includes('Archer du Vent') || data.nom.includes('Épices Ardentes'))) {
+    || data.nom.includes('Belette à la crème') || data.nom.includes('Archer du Vent') || data.nom.includes('Épices Ardentes') || data.nom.includes('Muscade tigrée'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {

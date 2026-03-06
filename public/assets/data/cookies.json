@@ -315,7 +315,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_choco_nappe.html"
+    "lien": "cookie_detail.html?id=cookie-choco-nappe"
   },
   {
     "id": "cookie-bouton-de-braise",
