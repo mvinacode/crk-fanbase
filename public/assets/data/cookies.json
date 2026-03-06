@@ -351,7 +351,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_terre.webp",
-    "lien": "cookie_fromage_fume.html"
+    "lien": "cookie_detail.html?id=cookie-fromage-fume"
   },
   {
     "id": "cookie-muscade-tigree",
