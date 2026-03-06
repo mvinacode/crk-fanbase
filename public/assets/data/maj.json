@@ -245,8 +245,8 @@
   },
   {
     "nom": "Cookie Matcha",
-    "image": "cookies/cookie_matcha/cookie_matcha_carte.webp",
-    "link": "cookie_matcha.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772797864/cookie_matcha_carte_ka1l6r.webp",
+    "link": "cookie_detail.html?id=cookie-matcha",
     "date": "2026-01-15T00:00:00",
     "type": "update"
   },

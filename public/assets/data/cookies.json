@@ -441,7 +441,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_oursin.html"
+    "lien": "cookie_detail.html?id=cookie-oursin"
   },
   {
     "id": "cookie-saint-honore",

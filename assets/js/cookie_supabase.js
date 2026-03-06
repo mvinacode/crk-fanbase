@@ -181,7 +181,8 @@ const cookieMap = {
   'cookie-justicier': '54feab2d-aac1-4fcf-8bd4-8d49e6138061',
   'cookie-lys-blanc': '55b92598-3587-44c5-9eab-a40108e727e6',
   'cookie-muguet': '3f844948-1b47-419e-aeae-f8af0f104931',
-  'cookie-chevalier-vif-argent': 'd0fd15e2-186c-4574-a827-5badc2ea2dce'
+  'cookie-chevalier-vif-argent': 'd0fd15e2-186c-4574-a827-5badc2ea2dce',
+  'cookie-matcha': '03931bcd-f513-444b-8579-f2e205d504c5'
 };
 
 if (cookieMap[cookieId]) {
