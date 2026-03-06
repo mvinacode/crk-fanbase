@@ -306,7 +306,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_pudding_a_la_mode.html"
+    "lien": "cookie_detail.html?id=cookie-pudding-a-la-mode"
   },
   {
     "id": "cookie-choco-nappe",

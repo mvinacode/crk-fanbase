@@ -195,7 +195,8 @@ const cookieMap = {
   'cookie-corail-etoile': '9a1c2e43-0c66-4f55-bc1a-23830992ff80',
   'cookie-archer-du-vent': 'aeb7544c-2275-47ce-90e6-802d413854e6',
   'cookie-epices-ardentes': '4ec4899c-0ab3-45d5-a92d-6faa45ad1fbe',
-  'cookie-muscade-tigree': '7703b0f0-3bf9-43f9-8b12-954d0636f9cf'
+  'cookie-muscade-tigree': '7703b0f0-3bf9-43f9-8b12-954d0636f9cf',
+  'cookie-fromage-fume': 'a570531e-56f8-4471-a03b-1119ddacf4d4'
 };
 
 if (cookieMap[cookieId]) {
