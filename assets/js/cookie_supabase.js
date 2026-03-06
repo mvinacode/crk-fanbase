@@ -183,7 +183,8 @@ const cookieMap = {
   'cookie-muguet': '3f844948-1b47-419e-aeae-f8af0f104931',
   'cookie-chevalier-vif-argent': 'd0fd15e2-186c-4574-a827-5badc2ea2dce',
   'cookie-matcha': '03931bcd-f513-444b-8579-f2e205d504c5',
-  'cookie-roi-des-fees': '758cb0a8-8061-4faa-b138-365ff11f00c2'
+  'cookie-roi-des-fees': '758cb0a8-8061-4faa-b138-365ff11f00c2',
+  'cookie-brioche-beurree': '0a6fe843-87a0-44a2-b322-4206c9e43cec'
 };
 
 if (cookieMap[cookieId]) {
@@ -1130,7 +1131,7 @@ function applyDynamicTheme(data) {
     || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles')
     || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux') || data.nom.includes('Fruit du dragon') || data.nom.includes('Margarine Royale')
     || data.nom.includes('Paillettes brillantes') || data.nom.includes('Limonade noire') || data.nom.includes('Méduse Mousseline') || data.nom.includes('Tourteau fromagé')
-    || data.nom.includes('Chevalier vif-argent'))) {
+    || data.nom.includes('Chevalier vif-argent') || data.nom.includes('Brioche beurrée'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {

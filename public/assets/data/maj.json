@@ -49,8 +49,8 @@
   },
   {
     "nom": "Cookie Brioche beurrée",
-    "image": "cookies/cookie_brioche_beurree/cookie_brioche_beurree_carte.webp",
-    "link": "cookie_brioche_beurree.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772799875/cookie_brioche_beurree_carte_xpuncr.webp",
+    "link": "cookie_detail.html?id=cookie-brioche-beurree",
     "date": "2026-01-15T00:05:00",
     "type": "update"
   },
