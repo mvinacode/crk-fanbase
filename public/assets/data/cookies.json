@@ -276,7 +276,7 @@
     "rarete": "rarete/bete.webp",
     "role": "classe/magie.webp",
     "element": "",
-    "lien": "cookie_lait_de_l_ombre.html"
+    "lien": "cookie_detail.html?id=cookie-lait-de-l-ombre"
   },
   {
     "id": "cookie-okchun",
