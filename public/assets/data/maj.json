@@ -310,8 +310,8 @@
   },
   {
     "nom": "Cookie Pomme d'amour",
-    "image": "cookies/cookie_pomme_d_amour/cookie_pomme_d_amour_carte.webp",
-    "link": "cookie_pomme_d_amour.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772888405/cookie_pomme_d_amour_carte_xiejum.webp",
+    "link": "cookie_detail.html?id=cookie-pomme-d-amour",
     "date": "2026-01-15T00:29:00",
     "type": "update"
   },

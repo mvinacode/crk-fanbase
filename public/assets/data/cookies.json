@@ -222,7 +222,7 @@
       "elements_crk/element_vent.webp",
       "elements_crk/element_glace.webp"
     ],
-    "lien": "cookie_agar_agar.html"
+    "lien": "cookie_detail.html?id=cookie-agar-agar"
   },
   {
     "id": "cookie-esprit-du-feu",
