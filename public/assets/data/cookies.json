@@ -258,7 +258,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_poison.webp",
-    "lien": "cookie_saphir_noir.html"
+    "lien": "cookie_detail.html?id=cookie-saphir-noir"
   },
   {
     "id": "cookie-pomme-d-amour",
