@@ -198,7 +198,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/tir.webp",
     "element": "",
-    "lien": "cookie_pavlova.html"
+    "lien": "cookie_detail.html?id=cookie-pavlova"
   },
   {
     "id": "cookie-sucre-eternel",

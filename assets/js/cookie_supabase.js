@@ -207,7 +207,8 @@ const cookieMap = {
   'cookie-lait-de-l-ombre': '1afcf91b-6b11-47bc-aa2e-f06cf31d8f50',
   'cookie-pomme-d-amour': 'e4462212-2fb2-43fd-a2db-1f9b98c8832a',
   'cookie-saphir-noir': 'dea32e05-62a1-472e-95a4-9ad363936257',
-  'cookie-piece-montee': '818556ea-bd09-4cbc-8ade-1cf6b739a8e1'
+  'cookie-piece-montee': '818556ea-bd09-4cbc-8ade-1cf6b739a8e1',
+  'cookie-foret-noire': '2215f4dd-5a83-4d07-b579-0a3f4ac555db'
 };
 
 if (cookieMap[cookieId]) {
