@@ -207,7 +207,7 @@
     "rarete": "rarete/bete.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_poison.webp",
-    "lien": "cookie_sucre_eternel.html"
+    "lien": "cookie_detail.html?id=cookie-sucre-eternel"
   },
   {
     "id": "cookie-agar-agar",
