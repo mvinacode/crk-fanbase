@@ -240,7 +240,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "",
-    "lien": "cookie_foret_noire.html"
+    "lien": "cookie_detail.html?id=cookie-foret-noire"
   },
   {
     "id": "cookie-piece-montee",
