@@ -249,7 +249,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "",
-    "lien": "cookie_piece_montee.html"
+    "lien": "cookie_detail.html?id=cookie-piece-montee"
   },
   {
     "id": "cookie-saphir-noir",

@@ -254,9 +254,10 @@
   },
   {
     "nom": "Cookie Mousse au thé vert",
-    "image": "cookies/cookie_mousse_au_the_vert/cookie_mousse_au_the_vert_carte.webp",
-    "link": "cookie_mousse_au_the_vert.html",
-    "date": "2025-11-07"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772885013/cookie_mousse_au_the_vert_carte_vdfiuk.webp",
+    "link": "cookie_detail.html?id=cookie-mousse-au-the-vert",
+    "date": "2025-11-07",
+    "type": "update"
   },
   {
     "nom": "Cookie Muguet",

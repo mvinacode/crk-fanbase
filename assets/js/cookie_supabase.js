@@ -201,7 +201,8 @@ const cookieMap = {
   'cookie-bouton-d-or': '6ea0caa3-92e7-43eb-962a-90eb56107d1c',
   'cookie-bouton-de-braise': 'ad9ab8f6-967d-46da-a039-e436d41fee8c',
   'cookie-choco-nappe': '5bf77430-c98a-49f3-80d1-46799b102190',
-  'cookie-pudding-a-la-mode': '849d0348-21b8-473a-9378-53e24b9a642c'
+  'cookie-pudding-a-la-mode': '849d0348-21b8-473a-9378-53e24b9a642c',
+  'cookie-mousse-au-the-vert': '85ece188-ab1c-4199-86c4-ac8a5a9ca81a'
 };
 
 if (cookieMap[cookieId]) {
@@ -1150,7 +1151,7 @@ function applyDynamicTheme(data) {
     || data.nom.includes('Paillettes brillantes') || data.nom.includes('Limonade noire') || data.nom.includes('Méduse Mousseline') || data.nom.includes('Tourteau fromagé')
     || data.nom.includes('Chevalier vif-argent') || data.nom.includes('Brioche beurrée') || data.nom.includes('Brise-tonnerre') || data.nom.includes('Haetae des nuages')
     || data.nom.includes('Belette à la crème') || data.nom.includes('Archer du Vent') || data.nom.includes('Épices Ardentes') || data.nom.includes('Muscade tigrée')
-    || data.nom.includes('Bouton de braise') || data.nom.includes('Pudding à la mode'))) {
+    || data.nom.includes('Bouton de braise') || data.nom.includes('Pudding à la mode') || data.nom.includes('Mousse au thé vert'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
