@@ -205,7 +205,8 @@ const cookieMap = {
   'cookie-mousse-au-the-vert': '85ece188-ab1c-4199-86c4-ac8a5a9ca81a',
   'cookie-okchun': '450316c3-f078-48fe-bb9f-4cd4964c9a13',
   'cookie-lait-de-l-ombre': '1afcf91b-6b11-47bc-aa2e-f06cf31d8f50',
-  'cookie-pomme-d-amour': 'e4462212-2fb2-43fd-a2db-1f9b98c8832a'
+  'cookie-pomme-d-amour': 'e4462212-2fb2-43fd-a2db-1f9b98c8832a',
+  'cookie-saphir-noir': 'dea32e05-62a1-472e-95a4-9ad363936257'
 };
 
 if (cookieMap[cookieId]) {
