@@ -203,7 +203,8 @@ const cookieMap = {
   'cookie-choco-nappe': '5bf77430-c98a-49f3-80d1-46799b102190',
   'cookie-pudding-a-la-mode': '849d0348-21b8-473a-9378-53e24b9a642c',
   'cookie-mousse-au-the-vert': '85ece188-ab1c-4199-86c4-ac8a5a9ca81a',
-  'cookie-okchun': '450316c3-f078-48fe-bb9f-4cd4964c9a13'
+  'cookie-okchun': '450316c3-f078-48fe-bb9f-4cd4964c9a13',
+  'cookie-lait-de-l-ombre': '1afcf91b-6b11-47bc-aa2e-f06cf31d8f50'
 };
 
 if (cookieMap[cookieId]) {

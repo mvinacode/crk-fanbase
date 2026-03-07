@@ -219,8 +219,8 @@
   },
   {
     "nom": "Cookie Lait de l'ombre",
-    "image": "cookies/cookie_lait_de_l_ombre/cookie_lait_de_l_ombre_improvisation_de_la_fatalite_carte.webp",
-    "link": "cookie_lait_de_l_ombre.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772887109/cookie_lait_de_l_ombre_improvisation_de_la_fatalite_carte_hhu3tk.webp",
+    "link": "cookie_detail.html?id=cookie-lait-de-l-ombre",
     "date": "2026-01-15T00:23:00",
     "type": "update"
   },

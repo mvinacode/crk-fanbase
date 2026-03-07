@@ -231,7 +231,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_feu.webp",
-    "lien": "cookie_esprit_du_feu.html"
+    "lien": "cookie_detail.html?id=cookie-esprit-du-feu"
   },
   {
     "id": "cookie-foret-noire",
