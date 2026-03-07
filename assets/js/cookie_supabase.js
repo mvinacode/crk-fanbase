@@ -208,7 +208,8 @@ const cookieMap = {
   'cookie-pomme-d-amour': 'e4462212-2fb2-43fd-a2db-1f9b98c8832a',
   'cookie-saphir-noir': 'dea32e05-62a1-472e-95a4-9ad363936257',
   'cookie-piece-montee': '818556ea-bd09-4cbc-8ade-1cf6b739a8e1',
-  'cookie-foret-noire': '2215f4dd-5a83-4d07-b579-0a3f4ac555db'
+  'cookie-foret-noire': '2215f4dd-5a83-4d07-b579-0a3f4ac555db',
+  'cookie-esprit-du-feu': '31261334-12d8-4f41-be6f-cde3240ebdb6'
 };
 
 if (cookieMap[cookieId]) {

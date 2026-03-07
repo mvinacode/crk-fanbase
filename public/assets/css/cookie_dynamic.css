@@ -875,6 +875,18 @@ body:not(.accueil) .header .user-info {
     right: 830px;
 }
 
+[data-cookie-slug="cookie-esprit-du-feu"] .promotion {
+    top: 615px;
+    right: 890px;
+}
+
+[data-cookie-slug="cookie-esprit-du-feu"] .ascension {
+    top: 660px;
+    right: 900px;
+}
+
+
+
 [data-cookie-slug="cookie-creme-fraiche"] .promotion,
 [data-cookie-slug="cookie-huitre"] .promotion,
 [data-cookie-slug="cookie-sorbet"] .promotion,

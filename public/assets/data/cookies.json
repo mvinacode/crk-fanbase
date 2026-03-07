@@ -189,7 +189,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_mouche_sucree.html"
+    "lien": "cookie_detail.html?id=cookie-mouche-sucree"
   },
   {
     "id": "cookie-pavlova",
