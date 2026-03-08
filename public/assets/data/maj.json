@@ -294,6 +294,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Pâte toxique",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772995021/cookie_pate_toxique_carte_wmhdfj.webp",
+    "link": "cookie_detail.html?id=cookie-pate-toxique",
+    "date": "2026-03-08T19:41:00",
+    "type": "new"
+  },
+  {
     "nom": "Cookie Perle Noire",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772361371/cookie_perle_noire_carte_xkkqnw.webp",
     "link": "cookie_detail.html?id=cookie-perle-noire",

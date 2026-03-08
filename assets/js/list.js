@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Charger les cookies de Supabase
       const { data: dbCookies, error } = await supabase
         .from('cookies')
-        .select('*');
+        .select('*')
+        .order('created_at', { ascending: false });
 
       if (error) {
         console.error("Erreur Supabase:", error);
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return {
           id: db.id,
           nom: db.nom,
-          image: db.icon_tete || db.tete || "", // Mapping vers image
+          image: db.tete || db.icon_tete || "", // Priorité 'tete'
           tete_eveil: db.tete_eveil || "", // Nouvelle colonne
           rarete: db.rarete || "",
           role: db.classe || "", // Mapping vers role
