@@ -386,10 +386,10 @@
   },
   {
     "nom": "Cookie Sorcière des Ténèbres",
-    "image": "cookies/cookie_sorciere_des_tenebres/cookie_sorciere_des_tenebres_carte.webp",
-    "link": "cookie_sorciere_des_tenebres.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772993034/cookie_sorciere_des_tenebres_carte_tva1i5.webp",
+    "link": "cookie_detail.html?id=cookie-sorciere-des-tenebres",
     "date": "2026-01-15T00:55:00",
-    "type": "new"
+    "type": "update"
   },
   {
     "nom": "Cookie Sucre Éternel",

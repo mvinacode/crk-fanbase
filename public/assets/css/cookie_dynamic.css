@@ -91,6 +91,11 @@ body.rarity-bete .nom-cookie {
     color: #C51F42 !important;
 }
 
+/* Rareté Sorcière (Gestion dynamique) */
+body.rarity-sorciere .nom-cookie {
+    color: #A41169 !important;
+}
+
 /* ==========================================================================
    COMPOSANTS PARTAGÉS (BOUTONS)
    ========================================================================== */

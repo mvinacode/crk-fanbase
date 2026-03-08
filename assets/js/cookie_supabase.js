@@ -231,7 +231,8 @@ const cookieMap = {
   'cookie-pions-choco': '6fef01fc-d5bd-447e-8606-266a6e9b17a2',
   'cookie-glinda': 'e714d788-e633-450e-ae65-23204154bf5f',
   'cookie-elphaba': '87d1ef46-2245-4186-bd43-b8d995fee991',
-  'cookie-arbre-millenaire': 'cbaeef08-dee5-420d-a244-78f276cc9571'
+  'cookie-arbre-millenaire': 'cbaeef08-dee5-420d-a244-78f276cc9571',
+  'cookie-sorciere-des-tenebres': 'e51040f4-1e93-4444-97af-3d9fb573650d'
 };
 
 if (cookieMap[cookieId]) {
@@ -1162,7 +1163,7 @@ function applyDynamicTheme(data) {
     || data.nom.includes('Chevalier vif-argent') || data.nom.includes('Brioche beurrée') || data.nom.includes('Brise-tonnerre') || data.nom.includes('Haetae des nuages')
     || data.nom.includes('Belette à la crème') || data.nom.includes('Archer du Vent') || data.nom.includes('Épices Ardentes') || data.nom.includes('Muscade tigrée')
     || data.nom.includes('Bouton de braise') || data.nom.includes('Pudding à la mode') || data.nom.includes('Mousse au thé vert') || data.nom.includes('Lapin Marshmallow')
-    || data.nom.includes('Arbre Millénaire'))) {
+    || data.nom.includes('Arbre Millénaire') || data.nom.includes('Sorcière des Ténèbres'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
@@ -1241,6 +1242,13 @@ function applyDynamicTheme(data) {
     document.body.classList.add('rarity-bete');
   } else {
     document.body.classList.remove('rarity-bete');
+  }
+
+  // Rareté Sorcière (Demande spécifique couleur #A41169)
+  if (cleanedPath.includes('sorciere')) {
+    document.body.classList.add('rarity-sorciere');
+  } else {
+    document.body.classList.remove('rarity-sorciere');
   }
 
   // 6. Gestion des styles spécifiques (Boutons Éveil) via ID
