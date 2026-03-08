@@ -288,10 +288,10 @@
   },
   {
     "nom": "Cookie Pâte moisie",
-    "image": "cookies/cookie_pate_moisie/cookie_pate_moisie_carte.webp",
-    "link": "cookie_pate_moisie.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772993771/cookie_pate_moisie_carte_mic3mw.webp",
+    "link": "cookie_detail.html?id=cookie-pate-moisie",
     "date": "2026-01-15T01:09:00",
-    "type": "new"
+    "type": "update"
   },
   {
     "nom": "Cookie Perle Noire",
