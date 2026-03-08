@@ -214,7 +214,8 @@ const cookieMap = {
   'cookie-sucre-eternel': '5baf87ee-3d9a-4d45-91ed-9a45396cd8b8',
   'cookie-pavlova': '8cfd7e48-b7fa-44b4-8a6b-c7b0a6e654ce',
   'cookie-mouche-sucree': 'c51f7a01-5273-48ab-9371-03c49d56ebb9',
-  'cookie-soda-mousse': '137c1f7d-75b9-4b0a-9d35-4f5d8620e8cc'
+  'cookie-soda-mousse': '137c1f7d-75b9-4b0a-9d35-4f5d8620e8cc',
+  'cookie-lapin-marshmallow': 'dab0a148-8a0a-48fb-b35b-02285068e7c0'
 };
 
 if (cookieMap[cookieId]) {
