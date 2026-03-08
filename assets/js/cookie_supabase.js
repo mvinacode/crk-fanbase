@@ -234,7 +234,8 @@ const cookieMap = {
   'cookie-arbre-millenaire': 'cbaeef08-dee5-420d-a244-78f276cc9571',
   'cookie-sorciere-des-tenebres': 'e51040f4-1e93-4444-97af-3d9fb573650d',
   'cookie-pate-moisie': '8b0be96d-ac88-4bc5-97bf-d9b850d60376',
-  'cookie-pate-toxique': 'dc5eb6c5-3694-4e5e-bc96-7c0641733512'
+  'cookie-pate-toxique': 'dc5eb6c5-3694-4e5e-bc96-7c0641733512',
+  'cookie-pate-fongique': '9a5ba7ee-378e-40c9-977d-a3740de54af7'
 };
 
 if (cookieMap[cookieId]) {

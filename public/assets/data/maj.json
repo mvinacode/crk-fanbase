@@ -287,6 +287,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Pâte fongique",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772996194/cookie_pate_fongique_carte_mri3lw.webp",
+    "link": "cookie_detail.html?id=cookie-pate-fongique",
+    "date": "2026-03-08T20:00:00",
+    "type": "new"
+  },
+  {
     "nom": "Cookie Pâte moisie",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772993771/cookie_pate_moisie_carte_mic3mw.webp",
     "link": "cookie_detail.html?id=cookie-pate-moisie",
