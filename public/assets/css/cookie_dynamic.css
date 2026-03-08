@@ -885,8 +885,6 @@ body:not(.accueil) .header .user-info {
     right: 900px;
 }
 
-
-
 [data-cookie-slug="cookie-creme-fraiche"] .promotion,
 [data-cookie-slug="cookie-huitre"] .promotion,
 [data-cookie-slug="cookie-sorbet"] .promotion,
@@ -932,7 +930,8 @@ body:not(.accueil) .header .user-info {
 }
 
 [data-cookie-slug="cookie-farine-mystique"] .eveil,
-[data-cookie-slug="cookie-epices-ardentes"] .eveil {
+[data-cookie-slug="cookie-epices-ardentes"] .eveil,
+[data-cookie-slug="cookie-sucre-eternel"] .eveil {
     right: 840px;
     top: 600px;
 }

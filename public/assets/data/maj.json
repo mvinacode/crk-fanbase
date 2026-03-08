@@ -378,8 +378,8 @@
   },
   {
     "nom": "Cookie Sucre Éternel",
-    "image": "cookies/cookie_sucre_eternel/cookie_sucre_eternel_tragicomedie_guidee_par_l_encre_carte.webp",
-    "link": "cookie_sucre_eternel.html",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772969526/cookie_sucre_eternel_tragicomedie_guidee_par_l_encre_carte_utxbau.webp",
+    "link": "cookie_detail.html?id=cookie-sucre-eternel",
     "date": "2026-01-15T00:35:00",
     "type": "update"
   },

@@ -162,7 +162,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/embuscade.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_citron_jaune.html"
+    "lien": "cookie_detail.html?id=cookie-citron-jaune"
   },
   {
     "id": "cookie-lapin-marshmallow",
@@ -171,7 +171,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/soutien.webp",
     "element": "",
-    "lien": "cookie_lapin_marshmallow.html"
+    "lien": "cookie_detail.html?id=cookie-lapin-marshmallow"
   },
   {
     "id": "cookie-soda-mousse",

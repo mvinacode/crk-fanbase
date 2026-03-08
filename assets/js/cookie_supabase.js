@@ -210,7 +210,8 @@ const cookieMap = {
   'cookie-piece-montee': '818556ea-bd09-4cbc-8ade-1cf6b739a8e1',
   'cookie-foret-noire': '2215f4dd-5a83-4d07-b579-0a3f4ac555db',
   'cookie-esprit-du-feu': '31261334-12d8-4f41-be6f-cde3240ebdb6',
-  'cookie-agar-agar': '9ed286f2-9a82-49fe-a452-4b498a01e8a9'
+  'cookie-agar-agar': '9ed286f2-9a82-49fe-a452-4b498a01e8a9',
+  'cookie-sucre-eternel': '5baf87ee-3d9a-4d45-91ed-9a45396cd8b8'
 };
 
 if (cookieMap[cookieId]) {
