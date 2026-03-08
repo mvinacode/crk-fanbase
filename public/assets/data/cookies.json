@@ -15,7 +15,7 @@
     "rarete": "rarete/sorciere.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_chaos.webp",
-    "lien": "cookie_sorciere_des_tenebres.html"
+    "lien": "cookie_detail.html?id=cookie-sorciere-des-tenebres"
   },
   {
     "id": "cookie-arbre-millenaire",

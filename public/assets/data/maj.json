@@ -348,9 +348,10 @@
   },
   {
     "nom": "Cookie Salière",
-    "image": "cookies/cookie_saliere/cookie_saliere_carte.webp",
-    "link": "cookie_saliere.html",
-    "date": "2025-11-07"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772987838/cookie_saliere_carte_i5zftr.webp",
+    "link": "cookie_detail.html?id=cookie-saliere",
+    "date": "2025-11-07",
+    "type": "update"
   },
   {
     "nom": "Cookie Seigle",
