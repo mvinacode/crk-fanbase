@@ -216,7 +216,8 @@ const cookieMap = {
   'cookie-mouche-sucree': 'c51f7a01-5273-48ab-9371-03c49d56ebb9',
   'cookie-soda-mousse': '137c1f7d-75b9-4b0a-9d35-4f5d8620e8cc',
   'cookie-lapin-marshmallow': 'dab0a148-8a0a-48fb-b35b-02285068e7c0',
-  'cookie-citron-jaune': 'fe04e8da-f5f1-411d-b896-308099232428'
+  'cookie-citron-jaune': 'fe04e8da-f5f1-411d-b896-308099232428',
+  'cookie-orange': '2c876b7b-eabf-4571-b4d6-54033a58650a'
 };
 
 if (cookieMap[cookieId]) {

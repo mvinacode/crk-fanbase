@@ -108,7 +108,7 @@
     "rarete": "rarete/super_epique.webp",
     "role": "classe/soin.webp",
     "element": "",
-    "lien": "farinel.html"
+    "lien": "cookie_detail.html?id=farinel"
   },
   {
     "id": "cookie-pamplemousse",
