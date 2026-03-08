@@ -90,7 +90,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_eau_gazeuse.html"
+    "lien": "cookie_detail.html?id=cookie-eau-gazeuse"
   },
   {
     "id": "cookie-menthol",

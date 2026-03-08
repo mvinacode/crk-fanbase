@@ -218,7 +218,8 @@ const cookieMap = {
   'cookie-lapin-marshmallow': 'dab0a148-8a0a-48fb-b35b-02285068e7c0',
   'cookie-citron-jaune': 'fe04e8da-f5f1-411d-b896-308099232428',
   'cookie-orange': '2c876b7b-eabf-4571-b4d6-54033a58650a',
-  'cookie-nacre-oceane': '6324d85f-1e57-4dd1-8040-d9aeaf1534b5'
+  'cookie-nacre-oceane': '6324d85f-1e57-4dd1-8040-d9aeaf1534b5',
+  'cookie-manju': 'ef414b47-9e75-4403-973e-fe891ceaffe2'
 };
 
 if (cookieMap[cookieId]) {
