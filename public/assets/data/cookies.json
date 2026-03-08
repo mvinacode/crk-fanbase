@@ -117,7 +117,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_pamplemousse.html"
+    "lien": "cookie_detail.html?id=cookie-pamplemousse"
   },
   {
     "id": "cookie-citron-vert",
