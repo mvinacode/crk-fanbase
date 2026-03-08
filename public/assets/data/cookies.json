@@ -144,7 +144,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_nacre_oceane.html"
+    "lien": "cookie_detail.html?id=cookie-nacre-oceane"
   },
   {
     "id": "cookie-orange",

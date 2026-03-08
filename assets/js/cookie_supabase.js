@@ -212,7 +212,8 @@ const cookieMap = {
   'cookie-esprit-du-feu': '31261334-12d8-4f41-be6f-cde3240ebdb6',
   'cookie-agar-agar': '9ed286f2-9a82-49fe-a452-4b498a01e8a9',
   'cookie-sucre-eternel': '5baf87ee-3d9a-4d45-91ed-9a45396cd8b8',
-  'cookie-pavlova': '8cfd7e48-b7fa-44b4-8a6b-c7b0a6e654ce'
+  'cookie-pavlova': '8cfd7e48-b7fa-44b4-8a6b-c7b0a6e654ce',
+  'cookie-mouche-sucree': 'c51f7a01-5273-48ab-9371-03c49d56ebb9'
 };
 
 if (cookieMap[cookieId]) {
