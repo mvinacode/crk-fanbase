@@ -222,7 +222,8 @@ const cookieMap = {
   'cookie-manju': 'ef414b47-9e75-4403-973e-fe891ceaffe2',
   'cookie-citron-vert': '139557a9-5aea-4f25-a269-d50ab2decb4e',
   'cookie-pamplemousse': '5c67e787-7a71-4610-9b3d-3390b37f5869',
-  'farinel': 'c6c6bb21-2a18-47eb-8af4-80c7d95e1b70'
+  'farinel': 'c6c6bb21-2a18-47eb-8af4-80c7d95e1b70',
+  'cookie-menthol': '8455200d-040f-4166-877f-f9b83aae3743'
 };
 
 if (cookieMap[cookieId]) {
@@ -2508,10 +2509,10 @@ async function initHomePage() {
       if (daysDifference <= 20 && cookie.type) {
         const icon = document.createElement("img");
         if (cookie.type === "new") {
-          icon.src = "assets/images/icones/icon_new.webp";
+          icon.src = "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034040/icon_new_oxzqna.webp";
           icon.alt = "New";
         } else if (cookie.type === "update") {
-          icon.src = "assets/images/icones/icon_up.webp";
+          icon.src = "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034041/icon_up_ancrwo.webp";
           icon.alt = "Update";
         }
         icon.className = "icon-new";

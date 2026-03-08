@@ -51,7 +51,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_chaos.webp",
-    "lien": "cookie_pions_choco.html"
+    "lien": "cookie_detail.html?id=cookie-pions-choco"
   },
   {
     "id": "cookie-saliere",
