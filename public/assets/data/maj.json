@@ -298,17 +298,17 @@
     "type": "update"
   },
   {
-    "nom": "Cookie Pions choco",
-    "image": "cookies/cookie_pions_choco/cookie_pions_choco_carte.webp",
-    "link": "cookie_pions_choco.html",
-    "date": "2026-01-15T00:41:00",
-    "type": "update"
-  },
-  {
     "nom": "Cookie Piment",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769348334/cookie_piment_carte_cyd4qb.webp",
     "link": "cookie_detail.html?id=cookie-piment",
     "date": "2026-01-29T12:25:00",
+    "type": "update"
+  },
+  {
+    "nom": "Cookie Pions choco",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772989134/cookie_pions_choco_carte_cukbbi.webp",
+    "link": "cookie_detail.html?id=cookie-pions-choco",
+    "date": "2026-01-15T00:41:00",
     "type": "update"
   },
   {

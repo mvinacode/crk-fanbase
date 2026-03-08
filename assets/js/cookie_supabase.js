@@ -227,7 +227,8 @@ const cookieMap = {
   'cookie-eau-gazeuse': '392a4db1-168e-4575-8ee3-77caa7f60316',
   'cookie-sel-silencieux': '75771aa8-d0f8-4ff3-a59a-1f362a66fe95',
   'cookie-charbon': 'd535e441-1302-4fdb-84f3-3ab7c0fe9b2d',
-  'cookie-saliere': '2ac367cf-ede0-4589-a39b-d6ed2f233439'
+  'cookie-saliere': '2ac367cf-ede0-4589-a39b-d6ed2f233439',
+  'cookie-pions-choco': '6fef01fc-d5bd-447e-8606-266a6e9b17a2'
 };
 
 if (cookieMap[cookieId]) {
