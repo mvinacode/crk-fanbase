@@ -180,7 +180,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/assaut.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_soda_mousse.html"
+    "lien": "cookie_detail.html?id=cookie-soda-mousse"
   },
   {
     "id": "cookie-mouche-sucree",

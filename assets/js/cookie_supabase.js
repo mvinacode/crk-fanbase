@@ -209,7 +209,8 @@ const cookieMap = {
   'cookie-saphir-noir': 'dea32e05-62a1-472e-95a4-9ad363936257',
   'cookie-piece-montee': '818556ea-bd09-4cbc-8ade-1cf6b739a8e1',
   'cookie-foret-noire': '2215f4dd-5a83-4d07-b579-0a3f4ac555db',
-  'cookie-esprit-du-feu': '31261334-12d8-4f41-be6f-cde3240ebdb6'
+  'cookie-esprit-du-feu': '31261334-12d8-4f41-be6f-cde3240ebdb6',
+  'cookie-agar-agar': '9ed286f2-9a82-49fe-a452-4b498a01e8a9'
 };
 
 if (cookieMap[cookieId]) {
