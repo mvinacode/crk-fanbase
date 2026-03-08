@@ -213,7 +213,8 @@ const cookieMap = {
   'cookie-agar-agar': '9ed286f2-9a82-49fe-a452-4b498a01e8a9',
   'cookie-sucre-eternel': '5baf87ee-3d9a-4d45-91ed-9a45396cd8b8',
   'cookie-pavlova': '8cfd7e48-b7fa-44b4-8a6b-c7b0a6e654ce',
-  'cookie-mouche-sucree': 'c51f7a01-5273-48ab-9371-03c49d56ebb9'
+  'cookie-mouche-sucree': 'c51f7a01-5273-48ab-9371-03c49d56ebb9',
+  'cookie-soda-mousse': '137c1f7d-75b9-4b0a-9d35-4f5d8620e8cc'
 };
 
 if (cookieMap[cookieId]) {
