@@ -17,11 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadAllCookies() {
     try {
-      // 1. Charger le JSON local
-      const response = await fetch("../assets/data/cookies.json");
-      const localCookies = await response.json();
-
-      // 2. Charger les cookies de Supabase
+      // 1. Charger les cookies de Supabase
       const { data: dbCookies, error } = await supabase
         .from('cookies')
         .select('*');
@@ -30,10 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Erreur Supabase:", error);
       }
 
-      // 3. Fusionner et formater les données Supabase
+      // 2. Formater les données Supabase
       const formattedDbCookies = (dbCookies || []).map(db => {
-        // Si le cookie existe déjà dans le JSON (même ID), on peut choisir de le privilégier ou non.
-        // Ici on ajoute seulement ceux qui ne sont pas dans le JSON ou on fusionne.
         return {
           id: db.id,
           nom: db.nom,
@@ -47,33 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
       });
 
-      // Fusion intelligente : on remplace les locaux par les DB si l'ID ou le NOM correspond
-      const merged = [...localCookies];
-      formattedDbCookies.forEach(dbCookie => {
-        const cleanName = (n) => (n || "").trim().toLowerCase();
-        let index = merged.findIndex(c => c.id === dbCookie.id);
-        if (index === -1) {
-          index = merged.findIndex(c => cleanName(c.nom) === cleanName(dbCookie.nom));
-        }
-
-        if (index !== -1) {
-          // Fusionner : on garde les données Supabase en priorité mais on ne s'écrase pas avec du vide
-          const dbData = { ...dbCookie };
-
-          // Nettoyage des champs vides pour ne pas écraser les données locales valides
-          if (!dbData.image) delete dbData.image;
-          if (!dbData.rarete) delete dbData.rarete;
-          if (!dbData.role) delete dbData.role;
-          if (!dbData.element) delete dbData.element;
-
-          merged[index] = { ...merged[index], ...dbData };
-        } else {
-          merged.push(dbCookie);
-        }
-      });
-
-      tousLesCookies = merged;
-      afficherCookies(merged);
+      tousLesCookies = formattedDbCookies;
+      afficherCookies(formattedDbCookies);
     } catch (err) {
       console.error("Erreur lors du chargement des cookies:", err);
     }

@@ -229,7 +229,8 @@ const cookieMap = {
   'cookie-charbon': 'd535e441-1302-4fdb-84f3-3ab7c0fe9b2d',
   'cookie-saliere': '2ac367cf-ede0-4589-a39b-d6ed2f233439',
   'cookie-pions-choco': '6fef01fc-d5bd-447e-8606-266a6e9b17a2',
-  'cookie-glinda': 'e714d788-e633-450e-ae65-23204154bf5f'
+  'cookie-glinda': 'e714d788-e633-450e-ae65-23204154bf5f',
+  'cookie-elphaba': '87d1ef46-2245-4186-bd43-b8d995fee991'
 };
 
 if (cookieMap[cookieId]) {
@@ -327,26 +328,7 @@ async function loadCookieData() {
 
     } catch (sbErr) {
       error = sbErr;
-      console.warn("Échec Supabase, tentative fallback local...", sbErr);
-
-      try {
-        // 2. Fallback Local (cookies.json)
-        // Ajustez le chemin si nécessaire (assets/data/cookies.json)
-        const resp = await fetch('assets/data/cookies.json');
-        if (resp.ok) {
-          const localCookies = await resp.json();
-          const localEntry = localCookies.find(c => c.id === cookieId);
-
-          if (localEntry) {
-            console.log("Cookie trouvé localement (fallback).");
-            cookieData = localEntry;
-            // On efface l'erreur car on a trouvé une solution
-            error = null;
-          }
-        }
-      } catch (localErr) {
-        console.error("Erreur lors du fallback local:", localErr);
-      }
+      console.warn("Échec Supabase...", sbErr);
     }
 
     if (error && !cookieData) {
