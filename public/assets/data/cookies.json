@@ -69,7 +69,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_tenebres.webp",
-    "lien": "cookie_charbon.html"
+    "lien": "cookie_detail.html?id=cookie-charbon"
   },
   {
     "id": "cookie-sel-silencieux",
