@@ -893,7 +893,8 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-paillettes-brillantes"] .promotion,
 [data-cookie-slug="cookie-corail-carmin"] .promotion,
 [data-cookie-slug="cookie-roi-des-fees"] .promotion,
-[data-cookie-slug="cookie-camelia"] .promotion {
+[data-cookie-slug="cookie-camelia"] .promotion,
+[data-cookie-slug="farinel"] .promotion {
     right: 825px;
 }
 
@@ -905,7 +906,8 @@ body:not(.accueil) .header .user-info {
 [data-cookie-slug="cookie-paillettes-brillantes"] .ascension,
 [data-cookie-slug="cookie-corail-carmin"] .ascension,
 [data-cookie-slug="cookie-roi-des-fees"] .ascension,
-[data-cookie-slug="cookie-camelia"] .ascension {
+[data-cookie-slug="cookie-camelia"] .ascension,
+[data-cookie-slug="farinel"] .ascension {
     right: 835px;
 }
 

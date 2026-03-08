@@ -221,7 +221,8 @@ const cookieMap = {
   'cookie-nacre-oceane': '6324d85f-1e57-4dd1-8040-d9aeaf1534b5',
   'cookie-manju': 'ef414b47-9e75-4403-973e-fe891ceaffe2',
   'cookie-citron-vert': '139557a9-5aea-4f25-a269-d50ab2decb4e',
-  'cookie-pamplemousse': '5c67e787-7a71-4610-9b3d-3390b37f5869'
+  'cookie-pamplemousse': '5c67e787-7a71-4610-9b3d-3390b37f5869',
+  'farinel': 'c6c6bb21-2a18-47eb-8af4-80c7d95e1b70'
 };
 
 if (cookieMap[cookieId]) {
@@ -1287,7 +1288,10 @@ function applyDynamicTheme(data) {
 
   // On essaie de trouver le style par UUID ou par Slug (nom normalisé)
   const baseNom = data.nom ? data.nom.toLowerCase().replace(/[ \u0027\u2019]/g, '-').replace(/[àáâãäå]/g, "a").replace(/[ç]/g, "c").replace(/[èéêë]/g, "e").replace(/[ìíîï]/g, "i").replace(/[òóôõö]/g, "o").replace(/[ùúûü]/g, "u") : '';
-  const searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
+  let searchSlug = baseNom.startsWith('cookie-') ? baseNom : `cookie-${baseNom}`;
+  if (['farinel', 'schwarzwalder', 'donut-de-l-espace'].includes(baseNom)) {
+    searchSlug = baseNom;
+  }
   const style = cookieStyles[data.id] || cookieStyles[searchSlug];
 
   if (style) {
