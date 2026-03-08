@@ -153,7 +153,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/magie.webp",
     "element": "elements_crk/element_electricite.webp",
-    "lien": "cookie_orange.html"
+    "lien": "cookie_detail.html?id=cookie-orange"
   },
   {
     "id": "cookie-lemon",
