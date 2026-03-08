@@ -219,7 +219,8 @@ const cookieMap = {
   'cookie-citron-jaune': 'fe04e8da-f5f1-411d-b896-308099232428',
   'cookie-orange': '2c876b7b-eabf-4571-b4d6-54033a58650a',
   'cookie-nacre-oceane': '6324d85f-1e57-4dd1-8040-d9aeaf1534b5',
-  'cookie-manju': 'ef414b47-9e75-4403-973e-fe891ceaffe2'
+  'cookie-manju': 'ef414b47-9e75-4403-973e-fe891ceaffe2',
+  'cookie-citron-vert': '139557a9-5aea-4f25-a269-d50ab2decb4e'
 };
 
 if (cookieMap[cookieId]) {

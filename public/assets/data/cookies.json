@@ -81,7 +81,7 @@
       "elements_crk/element_tenebres.webp",
       "elements_crk/element_acier.webp"
     ],
-    "lien": "cookie_sel_silencieux.html"
+    "lien": "cookie_detail.html?id=cookie-sel-silencieux"
   },
   {
     "id": "cookie-eau-gazeuse",
