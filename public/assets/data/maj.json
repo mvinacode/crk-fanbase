@@ -146,9 +146,10 @@
   },
   {
     "nom": "Cookie Eau gazeuse",
-    "image": "cookies/cookie_eau_gazeuse/cookie_eau_gazeuse_chorale_apaisante_carte.webp",
-    "link": "cookie_eau_gazeuse.html",
-    "date": "2025-12-17T20:26:00"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772984606/cookie_eau_gazeuse_chorale_apaisante_carte_ch1woy.webp",
+    "link": "cookie_detail.html?id=cookie-eau-gazeuse",
+    "date": "2025-12-17T20:26:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Elphaba",

@@ -223,7 +223,8 @@ const cookieMap = {
   'cookie-citron-vert': '139557a9-5aea-4f25-a269-d50ab2decb4e',
   'cookie-pamplemousse': '5c67e787-7a71-4610-9b3d-3390b37f5869',
   'farinel': 'c6c6bb21-2a18-47eb-8af4-80c7d95e1b70',
-  'cookie-menthol': '8455200d-040f-4166-877f-f9b83aae3743'
+  'cookie-menthol': '8455200d-040f-4166-877f-f9b83aae3743',
+  'cookie-eau-gazeuse': '392a4db1-168e-4575-8ee3-77caa7f60316'
 };
 
 if (cookieMap[cookieId]) {
