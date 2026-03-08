@@ -885,6 +885,14 @@ body:not(.accueil) .header .user-info {
     right: 900px;
 }
 
+[data-cookie-slug="cookie-arbre-millenaire"] .promotion {
+    right: 820px;
+}
+
+[data-cookie-slug="cookie-arbre-millenaire"] .ascension {
+    right: 830px;
+}
+
 [data-cookie-slug="cookie-creme-fraiche"] .promotion,
 [data-cookie-slug="cookie-huitre"] .promotion,
 [data-cookie-slug="cookie-sorbet"] .promotion,

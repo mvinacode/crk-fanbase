@@ -22,9 +22,10 @@
   },
   {
     "nom": "Cookie Arbre Millénaire",
-    "image": "cookies/cookie_arbre_millenaire/cookie_arbre_millenaire_coeur_des_saisons_carte.webp",
-    "link": "cookie_arbre_millenaire.html",
-    "date": "2025-12-17T20:49:00"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772991953/cookie_arbre_millenaire_coeur_des_saisons_carte_m9wvlo.webp",
+    "link": "cookie_detail.html?id=cookie-arbre-millenaire",
+    "date": "2025-12-17T20:49:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Avocat",
