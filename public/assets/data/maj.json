@@ -195,9 +195,10 @@
   },
   {
     "nom": "Cookie Glinda",
-    "image": "cookies/cookie_glinda/cookie_glinda_carte.webp",
-    "link": "cookie_glinda.html",
-    "date": "2025-12-12T17:15:00"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772989987/cookie_glinda_carte_wg3ypi.webp",
+    "link": "cookie_detail.html?id=cookie-glinda",
+    "date": "2025-12-12T17:15:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Grenade",
