@@ -24,7 +24,7 @@
     "rarete": "rarete/legendaire.webp",
     "role": "classe/soutien.webp",
     "element": "elements_crk/element_herbe.webp",
-    "lien": "cookie_arbre_millenaire.html"
+    "lien": "cookie_detail.html?id=cookie-arbre-millenaire"
   },
   {
     "id": "cookie-elphaba",

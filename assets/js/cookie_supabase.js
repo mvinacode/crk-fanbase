@@ -225,7 +225,8 @@ const cookieMap = {
   'farinel': 'c6c6bb21-2a18-47eb-8af4-80c7d95e1b70',
   'cookie-menthol': '8455200d-040f-4166-877f-f9b83aae3743',
   'cookie-eau-gazeuse': '392a4db1-168e-4575-8ee3-77caa7f60316',
-  'cookie-sel-silencieux': '75771aa8-d0f8-4ff3-a59a-1f362a66fe95'
+  'cookie-sel-silencieux': '75771aa8-d0f8-4ff3-a59a-1f362a66fe95',
+  'cookie-charbon': 'd535e441-1302-4fdb-84f3-3ab7c0fe9b2d'
 };
 
 if (cookieMap[cookieId]) {

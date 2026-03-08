@@ -91,9 +91,10 @@
   },
   {
     "nom": "Cookie Charbon",
-    "image": "cookies/cookie_charbon/cookie_charbon_carte.webp",
-    "link": "cookie_charbon.html",
-    "date": "2025-09-29"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772987012/cookie_charbon_carte_zzw6st.webp",
+    "link": "cookie_detail.html?id=cookie-charbon",
+    "date": "2025-09-29",
+    "type": "update"
   },
   {
     "nom": "Cookie Chevalier",
