@@ -943,6 +943,11 @@ body:not(.accueil) .header .user-info {
     top: 650px;
 }
 
+[data-cookie-slug="cookie-sel-silencieux"] .eveil {
+    right: 835px;
+    top: 600px;
+}
+
 
 .bonbons {
     top: 160px;

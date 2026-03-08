@@ -360,9 +360,10 @@
   },
   {
     "nom": "Cookie Sel Silencieux",
-    "image": "cookies/cookie_sel_silencieux/cookie_sel_silencieux_carte.webp",
-    "link": "cookie_sel_silencieux.html",
-    "date": "2025-12-07T18:31:00"
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772985762/cookie_sel_silencieux_carte_mf8dxt.webp",
+    "link": "cookie_detail.html?id=cookie-sel-silencieux",
+    "date": "2025-12-07T18:31:00",
+    "type": "update"
   },
   {
     "nom": "Cookie Soda mousse",

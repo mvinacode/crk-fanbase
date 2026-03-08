@@ -33,7 +33,7 @@
     "rarete": "rarete/special.webp",
     "role": "classe/magie.webp",
     "element": "",
-    "lien": "cookie_elphaba.html"
+    "lien": "cookie_detail.html?id=cookie-elphaba"
   },
   {
     "id": "cookie-glinda",
