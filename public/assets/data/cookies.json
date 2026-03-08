@@ -99,7 +99,7 @@
     "rarete": "rarete/epique.webp",
     "role": "classe/explosion.webp",
     "element": "elements_crk/element_eau.webp",
-    "lien": "cookie_menthol.html"
+    "lien": "cookie_detail.html?id=cookie-menthol"
   },
   {
     "id": "farinel",
