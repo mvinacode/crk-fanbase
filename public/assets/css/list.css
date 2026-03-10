@@ -246,11 +246,10 @@ body.list {
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
-  padding: 10px 0;
-  /* pour que le hover aie une vraie zone */
+  padding: 5px 0;
   font-size: 18px;
+  color: #865C43;
 }
-
 
 .filtre-rarete-options li:hover {
   background-color: #A6795B;
@@ -261,9 +260,9 @@ body.list {
 }
 
 .filtre-rarete-options img {
-  height: 28px;
-  width: auto;
-  object-fit: contain;
+  width: 150px;
+  height: 35px;
+  object-fit: scale-down;
 }
 
 .filtre-role-wrapper {
@@ -320,15 +319,13 @@ body.list {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* pour que le texte suive l'image */
   gap: 10px;
-  /* <-- espace entre image et texte */
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
   padding: 5px 30px;
-  /* un peu de confort visuel */
   font-size: 18px;
+  color: #865C43;
 }
 
 
@@ -400,15 +397,13 @@ body.list {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* pour que le texte suive l'image */
   gap: 10px;
-  /* <-- espace entre image et texte */
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
   padding: 5px 30px;
-  /* un peu de confort visuel */
   font-size: 18px;
+  color: #865C43;
 }
 
 
