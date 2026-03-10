@@ -12,11 +12,16 @@ export async function login(email, password) {
   if (error) {
     return { success: false, error: error.message };
   }
+
+  // Initialiser le timer d'activité
+  localStorage.setItem('crk_last_activity', Date.now().toString());
+
   return { success: true, user: data.user };
 }
 
 // Déconnexion
 export async function logout() {
+  localStorage.removeItem('crk_last_activity');
   await supabase.auth.signOut();
 }
 

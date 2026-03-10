@@ -3,17 +3,11 @@
 
   /* Header centré et largeur max */
   .header {
-    max-width: 1460px;
-    margin-inline: auto;
-    gap: 250px;
-    /* réduit un peu le gap énorme de 150px */
-    flex-wrap: nowrap;
-    /* évite que ça saute à la ligne */
-    padding: 30px 50px;
+    padding: 0;
   }
 
   .logo {
-    width: 350px;
+    width: 500px;
     height: auto;
   }
 

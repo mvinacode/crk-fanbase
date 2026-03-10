@@ -3,21 +3,31 @@ function initUserInfo() {
   const userInfo = document.getElementById('user-info');
   if (!userInfo) return;
 
+  const isDetailPage = !!document.getElementById('page-cookie');
+  const loginUrl = isDetailPage ? 'login.html' : 'pages/login.html';
+
   import('./login_supabase.js').then(({ isLoggedIn, logout }) => {
     import('./app.js').then(({ supabase }) => {
       async function showUser() {
         const { data } = await supabase.auth.getUser();
         if (data.user) {
-          userInfo.innerHTML = `<button id="logout-btn" class="btn btn-login"><span>Déconnexion</span></button>`;
+          userInfo.innerHTML = `
+            <a href="#" id="logout-btn" class="nav-icon-link">
+              <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164562/deconnexion_u529fl.webp" alt="Déconnexion">
+            </a>`;
           const logoutBtn = document.getElementById('logout-btn');
           if (logoutBtn) {
-            logoutBtn.onclick = async () => {
+            logoutBtn.onclick = async (e) => {
+              e.preventDefault();
               await logout();
               window.location.reload();
             };
           }
         } else {
-          userInfo.innerHTML = `<a href="pages/login.html" class="btn btn-login"><span>Se connecter</span></a>`;
+          userInfo.innerHTML = `
+            <a href="${loginUrl}" class="nav-icon-link">
+              <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/connexion_p2ilhv.webp" alt="Connexion">
+            </a>`;
         }
       }
       showUser();
@@ -247,7 +257,6 @@ function loadCookieDynamicCSS() {
   // Vérifier si le CSS n'est pas déjà chargé
   const id = 'css-cookie-dynamic';
   if (document.getElementById(id)) {
-    console.log('CSS cookie_dynamic.css déjà chargé, ignoré.');
     return;
   }
   const link = document.createElement('link');
@@ -260,52 +269,9 @@ function loadCookieDynamicCSS() {
   link.href = path + '?v=' + new Date().getTime();
   link.id = id;
   document.head.appendChild(link);
-  console.log('✅ CSS chargé : ' + path);
 }
 
-// --- HELPER FETCH CATEGORY DATA ---
-async function fetchCategoryData(categorySlug, buildTypes, defaultNom) {
-  try {
-    // 1. Tentative sur la nouvelle table (ex: 'toppings')
-    // cookieId n'est pas global ici, il faut le passer en paramètre
-    throw new Error('fetchCategoryData doit recevoir cookieId en paramètre');
 
-    if (!newError && newData && newData.length > 0) {
-      console.log(`Données trouvées dans la nouvelle table "${categorySlug}"`);
-      return newData.map(item => ({
-        id: item.id,
-        nom: item.nom || item.type || defaultNom,
-        images: Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? JSON.parse(item.images) : [])
-      }));
-    }
-  } catch (e) {
-    console.log(`Table "${categorySlug}" non trouvée ou erreur, tentative fallback builds...`);
-  }
-
-  // 2. Fallback sur la table 'builds'
-  const { data: fallbackData } = await supabase
-    .from('builds')
-    .select('*')
-    .eq('cookie_id', cookieId)
-    .in('type', buildTypes)
-    .order('type', { ascending: true });
-
-  if (fallbackData && fallbackData.length > 0) {
-    console.log(`Fallback builds utilisé pour "${categorySlug}"`);
-    return fallbackData.map(row => {
-      const images = Object.keys(row)
-        .filter(key => key.startsWith('image') && row[key])
-        .sort()
-        .map(key => row[key]);
-      return {
-        id: row.id,
-        nom: row.nom || row.type || defaultNom,
-        images: images
-      };
-    });
-  }
-  return [];
-}
 
 // Charger les données du cookie depuis Supabase
 async function loadCookieData() {
@@ -333,7 +299,6 @@ async function loadCookieData() {
 
     } catch (sbErr) {
       error = sbErr;
-      console.warn("Échec Supabase...", sbErr);
     }
 
     if (error && !cookieData) {
@@ -355,7 +320,6 @@ async function loadCookieData() {
       .from('builds')
       .select('*')
       .eq('cookie_id', cookieData.id);
-    console.log('Toutes les lignes builds pour ce cookie_id :', allBuildsResponse);
 
     // --- CHARGEMENT DES COSTUMES (Si table séparée) ---
     const { data: costumesData, error: costumesError } = await supabase
@@ -368,7 +332,6 @@ async function loadCookieData() {
       console.error("Erreur lors du chargement des costumes:", costumesError);
     }
 
-    console.log("Raw costumes data from Supabase:", costumesData);
 
     if (costumesData && costumesData.length > 0) {
       // Transformation des données pour correspondre à la structure attendue
@@ -388,116 +351,46 @@ async function loadCookieData() {
         };
       });
 
-      console.log("Costumes formatés pour affichage:", formattedCostumes);
       cookieData.costumes = formattedCostumes;
     } else {
-      console.warn("Aucun costume trouvé dans la table 'costumes' pour ce cookie_id:", cookieData.id);
     }
 
-    // --- HELPER FETCH CATEGORY DATA ---
-    async function fetchCategoryData(categorySlug, buildTypes, defaultNom) {
-      try {
-        // 1. Tentative sur la nouvelle table (ex: 'toppings')
-        const { data: newData, error: newError } = await supabase
-          .from(categorySlug)
-          .select('*')
-          .eq('cookie_id', cookieData.id)
-          .order('position', { ascending: true });
+    // --- CHARGEMENT DES DIFFÉRENTES CATÉGORIES EN PARALLÈLE ---
+    // Optimisation : On lance toutes les requêtes en même temps plutôt que de les attendre une par une
+    const [
+      newToppings,
+      newTartelettes,
+      newBiscuits,
+      rawPromotions,
+      pierresItems,
+      ascensionItems,
+      newBonbons,
+      eveilItems
+    ] = await Promise.all([
+      fetchCategoryDataWithId('toppings', ['topping'], 'Garniture', cookieData.id),
+      fetchCategoryDataWithId('tartelettes', ['tartelette'], 'Tartelette', cookieData.id),
+      fetchCategoryDataWithId('biscuits', ['biscuit'], 'Biscuit', cookieData.id),
+      fetchCategoryDataWithId('promotions', ['promotions', 'promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion', cookieData.id),
+      fetchCategoryDataWithId('pierres_de_confiture', ['pierre_de_confiture', 'pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture', cookieData.id),
+      fetchCategoryDataWithId('ascension', ['ascension'], 'Ascension', cookieData.id),
+      fetchCategoryDataWithId('bonbons', ['bonbon', 'bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon', cookieData.id),
+      fetchCategoryDataWithId('eveil', ['eveil', 'eveil1', 'eveil2', 'eveil3', 'eveil4', 'eveil5', 'eveil6', 'eveil7'], 'Éveil', cookieData.id)
+    ]);
 
-        if (!newError && newData && newData.length > 0) {
-          console.log(`Données trouvées dans la nouvelle table "${categorySlug}"`);
-          return newData.map(item => ({
-            id: item.id,
-            nom: item.nom || item.type || defaultNom,
-            images: Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? JSON.parse(item.images) : [])
-          }));
-        }
-      } catch (e) {
-        console.log(`Table "${categorySlug}" non trouvée ou erreur, tentative fallback builds...`);
-      }
-
-      // 2. Fallback sur la table 'builds'
-      const { data: fallbackData } = await supabase
-        .from('builds')
-        .select('*')
-        .eq('cookie_id', cookieData.id)
-        .in('type', buildTypes)
-        .order('type', { ascending: true });
-
-      if (fallbackData && fallbackData.length > 0) {
-        console.log(`Fallback builds utilisé pour "${categorySlug}"`);
-        return fallbackData.map(row => {
-          const images = Object.keys(row)
-            .filter(key => key.startsWith('image') && row[key])
-            .sort()
-            .map(key => row[key]);
-          return {
-            id: row.id,
-            nom: row.nom || row.type || defaultNom,
-            images: images
-          };
-        });
-      }
-      return [];
-    }
-
-    // --- CHARGEMENT DES DIFFÉRENTES CATÉGORIES ---
-    // --- Récupération du cookie depuis Supabase (doit être AVANT les fetchCategoryDataWithId) ---
-    // ... code existant pour récupérer cookieData ...
-    // 1. Toppings : reset step si modifié
-    const prevToppingsRaw = localStorage.getItem(`toppings-data:${cookieId}`);
-    let prevToppings = [];
-    try { prevToppings = prevToppingsRaw ? JSON.parse(prevToppingsRaw) : []; } catch (e) { prevToppings = []; }
-    const newToppings = await fetchCategoryDataWithId('toppings', ['topping'], 'Garniture', cookieData.id);
-    newToppings.forEach(t => {
-      const prev = prevToppings.find(pt => pt.id === t.id);
-      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
-        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
-          saveEtatForId(t.id, 0);
-        }
-      }
-    });
+    // 1. Toppings
     localStorage.setItem(`toppings-data:${cookieId}`, JSON.stringify(newToppings));
     cookieData.toppings = newToppings;
 
-    // 2. Tartelettes : reset step si modifié
-    const prevTartelettesRaw = localStorage.getItem(`tartelettes-data:${cookieId}`);
-    let prevTartelettes = [];
-    try { prevTartelettes = prevTartelettesRaw ? JSON.parse(prevTartelettesRaw) : []; } catch (e) { prevTartelettes = []; }
-    const newTartelettes = await fetchCategoryDataWithId('tartelettes', ['tartelette'], 'Tartelette', cookieData.id);
-    newTartelettes.forEach(t => {
-      const prev = prevTartelettes.find(pt => pt.id === t.id);
-      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
-        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
-          saveEtatForId(t.id, 0);
-        }
-      }
-    });
+    // 2. Tartelettes
     localStorage.setItem(`tartelettes-data:${cookieId}`, JSON.stringify(newTartelettes));
     cookieData.tartelettes = newTartelettes;
 
-    // 3. Biscuits : reset step si modifié
-    const prevBiscuitsRaw = localStorage.getItem(`biscuits-data:${cookieId}`);
-    let prevBiscuits = [];
-    try { prevBiscuits = prevBiscuitsRaw ? JSON.parse(prevBiscuitsRaw) : []; } catch (e) { prevBiscuits = []; }
-    const newBiscuits = await fetchCategoryDataWithId('biscuits', ['biscuit'], 'Biscuit', cookieData.id);
-    newBiscuits.forEach(t => {
-      const prev = prevBiscuits.find(pt => pt.id === t.id);
-      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
-        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
-          saveEtatForId(t.id, 0);
-        }
-      }
-    });
+    // 3. Biscuits
     localStorage.setItem(`biscuits-data:${cookieId}`, JSON.stringify(newBiscuits));
     cookieData.biscuits = newBiscuits;
 
-    // 4. Promotions (pas de reset)
-    let rawPromotions = await fetchCategoryDataWithId('promotions', ['promotions', 'promotion1', 'promotion2', 'promotion3', 'promotion4', 'promotion5'], 'Promotion', cookieData.id);
-
-    // Vérifier si on a une ligne "promotions" groupée (la nouvelle méthode avec les tableaux)
+    // 4. Promotions
     const groupedPromoIndex = rawPromotions.findIndex(p => p.nom === 'promotions' || (p.images.length > 0 && typeof p.images[0] === 'string' && p.images[0].trim().startsWith('[')));
-
     if (groupedPromoIndex !== -1) {
       const groupedPromo = rawPromotions[groupedPromoIndex];
       const extractedPromos = [];
@@ -521,43 +414,19 @@ async function loadCookieData() {
       cookieData.promotions = rawPromotions;
     }
 
-    // 5. Pierres de confiture : reset step si modifié
-    const prevPierresRaw = localStorage.getItem(`pierres-data:${cookieId}`);
-    let prevPierres = [];
-    try { prevPierres = prevPierresRaw ? JSON.parse(prevPierresRaw) : []; } catch (e) { prevPierres = []; }
-    const pierresItems = await fetchCategoryDataWithId('pierres_de_confiture', ['pierre_de_confiture', 'pierre1', 'pierre2', 'pierre3', 'pierre4', 'pierre5'], 'Pierre de confiture', cookieData.id);
-    pierresItems.forEach(t => {
-      const prev = prevPierres.find(pt => pt.id === t.id);
-      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
-        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
-          saveEtatForId(t.id, 0);
-        }
-      }
-    });
+    // 5. Pierres de confiture
     localStorage.setItem(`pierres-data:${cookieId}`, JSON.stringify(pierresItems));
     cookieData.pierre_de_confiture = pierresItems;
 
-    // 6. Ascension (pas de reset, inchangé)
-    const ascensionItems = await fetchCategoryDataWithId('ascension', ['ascension'], 'Ascension', cookieData.id);
+    // 6. Ascension
     cookieData.ascension = { etoiles: ascensionItems };
-    // 7. Bonbons : reset step si modifié
-    const prevBonbonsRaw = localStorage.getItem(`bonbons-data:${cookieId}`);
-    let prevBonbons = [];
-    try { prevBonbons = prevBonbonsRaw ? JSON.parse(prevBonbonsRaw) : []; } catch (e) { prevBonbons = []; }
-    const newBonbons = await fetchCategoryDataWithId('bonbons', ['bonbon', 'bonbon1', 'bonbon2', 'bonbon3', 'bonbon4', 'bonbon5'], 'Bonbon', cookieData.id);
-    newBonbons.forEach(t => {
-      const prev = prevBonbons.find(pt => pt.id === t.id);
-      if (prev && Array.isArray(prev.images) && Array.isArray(t.images)) {
-        if (JSON.stringify(prev.images) !== JSON.stringify(t.images)) {
-          saveEtatForId(t.id, 0);
-        }
-      }
-    });
+
+    // 7. Bonbons
     localStorage.setItem(`bonbons-data:${cookieId}`, JSON.stringify(newBonbons));
     cookieData.bonbons = newBonbons;
 
-    // 8. Eveil (pas de reset)
-    cookieData.eveil = await fetchCategoryDataWithId('eveil', ['eveil', 'eveil1', 'eveil2', 'eveil3', 'eveil4', 'eveil5', 'eveil6', 'eveil7'], 'Éveil', cookieData.id);
+    // 8. Eveil
+    cookieData.eveil = eveilItems;
 
     // Nouvelle version de fetchCategoryData qui prend cookieId en paramètre
     async function fetchCategoryDataWithId(categorySlug, buildTypes, defaultNom, cookieId) {
@@ -605,7 +474,6 @@ async function loadCookieData() {
       .order('created_at', { ascending: true });
 
     if (costumesResponse.data && costumesResponse.data.length > 0) {
-      console.log('Costumes trouvés dans Supabase');
       cookieData.costumes = costumesResponse.data.map(costumeRow => {
         // Récupère toutes les colonnes imageX non nulles et triées
         const costumeImages = Object.keys(costumeRow)
@@ -642,7 +510,6 @@ async function loadCookieData() {
 
       // --- GESTION COSTUME ÉVEILLÉ ---
       // Debug : afficher tous les noms de costume pour vérifier
-      console.log('[Costume Éveillé] Noms de tous les costumes:', cookieData.costumes.map(c => c.nom));
 
       // Extraire le costume éveillé (ne pas l'afficher dans la galerie)
       const eveilIndex = cookieData.costumes.findIndex(c => {
@@ -651,19 +518,15 @@ async function loadCookieData() {
         return nomLower.includes('éveillé') || nomLower.includes('eveille') ||
           nomLower.includes('éveil') || nomLower.includes('eveil');
       });
-      console.log('[Costume Éveillé] Index trouvé:', eveilIndex);
       if (eveilIndex !== -1) {
         cookieData.costumeEveil = cookieData.costumes.splice(eveilIndex, 1)[0];
-        console.log('[Costume Éveillé] Trouvé et extrait:', cookieData.costumeEveil.nom, '| images:', cookieData.costumeEveil.images);
       } else {
-        console.log('[Costume Éveillé] Aucun costume éveillé trouvé dans la liste');
       }
     } else {
       cookieData.costumes = [];
     }
 
     // Log complet de cookieData pour debug
-    console.log('cookieData complet après chargement dynamisé :', cookieData);
 
     // Met à jour le titre de la page avec le nom du cookie
     document.title = cookieData.nom || 'Cookie';
@@ -694,7 +557,6 @@ async function loadCookieData() {
         localNavigation = await navResponse.json();
       }
     } catch (e) {
-      console.warn('Erreur chargement navigation.json:', e);
     }
 
     // Calcul de la navigation (Ordre circulaire)
@@ -715,7 +577,6 @@ async function loadCookieData() {
           suivant: localNavigation[nextIndex]
         };
       } else {
-        console.warn(`Cookie ID ${cookieData.id} non trouvé dans navigation.json`);
       }
     }
     // Si c'est encore un objet (ancien format, au cas où)
@@ -733,7 +594,6 @@ async function loadCookieData() {
     // --- RÉCUPÉRATION DE LA SÉLECTION SUPABASE (Optionnel si connecté) ---
     const { data: authData } = await supabase.auth.getUser();
     if (authData.user) {
-      console.log('[DEBUG] Utilisateur connecté:', authData.user.id);
       const { data: userSelection, error: selectError } = await supabase
         .from('cookies_users')
         .select('costume_id, builds, stats_checks, is_awakened')
@@ -741,25 +601,19 @@ async function loadCookieData() {
         .eq('cookie_id', cookieId) // cookieId est déjà l'UUID ici
         .maybeSingle();
 
-      console.log('[DEBUG] userSelection récupéré:', userSelection);
       if (selectError) console.error('[DEBUG] Erreur sélection Supabase:', selectError);
 
       if (userSelection) {
         // 1. Restauration du costume
         if (userSelection.costume_id) {
-          console.log('[DEBUG] costume_id trouvé en base:', userSelection.costume_id);
           const selectedCostume = cookieData.costumes?.find(c => c.id === userSelection.costume_id);
-          console.log('[DEBUG] Costume correspondant trouvé dans data:', selectedCostume?.nom);
 
           if (selectedCostume) {
-            console.log('[DEBUG] Costume trouvé dans la liste:', selectedCostume.nom, selectedCostume.id);
             let step = 0;
             // Vérifier si un step est sauvegardé dans builds pour ce costume
             if (userSelection.builds && userSelection.builds[selectedCostume.id] !== undefined) {
               step = userSelection.builds[selectedCostume.id];
-              console.log('[DEBUG] Build step pour ce costume:', step);
             } else {
-              console.log('[DEBUG] Pas de build step trouvé, defaut à 0');
             }
 
             // Déterminer l'illustration à afficher
@@ -774,15 +628,14 @@ async function loadCookieData() {
               // Sauvegarde locale TEMPORAIRE pour que le chargement initial fonctionne (sera écrasé si re-sauvegarde)
               // Mais l'utilisateur veut du full Supabase.
               // Ici on set l'illustration pour le chargement initial de la page.
-              saveCookieIllustration(cookieData.id, formatImagePath(illustrationUrl));
-              saveEtatForId(selectedCostume.id, step);
+
+
             }
           }
         }
 
         // 2. Restauration des builds (JSONB)
         if (userSelection.builds) {
-          console.log('[DEBUG] Builds trouvés en base:', userSelection.builds);
           // On injecte les builds dans cookieData pour que renderCookie les utilise
           cookieData.activeBuilds = userSelection.builds;
 
@@ -793,7 +646,7 @@ async function loadCookieData() {
               if (userSelection.builds[item.id] !== undefined) {
                 item.selectedStep = userSelection.builds[item.id];
                 // Mise à jour synchrone du localStorage pour la cohérence
-                saveEtatForId(item.id, item.selectedStep);
+
               }
             });
           };
@@ -808,14 +661,12 @@ async function loadCookieData() {
 
         // 3. Restauration des stats checks (JSONB)
         if (userSelection.stats_checks) {
-          console.log('[DEBUG] Stats checks trouvés en base:', userSelection.stats_checks);
           // On met à jour le localStorage pour que renderCookie l'utilise
           localStorage.setItem(`cookie_stats_checks_${cookieId}`, JSON.stringify(userSelection.stats_checks));
         }
 
         // 4. Restauration de l'état Éveillé
         if (userSelection.is_awakened) {
-          console.log('[DEBUG] État Éveillé trouvé en base:', userSelection.is_awakened);
           cookieData.isAwakened = userSelection.is_awakened;
         }
       }
@@ -837,7 +688,6 @@ async function loadCookieData() {
       const originalCostume = cookieData.costumes?.find(c =>
         c.nom && c.nom.toLowerCase().includes('original')
       );
-      console.log('[Costume Éveillé] Costume Original trouvé:', originalCostume?.nom, '| images:', originalCostume?.images);
       if (originalCostume && cookieData.costumeEveil.images?.length >= 1) {
         // Sauvegarder les originaux pour restauration
         originalCostume._originalImage0 = originalCostume.images[0];
@@ -860,9 +710,7 @@ async function loadCookieData() {
         originalCostume._originalName = originalCostume.nom;
         originalCostume.nom = "Costume éveillé";
 
-        console.log('[Costume Éveillé] Swap appliqué! Nouveau images[0]:', originalCostume.images[0]);
       } else {
-        console.log('[Costume Éveillé] Swap NON appliqué - originalCostume:', !!originalCostume, '| eveil images count:', cookieData.costumeEveil.images?.length);
       }
     }
     if (cookieData.costumes && cookieData.costumes.length > 0) {
@@ -908,7 +756,6 @@ function applyIllustrationStyles() {
 
   if (rule) {
     finalStyle = { ...rule.style };
-    console.log(`[applyIllustrationStyles] Base style found (Hardcoded): ${rule.ids.join(', ')}`);
   }
 
   // 2. Fusionner avec les styles Supabase (Override)
@@ -919,37 +766,12 @@ function applyIllustrationStyles() {
 
   // 3. Appliquer le résultat
   if (Object.keys(finalStyle).length > 0) {
-    console.log('[applyIllustrationStyles] Applying Final Style:', finalStyle);
     Object.assign(img.style, finalStyle);
   } else {
-    console.log('[applyIllustrationStyles] No specific style rule found for:', src);
   }
 }
 
 
-
-// --- SAUVEGARDE SIMPLE DANS LE LOCALSTORAGE ---
-// --- SAUVEGARDE ILLUSTRATION (système cookie_temeraire.js) ---
-function saveCookieIllustration(id, src) {
-  if (!id || !src) return;
-  localStorage.setItem(`cookie-illustration:${id}`, src);
-}
-
-function getCookieIllustration(id) {
-  if (!id) return null;
-  return localStorage.getItem(`cookie-illustration:${id}`);
-}
-
-// --- SAUVEGARDE CYCLES (système cookie_temeraire.js) ---
-function saveEtatForId(id, step) {
-  if (!id) return;
-  localStorage.setItem(`etat-${id}`, step);
-}
-
-function getEtatForId(id) {
-  if (!id) return null;
-  return localStorage.getItem(`etat-${id}`);
-}
 
 // --- SAUVEGARDE DYNAMIQUE SUR SUPABASE ---
 /**
@@ -984,18 +806,15 @@ async function saveBuildToSupabase(cookieId, buildId, step) {
       }, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
-    console.log(`[Supabase] Build ${buildId} mis à jour : step ${step}`);
   } catch (err) {
     console.error('[Supabase] Erreur saveBuildToSupabase:', err);
   }
 }
 
 async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpdate = null, stepValue = null) {
-  console.log('--- Tentative de synchronisation Supabase ---');
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    console.warn('⚠️ Aucun utilisateur connecté.');
     return;
   }
 
@@ -1019,14 +838,12 @@ async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpda
       if (current.builds) payload.builds = current.builds;
       if (current.stats_checks) payload.stats_checks = current.stats_checks;
       if (current.is_awakened !== undefined) payload.is_awakened = current.is_awakened;
-      console.log('[Supabase] Fusion avec données existantes:', payload);
     }
 
     // Appliquer la mise à jour du build spécifique SI DEMANDÉ (fusion intelligente)
     if (buildIdToUpdate !== null && stepValue !== null) {
       if (!payload.builds) payload.builds = {};
       payload.builds[buildIdToUpdate] = stepValue;
-      console.log(`[Supabase] Build update intégré pour ${buildIdToUpdate} -> ${stepValue}`);
     }
 
     const { error } = await supabase
@@ -1034,7 +851,6 @@ async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpda
       .upsert(payload, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
-    console.log('✅ Choix costume synchronisé sur Supabase:', costumeId);
   } catch (err) {
     console.error('🔴 Erreur Supabase:', err.message);
   }
@@ -1080,7 +896,6 @@ async function saveStatsToSupabase(cookieId, checks) {
       .upsert(payload, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
-    console.log('✅ Stats checks sauvegardés sur Supabase');
   } catch (err) {
     console.error('🔴 Erreur Save Stats:', err);
   }
@@ -1117,7 +932,6 @@ async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
       .upsert(payload, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
-    console.log(`✅ État Éveillé (${isAwakened}) sauvegardé sur Supabase`);
   } catch (err) {
     console.error('🔴 Erreur Save Awakened State:', err);
   }
@@ -1307,7 +1121,6 @@ function applyDynamicTheme(data) {
     root.style.setProperty('--awaken-glow', 'rgba(255, 255, 255, 0.5)');
   }
 
-  console.log("Thème dynamique appliqué pour :", data.nom);
 
   // Ajouter un slug pour ciblage CSS cookie-spécifique
   const pageContainer = document.getElementById('page-cookie');
@@ -1320,24 +1133,16 @@ function renderCookie(data) {
 
   // --- DÉTERMINATION DE L'ILLUSTRATION À AFFICHER ---
   let currentIllustration = formatImagePath(data.illustration);
-  let costumeIllustration = null;
+  // ==== ILLUSTRATION PRINCIPALE ====
+  const cookieNameLower = data.nom ? data.nom.toLowerCase().replace(/ /g, '_') : 'default';
+  let currentIllustrationUrl = data.activeCostumeUrl || data.illustration || `${ASSETS_BASE_URL}images/illustrations/${cookieNameLower}_illustration.webp`;
+  let currentCostumeNom = data.activeCostumeName || (data.costumes && data.costumes.length > 0 ? data.costumes[0].nom : "");
   let activeStyleAttributes = '';
 
-  // 1. Priorité Supabase (si l'info a été injectée par loadCookieData)
+  // Si un costume est actif (via loadCookieData), on applique ses styles
   if (data.activeCostumeId) {
     const activeCostume = data.costumes?.find(c => c.id === data.activeCostumeId);
-
-    // Déterminer l'illustration (Priorité à celle calculée dans loadCookieData pour gérer le Mythique/Or)
-    if (data.activeCostumeUrl) {
-      costumeIllustration = formatImagePath(data.activeCostumeUrl);
-    } else if (activeCostume && activeCostume.illustrationReplace) {
-      costumeIllustration = formatImagePath(activeCostume.illustrationReplace);
-    }
-
-    if (activeCostume && costumeIllustration) {
-      console.log('[Costume] Priorité 1 : Restauration depuis Supabase (actif):', costumeIllustration);
-
-      // Préparation des attributs de style pour l'injection HTML directe (car le DOM n'est pas encore créé)
+    if (activeCostume) {
       if (activeCostume.nom) {
         activeStyleAttributes += ` data-costume-name="${activeCostume.nom.toLowerCase()}"`;
       }
@@ -1346,68 +1151,54 @@ function renderCookie(data) {
         if (activeCostume.style.height) activeStyleAttributes += ` data-style-height="${activeCostume.style.height}"`;
         if (activeCostume.style.top) activeStyleAttributes += ` data-style-top="${activeCostume.style.top}"`;
         if (activeCostume.style.left) activeStyleAttributes += ` data-style-left="${activeCostume.style.left}"`;
-        console.log('[Costume] Generated attributes string:', activeStyleAttributes);
       }
     }
   }
 
-  // 2. Fallback final : Sauvegarde d'illustration simple
-  if (costumeIllustration) {
-    currentIllustration = costumeIllustration;
-  } else {
-    const saved = getCookieIllustration(data.id);
-    if (saved) {
-      currentIllustration = saved;
-      console.log('[Costume] Priorité 2 : Restauration depuis sauvegarde simple:', currentIllustration);
+  // 2. Fallback final
+  currentIllustration = currentIllustrationUrl;
 
-      // TENTATIVE INTELLIGENTE : Retrouver le costume associé à cette URL pour appliquer ses styles
-      const matchingCostume = data.costumes?.find(c => formatImagePath(c.illustrationReplace) === saved);
-      if (matchingCostume) {
-        console.log('[Costume] Costume retrouvé via URL locale:', matchingCostume.nom);
-        if (matchingCostume.nom) {
-          activeStyleAttributes += ` data-costume-name="${matchingCostume.nom.toLowerCase()}"`;
-        }
-        if (matchingCostume.style) {
-          if (matchingCostume.style.width) activeStyleAttributes += ` data-style-width="${matchingCostume.style.width}"`;
-          if (matchingCostume.style.height) activeStyleAttributes += ` data-style-height="${matchingCostume.style.height}"`;
-          if (matchingCostume.style.top) activeStyleAttributes += ` data-style-top="${matchingCostume.style.top}"`;
-          if (matchingCostume.style.left) activeStyleAttributes += ` data-style-left="${matchingCostume.style.left}"`;
-        }
-      }
+  // TENTATIVE INTELLIGENTE : Retrouver le costume associé à cette URL pour appliquer ses styles
+  const matchingCostume = data.costumes?.find(c => formatImagePath(c.illustrationReplace) === currentIllustrationUrl);
+  if (matchingCostume) {
+    if (matchingCostume.nom) {
+      activeStyleAttributes += ` data-costume-name="${matchingCostume.nom.toLowerCase()}"`;
+    }
+    if (matchingCostume.style) {
+      if (matchingCostume.style.width) activeStyleAttributes += ` data-style-width="${matchingCostume.style.width}"`;
+      if (matchingCostume.style.height) activeStyleAttributes += ` data-style-height="${matchingCostume.style.height}"`;
+      if (matchingCostume.style.top) activeStyleAttributes += ` data-style-top="${matchingCostume.style.top}"`;
+      if (matchingCostume.style.left) activeStyleAttributes += ` data-style-left="${matchingCostume.style.left}"`;
     }
   }
 
-  if (!costumeIllustration && !getCookieIllustration(data.id)) {
-    console.log('[Costume] Aucune sauvegarde trouvée, affichage illustration défaut.');
+  // TENTATIVE INTELLIGENTE (Défaut) : Même logique pour l'illustration de base
+  // Si l'illustration par défaut correspond à un "costume" (ex: Original) paramétré dans la DB, on applique ses styles
+  const matchingDefault = data.costumes?.find(c => {
+    // Correspondance par URL (si l'URL de base est la même que celle du costume Original)
+    const matchUrl = c.illustrationReplace && formatImagePath(c.illustrationReplace) === currentIllustration;
+    // Correspondance par Nom (si le costume s'appelle "Original" ou "Defaut")
+    const matchName = c.nom && (c.nom.toLowerCase() === 'original' || c.nom.toLowerCase() === 'defaut' || c.nom.toLowerCase() === 'défaut');
 
-    // TENTATIVE INTELLIGENTE (Défaut) : Même logique pour l'illustration de base
-    // Si l'illustration par défaut correspond à un "costume" (ex: Original) paramétré dans la DB, on applique ses styles
-    const matchingDefault = data.costumes?.find(c => {
-      // Correspondance par URL (si l'URL de base est la même que celle du costume Original)
-      const matchUrl = c.illustrationReplace && formatImagePath(c.illustrationReplace) === currentIllustration;
-      // Correspondance par Nom (si le costume s'appelle "Original" ou "Defaut")
-      const matchName = c.nom && (c.nom.toLowerCase() === 'original' || c.nom.toLowerCase() === 'defaut' || c.nom.toLowerCase() === 'défaut');
+    return matchUrl || matchName;
+  });
 
-      return matchUrl || matchName;
-    });
-
-    if (matchingDefault) {
-      console.log('[Costume] Styles appliqués pour l\'illustration par défaut via Supabase:', matchingDefault.nom);
-      if (matchingDefault.nom && !activeStyleAttributes.includes('data-costume-name')) {
-        activeStyleAttributes += ` data-costume-name="${matchingDefault.nom.toLowerCase()}"`;
-      }
-      if (matchingDefault.style) {
-        if (matchingDefault.style.width) activeStyleAttributes += ` data-style-width="${matchingDefault.style.width}"`;
-        if (matchingDefault.style.height) activeStyleAttributes += ` data-style-height="${matchingDefault.style.height}"`;
-        if (matchingDefault.style.top) activeStyleAttributes += ` data-style-top="${matchingDefault.style.top}"`;
-        if (matchingDefault.style.left) activeStyleAttributes += ` data-style-left="${matchingDefault.style.left}"`;
-      }
-      if (matchingDefault.illustrationReplace) {
-        currentIllustration = formatImagePath(matchingDefault.illustrationReplace);
-        window._cookieOriginalImage = currentIllustration;
-      }
+  if (matchingDefault) {
+    if (matchingDefault.nom && !activeStyleAttributes.includes('data-costume-name')) {
+      activeStyleAttributes += ` data-costume-name="${matchingDefault.nom.toLowerCase()}"`;
+    }
+    if (matchingDefault.style) {
+      if (matchingDefault.style.width) activeStyleAttributes += ` data-style-width="${matchingDefault.style.width}"`;
+      if (matchingDefault.style.height) activeStyleAttributes += ` data-style-height="${matchingDefault.style.height}"`;
+      if (matchingDefault.style.top) activeStyleAttributes += ` data-style-top="${matchingDefault.style.top}"`;
+      if (matchingDefault.style.left) activeStyleAttributes += ` data-style-left="${matchingDefault.style.left}"`;
+    }
+    if (matchingDefault.illustrationReplace) {
+      currentIllustration = formatImagePath(matchingDefault.illustrationReplace);
+      window._cookieOriginalImage = currentIllustration;
     }
   }
+
   const pageContainer = document.getElementById('page-cookie');
   if (pageContainer && data.id) {
     pageContainer.setAttribute('data-cookie-id', data.id);
@@ -1439,7 +1230,6 @@ function renderCookie(data) {
              data-step="0" 
              src="${formatImagePath(t.images ? t.images[0] : '')}"/>
     `).join('');
-  console.log('HTML généré pour toppings :', toppingsHTML);
 
   // LOGIQUE DE DIMENSIONNEMENT DYNAMIQUE (Calculée avant le rendu)
   const stats = data.beascuit_stats || ['DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité', 'DGTS d\'Électricité'];
@@ -1774,7 +1564,6 @@ function injectAwakenButton(data) {
         toggleImageColor = formatImagePath(data.confiture_ames.color);
       }
     } catch (e) {
-      console.warn("Erreur lors du parsing de confiture_ames pour", data.nom, e);
     }
   }
 
@@ -2060,7 +1849,6 @@ function injectAwakenButton(data) {
                 toggle.dataset.styleLeft = data.costumeEveil.style.left || ''; // C'est ici que le 'left' est appliqué !
               }
 
-              console.log('[Costume éveillé] Swap DOM activé + Styles mis à jour');
             } else {
               // Restaurer les valeurs originales
               if (toggle.dataset.originalImage0) {
@@ -2090,7 +1878,6 @@ function injectAwakenButton(data) {
 
               // Retrait agrandissement spécifique
               costumeItem.classList.remove('is-awakened-swap');
-              console.log('[Costume Éveillé] Swap DOM désactivé + Styles restaurés');
             }
           }
         });
@@ -2101,7 +1888,6 @@ function injectAwakenButton(data) {
     saveAwakenedStateToSupabase(data.id, isAwakenedState);
   });
 
-  console.log('Bouton Éveil injecté dynamiquement pour :', data.nom);
 }
 
 function setupCostumeLogic(data) {
@@ -2166,7 +1952,6 @@ function renderCostumes(costumes) {
   if (!costumes) return;
 
   const costumesHTML = costumes.map(c => {
-    console.log(`[DEBUG] Costume: ${c.nom}, icon_mythique:`, c.icon_mythique);
     const isMythicClass = (c.icon_mythique || c.image3) ? ' is-mythic' : '';
     return `
     <div class="costume-item ${c.isAwakenedSwap ? 'is-awakened-swap' : ''}">
@@ -2252,7 +2037,6 @@ function setupImageCycles(cookieData) {
   let attempts = 0;
   function attachListeners() {
     const cycles = document.querySelectorAll('.garniture-cycle, .biscuit-cycle, .tartelette-cycle, .promotion-cycle, .ascension-cycle, .bonbon-cycle, .pierre-cycle, .eveil-cycle, .costume-toggle');
-    console.log('[setupImageCycles] Found elements:', cycles.length);
 
     if (cycles.length === 0 && attempts < 50) {
       attempts++;
@@ -2269,11 +2053,10 @@ function setupImageCycles(cookieData) {
       const images = JSON.parse(element.dataset.images || '[]');
 
       // Restaure l'état sauvegardé au chargement (si pas déjà fait par le HTML)
-      const savedStep = id ? getEtatForId(id) : null;
-      if (savedStep !== null && !isNaN(savedStep) && images[savedStep]) {
-        element.dataset.step = savedStep;
-        element.src = images[savedStep];
-      }
+      // Utilise 0 comme valeur par défaut si data-step n'est pas défini
+      const initialStep = parseInt(element.dataset.step || 0);
+      element.dataset.step = initialStep;
+      element.src = images[initialStep];
 
       element.addEventListener('click', function () {
         let step = parseInt(this.dataset.step || 0);
@@ -2282,16 +2065,16 @@ function setupImageCycles(cookieData) {
           this.dataset.step = step;
           this.src = images[step];
           // Sauvegarde l'état (nouvelle clé)
-          if (id) saveEtatForId(id, step);
+          if (id)
 
-          if (this.dataset.id) {
-            const page = document.getElementById('page-cookie');
-            const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
-            // On sauvegarde le step dans 'builds' pour TOUS les éléments SAUF costumes (géré par saveSelectionToSupabase)
-            if (cookieId && !this.classList.contains('costume-toggle')) {
-              saveBuildToSupabase(cookieId, this.dataset.id, step);
+            if (this.dataset.id) {
+              const page = document.getElementById('page-cookie');
+              const cookieId = page?.getAttribute('data-cookie-id') || window.cookieId;
+              // On sauvegarde le step dans 'builds' pour TOUS les éléments SAUF costumes (géré par saveSelectionToSupabase)
+              if (cookieId && !this.classList.contains('costume-toggle')) {
+                saveBuildToSupabase(cookieId, this.dataset.id, step);
+              }
             }
-          }
         }
         // Costume : gestion illustration
         const illustration = document.querySelector('.illustration-cookie img');
@@ -2323,7 +2106,6 @@ function setupImageCycles(cookieData) {
             const isThisCostumeActive = currentIllustration === this.dataset.illustrationReplace || currentIllustration === this.dataset.illustrationReplaceOr;
 
             if (isThisCostumeActive && window._cookieOriginalImage) {
-              console.log('[Costume] Désactivation de l\'illustration active, retour à l\'original...');
 
               // Vérifier si le mode Éveillé est actif
               const awakenToggle = document.getElementById('awaken-toggle');
@@ -2420,8 +2202,8 @@ async function initHomePage() {
     // Trie par date décroissante
     data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // Ne garder que les 24 plus récents
-    const recentCookies = data.slice(0, 24);
+    // Ne garder que les 6 plus récents
+    const recentCookies = data.slice(0, 6);
 
     // Récupérer les données Supabase pour ces cookies (pour l'image "carte" et l'ID)
     const cookieNames = recentCookies.map(c => c.nom).filter(n => n);
@@ -2438,10 +2220,8 @@ async function initHomePage() {
           supabaseCookies.forEach(sc => {
             if (sc.nom) supabaseMap[sc.nom.toLowerCase()] = sc;
           });
-          console.log("Données Homepage chargées depuis Supabase pour", supabaseCookies.length, "cookies.");
         }
       } catch (err) {
-        console.warn("Erreur chargement Supabase Homepage:", err);
       }
     }
 

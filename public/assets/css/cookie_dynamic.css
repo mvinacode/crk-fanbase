@@ -22,7 +22,7 @@ body {
     --theme-text-shadow: rgba(0, 0, 0, 0.3);
 
     /* Backgrounds */
-    --bg-color: #422f1e;
+    --bg-color: #603720;
     --bg-image: url("../images/background/lobby_normal.webp");
 
     /* Titres */
@@ -273,17 +273,19 @@ body.rarity-sorciere .nom-cookie {
    ========================================================================== */
 
 body.accueil {
-    background-color: #E3D3C7;
-    color: #865C43;
+    background-color: #603720;
+    /* Nouveau fond chocolat */
+    color: #FFF0DC;
 }
 
 body.accueil .header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 50px;
-    gap: 20px;
+    padding: 0;
+    gap: 0;
     position: relative;
+    background-color: #603720;
 }
 
 body.accueil .header-top {
@@ -291,29 +293,60 @@ body.accueil .header-top {
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 150px;
+    padding: 200px 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+body.accueil .header-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
 }
 
 body.accueil .logo {
-    width: 450px;
-    height: auto;
-}
-
-body.accueil .patch-container {
-    flex: 0 0 800px;
-    flex-shrink: 0;
-    border-radius: 50px;
-    overflow: hidden;
-}
-
-body.accueil .patch-bg {
-    width: 100%;
+    width: 500px;
     height: auto;
     display: block;
-    border-radius: 50px;
+    /* Évite les espaces de baseline */
+    margin: 0 auto;
+    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.4));
 }
 
-/* patch-column supprimé car inutile */
+/* On cache l'ancien conteneur car l'image est maintenant en fond */
+body.accueil .patch-container {
+    display: none;
+}
+
+body.accueil .menu {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    background-color: #4a2b19;
+    border-top: 2px solid #FFF0DC;
+    border-bottom: 2px solid #FFF0DC;
+    padding: 20px 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Suppression de l'ancienne barre */
+.header-separator {
+    display: none;
+}
 
 body.accueil .user-info {
     display: flex;
@@ -324,16 +357,22 @@ body.accueil .main {
     padding: 40px 50px;
 }
 
+body.accueil .derniers-ajouts {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 body.accueil .derniers-ajouts h2 {
     font-size: 30px;
     margin-bottom: 50px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 body.accueil .cartes-cookies {
     display: flex;
     gap: 30px;
-    justify-content: left;
+    justify-content: center;
     margin-bottom: 50px;
     flex-wrap: wrap;
 }
@@ -367,14 +406,6 @@ body.accueil .icon-new {
     z-index: 10;
 }
 
-body.accueil .menu {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    margin-top: 50px;
-    /* Descendre le menu comme demandé */
-}
-
 /* ==========================================================================
    HEADER DES PAGES DÉTAIL
    ========================================================================== */
@@ -382,34 +413,76 @@ body.accueil .menu {
 /* Ne s'applique que si on n'est PAS sur l'accueil */
 body:not(.accueil) .header {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 20px 40px;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 0;
     position: relative;
-    gap: 20px;
+    background-color: #603720;
+}
+
+body:not(.accueil) .header-top {
+    width: 100%;
+    padding: 30px 0;
+    /* Centrage vertical */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+body:not(.accueil) .header-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
 }
 
 body:not(.accueil) .header .logo {
-    height: 140px;
+    height: 150px;
     width: auto;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 body:not(.accueil) .header .menu {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    background-color: #4a2b19;
+    border-top: 2px solid #FFF0DC;
+    border-bottom: 2px solid #FFF0DC;
+    padding: 10px 0;
+    margin: 0;
     display: flex;
-    gap: 40px;
     justify-content: center;
-    margin-top: 25px;
+    align-items: center;
+    gap: 20px;
 }
 
+body:not(.accueil) .header .nav-icon-link {
+    width: 100px;
+    height: 100px;
+}
+
+/* On cache l'image MAJ de droite sur desktop car elle est en fond */
 body:not(.accueil) .header .maj-image {
-    height: 140px;
-    width: auto;
-    border-radius: 50px;
+    display: none;
 }
 
 body:not(.accueil) .header .user-info {
-    display: none !important;
-    /* Cacher le bouton de connexion sur les pages détail */
+    display: flex;
+    align-items: center;
+    position: static;
 }
 
 /* ==========================================================================
@@ -504,7 +577,7 @@ body:not(.accueil) .header .user-info {
     top: 160px;
     width: 221px;
     height: 198px;
-    background: rgba(134, 92, 67, 0.42);
+    background: #865c436b;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     display: flex;
@@ -1267,10 +1340,6 @@ body:not(.accueil) .header .user-info {
         flex: 0 0 800px;
     }
 
-    body.accueil .header {
-        gap: 20px;
-    }
-
     body.accueil .header-top {
         justify-content: center;
         gap: 150px;
@@ -1280,6 +1349,7 @@ body:not(.accueil) .header .user-info {
 /* ==========================================================================
    ANIMATIONS
    ========================================================================== */
+
 @keyframes illustrationSwap {
     0% {
         transform: scale(1);
@@ -1306,4 +1376,176 @@ body:not(.accueil) .header .user-info {
     width: auto;
     vertical-align: middle;
     margin-left: 5px;
+}
+
+/* ==========================================================================
+   RESPONSIVE - ACCUEIL (body.accueil)
+   ========================================================================== */
+
+/* TABLETTE (<= 1024px) */
+@media screen and (max-width: 1024px) {
+
+    body.accueil .header-top {
+        gap: 50px;
+        flex-wrap: wrap;
+    }
+
+    body.accueil .logo {
+        width: 300px;
+    }
+
+    body.accueil .patch-container {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    body.accueil .patch-bg {
+        width: 100%;
+        height: auto;
+    }
+
+    body.accueil .cartes-cookies {
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+/* MOBILE (<= 768px) */
+@media screen and (max-width: 768px) {
+    body.accueil .header-top {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    body.accueil .logo {
+        width: 250px;
+    }
+
+    body.accueil .menu {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        box-sizing: border-box;
+    }
+
+    body.accueil .patch-container {
+        border-radius: 25px;
+    }
+
+    body.accueil .patch-bg {
+        border-radius: 25px;
+    }
+
+    body.accueil .main {
+        padding: 20px;
+    }
+
+    body.accueil .derniers-ajouts h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    body.accueil .cartes-cookies {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    body.accueil .carte-cookie {
+        width: 160px;
+        height: 160px;
+    }
+
+    /* Réduction des boutons du menu tablette */
+    body.accueil .menu {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .user-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* STYLE GÉNÉRAL DES ICÔNES DE NAVIGATION (Desktop par défaut) */
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 10px auto;
+}
+
+.nav-icon-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-icon-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+}
+
+.nav-icon-link:hover {
+    transform: scale(1.1);
+}
+
+.nav-icon-link:active {
+    transform: scale(0.95);
+}
+
+/* BOUTONS NAVIGATION MOBILE (Accueil, Liste, Connexion/Déconnexion) - Style premium */
+@media screen and (max-width: 768px) {
+    .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .nav-icon-link {
+        width: 150px;
+        height: 150px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .nav-icon-link img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.4));
+    }
+
+    .nav-icon-link:hover {
+        transform: scale(1.05);
+    }
+
+    .nav-icon-link:active {
+        transform: scale(0.95);
+    }
+
+    /* Nettoyage des anciens styles body.accueil */
+    body.accueil .btn span {
+        display: none !important;
+    }
 }

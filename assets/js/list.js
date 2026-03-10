@@ -497,6 +497,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // --- Connexion/Déconnexion dans le header ---
+  async function initUserInfo() {
+    const userInfo = document.getElementById('user-info');
+    if (!userInfo) return;
+
+    const { data } = await supabase.auth.getUser();
+    if (data.user) {
+      userInfo.innerHTML = `
+        <a href="#" id="logout-btn" class="nav-icon-link">
+          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164562/deconnexion_u529fl.webp" alt="Déconnexion">
+        </a>`;
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.onclick = async (e) => {
+          e.preventDefault();
+          await supabase.auth.signOut();
+          window.location.reload();
+        };
+      }
+    } else {
+      userInfo.innerHTML = `
+        <a href="login.html" class="nav-icon-link">
+          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/connexion_p2ilhv.webp" alt="Connexion">
+        </a>`;
+    }
+  }
+
   // --- Chargement du Header ---
   function loadHeader() {
     const headerPlaceholder = document.getElementById('header-placeholder');
@@ -509,6 +536,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
           headerPlaceholder.innerHTML = data;
           document.dispatchEvent(new CustomEvent('headerLoaded'));
+          // Initialiser le bouton connexion/déconnexion
+          initUserInfo();
         })
         .catch(err => console.error("Erreur chargement header:", err));
     }

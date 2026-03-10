@@ -1,17 +1,52 @@
 <header class="header">
   <div class="header-top">
     <div class="logo-container">
-      <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254518/logo_patch_7_1_a8gv4r.webp"
+      <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773168960/logo_patch_7_1_hankmn.webp"
         alt="Logo Cookie Run Kingdom" class="logo">
     </div>
 
-    <div class="patch-container">
-      <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp"
-        alt="Image Patch Version 7.1" class="patch-bg">
-    </div>
+
   </div>
 
-  <div id="user-info" class="user-info"></div>
+  <nav class="menu">
+    <a class="nav-icon-link" href="../index.html">
+      <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/accueil_aaowsa.png" alt="Accueil">
+    </a>
+    <a class="nav-icon-link" href="list.html">
+      <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/liste_cookies_mdhaa2.webp" alt="Liste">
+    </a>
+    <div id="user-info" class="user-info"></div>
+  </nav>
 </header>
 
-<script src="../assets/js/auth.js"></script>
+<script type="module">
+  import { supabase } from '../assets/js/app.js';
+
+  async function initUserInfo() {
+    const userInfo = document.getElementById('user-info');
+    if (!userInfo) return;
+
+    const { data } = await supabase.auth.getUser();
+    if (data.user) {
+      userInfo.innerHTML = `
+        <a href="#" id="logout-btn" class="nav-icon-link">
+          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164562/deconnexion_u529fl.webp" alt="Déconnexion">
+        </a>`;
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.onclick = async (e) => {
+          e.preventDefault();
+          await supabase.auth.signOut();
+          window.location.reload();
+        };
+      }
+    } else {
+      userInfo.innerHTML = `
+        <a href="login.html" class="nav-icon-link">
+          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/connexion_p2ilhv.webp" alt="Connexion">
+        </a>`;
+    }
+  }
+
+  initUserInfo();
+</script>

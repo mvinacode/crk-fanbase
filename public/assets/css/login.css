@@ -23,11 +23,11 @@ body.login-page {
 .login-card {
   background: #FFF0DC;
   border-radius: 50px;
-  padding: 50px 40px;
+  padding: 50px 40px 60px;
   box-shadow: inset 0px 0px 20px rgba(212, 196, 176, 0.5),
-              inset 0px -4px 8px rgba(196, 181, 160, 0.4),
-              inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
-              0px 8px 16px rgba(0, 0, 0, 0.2);
+    inset 0px -4px 8px rgba(196, 181, 160, 0.4),
+    inset 0px 0px 0px 4px rgba(212, 196, 176, 0.6),
+    0px 8px 16px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
@@ -80,17 +80,19 @@ body.login-page {
 .login-form {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .form-group {
   margin-bottom: 25px;
+  width: 100%;
 }
 
 .form-group label {
-  display: block;
-  color: #865C43;
-  font-size: 20px;
-  margin-bottom: 10px;
+  display: none;
 }
 
 .form-group input {
@@ -125,17 +127,37 @@ body.login-page {
   min-height: 20px;
 }
 
-.btn-login {
-  width: 100%;
-  height: 60px;
-  font-size: 28px;
+.login-submit-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 260px;
+  height: 260px;
   margin-top: 10px;
-  font-family: 'CookieRun-Bold';
+  margin-bottom: 20px;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  outline: none;
+}
+
+.login-submit-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.45));
+}
+
+.login-submit-btn:hover {
+  transform: scale(1.05);
+}
+
+.login-submit-btn:active {
+  transform: scale(0.95);
 }
 
 .login-footer {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 40px;
   position: relative;
   z-index: 1;
 }
@@ -163,26 +185,21 @@ body.login-page {
     padding: 40px 30px;
     border-radius: 40px;
   }
-  
+
   .login-logo {
     width: 250px;
   }
-  
+
   .login-header h1 {
     font-size: 28px;
   }
-  
+
   .form-group label {
     font-size: 18px;
   }
-  
+
   .form-group input {
     font-size: 16px;
     padding: 12px 18px;
-  }
-  
-  .btn-login {
-    font-size: 24px;
-    height: 55px;
   }
 }

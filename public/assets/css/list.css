@@ -5,20 +5,35 @@
 
 body.list {
   margin: 0;
-  font-family: 'CookieRun-Bold';
-  background-color: #E3D3C7;
-  color: #865C43;
+  font-family: 'CookieRun-Bold', sans-serif;
+  background-color: #603720;
+  color: #FFF0DC;
 }
 
 .header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 30px 95px;
-  gap: 150px;
-  flex-wrap: wrap;
+  padding: 0;
+  gap: 0;
   position: relative;
+  overflow: hidden;
+  background-color: #603720;
   justify-content: center;
-  /* Centrage global */
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+  background-size: cover;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .header-top {
@@ -26,16 +41,22 @@ body.list {
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 150px;
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  width: 500px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .user-info {
-  position: absolute;
-  top: 30px;
-  right: 95px;
   display: flex;
   align-items: center;
-  gap: 15px;
 }
 
 .welcome-message {
@@ -485,7 +506,7 @@ body.list {
 
 /* SECTION PRINCIPALE LISTE */
 .liste-bloc {
-  background-color: #E3D3C7;
+  background-color: #603720;
   padding: 50px 50px;
 }
 
@@ -745,4 +766,80 @@ body.list {
     inset 0px 2px 0px 0px rgba(255, 255, 255, 0.3),
     inset 0px -2px 0px 0px rgba(134, 92, 67, 0.3),
     0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+.menu {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: #4a2b19;
+  border-top: 2px solid #FFF0DC;
+  border-bottom: 2px solid #FFF0DC;
+  padding: 15px 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Suppression de l'ancienne barre */
+.header-separator {
+  display: none;
+}
+
+.header-separator::before,
+.header-separator::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #D4AF37;
+  font-size: 14px;
+}
+
+.header-separator::before {
+  left: -15px;
+}
+
+.header-separator::after {
+  right: -15px;
+}
+
+/* Styles pour les nouveaux liens icônes */
+.nav-icon-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-icon-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+}
+
+.nav-icon-link:hover {
+  transform: scale(1.1);
+}
+
+/* MOBILE (<= 768px) */
+@media screen and (max-width: 768px) {
+  .menu {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    box-sizing: border-box;
+  }
+
+  .nav-icon-link {
+    width: 150px;
+    height: 150px;
+  }
 }
