@@ -140,6 +140,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Cygne de Sucre",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1773251290/cookie_cygne_de_sucre_carte_jdn0xy.webp",
+    "link": "cookie_detail.html?id=cookie-cygne-de-sucre",
+    "date": "2026-03-11T19:01:00",
+    "type": "new"
+  },
+  {
     "nom": "Cookie de l'Avent",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772382126/cookie_de_l_avent_carte_yqe8cu.webp",
     "link": "cookie_detail.html?id=cookie-de-l-avent",
@@ -400,9 +407,16 @@
   },
   {
     "nom": "Cookie Sorcière des Ténèbres",
-    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772993034/cookie_sorciere_des_tenebres_carte_tva1i5.webp",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1773250364/cookie_sorciere_des_tenebres_liberte_ecarlate_carte_dzdkdc.webp",
     "link": "cookie_detail.html?id=cookie-sorciere-des-tenebres",
-    "date": "2026-01-15T00:55:00",
+    "date": "2026-03-11T18:43:00",
+    "type": "update"
+  },
+  {
+    "nom": "Cookie Sorcière des Ténèbres",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1773250523/cookie_sorciere_des_tenebres_lys_de_la_lune_noire_carte_jy3wsp.webp",
+    "link": "cookie_detail.html?id=cookie-sorciere-des-tenebres",
+    "date": "2026-03-11T18:44:00",
     "type": "update"
   },
   {
