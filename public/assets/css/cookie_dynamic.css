@@ -971,6 +971,16 @@ body:not(.accueil) .header .user-info {
     right: 830px;
 }
 
+[data-cookie-slug="cookie-cygne-de-sucre"] .promotion {
+    top: 615px;
+    right: 820px;
+}
+
+[data-cookie-slug="cookie-cygne-de-sucre"] .ascension {
+    top: 660px;
+    right: 830px;
+}
+
 [data-cookie-slug="cookie-creme-fraiche"] .promotion,
 [data-cookie-slug="cookie-huitre"] .promotion,
 [data-cookie-slug="cookie-sorbet"] .promotion,

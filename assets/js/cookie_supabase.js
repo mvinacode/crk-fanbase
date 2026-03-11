@@ -614,23 +614,21 @@ async function loadCookieData() {
             // Vérifier si un step est sauvegardé dans builds pour ce costume
             if (userSelection.builds && userSelection.builds[selectedCostume.id] !== undefined) {
               step = userSelection.builds[selectedCostume.id];
-            } else {
             }
 
-            // Déterminer l'illustration à afficher
-            let illustrationUrl = selectedCostume.illustrationReplace;
-            if (step === 2 && selectedCostume.illustrationReplaceOr) {
-              illustrationUrl = selectedCostume.illustrationReplaceOr;
-            }
+            // Si le costume est à step 0 (NB), ne pas appliquer son illustrationReplace
+            // L'illustrationReplace du costume Original sera appliqué par matchingDefault plus bas
+            if (step > 0) {
+              // Déterminer l'illustration à afficher
+              let illustrationUrl = selectedCostume.illustrationReplace;
+              if (step === 2 && selectedCostume.illustrationReplaceOr) {
+                illustrationUrl = selectedCostume.illustrationReplaceOr;
+              }
 
-            if (illustrationUrl) {
-              cookieData.activeCostumeId = selectedCostume.id;
-              cookieData.activeCostumeUrl = illustrationUrl;
-              // Sauvegarde locale TEMPORAIRE pour que le chargement initial fonctionne (sera écrasé si re-sauvegarde)
-              // Mais l'utilisateur veut du full Supabase.
-              // Ici on set l'illustration pour le chargement initial de la page.
-
-
+              if (illustrationUrl) {
+                cookieData.activeCostumeId = selectedCostume.id;
+                cookieData.activeCostumeUrl = illustrationUrl;
+              }
             }
           }
         }
@@ -981,7 +979,7 @@ function applyDynamicTheme(data) {
     || data.nom.includes('Chevalier vif-argent') || data.nom.includes('Brioche beurrée') || data.nom.includes('Brise-tonnerre') || data.nom.includes('Haetae des nuages')
     || data.nom.includes('Belette à la crème') || data.nom.includes('Archer du Vent') || data.nom.includes('Épices Ardentes') || data.nom.includes('Muscade tigrée')
     || data.nom.includes('Bouton de braise') || data.nom.includes('Pudding à la mode') || data.nom.includes('Mousse au thé vert') || data.nom.includes('Lapin Marshmallow')
-    || data.nom.includes('Arbre Millénaire') || data.nom.includes('Sorcière des Ténèbres'))) {
+    || data.nom.includes('Arbre Millénaire') || data.nom.includes('Sorcière des Ténèbres') || data.nom.includes('Cygne de Sucre'))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
@@ -1178,8 +1176,8 @@ function renderCookie(data) {
   const matchingDefault = data.costumes?.find(c => {
     // Correspondance par URL (si l'URL de base est la même que celle du costume Original)
     const matchUrl = c.illustrationReplace && formatImagePath(c.illustrationReplace) === currentIllustration;
-    // Correspondance par Nom (si le costume s'appelle "Original" ou "Defaut")
-    const matchName = c.nom && (c.nom.toLowerCase() === 'original' || c.nom.toLowerCase() === 'defaut' || c.nom.toLowerCase() === 'défaut');
+    // Correspondance par Nom (si le costume contient "Original" ou "Defaut")
+    const matchName = c.nom && (c.nom.toLowerCase().includes('original') || c.nom.toLowerCase().includes('defaut') || c.nom.toLowerCase().includes('défaut'));
 
     return matchUrl || matchName;
   });
@@ -2110,12 +2108,6 @@ function setupImageCycles(cookieData) {
 
               // Vérifier si le mode Éveillé est actif
               const awakenToggle = document.getElementById('awaken-toggle');
-              console.log('[DEBUG] Click costume handler:', {
-                step: step,
-                isNB: isNB,
-                hasOr: !!this.dataset.illustrationReplaceOr,
-                valOr: this.dataset.illustrationReplaceOr
-              });
               if (awakenToggle && awakenToggle.dataset.state === 'color' && awakenToggle.dataset.awakenedSrc) {
                 illustration.src = awakenToggle.dataset.awakenedSrc;
               } else {
@@ -2126,8 +2118,13 @@ function setupImageCycles(cookieData) {
 
               if (cookieId) {
                 saveSelectionToSupabase(cookieId, null);
-                localStorage.removeItem(`cookie - illustration:${cookieId} `);
+                localStorage.removeItem(`cookie-illustration:${cookieId}`);
               }
+
+              // Réappliquer les styles dynamiques et sortir du handler
+              // pour ne pas re-sauvegarder le costume_id avec step 0
+              applyIllustrationStyles();
+              return;
             }
           } else if (this.dataset.illustrationReplaceOr && illustration && step === 2) {
             // Si on passe en Mythique (image3 / step 2), on utilise l'illustration OR
