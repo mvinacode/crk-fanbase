@@ -1483,44 +1483,43 @@ body:not(.accueil) .header .user-info {
         justify-content: center;
         align-items: center;
     }
-}
 
-/* STYLE GÉNÉRAL DES ICÔNES DE NAVIGATION (Desktop par défaut) */
-.menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin: 10px auto;
-}
+    /* STYLE GÉNÉRAL DES ICÔNES DE NAVIGATION (Desktop par défaut) */
+    .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin: 10px auto;
+    }
 
-.nav-icon-link {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    text-decoration: none;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+    .nav-icon-link {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        text-decoration: none;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-.nav-icon-link img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
-}
+    .nav-icon-link img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+    }
 
-.nav-icon-link:hover {
-    transform: scale(1.1);
-}
+    .nav-icon-link:hover {
+        transform: scale(1.1);
+    }
 
-.nav-icon-link:active {
-    transform: scale(0.95);
-}
+    .nav-icon-link:active {
+        transform: scale(0.95);
+    }
 
-/* BOUTONS NAVIGATION MOBILE (Accueil, Liste, Connexion/Déconnexion) - Style premium */
-@media screen and (max-width: 768px) {
+    /* BOUTONS NAVIGATION MOBILE (Accueil, Liste, Connexion/Déconnexion) - Style premium */
+
     .menu {
         display: flex;
         justify-content: center;

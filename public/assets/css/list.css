@@ -299,6 +299,8 @@ body.list {
   border-radius: 10px;
   overflow: hidden;
   position: absolute;
+  top: 100%;
+  left: 0;
   z-index: 999;
   opacity: 0;
   visibility: hidden;
@@ -377,6 +379,8 @@ body.list {
   border-radius: 10px;
   overflow: hidden;
   position: absolute;
+  top: 100%;
+  left: 0;
   z-index: 999;
   opacity: 0;
   visibility: hidden;
@@ -973,6 +977,21 @@ body.list {
     width: 250px !important;
     justify-content: center !important;
   }
+
+  .filtre-rarete-options,
+  .filtre-role-options,
+  .filtre-element-options {
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-10px) !important;
+  }
+
+  .filtre-rarete-options.show,
+  .filtre-role-options.show,
+  .filtre-element-options.show {
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
 
   .filtre-obtenu-wrapper {
     width: 300px !important;
