@@ -1426,10 +1426,11 @@ body:not(.accueil) .header .user-info {
     body.accueil .header-top {
         flex-direction: column;
         gap: 30px;
+        padding: 20px;
     }
 
     body.accueil .logo {
-        width: 250px;
+        width: 350px;
     }
 
     body.accueil .menu {
@@ -1530,8 +1531,8 @@ body:not(.accueil) .header .user-info {
     }
 
     .nav-icon-link {
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
         display: inline-flex;
         justify-content: center;
         align-items: center;

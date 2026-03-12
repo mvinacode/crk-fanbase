@@ -439,7 +439,7 @@ body.list {
   align-items: center;
   gap: 12px;
   font-size: 20px;
-  color: #865C43;
+  color: #FFF0DC;
   cursor: pointer;
   font-weight: bold;
 }
@@ -826,15 +826,172 @@ body.list {
 
 /* MOBILE (<= 768px) */
 @media screen and (max-width: 768px) {
+  .main {
+    padding: 30px;
+  }
+
+  .header-top {
+    padding: 20px;
+  }
+
   .menu {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     box-sizing: border-box;
+    gap: 15px;
   }
 
   .nav-icon-link {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Cartes en format vertical sur mobile */
+
+  .recherche-cookies {
+    margin: 50px 0;
+  }
+
+  .liste-bloc {
+    padding: 0px;
+    margin-top: 50px;
+  }
+
+  .carte-cookie {
+    flex-direction: column;
+    height: auto;
+    gap: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    border-radius: 30px;
+  }
+
+  .carte-cookie-glossy::after {
+    border-radius: 30px;
+  }
+
+  .bloc-gauche {
+    width: 100%;
+    height: 160px;
+    border-radius: 30px 30px 0 0;
+    box-shadow: none;
+    gap: 15px;
+  }
+
+  .cookie-head {
+    width: 70px;
+  }
+
+  .badge-epique {
+    width: 120px;
+  }
+
+  .bloc-centre {
+    padding: 15px 0;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .bloc-centre.multi-elements {
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .badge-icon {
+    width: 40px;
+  }
+
+  .bloc-droite {
+    width: 100%;
+    padding: 0 15px 25px;
+    box-sizing: border-box;
+  }
+
+  .nom-cookie {
+    font-size: 28px;
+    line-height: 1.2;
+    max-width: 100%;
+  }
+
+  .bloc-obtenu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+  }
+
+  .btn-obtenu {
+    width: 40px;
+    height: 40px;
+  }
+
+  .checkmark-svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Ajustement pour l'effet glossy mobile */
+  .carte-cookie-glossy::before {
+    width: 40px;
+    height: 20px;
+    top: 10px;
+    left: 10px;
+  }
+
+  #recherche {
+    width: 100%;
+  }
+
+  /* Filtres empilés verticalement sur mobile */
+  .filtres {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+  }
+
+  .filtre-rarete-wrapper,
+  .filtre-tri-wrapper,
+  .filtre-role-wrapper,
+  .filtre-element-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .filtre-rarete-toggle,
+  .filtre-tri-toggle,
+  .filtre-role-toggle,
+  .filtre-element-toggle {
+    width: 250px !important;
+    justify-content: center !important;
+  }
+
+  .filtre-obtenu-wrapper {
+    width: 300px !important;
+    align-items: flex-start !important;
+    margin: 20px auto !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .filtre-obtenu-wrapper label {
+    font-size: 17px !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  .filtre-obtenu-wrapper input[type="checkbox"] {
+    width: 28px !important;
+    height: 28px !important;
+    flex-shrink: 0 !important;
   }
 }
