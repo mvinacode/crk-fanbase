@@ -1281,83 +1281,25 @@ function renderCookie(data) {
       return badgesHTML;
     })()}
    </div>
+
+   <div class="illustration-cookie">
+     <img alt="${data.nom}" src="${currentIllustration}" ${activeStyleAttributes}/>
+   </div>
+
+   <div class="row-costume-bonbon">
+    <a class="btn-costume" href="#"><span>Costumes</span></a>
+    <div class="bonbons">
+        ${(data.bonbons || []).map(b => `
+            <img alt="${b.nom || 'Bonbon'}" class="bonbon-cycle" 
+                data-id="${b.id}" 
+                data-images='${safeJsonStringify(b.images)}'
+                data-step="${b.selectedStep || 0}" 
+                src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
+        `).join('')}
+    </div>
   </div>
-  
-  <div class="illustration-cookie">
-    <img alt="${data.nom}" src="${currentIllustration}" ${activeStyleAttributes}/>
-  </div>
 
-  <div class="toppings">
-    ${(data.toppings || []).map((t, i) => `
-        <img alt="${t.nom || 'Garniture'}" class="garniture-cycle" 
-             data-id="${t.id}" 
-             data-images='${safeJsonStringify(t.images)}' 
-             data-step="${t.selectedStep || 0}" 
-             src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
-    `).join('')}
- </div>
- 
- <div class="info-frame">
-     <div class="info-frame-header">
-         <img class="info-frame-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
-         <h3>Attributs recommandés</h3>
-     </div>
-     <div class="info-frame-content">
-         ${(data.toppings_stats || ['???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
-     </div>
- </div>
-
- <div class="tartelettes">
-    ${(data.tartelettes || []).map(t => `
-        <img alt="${t.nom || 'Tartelette'}" class="tartelette-cycle" 
-             data-id="${t.id}" 
-             data-images='${safeJsonStringify(t.images)}' 
-             data-step="${t.selectedStep || 0}" 
-             src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
-    `).join('')}
- </div>
-
-   ${(() => {
-      // Logic moved up
-      const classe = data.classe || data.badges?.classe || '';
-      if (classe.includes('bts')) return '';
-
-      return `
-     <div class="info-frame2 ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
-         <div class="info-frame2-header">
-             <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
-             <h3>Attributs recommandés</h3>
-         </div>
-         <div class="info-frame2-content">
-             ${(() => {
-          const savedChecks = JSON.parse(localStorage.getItem(`cookie_stats_checks_${data.id}`) || '[]');
-          return stats.map((stat, index) => `
-                <div class="stat-item" data-index="${index}">
-                    <div class="stat-checkbox ${savedChecks[index] ? 'checked' : ''}"></div>
-                    <p>${stat}</p>
-                </div>
-             `).join('');
-        })()}
-         </div>
-     </div>
-     `;
-    })()}
-
- <div class="biscuits ${isExtraWide ? 'shift-left-dynamic' : ''} ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
- ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
- ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
- ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''} ${data.nom && data.nom.includes('Chevalier') ? 'biscuits-chevalier' : ''} 
- ${data.nom && data.nom.includes('Boule de gomme') ? 'biscuits-boule-de-gomme' : ''}">
-    ${(data.biscuits || []).map(b => `
-        <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
-             data-id="${b.id}" 
-             data-images='${safeJsonStringify(b.images)}'
-             data-step="${b.selectedStep || 0}" 
-             src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
-    `).join('')}
- </div>
-
- <div class="promotion">
+  <div class="promotion">
     ${(data.promotions || []).map(p => `
         <img alt="Promotion" class="promotion-cycle" 
              data-id="${p.id}" 
@@ -1365,9 +1307,9 @@ function renderCookie(data) {
              data-step="${p.selectedStep || 0}" 
              src="${formatImagePath(p.images ? p.images[p.selectedStep || 0] : '')}"/>
     `).join('')}
- </div>
+  </div>
 
- <div class="ascension">
+  <div class="ascension">
     ${(data.ascension?.etoiles || []).map((a, index) => {
       const images = Array.isArray(a) ? a : (a.images || []);
       const step = a.selectedStep || 0;
@@ -1378,9 +1320,9 @@ function renderCookie(data) {
              data-step="${step}" 
              src="${formatImagePath(images[step] || '')}"/>
     `}).join('')}
- </div>
- 
- <div class="eveil">
+  </div>
+
+  <div class="eveil">
     ${(data.eveil || []).map(e => `
         <img alt="${e.nom || 'Éveil'}" class="eveil-cycle" 
              data-id="${e.id}" 
@@ -1388,29 +1330,92 @@ function renderCookie(data) {
              data-step="${e.selectedStep || 0}" 
              src="${formatImagePath(e.images ? e.images[e.selectedStep || 0] : '')}"/>
     `).join('')}
- </div>
+  </div>
 
- <div class="bonbons">
-    ${(data.bonbons || []).map(b => `
-        <img alt="${b.nom || 'Bonbon'}" class="bonbon-cycle" 
-             data-id="${b.id}" 
-             data-images='${safeJsonStringify(b.images)}'
-             data-step="${b.selectedStep || 0}" 
-             src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
-    `).join('')}
- </div>
+  <div class="detail-grid-mobile">
+    <div class="column-left">
+        <div class="toppings">
+            ${(data.toppings || []).map((t, i) => `
+                <img alt="${t.nom || 'Garniture'}" class="garniture-cycle" 
+                    data-id="${t.id}" 
+                    data-images='${safeJsonStringify(t.images)}' 
+                    data-step="${t.selectedStep || 0}" 
+                    src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
+            `).join('')}
+        </div>
+        <div class="tartelettes">
+            ${(data.tartelettes || []).map(t => `
+                <img alt="${t.nom || 'Tartelette'}" class="tartelette-cycle" 
+                    data-id="${t.id}" 
+                    data-images='${safeJsonStringify(t.images)}' 
+                    data-step="${t.selectedStep || 0}" 
+                    src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
+            `).join('')}
+        </div>
+        <div class="info-frame">
+            <div class="info-frame-header">
+                <img class="info-frame-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
+                <h3>Attributs recommandés</h3>
+            </div>
+            <div class="info-frame-content">
+                ${(data.toppings_stats || ['???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
+            </div>
+        </div>
+    </div>
 
- <div class="pierre-confiture">
-    ${(data.pierre_de_confiture || []).map(p => `
-        <img alt="${p.nom || 'Pierre de confiture'}" class="pierre-cycle" 
-             data-id="${p.id}" 
-             data-images='${safeJsonStringify(p.images)}'
-             data-step="${p.selectedStep || 0}" 
-             src="${formatImagePath(p.images ? p.images[p.selectedStep || 0] : '')}"/>
-    `).join('')}
- </div>
+    <div class="column-right">
+        <div class="biscuits ${isExtraWide ? 'shift-left-dynamic' : ''} ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
+        ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
+        ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
+        ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''} ${data.nom && data.nom.includes('Chevalier') ? 'biscuits-chevalier' : ''} 
+        ${data.nom && data.nom.includes('Boule de gomme') ? 'biscuits-boule-de-gomme' : ''}">
+            ${(data.biscuits || []).map(b => `
+                <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
+                    data-id="${b.id}" 
+                    data-images='${safeJsonStringify(b.images)}'
+                    data-step="${b.selectedStep || 0}" 
+                    src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
+            `).join('')}
+        </div>
 
-  <a class="btn-costume" href="#"><span>Costumes</span></a>
+        ${(() => {
+            const classe = data.classe || data.badges?.classe || '';
+            if (classe.includes('bts')) return '';
+
+            return `
+            <div class="info-frame2 ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
+                <div class="info-frame2-header">
+                    <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
+                    <h3>Attributs recommandés</h3>
+                </div>
+                <div class="info-frame2-content">
+                    ${(() => {
+                        const savedChecks = JSON.parse(localStorage.getItem(`cookie_stats_checks_${data.id}`) || '[]');
+                        return stats.map((stat, index) => `
+                            <div class="stat-item" data-index="${index}">
+                                <div class="stat-checkbox ${savedChecks[index] ? 'checked' : ''}"></div>
+                                <p>${stat}</p>
+                            </div>
+                        `).join('');
+                    })()}
+                </div>
+            </div>
+            `;
+        })()}
+    </div>
+  </div>
+  </div>
+
+  <div class="pierre-confiture">
+     ${(data.pierre_de_confiture || []).map(p => `
+         <img alt="${p.nom || 'Pierre de confiture'}" class="pierre-cycle" 
+              data-id="${p.id}" 
+              data-images='${safeJsonStringify(p.images)}'
+              data-step="${p.selectedStep || 0}" 
+              src="${formatImagePath(p.images ? p.images[p.selectedStep || 0] : '')}"/>
+     `).join('')}
+  </div>
+
   ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><span>Cookie précédent</span></a>` : ''}
   ${data.navigation?.suivant ? `<a href="cookie_detail.html?id=${data.navigation.suivant}" class="btn-cookie-suivant"><span>Cookie suivant</span></a>` : ''}
  
