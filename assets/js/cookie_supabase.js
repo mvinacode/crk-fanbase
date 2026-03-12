@@ -615,6 +615,8 @@ async function loadCookieData() {
             if (userSelection.builds && userSelection.builds[selectedCostume.id] !== undefined) {
               step = userSelection.builds[selectedCostume.id];
             }
+            // Attacher le step pour renderCostumes
+            selectedCostume.selectedStep = step;
 
             // Si le costume est à step 0 (NB), ne pas appliquer son illustrationReplace
             // L'illustrationReplace du costume Original sera appliqué par matchingDefault plus bas
@@ -656,6 +658,9 @@ async function loadCookieData() {
           applyStep(cookieData.promotions);
           if (cookieData.ascension?.etoiles) applyStep(cookieData.ascension.etoiles);
           applyStep(cookieData.eveil);
+          applyStep(cookieData.costumes);
+          applyStep(cookieData.bonbons);
+          applyStep(cookieData.pierre_de_confiture);
         }
 
         // 3. Restauration des stats checks (JSONB)
@@ -781,28 +786,37 @@ async function saveBuildToSupabase(cookieId, buildId, step) {
   if (!user) return;
 
   try {
-    // 1. Récupérer l'état actuel des builds pour ce cookie
+    // 1. Récupérer l'état actuel pour ne pas écraser les autres colonnes (costume_id, stats, etc.)
     const { data: current, error: fetchError } = await supabase
       .from('cookies_users')
-      .select('builds')
+      .select('*')
       .eq('user_id', user.id)
       .eq('cookie_id', cookieId)
       .maybeSingle();
 
     if (fetchError) throw fetchError;
 
-    // 2. Préparer le nouvel objet builds
-    const newBuilds = current?.builds || {};
-    newBuilds[buildId] = step;
+    // 2. Préparer le payload
+    const payload = {
+      user_id: user.id,
+      cookie_id: cookieId,
+      builds: current?.builds || {}
+    };
+
+    // Fusionner le nouveau step
+    payload.builds[buildId] = step;
+
+    // Préserver les autres colonnes si elles existent
+    if (current) {
+      if (current.costume_id) payload.costume_id = current.costume_id;
+      if (current.stats_checks) payload.stats_checks = current.stats_checks;
+      if (current.is_awakened !== undefined) payload.is_awakened = current.is_awakened;
+    }
 
     // 3. Upsert
     const { error } = await supabase
       .from('cookies_users')
-      .upsert({
-        user_id: user.id,
-        cookie_id: cookieId,
-        builds: newBuilds
-      }, { onConflict: 'user_id, cookie_id' });
+      .upsert(payload, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
   } catch (err) {
@@ -1187,12 +1201,13 @@ function renderCookie(data) {
       activeStyleAttributes += ` data-costume-name="${matchingDefault.nom.toLowerCase()}"`;
     }
     if (matchingDefault.style) {
-      if (matchingDefault.style.width) activeStyleAttributes += ` data-style-width="${matchingDefault.style.width}"`;
-      if (matchingDefault.style.height) activeStyleAttributes += ` data-style-height="${matchingDefault.style.height}"`;
-      if (matchingDefault.style.top) activeStyleAttributes += ` data-style-top="${matchingDefault.style.top}"`;
-      if (matchingDefault.style.left) activeStyleAttributes += ` data-style-left="${matchingDefault.style.left}"`;
+      if (matchingDefault.style.width && !activeStyleAttributes.includes('data-style-width')) activeStyleAttributes += ` data-style-width="${matchingDefault.style.width}"`;
+      if (matchingDefault.style.height && !activeStyleAttributes.includes('data-style-height')) activeStyleAttributes += ` data-style-height="${matchingDefault.style.height}"`;
+      if (matchingDefault.style.top && !activeStyleAttributes.includes('data-style-top')) activeStyleAttributes += ` data-style-top="${matchingDefault.style.top}"`;
+      if (matchingDefault.style.left && !activeStyleAttributes.includes('data-style-left')) activeStyleAttributes += ` data-style-left="${matchingDefault.style.left}"`;
     }
-    if (matchingDefault.illustrationReplace) {
+    // Only apply default image if no costume is active
+    if (!data.activeCostumeId && matchingDefault.illustrationReplace) {
       currentIllustration = formatImagePath(matchingDefault.illustrationReplace);
       window._cookieOriginalImage = currentIllustration;
     }
@@ -1286,8 +1301,10 @@ function renderCookie(data) {
      <img alt="${data.nom}" src="${currentIllustration}" ${activeStyleAttributes}/>
    </div>
 
-   <div class="row-costume-bonbon">
-    <a class="btn-costume" href="#"><span>Costumes</span></a>
+   <div class="row-costume-bonbon ${(data.bonbons?.length || 0) === 0 && (data.pierre_de_confiture?.length || 0) === 0 ? 'is-centered' : ''}">
+    <a class="btn-costume" href="#">
+        <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773336768/costumes_s2tdkd.webp" alt="Costumes" />
+    </a>
     <div class="bonbons">
         ${(data.bonbons || []).map(b => `
             <img alt="${b.nom || 'Bonbon'}" class="bonbon-cycle" 
@@ -1333,29 +1350,36 @@ function renderCookie(data) {
   </div>
 
   <div class="detail-grid-mobile">
-    <div class="column-left">
-        <div class="toppings">
-            ${(data.toppings || []).map((t, i) => `
-                <img alt="${t.nom || 'Garniture'}" class="garniture-cycle" 
-                    data-id="${t.id}" 
-                    data-images='${safeJsonStringify(t.images)}' 
-                    data-step="${t.selectedStep || 0}" 
-                    src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
-            `).join('')}
+    <!-- Groupe 1: Garnitures & Tartelettes -->
+    <div class="column-left equipment-group">
+        <button class="btn-info-trigger" aria-label="Afficher les attributs">
+            <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="i" />
+        </button>
+        <div class="row-toppings-tartelettes">
+            <div class="toppings">
+                ${(data.toppings || []).map((t, i) => `
+                    <img alt="${t.nom || 'Garniture'}" class="garniture-cycle" 
+                        data-id="${t.id}" 
+                        data-images='${safeJsonStringify(t.images)}' 
+                        data-step="${t.selectedStep || 0}" 
+                        src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
+                `).join('')}
+            </div>
+            <div class="tartelettes">
+                ${(data.tartelettes || []).map(t => `
+                    <img alt="${t.nom || 'Tartelette'}" class="tartelette-cycle" 
+                        data-id="${t.id}" 
+                        data-images='${safeJsonStringify(t.images)}' 
+                        data-step="${t.selectedStep || 0}" 
+                        src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
+                `).join('')}
+            </div>
         </div>
-        <div class="tartelettes">
-            ${(data.tartelettes || []).map(t => `
-                <img alt="${t.nom || 'Tartelette'}" class="tartelette-cycle" 
-                    data-id="${t.id}" 
-                    data-images='${safeJsonStringify(t.images)}' 
-                    data-step="${t.selectedStep || 0}" 
-                    src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
-            `).join('')}
-        </div>
-        <div class="info-frame">
+        <div class="info-frame mobile-popup">
             <div class="info-frame-header">
                 <img class="info-frame-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
                 <h3>Attributs recommandés</h3>
+                <button class="btn-close-popup">&times;</button>
             </div>
             <div class="info-frame-content">
                 ${(data.toppings_stats || ['???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
@@ -1363,7 +1387,11 @@ function renderCookie(data) {
         </div>
     </div>
 
-    <div class="column-right">
+    <!-- Groupe 2: Biscuits & Stats -->
+    <div class="column-right equipment-group">
+        <button class="btn-info-trigger" aria-label="Afficher les attributs">
+            <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="i" />
+        </button>
         <div class="biscuits ${isExtraWide ? 'shift-left-dynamic' : ''} ${data.nom && data.nom.includes('Sorcier') ? 'biscuits-sorcier' : ''} ${data.nom && data.nom.includes('Costaud') ? 'biscuits-costaud' : ''} 
         ${data.nom && data.nom.includes('Alchimiste') ? 'biscuits-alchimiste' : ''} ${data.nom && data.nom.includes('Avocat') ? 'biscuits-avocat' : ''} ${data.nom && data.nom.includes('Betterave') ? 'biscuits-betterave' : ''}
         ${data.nom && (data.nom.includes('Mure') || data.nom.includes('Mûre')) ? 'biscuits-mure' : ''} ${data.nom && data.nom.includes('Carotte') ? 'biscuits-carotte' : ''} 
@@ -1383,10 +1411,11 @@ function renderCookie(data) {
             if (classe.includes('bts')) return '';
 
             return `
-            <div class="info-frame2 ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
+            <div class="info-frame2 mobile-popup ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
                 <div class="info-frame2-header">
                     <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
                     <h3>Attributs recommandés</h3>
+                    <button class="btn-close-popup">&times;</button>
                 </div>
                 <div class="info-frame2-content">
                     ${(() => {
@@ -1416,13 +1445,40 @@ function renderCookie(data) {
      `).join('')}
   </div>
 
-  ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><span>Cookie précédent</span></a>` : ''}
-  ${data.navigation?.suivant ? `<a href="cookie_detail.html?id=${data.navigation.suivant}" class="btn-cookie-suivant"><span>Cookie suivant</span></a>` : ''}
+  ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773327896/precedent_watsjr.webp" alt="Précédent" /></a>` : ''}
+  ${data.navigation?.suivant ? `<a href="cookie_detail.html?id=${data.navigation.suivant}" class="btn-cookie-suivant"><img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773327894/suivant_gsobzx.webp" alt="Suivant" /></a>` : ''}
  
   `;
 
   if (pageContainer) {
     pageContainer.innerHTML = cookieHTML;
+
+    // Ajouter interactivité popups d'attributs
+    pageContainer.querySelectorAll('.btn-info-trigger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const group = btn.closest('.equipment-group');
+        const popup = group?.querySelector('.mobile-popup');
+        if (popup) popup.classList.add('show-popup');
+      });
+    });
+
+    pageContainer.querySelectorAll('.btn-close-popup').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const popup = btn.closest('.mobile-popup');
+        if (popup) popup.classList.remove('show-popup');
+      });
+    });
+
+    // Fermer les popups en cliquant ailleurs
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.mobile-popup') && !e.target.closest('.btn-info-trigger')) {
+        document.querySelectorAll('.mobile-popup.show-popup').forEach(p => {
+          p.classList.remove('show-popup');
+        });
+      }
+    });
 
     // Ajouter interactivité checkboxes
     pageContainer.querySelectorAll('.stat-item').forEach(item => {
@@ -1524,7 +1580,7 @@ function injectAwakenButton(data) {
   // On évite les doublons si déjà injecté
   if (document.getElementById('awaken-toggle')) return;
 
-  const container = document.querySelector('.page-cookie');
+  const container = document.querySelector('.bloc-fond-cookie');
   if (!container) return;
 
   // Gestion de la source des images (Supabase uniquement)
@@ -1666,9 +1722,14 @@ function injectAwakenButton(data) {
     }
   }
 
-  // Ajout au DOM
-  container.appendChild(toggleImg);
-  container.appendChild(btnEveil);
+  // Création du conteneur pour grouper bouton et icône (facilite le layout mobile)
+  const awakenContainer = document.createElement('div');
+  awakenContainer.className = 'awaken-container';
+  
+  // Ajout au DOM (dans le conteneur puis le conteneur dans le bloc)
+  awakenContainer.appendChild(btnEveil);
+  awakenContainer.appendChild(toggleImg);
+  container.appendChild(awakenContainer);
 
   // Logique du Toggle au clic
   toggleImg.addEventListener('click', () => {
@@ -1957,6 +2018,12 @@ function renderCostumes(costumes) {
 
   const costumesHTML = costumes.map(c => {
     const isMythicClass = (c.icon_mythique || c.image3) ? ' is-mythic' : '';
+    const step = c.selectedStep || 0;
+    const currentSrc = c.images && c.images[step] ? formatImagePath(c.images[step]) : formatImagePath(c.images[0]);
+    const rareteIcon = (step === 2) 
+      ? "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035463/mythique_costume_ia9ohj.webp"
+      : formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp');
+
     return `
     <div class="costume-item ${c.isAwakenedSwap ? 'is-awakened-swap' : ''}">
         <div class="costume-toggle-wrapper">
@@ -1969,14 +2036,14 @@ function renderCostumes(costumes) {
                data-style-height="${c.style?.height || ''}"
                data-style-top="${c.style?.top || ''}"
                data-style-left="${c.style?.left || ''}"
-               data-step="0" 
+               data-step="${step}" 
                ${c._originalImage0 ? `data-original-image0="${formatImagePath(c._originalImage0)}"` : ''}
-               src="${formatImagePath(c.images[0])}"/>
+               src="${currentSrc}"/>
         </div>
         <div class="costume-icon">
             <img alt="Rareté" 
                  ${c._originalRareteIcon ? `data-original-rarete-icon="${formatImagePath(c._originalRareteIcon)}"` : ''}
-                 src="${formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp')}"/>
+                 src="${rareteIcon}"/>
         </div>
         <p class="costume-name${isMythicClass}" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
             ${c.nom}
