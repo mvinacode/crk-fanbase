@@ -2008,30 +2008,35 @@ body:not(.accueil) .header .user-info {
         max-width: 320px !important;
     }
 
-    /* 3. Menu Bar */
+    /* 3. Menu Bar - Force single line and larger icons */
     body .menu,
     body.accueil .menu,
     body.list .menu {
-        padding: 10px 0 !important;
-        gap: 15px !important;
-        flex-wrap: wrap !important;
+        padding: 5px 0 !important;
+        gap: 10px !important;
+        flex-wrap: nowrap !important; /* Force single line */
         justify-content: center !important;
         width: 100% !important;
+        overflow-x: auto; /* Allow horizontal scroll if needed on very small screens */
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-icon-link {
-        width: 80px !important;
-        height: 80px !important;
+        width: 105px !important; /* Larger icons */
+        height: 105px !important;
+        flex: 0 0 auto !important;
     }
 
     .nav-icon-link img {
         width: 100% !important;
         height: 100% !important;
     }
+
     .user-info {
-        width: 100% !important;
+        width: auto !important; /* Integrate on same line */
         justify-content: center !important;
-        margin-top: 10px !important;
+        margin-top: 0 !important;
+        flex: 0 0 auto !important;
     }
 
     /* Specific homepage adjustment if needed */

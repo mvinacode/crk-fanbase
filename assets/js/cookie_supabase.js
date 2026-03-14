@@ -42,7 +42,7 @@ if (footerPlaceholder) {
       // Protection email : attacher l'événement au lien contact
       const contactLink = document.getElementById('contact-link');
       if (contactLink) {
-        contactLink.addEventListener('click', function(e) {
+        contactLink.addEventListener('click', function (e) {
           e.preventDefault();
           const user = "melodyvoymant";
           const domain = "gmail.com";
@@ -673,7 +673,7 @@ async function loadCookieData() {
 
     // Afficher la galerie de costumes si présente (après renderCookie pour que le DOM existe)
     // SWAP Costume Éveillé AVANT le rendu (isAwakened est maintenant défini)
-    
+
     if (cookieData.isAwakened && cookieData.costumeEveil) {
       const originalCostume = cookieData.costumes?.find(c =>
         c.nom && c.nom.toLowerCase().includes('original')
@@ -1401,10 +1401,10 @@ function renderCookie(data) {
         </div>
 
         ${(() => {
-            const classe = data.classe || data.badges?.classe || '';
-            if (classe.includes('bts')) return '';
+      const classe = data.classe || data.badges?.classe || '';
+      if (classe.includes('bts')) return '';
 
-            return `
+      return `
             <div class="info-frame2 mobile-popup ${isExtraWide ? 'extra-wide-mode' : (isWide ? 'wide-mode' : '')} ${isSmallText ? 'small-text' : ''}">
                 <div class="info-frame2-header">
                     <img class="info-frame2-icon" src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769034037/icon_info_nvqptv.webp" alt="Info" />
@@ -1413,18 +1413,18 @@ function renderCookie(data) {
                 </div>
                 <div class="info-frame2-content">
                     ${(() => {
-                        const savedChecks = JSON.parse(localStorage.getItem(`cookie_stats_checks_${data.id}`) || '[]');
-                        return stats.map((stat, index) => `
+          const savedChecks = JSON.parse(localStorage.getItem(`cookie_stats_checks_${data.id}`) || '[]');
+          return stats.map((stat, index) => `
                             <div class="stat-item" data-index="${index}">
                                 <div class="stat-checkbox ${savedChecks[index] ? 'checked' : ''}"></div>
                                 <p>${escapeHTML(stat)}</p>
                             </div>
                         `).join('');
-                    })()}
+        })()}
                 </div>
             </div>
             `;
-        })()}
+    })()}
     </div>
   </div>
   </div>
@@ -1719,7 +1719,7 @@ function injectAwakenButton(data) {
   // Création du conteneur pour grouper bouton et icône (facilite le layout mobile)
   const awakenContainer = document.createElement('div');
   awakenContainer.className = 'awaken-container';
-  
+
   // Ajout au DOM (dans le conteneur puis le conteneur dans le bloc)
   awakenContainer.appendChild(btnEveil);
   awakenContainer.appendChild(toggleImg);
@@ -2014,7 +2014,7 @@ function renderCostumes(costumes) {
     const isMythicClass = (c.icon_mythique || c.image3) ? ' is-mythic' : '';
     const step = c.selectedStep || 0;
     const currentSrc = c.images && c.images[step] ? formatImagePath(c.images[step]) : formatImagePath(c.images[0]);
-    const rareteIcon = (step === 2) 
+    const rareteIcon = (step === 2)
       ? "https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035463/mythique_costume_ia9ohj.webp"
       : formatImagePath(c.rareteIcon || 'assets/images/rarete/normal_costume.webp');
 

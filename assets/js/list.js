@@ -1,11 +1,27 @@
 import { supabase } from './app.js';
 import { escapeHTML, initUserInfo } from './login_supabase.js';
 
+// Charger dynamiquement le CSS cookie_dynamic.css dès le début
+loadCookieDynamicCSS();
+
 // Initialiser si l'élément existe déjà, sinon attendre l'événement
 if (document.getElementById('user-info')) {
   initUserInfo();
 } else {
   document.addEventListener('headerLoaded', initUserInfo);
+}
+
+// Fonction pour charger dynamiquement un fichier CSS
+function loadCookieDynamicCSS() {
+  const id = 'css-cookie-dynamic';
+  if (document.getElementById(id)) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  const isInsidePagesFolder = window.location.pathname.includes('/pages/');
+  const path = isInsidePagesFolder ? '../assets/css/cookie_dynamic.css' : 'assets/css/cookie_dynamic.css';
+  link.href = path + '?v=' + new Date().getTime();
+  link.id = id;
+  document.head.appendChild(link);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
