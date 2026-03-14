@@ -85,3 +85,10 @@
         box-sizing: border-box;
     }
 }
+
+/* Large Screens Adaptation (≥ 1300px) */
+@media (min-width: 1300px) {
+    .footer-content {
+        max-width: 1460px;
+    }
+}

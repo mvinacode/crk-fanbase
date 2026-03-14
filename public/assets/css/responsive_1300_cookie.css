@@ -2,7 +2,12 @@
 @media (min-width: 1300px) {
 
       /* 1) Cadre de page : on “fige” une largeur de travail et on centre */
-  .header,
+  .header {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
   .main {
     max-width: 1460px;      /* même ordre d’idée que ta maquette */
     margin-inline: auto;    /* centre le contenu */

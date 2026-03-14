@@ -254,9 +254,9 @@ function loadCookieDynamicCSS() {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
 
-  // Détecter le chemin selon la page (accueil vs pages/xxx)
-  const isDetailPage = document.getElementById('page-cookie');
-  const path = isDetailPage ? '../assets/css/cookie_dynamic.css' : 'assets/css/cookie_dynamic.css';
+  // Détecter le chemin selon la page (dans le dossier pages/ ou à la racine)
+  const isInsidePagesFolder = window.location.pathname.includes('/pages/');
+  const path = isInsidePagesFolder ? '../assets/css/cookie_dynamic.css' : 'assets/css/cookie_dynamic.css';
 
   link.href = path + '?v=' + new Date().getTime();
   link.id = id;

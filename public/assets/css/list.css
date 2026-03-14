@@ -834,23 +834,6 @@ body.list {
     padding: 30px;
   }
 
-  .header-top {
-    padding: 20px;
-  }
-
-  .menu {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    box-sizing: border-box;
-    gap: 15px;
-  }
-
-  .nav-icon-link {
-    width: 100px;
-    height: 100px;
-  }
-
   /* Cartes en format vertical sur mobile */
 
   .recherche-cookies {

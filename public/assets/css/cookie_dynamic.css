@@ -1977,3 +1977,134 @@ body:not(.accueil) .header .user-info {
         gap: 0px;
     }
 }
+
+/* --- SITE-WIDE HEADER & MENU RESPONSIVENESS --- */
+@media screen and (max-width: 768px) {
+    /* 1. Header Top & Background - Use high specificity to override everything */
+    body .header-top,
+    body:not(.accueil) .header-top {
+        padding: 40px 15px !important; /* Unified mobile padding */
+        min-height: auto !important;
+        position: relative;
+    }
+
+    body.accueil .header-top {
+        padding: 60px 15px !important;
+    }
+
+    .header-top::before {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    /* 2. Logo */
+    .logo {
+        width: 100% !important;
+        max-width: 280px !important;
+        height: auto !important;
+    }
+
+    body.accueil .logo {
+        max-width: 320px !important;
+    }
+
+    /* 3. Menu Bar */
+    body .menu,
+    body.accueil .menu,
+    body.list .menu {
+        padding: 10px 0 !important;
+        gap: 15px !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    .nav-icon-link {
+        width: 80px !important;
+        height: 80px !important;
+    }
+
+    .nav-icon-link img {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .user-info {
+        width: 100% !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+    }
+
+    /* Specific homepage adjustment if needed */
+    body.accueil .header-top {
+        padding: 200px 0 !important;
+    }
+    
+    body:not(.accueil) .header-top {
+        padding: 30px 0 !important;
+    }
+}
+
+/* --- SITE-WIDE HEADER & MENU DESKTOP (Large Screens ≥ 1300px) --- */
+@media screen and (min-width: 1300px) {
+    /* 1. Header & Banner full width */
+    .header,
+    .header-top {
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    /* Background Banner opacity and centering */
+    .header-top::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+        background-size: cover;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    /* 2. Standardized Logo Size */
+    .logo {
+        width: 500px !important;
+        height: auto !important;
+        margin: 0 auto;
+        filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.4));
+    }
+
+    /* 3. Unified Menu Bar */
+    .menu {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 20px 0 !important;
+        gap: 40px !important;
+        justify-content: center !important;
+        background-color: #4a2b19;
+        border-top: 2px solid #FFF0DC !important;
+        border-bottom: 2px solid #FFF0DC !important;
+    }
+
+    .nav-icon-link {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    /* Specific homepage adjustment if needed */
+    body.accueil .header-top {
+        padding: 200px 0 !important;
+    }
+    
+    body:not(.accueil) .header-top {
+        padding: 30px 0 !important;
+    }
+}

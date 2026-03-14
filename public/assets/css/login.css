@@ -6,18 +6,27 @@
 body.login-page {
   margin: 0;
   padding: 0;
+  width: 100%;
   font-family: 'CookieRun-Bold';
   background: linear-gradient(135deg, #553A2C 0%, #6B4935 50%, #553A2C 100%);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+#footer-placeholder {
+  width: 100%;
 }
 
 .login-container {
   width: 100%;
   max-width: 500px;
   padding: 20px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-card {
