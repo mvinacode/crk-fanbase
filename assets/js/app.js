@@ -7,25 +7,6 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 // Initialisation
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
-console.log("Supabase est prêt !")
-
-// A ajouter dans app.js après la ligne "const supabase = ..."
-
-async function getCookies() {
-  const { data, error } = await supabase
-    .from('cookies') // Table en minuscule
-    .select('*')
-
-  if (error) {
-    console.error("Erreur de récupération :", error)
-  } else {
-    console.log("Mes Cookies trouvés :", data)
-  }
-}
-
-// On lance la fonction pour tester
-getCookies()
-
 // --- Gestion de l'expiration de session (24h) ---
 const SESSION_TIMEOUT_MS = 24 * 60 * 60 * 1000; // 24 heures en millisecondes
 
@@ -40,7 +21,6 @@ async function checkSessionExpiration() {
   if (lastActivity) {
     const elapsed = Date.now() - parseInt(lastActivity, 10);
     if (elapsed > SESSION_TIMEOUT_MS) {
-      console.log("Session expirée (inactivité > 24h), déconnexion...");
       localStorage.removeItem('crk_last_activity');
       await supabase.auth.signOut();
 
@@ -58,16 +38,9 @@ async function checkSessionExpiration() {
 
 checkSessionExpiration();
 
-// Redirection automatique si l'utilisateur est déconnecté (par Supabase ou par notre script)
+// Redirection automatique supprimée pour permettre l'accès public
 supabase.auth.onAuthStateChange(async (event, session) => {
-  const currentPath = window.location.pathname;
-  const isLoginPage = currentPath.includes('login.html');
-
-  if (!session && !isLoginPage) {
-    // Rediriger vers la page de login en fonction de l'emplacement actuel (racine ou sous-dossier)
-    const loginUrl = currentPath.includes('/pages/') ? 'login.html' : 'pages/login.html';
-    window.location.href = loginUrl;
-  } else if (session) {
+  if (session) {
     // S'il y a une session (ex: connexion réussie), on s'assure de démarrer le chronomètre
     refreshActivityTime();
   }

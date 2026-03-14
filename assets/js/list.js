@@ -1,4 +1,12 @@
 import { supabase } from './app.js';
+import { escapeHTML, initUserInfo } from './login_supabase.js';
+
+// Initialiser si l'élément existe déjà, sinon attendre l'événement
+if (document.getElementById('user-info')) {
+  initUserInfo();
+} else {
+  document.addEventListener('headerLoaded', initUserInfo);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".grille-cookies");
@@ -194,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
       carte.innerHTML = `
         <div class="bloc-gauche">
           <div class="fond-img">
-            <img src="${getImgSrc(cookie.image)}" alt="${cookie.nom}" class="cookie-head">
+            <img src="${getImgSrc(cookie.image)}" alt="${escapeHTML(cookie.nom)}" class="cookie-head">
           </div>
           <div class="fond-img">
             <img src="${getImgSrc(cookie.rarete)}" alt="rarete" class="badge-epique">
@@ -202,10 +210,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         ${blocCentreHTML}
         <div class="bloc-droite">
-          <h3 class="nom-cookie">${cookie.nom}</h3>
+          <h3 class="nom-cookie">${escapeHTML(cookie.nom)}</h3>
         </div>
         <div class="bloc-obtenu">
-          <button class="btn-obtenu" data-cookie-id="${cookie.id}" aria-label="Cookie obtenu">
+          <button class="btn-obtenu" data-cookie-id="${escapeHTML(cookie.id)}" aria-label="Cookie obtenu">
             <svg class="checkmark-svg" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7" fill="none" stroke="#FFF0DC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -363,8 +371,18 @@ document.addEventListener("DOMContentLoaded", () => {
         // Sync with Supabase (Smart Delete)
         (async () => {
           const { data: { session } } = await supabase.auth.getSession();
-          if (session) {
-            if (estObtenu) {
+          if (!session) {
+            import('./login_supabase.js').then(({ showGuestNotification }) => {
+              showGuestNotification();
+            });
+            // Revert visual state if guest tried to toggle
+            bouton.classList.toggle("obtenu");
+            carte.classList.toggle("obtenu");
+            localStorage.setItem(id, !estObtenu);
+            return;
+          }
+          
+          if (estObtenu) {
               await supabase.from('cookies_users').upsert({ user_id: session.user.id, cookie_id: id }, { onConflict: 'user_id, cookie_id' });
             } else {
               // Smart Delete: Check if row has valuable data before deleting
@@ -383,16 +401,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 if (!hasValuableData) {
-                  console.log("Suppression de la ligne (aucune donnée importante trouvée)");
                   await supabase.from('cookies_users').delete().eq('user_id', session.user.id).eq('cookie_id', id);
                 } else {
-                  console.log("Conservation de la ligne (données importantes détectées : costumes, builds, etc.)");
                 }
               } else {
                 // Row doesn't exist, nothing to delete
               }
             }
-          }
         })();
       });
     });
@@ -497,33 +512,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- Connexion/Déconnexion dans le header ---
-  async function initUserInfo() {
-    const userInfo = document.getElementById('user-info');
-    if (!userInfo) return;
-
-    const { data } = await supabase.auth.getUser();
-    if (data.user) {
-      userInfo.innerHTML = `
-        <a href="#" id="logout-btn" class="nav-icon-link">
-          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164562/deconnexion_u529fl.webp" alt="Déconnexion">
-        </a>`;
-      const logoutBtn = document.getElementById('logout-btn');
-      if (logoutBtn) {
-        logoutBtn.onclick = async (e) => {
-          e.preventDefault();
-          await supabase.auth.signOut();
-          window.location.reload();
-        };
-      }
-    } else {
-      userInfo.innerHTML = `
-        <a href="login.html" class="nav-icon-link">
-          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/connexion_p2ilhv.webp" alt="Connexion">
-        </a>`;
-    }
-  }
-
   // --- Chargement du Header ---
   function loadHeader() {
     const headerPlaceholder = document.getElementById('header-placeholder');
@@ -536,14 +524,35 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
           headerPlaceholder.innerHTML = data;
           document.dispatchEvent(new CustomEvent('headerLoaded'));
-          // Initialiser le bouton connexion/déconnexion
-          initUserInfo();
         })
         .catch(err => console.error("Erreur chargement header:", err));
     }
   }
 
   loadHeader();
+
+  // --- Chargement du Footer ---
+  const footerPlaceholder = document.getElementById('footer-placeholder');
+  if (footerPlaceholder) {
+    fetch('../includes/footer.html')
+      .then(response => {
+        if (!response.ok) throw new Error("Footer not found");
+        return response.text();
+      })
+      .then(data => {
+        footerPlaceholder.innerHTML = data;
+        const contactLink = document.getElementById('contact-link');
+        if (contactLink) {
+          contactLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const user = "melodyvoymant";
+            const domain = "gmail.com";
+            window.location.href = "mailto:" + user + "@" + domain;
+          });
+        }
+      })
+      .catch(err => console.error("Erreur chargement footer:", err));
+  }
 });
 
 // Animation de bouton pressé avec délai avant navigation

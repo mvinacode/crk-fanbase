@@ -1,0 +1,87 @@
+/* Footer Styles - CookieRun Fanbase */
+
+.footer {
+    background-color: #4a2b19;
+    border-top: 2px solid #FFF0DC;
+    padding: 40px 20px;
+    margin-top: 50px;
+    color: #FFF0DC;
+    font-family: 'CookieRun-Bold', sans-serif;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-text {
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 800px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.footer-disclaimer {
+    font-size: 12px;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.footer-buttons {
+    margin-top: 10px;
+}
+
+.btn-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: linear-gradient(180deg, #A6795B 0%, #865C43 100%);
+    border-radius: 100px;
+    color: #FFF0DC;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 16px;
+    box-shadow: 0 4px 0 #5D3E2F, 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-contact:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(180deg, #B88A6D 0%, #9A6E52 100%);
+}
+
+.btn-contact:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #5D3E2F;
+}
+
+.btn-contact img {
+    width: 20px;
+    height: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer {
+        padding: 30px 15px;
+    }
+    
+    .footer-text {
+        font-size: 13px;
+    }
+    
+    .btn-contact {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+}

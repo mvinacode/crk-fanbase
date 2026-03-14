@@ -18,35 +18,3 @@
     <div id="user-info" class="user-info"></div>
   </nav>
 </header>
-
-<script type="module">
-  import { supabase } from '../assets/js/app.js';
-
-  async function initUserInfo() {
-    const userInfo = document.getElementById('user-info');
-    if (!userInfo) return;
-
-    const { data } = await supabase.auth.getUser();
-    if (data.user) {
-      userInfo.innerHTML = `
-        <a href="#" id="logout-btn" class="nav-icon-link">
-          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164562/deconnexion_u529fl.webp" alt="Déconnexion">
-        </a>`;
-      const logoutBtn = document.getElementById('logout-btn');
-      if (logoutBtn) {
-        logoutBtn.onclick = async (e) => {
-          e.preventDefault();
-          await supabase.auth.signOut();
-          window.location.reload();
-        };
-      }
-    } else {
-      userInfo.innerHTML = `
-        <a href="login.html" class="nav-icon-link">
-          <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/connexion_p2ilhv.webp" alt="Connexion">
-        </a>`;
-    }
-  }
-
-  initUserInfo();
-</script>

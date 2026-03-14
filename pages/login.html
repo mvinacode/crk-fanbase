@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion - CookieRun Kingdom</title>
+  <title>Connexion - CookieRun Fanbase</title>
   <link rel="icon" type="image/ico"
     href="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769033978/app_logo_hvgvkz.ico">
   <link rel="stylesheet" href="../assets/css/login.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
 
 <body class="login-page">
@@ -15,7 +16,7 @@
     <div class="login-card">
       <div class="login-header">
         <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773244370/logo_patch_7_2_sswoae.webp"
-          alt="CookieRun Kingdom" class="login-logo">
+          alt="CookieRun Fanbase" class="login-logo">
         <h1>Se connecter</h1>
       </div>
 
@@ -41,6 +42,8 @@
       </div>
     </div>
   </div>
+
+  <div id="footer-placeholder"></div>
 
   <script type="module">
     import { login, isLoggedIn, register } from '../assets/js/login_supabase.js';
@@ -79,6 +82,25 @@
           errorMessage.textContent = result.error;
         }
       });
+
+      // --- Chargement du Footer ---
+      const footerPlaceholder = document.getElementById('footer-placeholder');
+      if (footerPlaceholder) {
+        fetch('../includes/footer.html')
+          .then(response => response.text())
+          .then(data => {
+            footerPlaceholder.innerHTML = data;
+            const contactLink = document.getElementById('contact-link');
+            if (contactLink) {
+              contactLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const user = "melodyvoymant";
+                const domain = "gmail.com";
+                window.location.href = "mailto:" + user + "@" + domain;
+              });
+            }
+          });
+      }
     });
   </script>
 </body>

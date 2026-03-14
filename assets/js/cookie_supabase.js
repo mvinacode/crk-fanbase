@@ -1,39 +1,4 @@
-// Affichage dynamique du user (connexion/déconnexion) sur la page d'accueil
-function initUserInfo() {
-  const userInfo = document.getElementById('user-info');
-  if (!userInfo) return;
-
-  const isDetailPage = !!document.getElementById('page-cookie');
-  const loginUrl = isDetailPage ? 'login.html' : 'pages/login.html';
-
-  import('./login_supabase.js').then(({ isLoggedIn, logout }) => {
-    import('./app.js').then(({ supabase }) => {
-      async function showUser() {
-        const { data } = await supabase.auth.getUser();
-        if (data.user) {
-          userInfo.innerHTML = `
-            <a href="#" id="logout-btn" class="nav-icon-link">
-              <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164562/deconnexion_u529fl.webp" alt="Déconnexion">
-            </a>`;
-          const logoutBtn = document.getElementById('logout-btn');
-          if (logoutBtn) {
-            logoutBtn.onclick = async (e) => {
-              e.preventDefault();
-              await logout();
-              window.location.reload();
-            };
-          }
-        } else {
-          userInfo.innerHTML = `
-            <a href="${loginUrl}" class="nav-icon-link">
-              <img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773164563/connexion_p2ilhv.webp" alt="Connexion">
-            </a>`;
-        }
-      }
-      showUser();
-    });
-  });
-}
+import { initUserInfo, showGuestNotification, escapeHTML } from './login_supabase.js';
 
 // Initialiser si l'élément existe déjà, sinon attendre l'événement
 if (document.getElementById('user-info')) {
@@ -58,6 +23,32 @@ if (headerPlaceholder) {
       headerPlaceholder.innerHTML = data;
       // Dispatch d'un événement pour prévenir les autres scripts que le header est prêt
       document.dispatchEvent(new CustomEvent('headerLoaded'));
+    });
+}
+
+// --- GESTION DU FOOTER (UNIFIÉ) ---
+const footerPlaceholder = document.getElementById('footer-placeholder');
+if (footerPlaceholder) {
+  const footerPath = pageCookie ? '../includes/footer.html' : 'includes/footer.html';
+  // Note: Since index.html is in root and footer.html is in includes/, the path is 'includes/footer.html'
+  // But wait, index.html is in root, pages/ are in pages/.
+  // So for index.html: 'includes/footer.html'
+  // For pages/cookie_detail.html: '../includes/footer.html'
+  const finalFooterPath = pageCookie ? '../includes/footer.html' : 'includes/footer.html';
+  fetch(finalFooterPath)
+    .then(response => response.text())
+    .then(data => {
+      footerPlaceholder.innerHTML = data;
+      // Protection email : attacher l'événement au lien contact
+      const contactLink = document.getElementById('contact-link');
+      if (contactLink) {
+        contactLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          const user = "melodyvoymant";
+          const domain = "gmail.com";
+          window.location.href = "mailto:" + user + "@" + domain;
+        });
+      }
     });
 }
 
@@ -682,12 +673,7 @@ async function loadCookieData() {
 
     // Afficher la galerie de costumes si présente (après renderCookie pour que le DOM existe)
     // SWAP Costume Éveillé AVANT le rendu (isAwakened est maintenant défini)
-    console.log('[Costume Éveillé] Vérification swap:', {
-      isAwakened: cookieData.isAwakened,
-      hasCostumeEveil: !!cookieData.costumeEveil,
-      costumeEveilNom: cookieData.costumeEveil?.nom,
-      costumesRestants: cookieData.costumes?.map(c => c.nom)
-    });
+    
     if (cookieData.isAwakened && cookieData.costumeEveil) {
       const originalCostume = cookieData.costumes?.find(c =>
         c.nom && c.nom.toLowerCase().includes('original')
@@ -783,7 +769,10 @@ function applyIllustrationStyles() {
  */
 async function saveBuildToSupabase(cookieId, buildId, step) {
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    showGuestNotification();
+    return;
+  }
 
   try {
     // 1. Récupérer l'état actuel pour ne pas écraser les autres colonnes (costume_id, stats, etc.)
@@ -828,6 +817,7 @@ async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpda
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
+    showGuestNotification();
     return;
   }
 
@@ -865,20 +855,21 @@ async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpda
 
     if (error) throw error;
   } catch (err) {
-    console.error('🔴 Erreur Supabase:', err.message);
+    // Silent fail for production security
   }
 }
 
 async function saveStatsToSupabase(cookieId, checks) {
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    showGuestNotification();
+    return;
+  }
 
   try {
     // On doit faire un upsert prudent pour ne pas écraser les autres champs (costume_id, builds)
     // Mais upsert écrase tout si on ne fournit pas les autres champs ? 
     // NON, Supabase upsert écrase la ligne. Il faut donc récupérer l'existant ou faire un patch.
-    // Heureusement, on peut faire un update si la ligne existe.
-    // Mais le plus simple avec upsert partiel est de s'assurer qu'on ne perd rien.
     // Mieux : Utiliser .update() car la ligne existe forcément si on a déjà chargé la page (ou presque).
     // Si elle n'existe pas, il faut la créer.
 
@@ -910,13 +901,16 @@ async function saveStatsToSupabase(cookieId, checks) {
 
     if (error) throw error;
   } catch (err) {
-    console.error('🔴 Erreur Save Stats:', err);
+    // Silent fail for production security
   }
 }
 
 async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    showGuestNotification();
+    return;
+  }
 
   try {
     // Récupérer l'existant pour ne pas écraser les autres données
@@ -946,7 +940,7 @@ async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
 
     if (error) throw error;
   } catch (err) {
-    console.error('🔴 Erreur Save Awakened State:', err);
+    // Silent fail for production security
   }
 }
 
@@ -1224,7 +1218,7 @@ function renderCookie(data) {
     pageContainer.innerHTML = `
         <div class="bloc-fond-cookie">
            <div class="fond-floute"></div>
-           <h1 class="nom-cookie">${data.nom}</h1>
+           <h1 class="nom-cookie">${escapeHTML(data.nom)}</h1>
         </div>
         <div style="text-align: center; color: white; margin-top: 50px;">
            <p>Données complètes non trouvées dans Supabase.</p>
@@ -1285,7 +1279,7 @@ function renderCookie(data) {
 
         let elementsHTML = '';
         elementsList.forEach(el => {
-          if (el) elementsHTML += `<img alt="Élément" class="badge" src="${formatImagePath(el)}"/>`;
+          if (el) elementsHTML += `<img alt="${escapeHTML(el)}" class="badge" src="${formatImagePath(el)}"/>`;
         });
 
         if (elementsHTML) {
@@ -1298,7 +1292,7 @@ function renderCookie(data) {
    </div>
 
    <div class="illustration-cookie">
-     <img alt="${data.nom}" src="${currentIllustration}" ${activeStyleAttributes}/>
+     <img alt="${escapeHTML(data.nom)}" src="${currentIllustration}" ${activeStyleAttributes}/>
    </div>
 
    <div class="row-costume-bonbon ${(data.bonbons?.length || 0) === 0 && (data.pierre_de_confiture?.length || 0) === 0 ? 'is-centered' : ''}">
@@ -1307,8 +1301,8 @@ function renderCookie(data) {
     </a>
     <div class="bonbons">
         ${(data.bonbons || []).map(b => `
-            <img alt="${b.nom || 'Bonbon'}" class="bonbon-cycle" 
-                data-id="${b.id}" 
+            <img alt="${escapeHTML(b.nom || 'Bonbon')}" class="bonbon-cycle" 
+                data-id="${escapeHTML(b.id)}" 
                 data-images='${safeJsonStringify(b.images)}'
                 data-step="${b.selectedStep || 0}" 
                 src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
@@ -1319,7 +1313,7 @@ function renderCookie(data) {
   <div class="promotion">
     ${(data.promotions || []).map(p => `
         <img alt="Promotion" class="promotion-cycle" 
-             data-id="${p.id}" 
+             data-id="${escapeHTML(p.id)}" 
              data-images='${safeJsonStringify(p.images)}'
              data-step="${p.selectedStep || 0}" 
              src="${formatImagePath(p.images ? p.images[p.selectedStep || 0] : '')}"/>
@@ -1332,7 +1326,7 @@ function renderCookie(data) {
       const step = a.selectedStep || 0;
       return `
         <img alt="Ascension" class="ascension-cycle" 
-             data-id="${a.id || 'ascension-' + index}" 
+             data-id="${escapeHTML(a.id || 'ascension-' + index)}" 
              data-images='${safeJsonStringify(images)}'
              data-step="${step}" 
              src="${formatImagePath(images[step] || '')}"/>
@@ -1341,8 +1335,8 @@ function renderCookie(data) {
 
   <div class="eveil">
     ${(data.eveil || []).map(e => `
-        <img alt="${e.nom || 'Éveil'}" class="eveil-cycle" 
-             data-id="${e.id}" 
+        <img alt="${escapeHTML(e.nom || 'Éveil')}" class="eveil-cycle" 
+             data-id="${escapeHTML(e.id)}" 
              data-images='${safeJsonStringify(e.images)}'
              data-step="${e.selectedStep || 0}" 
              src="${formatImagePath(e.images ? e.images[e.selectedStep || 0] : '')}"/>
@@ -1358,8 +1352,8 @@ function renderCookie(data) {
         <div class="row-toppings-tartelettes">
             <div class="toppings">
                 ${(data.toppings || []).map((t, i) => `
-                    <img alt="${t.nom || 'Garniture'}" class="garniture-cycle" 
-                        data-id="${t.id}" 
+                    <img alt="${escapeHTML(t.nom || 'Garniture')}" class="garniture-cycle" 
+                        data-id="${escapeHTML(t.id)}" 
                         data-images='${safeJsonStringify(t.images)}' 
                         data-step="${t.selectedStep || 0}" 
                         src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
@@ -1367,8 +1361,8 @@ function renderCookie(data) {
             </div>
             <div class="tartelettes">
                 ${(data.tartelettes || []).map(t => `
-                    <img alt="${t.nom || 'Tartelette'}" class="tartelette-cycle" 
-                        data-id="${t.id}" 
+                    <img alt="${escapeHTML(t.nom || 'Tartelette')}" class="tartelette-cycle" 
+                        data-id="${escapeHTML(t.id)}" 
                         data-images='${safeJsonStringify(t.images)}' 
                         data-step="${t.selectedStep || 0}" 
                         src="${formatImagePath(t.images ? t.images[t.selectedStep || 0] : '')}"/>
@@ -1382,7 +1376,7 @@ function renderCookie(data) {
                 <button class="btn-close-popup">&times;</button>
             </div>
             <div class="info-frame-content">
-                ${(data.toppings_stats || ['???', '???', '???']).map(stat => `<p>${stat}</p>`).join('')}
+                ${(data.toppings_stats || ['???', '???', '???']).map(stat => `<p>${escapeHTML(stat)}</p>`).join('')}
             </div>
         </div>
     </div>
@@ -1398,8 +1392,8 @@ function renderCookie(data) {
         ${data.nom && data.nom.includes('Cerise') ? 'biscuits-cerise' : ''} ${data.nom && data.nom.includes('Piment') ? 'biscuits-piment' : ''} ${data.nom && data.nom.includes('Chevalier') ? 'biscuits-chevalier' : ''} 
         ${data.nom && data.nom.includes('Boule de gomme') ? 'biscuits-boule-de-gomme' : ''}">
             ${(data.biscuits || []).map(b => `
-                <img alt="${b.nom || 'Biscuit'}" class="biscuit-cycle" 
-                    data-id="${b.id}" 
+                <img alt="${escapeHTML(b.nom || 'Biscuit')}" class="biscuit-cycle" 
+                    data-id="${escapeHTML(b.id)}" 
                     data-images='${safeJsonStringify(b.images)}'
                     data-step="${b.selectedStep || 0}" 
                     src="${formatImagePath(b.images ? b.images[b.selectedStep || 0] : '')}"/>
@@ -1423,7 +1417,7 @@ function renderCookie(data) {
                         return stats.map((stat, index) => `
                             <div class="stat-item" data-index="${index}">
                                 <div class="stat-checkbox ${savedChecks[index] ? 'checked' : ''}"></div>
-                                <p>${stat}</p>
+                                <p>${escapeHTML(stat)}</p>
                             </div>
                         `).join('');
                     })()}
@@ -1445,8 +1439,8 @@ function renderCookie(data) {
      `).join('')}
   </div>
 
-  ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${data.navigation.precedent}" class="btn-cookie-precedent"><img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773327896/precedent_watsjr.webp" alt="Précédent" /></a>` : ''}
-  ${data.navigation?.suivant ? `<a href="cookie_detail.html?id=${data.navigation.suivant}" class="btn-cookie-suivant"><img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773327894/suivant_gsobzx.webp" alt="Suivant" /></a>` : ''}
+  ${data.navigation?.precedent ? `<a href="cookie_detail.html?id=${escapeHTML(data.navigation.precedent)}" class="btn-cookie-precedent"><img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773327896/precedent_watsjr.webp" alt="Précédent" /></a>` : ''}
+  ${data.navigation?.suivant ? `<a href="cookie_detail.html?id=${escapeHTML(data.navigation.suivant)}" class="btn-cookie-suivant"><img src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1773327894/suivant_gsobzx.webp" alt="Suivant" /></a>` : ''}
  
   `;
 
@@ -2027,8 +2021,8 @@ function renderCostumes(costumes) {
     return `
     <div class="costume-item ${c.isAwakenedSwap ? 'is-awakened-swap' : ''}">
         <div class="costume-toggle-wrapper">
-          <img alt="${c.nom}" class="costume-toggle" 
-               data-id="${c.id || 'costume-' + Math.random()}" 
+          <img alt="${escapeHTML(c.nom)}" class="costume-toggle" 
+               data-id="${escapeHTML(c.id || 'costume-' + Math.random())}" 
                data-images='${safeJsonStringify(c.images)}'
                ${c.illustrationReplace ? `data-illustration-replace="${formatImagePath(c.illustrationReplace)}"` : ''}
                ${c.illustrationReplaceOr ? `data-illustration-replace-or="${formatImagePath(c.illustrationReplaceOr)}"` : ''}
@@ -2045,8 +2039,8 @@ function renderCostumes(costumes) {
                  ${c._originalRareteIcon ? `data-original-rarete-icon="${formatImagePath(c._originalRareteIcon)}"` : ''}
                  src="${rareteIcon}"/>
         </div>
-        <p class="costume-name${isMythicClass}" ${c._originalName ? `data-original-name="${c._originalName.replace(/"/g, '&quot;')}"` : ''}>
-            ${c.nom}
+        <p class="costume-name${isMythicClass}" ${c._originalName ? `data-original-name="${escapeHTML(c._originalName)}"` : ''}>
+            ${escapeHTML(c.nom)}
             ${c.iconMythique ? `<img src="${formatImagePath(c.iconMythique)}" class="mythic-icon-small" alt="Mythique" />` : ''}
         </p>
       </div>
@@ -2235,11 +2229,6 @@ function setupImageCycles(cookieData) {
             illustration.dataset.styleHeight = this.dataset.styleHeight || '';
             illustration.dataset.styleTop = this.dataset.styleTop || '';
             illustration.dataset.styleLeft = this.dataset.styleLeft || '';
-
-            console.log('[Costume] Nouvelle illustration active :', {
-              id: this.dataset.id,
-              name: this.alt
-            });
           }
         }
         else if (this.dataset.illustrationReplace && illustration) {

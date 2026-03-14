@@ -17,7 +17,7 @@ try {
 }
 
 export default defineConfig({
-  base: '/crk-fanbase/',
+  base: '/',
   root: './',
   build: {
     outDir: 'dist',
