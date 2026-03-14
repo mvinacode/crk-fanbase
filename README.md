@@ -19,7 +19,7 @@ Ce projet est une application web privée permettant de gérer et visualiser une
 ## 📁 Structure du Projet
 
 ```
-crk-site/
+crk-fanbase/
 ├── assets/             # Logique JavaScript (traitée par Vite)
 ├── pages/              # Pages HTML secondaires (Détails, Liste, Login)
 ├── public/             # Assets statiques servis directement
