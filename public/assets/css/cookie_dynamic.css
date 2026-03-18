@@ -583,7 +583,7 @@ body:not(.accueil) .header .user-info {
     opacity: 0.4;
 }
 
-.nom-cookie {
+.page-cookie .nom-cookie {
     position: absolute;
     top: var(--title-top, -40px);
     right: 50px;
@@ -1641,7 +1641,7 @@ body:not(.accueil) .header .user-info {
         background-size: auto 100% !important;
     }
 
-    .nom-cookie {
+    .page-cookie .nom-cookie {
         position: relative !important;
         top: 0 !important;
         right: 0 !important;
