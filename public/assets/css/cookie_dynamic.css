@@ -2101,41 +2101,4 @@ body:not(.accueil) .header .user-info {
         position: relative;
         padding-bottom: 120px;
     }
-
-    .bloc-fond-cookie {
-        width: 1427px;
-        height: 856px;
-        margin: 0 auto;
-    }
-
-    .illustration-cookie img {
-        width: 412px;
-        height: 444px;
-        position: absolute;
-    }
-
-    .badges {
-        position: absolute;
-        top: 40px;
-        left: 35px;
-        gap: 50px;
-    }
-
-    .badge { height: 40px; }
-
-    .ascension   { position: absolute; }
-    .toppings    { position: absolute; right: 50px; top: 120px; }
-    .tartelettes { position: absolute; right: 50px; top: 245px; }
-    .biscuits    { position: absolute; right: 50px; top: 365px; }
-    .promotion   { position: absolute; }
-
-    .btn-cookie-precedent,
-    .btn-cookie-suivant,
-    .btn-costume {
-        bottom: 160px;
-    }
-
-    .btn-cookie-precedent { right: 350px; }
-    .btn-cookie-suivant   { right: 10px; }
-    .btn-costume          { right: 1080px; }
 }
