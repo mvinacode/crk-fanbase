@@ -17,7 +17,8 @@
   /* 2) Header : pas d’étirement hasardeux, spacing propre */
   .header {
     gap: 40px;
-    flex-wrap: nowrap;      /* évite les retours à la ligne sur XXL */    position: relative;
+    flex-wrap: nowrap;
+    position: relative;
   }
   
   .user-info {

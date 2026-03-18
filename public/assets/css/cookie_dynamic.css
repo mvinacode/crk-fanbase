@@ -11,6 +11,8 @@ body {
     font-family: 'CookieRun-Bold', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-color);
+    color: var(--theme-text);
 }
 
 :root {
@@ -31,18 +33,6 @@ body {
     /* Positions par défaut */
     --pos-illustration-top: 150px;
     --pos-illustration-left: 290px;
-}
-
-@font-face {
-    font-family: 'CookieRun-Bold';
-    src: url('../fonts/CookieRun\ Bold.ttf');
-}
-
-body {
-    margin: 0;
-    font-family: 'CookieRun-Bold', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--theme-text);
 }
 
 /* Rareté Antique (Gestion dynamique) */
@@ -684,16 +674,14 @@ body:not(.accueil) .header .user-info {
 }
 
 .info-frame h3 {
-    margin: 0;
+    margin: 0 0 0 30px;
     font-size: 18px;
     font-weight: 900;
     text-align: center;
     line-height: 1.2;
-    text-shadow: none;
     border: none;
     padding: 0;
     width: calc(100% - 60px);
-    margin-left: 30px;
     text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
 }
 
@@ -772,16 +760,14 @@ body:not(.accueil) .header .user-info {
 }
 
 .info-frame2 h3 {
-    margin: 0;
+    margin: 0 0 0 30px;
     font-size: 18px;
     font-weight: 900;
     text-align: center;
     line-height: 1.2;
-    text-shadow: none;
     border: none;
     padding: 0;
     width: calc(100% - 60px);
-    margin-left: 30px;
     text-shadow: 2px 2px 0 #3E2723, -1px -1px 0 #3E2723, 1px -1px 0 #3E2723, -1px 1px 0 #3E2723, 1px 1px 0 #3E2723;
 }
 
@@ -885,49 +871,6 @@ body:not(.accueil) .header .user-info {
     /* Shifted left by ~85px to avoid overlap */
 }
 
-.biscuits.biscuits-sorcier {
-    top: 390px;
-}
-
-.biscuits.biscuits-costaud {
-    top: 390px;
-}
-
-.biscuits.biscuits-alchimiste {
-    top: 390px;
-}
-
-.biscuits.biscuits-avocat {
-    top: 390px;
-}
-
-.biscuits.biscuits-betterave {
-    top: 390px;
-}
-
-.biscuits.biscuits-mure {
-    top: 390px;
-}
-
-.biscuits.biscuits-carotte {
-    top: 390px;
-}
-
-.biscuits.biscuits-cerise {
-    top: 390px;
-}
-
-.biscuits.biscuits-piment {
-    top: 390px;
-}
-
-.biscuits.biscuits-chevalier {
-    top: 390px;
-}
-
-.biscuits.biscuits-boule-de-gomme {
-    top: 390px;
-}
 
 .promotion {
     top: 590px;
