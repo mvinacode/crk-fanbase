@@ -2073,13 +2073,8 @@ body:not(.accueil) .header .user-info {
     }
 
     .user-info {
-        position: absolute;
-        top: 30px;
-        right: 50px;
         display: flex;
         align-items: center;
-        gap: 15px;
-        z-index: 10;
     }
 
     .welcome-message {
