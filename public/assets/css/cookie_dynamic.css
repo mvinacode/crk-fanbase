@@ -2051,8 +2051,96 @@ body:not(.accueil) .header .user-info {
     body.accueil .header-top {
         padding: 200px 0 !important;
     }
-    
+
     body:not(.accueil) .header-top {
         padding: 30px 0 !important;
     }
+}
+
+/* ==========================================================================
+   RESPONSIVE - PAGE DÉTAIL (>= 1300px)
+   ========================================================================== */
+@media (min-width: 1300px) {
+    .header {
+        gap: 40px;
+        flex-wrap: nowrap;
+    }
+
+    .main {
+        max-width: 1460px;
+        margin-inline: auto;
+        padding-inline: 50px;
+    }
+
+    .user-info {
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        z-index: 10;
+    }
+
+    .welcome-message {
+        color: #865C43;
+        font-size: 18px;
+    }
+
+    .btn-logout,
+    .btn-login-header {
+        padding: 10px 25px !important;
+        font-size: 18px !important;
+        height: auto !important;
+    }
+
+    .btn-logout span,
+    .btn-login-header span {
+        font-size: 18px !important;
+    }
+
+    .page-cookie {
+        width: 1427px;
+        max-width: 1427px;
+        margin: 0 auto;
+        position: relative;
+        padding-bottom: 120px;
+    }
+
+    .bloc-fond-cookie {
+        width: 1427px;
+        height: 856px;
+        margin: 0 auto;
+    }
+
+    .illustration-cookie img {
+        width: 412px;
+        height: 444px;
+        position: absolute;
+    }
+
+    .badges {
+        position: absolute;
+        top: 40px;
+        left: 35px;
+        gap: 50px;
+    }
+
+    .badge { height: 40px; }
+
+    .ascension   { position: absolute; }
+    .toppings    { position: absolute; right: 50px; top: 120px; }
+    .tartelettes { position: absolute; right: 50px; top: 245px; }
+    .biscuits    { position: absolute; right: 50px; top: 365px; }
+    .promotion   { position: absolute; }
+
+    .btn-cookie-precedent,
+    .btn-cookie-suivant,
+    .btn-costume {
+        bottom: 160px;
+    }
+
+    .btn-cookie-precedent { right: 350px; }
+    .btn-cookie-suivant   { right: 10px; }
+    .btn-costume          { right: 1080px; }
 }
