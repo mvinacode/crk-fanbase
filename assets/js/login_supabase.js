@@ -1,5 +1,10 @@
 import { supabase } from './app.js';
 
+// Résout un chemin relatif selon la position de la page (sous-dossier /pages/ ou racine)
+function resolveRelativePath(subfolderPath, rootPath) {
+  return window.location.pathname.includes('/pages/') ? subfolderPath : rootPath;
+}
+
 // Utilitaire de sécurisation contre les failles XSS
 export function escapeHTML(str) {
   if (!str) return '';
@@ -54,9 +59,7 @@ export async function initUserInfo() {
   if (!userInfo) return;
 
   const { data } = await supabase.auth.getUser();
-  const currentPath = window.location.pathname;
-  const isSubFolder = currentPath.includes('/pages/');
-  const loginUrl = isSubFolder ? 'login.html' : 'pages/login.html';
+  const loginUrl = resolveRelativePath('login.html', 'pages/login.html');
 
   if (data.user) {
     userInfo.innerHTML = `
@@ -84,27 +87,21 @@ export function showGuestNotification() {
   let overlay = document.getElementById('guest-notif-overlay');
   
   if (!overlay) {
-    // Injecter le CSS si nécessaire
+    const loginUrl = resolveRelativePath('login.html', 'pages/login.html');
+    const cssPath  = resolveRelativePath('../assets/css/guest_notification.css', 'assets/css/guest_notification.css');
+
     if (!document.getElementById('guest-notif-css')) {
       const link = document.createElement('link');
       link.id = 'guest-notif-css';
       link.rel = 'stylesheet';
-      const currentPath = window.location.pathname;
-      const isSubFolder = currentPath.includes('/pages/');
-      link.href = isSubFolder ? '../assets/css/guest_notification.css' : 'assets/css/guest_notification.css';
-      // Ajustement pour la structure du projet (public/assets vs assets)
-      // On teste d'abord le chemin public si on est en dév ou build
+      link.href = cssPath;
       document.head.appendChild(link);
     }
 
     overlay = document.createElement('div');
     overlay.id = 'guest-notif-overlay';
     overlay.className = 'guest-notif-overlay';
-    
-    // Correction du chemin pour l'image de login (même logique que initUserInfo)
-    const currentPath = window.location.pathname;
-    const isSubFolder = currentPath.includes('/pages/');
-    const loginUrl = isSubFolder ? 'login.html' : 'pages/login.html';
+
     const logoUrl = 'https://res.cloudinary.com/dkgfa4apm/image/upload/v1773244370/logo_patch_7_2_sswoae.webp';
 
     overlay.innerHTML = `
@@ -119,19 +116,14 @@ export function showGuestNotification() {
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(overlay);
 
-    // Event listeners
-    const closePopup = () => {
-      overlay.classList.remove('show');
-    };
+    const closePopup = () => overlay.classList.remove('show');
 
-    overlay.querySelector('.guest-notif-close').onclick = closePopup;
-    document.getElementById('guest-notif-close-btn').onclick = closePopup;
-    overlay.onclick = (e) => {
-      if (e.target === overlay) closePopup();
-    };
+    overlay.querySelector('.guest-notif-close').addEventListener('click', closePopup);
+    document.getElementById('guest-notif-close-btn').addEventListener('click', closePopup);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
   }
 
   // Afficher avec un léger délai pour l'animation

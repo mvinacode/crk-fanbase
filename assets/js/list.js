@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .select('cookie_id, is_awakened')
       .eq('user_id', session.user.id);
 
+    if (error) { console.error("Erreur syncOwnership:", error); return; }
     if (myCookies) {
       myCookies.forEach(row => {
         if (row.cookie_id) {
@@ -153,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fin = Math.min(debut + COOKIES_PAR_PAGE, cookiesFiltres.length);
     const nouveauxCookies = cookiesFiltres.slice(debut, fin);
 
-    nouveauxCookies.forEach((cookie, index) => {
+    nouveauxCookies.forEach((cookie) => {
       const carte = document.createElement("a");
       // Par défaut, lien dynamique vers la page détail avec l'id
       carte.href = `cookie_detail.html?id=${encodeURIComponent(cookie.id)}`;
@@ -161,14 +162,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // On vérifie si le cookie est marqué comme "éveillé" dans le localStorage (sync via Supabase)
       const isAwakened = localStorage.getItem(`is_awakened_${cookie.id}`) === "true";
 
-      // Si éveillé et qu'une image "tête éveil" existe, on l'utilise
+      // Si éveillé et qu'une image "tête éveil" existe, on l'utilise (sans muter l'objet source)
+      const imageAffichee = (isAwakened && cookie.tete_eveil) ? cookie.tete_eveil : cookie.image;
       if (isAwakened && cookie.tete_eveil) {
-        cookie.image = cookie.tete_eveil;
-        // Optionnel : Ajouter un marquage data-awakened sur la carte
         carte.dataset.awakened = "true";
       }
-
-      // FIN GESTION DYNAMIQUE
 
       // Vérifier l'état obtenu dès le début
       const estObtenu = localStorage.getItem(cookie.id) === "true";
@@ -179,16 +177,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Vérifier si cette carte était déjà visible pour ne pas rejouer l'animation
-      const cartesVisibles = JSON.parse(container.dataset.cartesVisibles || "[]");
+      let cartesVisibles = [];
+      try {
+        cartesVisibles = JSON.parse(container.dataset.cartesVisibles || "[]");
+      } catch { cartesVisibles = []; }
       if (cartesVisibles.includes(cookie.id)) {
         carte.classList.add("visible");
       }
 
-      // Aide pour les chemins d'images (gère les URLs absolues Cloudinary)
+      // Aide pour les chemins d'images — HTTPS uniquement, chemin échappé
       const getImgSrc = (path) => {
         if (!path) return "";
-        if (path.startsWith('http')) return path;
-        return `../assets/images/${path}`;
+        if (path.startsWith('https://')) return escapeHTML(path);
+        if (path.startsWith('http://')) return ""; // Rejeter HTTP non sécurisé
+        return escapeHTML(`../assets/images/${path}`);
       };
 
       let elements = [];
@@ -218,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
       carte.innerHTML = `
         <div class="bloc-gauche">
           <div class="fond-img">
-            <img src="${getImgSrc(cookie.image)}" alt="${escapeHTML(cookie.nom)}" class="cookie-head">
+            <img src="${getImgSrc(imageAffichee)}" alt="${escapeHTML(cookie.nom)}" class="cookie-head">
           </div>
           <div class="fond-img">
             <img src="${getImgSrc(cookie.rarete)}" alt="rarete" class="badge-epique">
@@ -410,18 +412,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 .maybeSingle();
 
               if (existingRow) {
-                // Check for any non-metadata columns that have values
                 const metadataCols = ['id', 'user_id', 'cookie_id', 'created_at', 'updated_at'];
                 const hasValuableData = Object.keys(existingRow).some(key =>
                   !metadataCols.includes(key) && existingRow[key] !== null && existingRow[key] !== ''
                 );
-
                 if (!hasValuableData) {
                   await supabase.from('cookies_users').delete().eq('user_id', session.user.id).eq('cookie_id', id);
-                } else {
                 }
-              } else {
-                // Row doesn't exist, nothing to delete
               }
             }
         })();
@@ -429,104 +426,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Rarete
-  window.toggleRareteOptions = function () {
-    const options = document.getElementById("rareteOptions");
-    const isVisible = options.classList.contains("show");
-
-    if (isVisible) {
+  // --- Filtres déroulants (générique) ---
+  function toggleFilterOptions(id) {
+    const options = document.getElementById(id);
+    if (!options) return;
+    if (options.classList.contains("show")) {
       options.classList.remove("show");
     } else {
-      // Ajouter la classe après un court délai pour déclencher l'animation
-      setTimeout(() => {
-        options.classList.add("show");
-      }, 10);
+      setTimeout(() => options.classList.add("show"), 10);
     }
-  };
+  }
 
-  document.querySelectorAll("#rareteOptions li").forEach(option => {
-    option.addEventListener("click", () => {
-      const valeur = option.getAttribute("data-value");
-      rareteActive = rareteActive === valeur ? "" : valeur;
-
-      // Retirer la classe active de tous les éléments
-      document.querySelectorAll("#rareteOptions li").forEach(li => li.classList.remove("active"));
-
-      // Ajouter la classe active à l'élément cliqué (sauf si on désélectionne)
-      if (rareteActive) {
-        option.classList.add("active");
-      }
-
-      document.getElementById("rareteOptions").classList.remove("show");
-      appliquerFiltres();
+  function setupFilterOptions(optionId, getActif, setActif) {
+    document.querySelectorAll(`#${optionId} li`).forEach(option => {
+      option.addEventListener("click", () => {
+        const valeur = option.getAttribute("data-value") || "";
+        setActif(getActif() === valeur ? "" : valeur);
+        document.querySelectorAll(`#${optionId} li`).forEach(li => li.classList.remove("active"));
+        if (getActif()) option.classList.add("active");
+        document.getElementById(optionId)?.classList.remove("show");
+        appliquerFiltres();
+      });
     });
-  });
+  }
 
-  // Rôle
-  window.toggleRoleOptions = function () {
-    const options = document.getElementById("roleOptions");
-    const isVisible = options.classList.contains("show");
+  window.toggleRareteOptions  = () => toggleFilterOptions("rareteOptions");
+  window.toggleRoleOptions    = () => toggleFilterOptions("roleOptions");
+  window.toggleElementOptions = () => toggleFilterOptions("elementOptions");
 
-    if (isVisible) {
-      options.classList.remove("show");
-    } else {
-      // Ajouter la classe après un court délai pour déclencher l'animation
-      setTimeout(() => {
-        options.classList.add("show");
-      }, 10);
-    }
-  };
-
-  document.querySelectorAll("#roleOptions li").forEach(option => {
-    option.addEventListener("click", () => {
-      const valeur = option.getAttribute("data-value");
-      roleActif = roleActif === valeur ? "" : valeur;
-
-      // Retirer la classe active de tous les éléments
-      document.querySelectorAll("#roleOptions li").forEach(li => li.classList.remove("active"));
-
-      // Ajouter la classe active à l'élément cliqué (sauf si on désélectionne)
-      if (roleActif) {
-        option.classList.add("active");
-      }
-
-      document.getElementById("roleOptions").classList.remove("show");
-      appliquerFiltres();
-    });
-  });
-
-  // Élément
-  window.toggleElementOptions = function () {
-    const options = document.getElementById("elementOptions");
-    const isVisible = options.classList.contains("show");
-
-    if (isVisible) {
-      options.classList.remove("show");
-    } else {
-      // Ajouter la classe après un court délai pour déclencher l'animation
-      setTimeout(() => {
-        options.classList.add("show");
-      }, 10);
-    }
-  };
-
-  document.querySelectorAll("#elementOptions li").forEach(option => {
-    option.addEventListener("click", () => {
-      const valeur = option.getAttribute("data-value");
-      elementActif = elementActif === valeur ? "" : valeur;
-
-      // Retirer la classe active de tous les éléments
-      document.querySelectorAll("#elementOptions li").forEach(li => li.classList.remove("active"));
-
-      // Ajouter la classe active à l'élément cliqué (sauf si on désélectionne)
-      if (elementActif) {
-        option.classList.add("active");
-      }
-
-      document.getElementById("elementOptions").classList.remove("show");
-      appliquerFiltres();
-    });
-  });
+  setupFilterOptions("rareteOptions",  () => rareteActive,  v => { rareteActive  = v; });
+  setupFilterOptions("roleOptions",    () => roleActif,     v => { roleActif     = v; });
+  setupFilterOptions("elementOptions", () => elementActif,  v => { elementActif  = v; });
 
   // --- Chargement du Header ---
   function loadHeader() {
@@ -572,19 +502,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Animation de bouton pressé avec délai avant navigation
-const buttons = document.querySelectorAll('.btn');
-
-buttons.forEach(button => {
+document.querySelectorAll('.btn').forEach(button => {
   button.addEventListener('click', function (e) {
-    // Si c'est un lien (pas juste un bouton)
-    if (this.tagName === 'A' && this.href) {
-      e.preventDefault(); // Empêcher la navigation immédiate
-      const href = this.href;
-
-      // Laisser le temps à l'animation de se jouer (150ms de descente)
-      setTimeout(() => {
-        window.location.href = href;
-      }, 150);
-    }
+    if (e.defaultPrevented) return;
+    if (this.tagName !== 'A') return;
+    let href;
+    try {
+      href = new URL(this.href, window.location.origin);
+    } catch { return; }
+    if (href.origin !== window.location.origin) return;
+    e.preventDefault();
+    const target = this.href;
+    setTimeout(() => { window.location.href = target; }, 150);
   });
 });

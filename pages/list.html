@@ -20,12 +20,13 @@
 
     <section class="recherche-cookies">
       <div class="recherche-container">
+        <label for="recherche" class="sr-only">Rechercher un cookie</label>
         <input type="text" id="recherche" placeholder="Rechercher un cookie...">
       </div>
     </section>
 
     <section class="filtres">
-      <div class="filtre-tri-wrapper" style="margin-bottom: 30px; margin-right: 10px; display: inline-block;">
+      <div class="filtre-tri-wrapper">
         <div id="btn-tri" class="filtre-tri-toggle" title="Trier du plus ancien au plus récent">
           Trier
           <svg class="tri-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
@@ -42,25 +43,25 @@
         <ul class="filtre-rarete-options" id="rareteOptions">
           <li data-value=""> Afficher tout</li>
           <li data-value="normal.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035466/normal_qjdee6.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035466/normal_qjdee6.webp" alt="Normal"></li>
           <li data-value="rare.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035472/rare_fppazq.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035472/rare_fppazq.webp" alt="Rare"></li>
           <li data-value="epique.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035453/epique_p69svu.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035453/epique_p69svu.webp" alt="Épique"></li>
           <li data-value="antique.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035449/antique_cwwcyu.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035449/antique_cwwcyu.webp" alt="Antique"></li>
           <li data-value="legendaire.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035459/legendaire_zsygey.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035459/legendaire_zsygey.webp" alt="Légendaire"></li>
           <li data-value="special.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035481/special_ukw03j.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035481/special_ukw03j.webp" alt="Spécial"></li>
           <li data-value="super_epique.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035489/super_epique_keourb.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035489/super_epique_keourb.webp" alt="Super Épique"></li>
           <li data-value="dragon.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035451/dragon_tkgqcn.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035451/dragon_tkgqcn.webp" alt="Dragon"></li>
           <li data-value="bete.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035450/bete_jbvtvj.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035450/bete_jbvtvj.webp" alt="Bête"></li>
           <li data-value="sorciere.webp"> <img
-              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035480/sorciere_jkzqaz.webp"></li>
+              src="https://res.cloudinary.com/dkgfa4apm/image/upload/v1769035480/sorciere_jkzqaz.webp" alt="Sorcière"></li>
         </ul>
       </div>
 
@@ -186,8 +187,7 @@
   </main>
 
   <div id="footer-placeholder"></div>
-
-    <script type="module" src="../assets/js/list.js"></script>
+  <script type="module" src="../assets/js/list.js"></script>
 </body>
 
 </html>

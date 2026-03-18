@@ -25,7 +25,7 @@ Thumbs.db
 .vscode/
 
 # Figma files
-*.fig
+.fig
 
 # Backup files
 *.bak

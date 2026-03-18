@@ -307,12 +307,6 @@ async function loadCookieData() {
     cookieId = cookieData.id;
     window.cookieId = cookieData.id; // On le sauve aussi globalement
 
-    // DEBUG : Afficher toutes les lignes builds pour ce cookie_id
-    let allBuildsResponse = await supabase
-      .from('builds')
-      .select('*')
-      .eq('cookie_id', cookieData.id);
-
     // --- CHARGEMENT DES COSTUMES (Si table séparée) ---
     const { data: costumesData, error: costumesError } = await supabase
       .from('costumes')
@@ -531,11 +525,11 @@ async function loadCookieData() {
         favicon.rel = 'icon';
         document.head.appendChild(favicon);
       }
-      // Si c'est une URL absolue (commence par http), on l'utilise telle quelle
-      if (cookieData.icon_tete.startsWith('http')) {
+      // Seules les URLs https:// ou les chemins relatifs locaux sont acceptés
+      if (cookieData.icon_tete.startsWith('https://')) {
         favicon.href = cookieData.icon_tete;
-      } else {
-        // Sinon on traite comme un chemin relatif local
+      } else if (!cookieData.icon_tete.startsWith('http')) {
+        // Chemin relatif local uniquement (rejette http:// non sécurisé)
         favicon.href = cookieData.icon_tete.startsWith('../') ? cookieData.icon_tete : '../' + cookieData.icon_tete;
       }
     }
@@ -707,8 +701,6 @@ async function loadCookieData() {
       renderCostumes(cookieData.costumes);
     }
 
-
-
     // Appliquer dynamiquement les styles d'illustration selon l'image
     applyIllustrationStyles();
 
@@ -761,13 +753,13 @@ function applyIllustrationStyles() {
   }
 }
 
-
-
 // --- SAUVEGARDE DYNAMIQUE SUR SUPABASE ---
 /**
  * Sauvegarde le 'step' d'un élément de build (topping, biscuit, etc.) dans Supabase
  */
-async function saveBuildToSupabase(cookieId, buildId, step) {
+// Fonction générique : fetch -> merge -> upsert dans cookies_users
+// `updates` peut être un objet ou une fonction (current) => objet pour les fusions profondes
+async function upsertCookieUser(cookieId, updates) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     showGuestNotification();
@@ -775,7 +767,6 @@ async function saveBuildToSupabase(cookieId, buildId, step) {
   }
 
   try {
-    // 1. Récupérer l'état actuel pour ne pas écraser les autres colonnes (costume_id, stats, etc.)
     const { data: current, error: fetchError } = await supabase
       .from('cookies_users')
       .select('*')
@@ -785,163 +776,41 @@ async function saveBuildToSupabase(cookieId, buildId, step) {
 
     if (fetchError) throw fetchError;
 
-    // 2. Préparer le payload
-    const payload = {
-      user_id: user.id,
-      cookie_id: cookieId,
-      builds: current?.builds || {}
-    };
+    const resolvedUpdates = typeof updates === 'function' ? updates(current) : updates;
+    const payload = { ...(current || {}), user_id: user.id, cookie_id: cookieId, ...resolvedUpdates };
 
-    // Fusionner le nouveau step
-    payload.builds[buildId] = step;
-
-    // Préserver les autres colonnes si elles existent
-    if (current) {
-      if (current.costume_id) payload.costume_id = current.costume_id;
-      if (current.stats_checks) payload.stats_checks = current.stats_checks;
-      if (current.is_awakened !== undefined) payload.is_awakened = current.is_awakened;
-    }
-
-    // 3. Upsert
     const { error } = await supabase
       .from('cookies_users')
       .upsert(payload, { onConflict: 'user_id, cookie_id' });
 
     if (error) throw error;
   } catch (err) {
-    console.error('[Supabase] Erreur saveBuildToSupabase:', err);
+    console.error('[Supabase] Erreur upsertCookieUser:', err);
   }
+}
+
+async function saveBuildToSupabase(cookieId, buildId, step) {
+  await upsertCookieUser(cookieId, current => ({
+    builds: { ...(current?.builds || {}), [buildId]: step }
+  }));
 }
 
 async function saveSelectionToSupabase(cookieId, costumeId = null, buildIdToUpdate = null, stepValue = null) {
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    showGuestNotification();
-    return;
-  }
-
-  try {
-    // 1. Récupérer l'existant pour ne pas écraser builds/stats_checks
-    const { data: current } = await supabase
-      .from('cookies_users')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('cookie_id', cookieId)
-      .maybeSingle();
-
-    const payload = {
-      user_id: user.id,
-      cookie_id: cookieId,
-      costume_id: costumeId // Sera null si non fourni
-    };
-
-    // Si une entrée existe, on préserve les champs manquants dans payload
-    if (current) {
-      if (current.builds) payload.builds = current.builds;
-      if (current.stats_checks) payload.stats_checks = current.stats_checks;
-      if (current.is_awakened !== undefined) payload.is_awakened = current.is_awakened;
-    }
-
-    // Appliquer la mise à jour du build spécifique SI DEMANDÉ (fusion intelligente)
+  await upsertCookieUser(cookieId, current => {
+    const updates = { costume_id: costumeId };
     if (buildIdToUpdate !== null && stepValue !== null) {
-      if (!payload.builds) payload.builds = {};
-      payload.builds[buildIdToUpdate] = stepValue;
+      updates.builds = { ...(current?.builds || {}), [buildIdToUpdate]: stepValue };
     }
-
-    const { error } = await supabase
-      .from('cookies_users')
-      .upsert(payload, { onConflict: 'user_id, cookie_id' });
-
-    if (error) throw error;
-  } catch (err) {
-    // Silent fail for production security
-  }
+    return updates;
+  });
 }
 
 async function saveStatsToSupabase(cookieId, checks) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    showGuestNotification();
-    return;
-  }
-
-  try {
-    // On doit faire un upsert prudent pour ne pas écraser les autres champs (costume_id, builds)
-    // Mais upsert écrase tout si on ne fournit pas les autres champs ? 
-    // NON, Supabase upsert écrase la ligne. Il faut donc récupérer l'existant ou faire un patch.
-    // Mieux : Utiliser .update() car la ligne existe forcément si on a déjà chargé la page (ou presque).
-    // Si elle n'existe pas, il faut la créer.
-
-    // Stratégie sûre : Fetch current -> Merge -> Upsert
-    // Ou juste .select() avant .upsert() comme fais saveBuildToSupabase
-
-    const { data: current } = await supabase
-      .from('cookies_users')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('cookie_id', cookieId)
-      .maybeSingle();
-
-    const payload = {
-      user_id: user.id,
-      cookie_id: cookieId,
-      stats_checks: checks
-    };
-
-    // Si une entrée existe déjà, on garde ses valeurs pour les autres champs
-    if (current) {
-      if (current.costume_id) payload.costume_id = current.costume_id;
-      if (current.builds) payload.builds = current.builds;
-    }
-
-    const { error } = await supabase
-      .from('cookies_users')
-      .upsert(payload, { onConflict: 'user_id, cookie_id' });
-
-    if (error) throw error;
-  } catch (err) {
-    // Silent fail for production security
-  }
+  await upsertCookieUser(cookieId, { stats_checks: checks });
 }
 
 async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    showGuestNotification();
-    return;
-  }
-
-  try {
-    // Récupérer l'existant pour ne pas écraser les autres données
-    const { data: current } = await supabase
-      .from('cookies_users')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('cookie_id', cookieId)
-      .maybeSingle();
-
-    const payload = {
-      user_id: user.id,
-      cookie_id: cookieId,
-      is_awakened: isAwakened
-    };
-
-    // Si une entrée existe déjà, on garde ses valeurs pour les autres champs
-    if (current) {
-      if (current.costume_id) payload.costume_id = current.costume_id;
-      if (current.builds) payload.builds = current.builds;
-      if (current.stats_checks) payload.stats_checks = current.stats_checks;
-    }
-
-    const { error } = await supabase
-      .from('cookies_users')
-      .upsert(payload, { onConflict: 'user_id, cookie_id' });
-
-    if (error) throw error;
-  } catch (err) {
-    // Silent fail for production security
-  }
+  await upsertCookieUser(cookieId, { is_awakened: isAwakened });
 }
 
 // --- FIN SAUVEGARDE SIMPLE ---
@@ -979,15 +848,18 @@ function applyDynamicTheme(data) {
   // 3. Titre
   if (data.title_color) root.style.setProperty('--title-color', data.title_color);
 
-  // Ajustement de la taille du titre si besoin (ex: noms très longs)
-  if (data.nom && (data.nom.includes('Crème Pâtissière') || data.nom.includes('creme patissiere') || data.nom.includes('Champignon') || data.nom.includes('Tourbillon')
-    || data.nom.includes('Tarte à la citrouille') || data.nom.includes('Licorne à la crème') || data.nom.includes('Capitaine Caviar') || data.nom.includes('Tarte aux myrtilles')
-    || data.nom.includes('Poussière d\'Étoile') || data.nom.includes('Jus de pruneaux') || data.nom.includes('Fruit du dragon') || data.nom.includes('Margarine Royale')
-    || data.nom.includes('Paillettes brillantes') || data.nom.includes('Limonade noire') || data.nom.includes('Méduse Mousseline') || data.nom.includes('Tourteau fromagé')
-    || data.nom.includes('Chevalier vif-argent') || data.nom.includes('Brioche beurrée') || data.nom.includes('Brise-tonnerre') || data.nom.includes('Haetae des nuages')
-    || data.nom.includes('Belette à la crème') || data.nom.includes('Archer du Vent') || data.nom.includes('Épices Ardentes') || data.nom.includes('Muscade tigrée')
-    || data.nom.includes('Bouton de braise') || data.nom.includes('Pudding à la mode') || data.nom.includes('Mousse au thé vert') || data.nom.includes('Lapin Marshmallow')
-    || data.nom.includes('Arbre Millénaire') || data.nom.includes('Sorcière des Ténèbres') || data.nom.includes('Cygne de Sucre'))) {
+  // Ajustement de la taille du titre pour les noms longs
+  const LONG_NAME_COOKIES = [
+    'Crème Pâtissière', 'creme patissiere', 'Champignon', 'Tourbillon',
+    'Tarte à la citrouille', 'Licorne à la crème', 'Capitaine Caviar', 'Tarte aux myrtilles',
+    "Poussière d'Étoile", 'Jus de pruneaux', 'Fruit du dragon', 'Margarine Royale',
+    'Paillettes brillantes', 'Limonade noire', 'Méduse Mousseline', 'Tourteau fromagé',
+    'Chevalier vif-argent', 'Brioche beurrée', 'Brise-tonnerre', 'Haetae des nuages',
+    'Belette à la crème', 'Archer du Vent', 'Épices Ardentes', 'Muscade tigrée',
+    'Bouton de braise', 'Pudding à la mode', 'Mousse au thé vert', 'Lapin Marshmallow',
+    'Arbre Millénaire', 'Sorcière des Ténèbres', 'Cygne de Sucre',
+  ];
+  if (data.nom && LONG_NAME_COOKIES.some(n => data.nom.includes(n))) {
     root.style.setProperty('--title-size', '50px');
     root.style.setProperty('--title-top', '-10px');
   } else {
@@ -1007,73 +879,26 @@ function applyDynamicTheme(data) {
   // Fallback/Support direct si colonnes existent
   if (data.pos_illustration_left) root.style.setProperty('--pos-illustration-left', data.pos_illustration_left);
 
-  // 5. Gestion de la classe Rareté (Antique) sur le body
+  // 5. Classes de rareté sur le body
   // Support des deux formats : colonnes directes (rarete) OU format JSON (badges.rarete)
   const raretePath = data.rarete || data.badges?.rarete || '';
-  if (raretePath.includes('antique')) {
-    document.body.classList.add('rarity-antique');
-  } else {
-    document.body.classList.remove('rarity-antique');
-  }
+  // On retire le mot "rarete" pour ne pas fausser les matchs sur le nom du dossier asset
+  const cleanedPath = raretePath.toLowerCase().replace('rarete', '');
 
-  // Rareté Rare (Demande spécifique couleur #629FC6)
-  // On utilise la colonne 'rarete' mais on fait attention à ne pas matcher le dossier asset 'rarete/'
-  // Logique : Si ça contient 'rare' ailleurs que dans 'rarete/'
-  const cleanedPath = raretePath.toLowerCase().replace('rarete', ''); // Enlève le mot du dossier
-  if (cleanedPath.includes('rare')) {
-    document.body.classList.add('rarity-rare');
-  } else {
-    document.body.classList.remove('rarity-rare');
-  }
-
-  // Rareté Super Epique (Demande spécifique couleur #D161C6)
-  if (cleanedPath.includes('super')) {
-    document.body.classList.add('rarity-superepic');
-  } else {
-    document.body.classList.remove('rarity-superepic');
-  }
-
-  // Rareté Epique (Demande spécifique couleur #F766A7)
-  if (cleanedPath.includes('epique') && !cleanedPath.includes('super')) {
-    document.body.classList.add('rarity-epic');
-  } else {
-    document.body.classList.remove('rarity-epic');
-  }
-
-  // Rareté Légendaire (Demande spécifique dégradé)
-  if (cleanedPath.includes('legend') || cleanedPath.includes('légend')) {
-    document.body.classList.add('rarity-legendary');
-  } else {
-    document.body.classList.remove('rarity-legendary');
-  }
-
-  // Rareté Spécial (Demande spécifique couleur #FAC534)
-  if (cleanedPath.includes('special') || cleanedPath.includes('spécial')) {
-    document.body.classList.add('rarity-special');
-  } else {
-    document.body.classList.remove('rarity-special');
-  }
-
-  // Rareté Dragon (Demande spécifique couleur #BA291A)
-  if (cleanedPath.includes('dragon')) {
-    document.body.classList.add('rarity-dragon');
-  } else {
-    document.body.classList.remove('rarity-dragon');
-  }
-
-  // Rareté Bête (Demande spécifique couleur #C51F42)
-  if (cleanedPath.includes('bete')) {
-    document.body.classList.add('rarity-bete');
-  } else {
-    document.body.classList.remove('rarity-bete');
-  }
-
-  // Rareté Sorcière (Demande spécifique couleur #A41169)
-  if (cleanedPath.includes('sorciere')) {
-    document.body.classList.add('rarity-sorciere');
-  } else {
-    document.body.classList.remove('rarity-sorciere');
-  }
+  const RARITY_CLASSES = [
+    { cls: 'rarity-antique', match: p => p.includes('antique') },
+    { cls: 'rarity-rare', match: p => p.includes('rare') },
+    { cls: 'rarity-superepic', match: p => p.includes('super') },
+    { cls: 'rarity-epic', match: p => p.includes('epique') && !p.includes('super') },
+    { cls: 'rarity-legendary', match: p => p.includes('legend') || p.includes('légend') },
+    { cls: 'rarity-special', match: p => p.includes('special') || p.includes('spécial') },
+    { cls: 'rarity-dragon', match: p => p.includes('dragon') },
+    { cls: 'rarity-bete', match: p => p.includes('bete') },
+    { cls: 'rarity-sorciere', match: p => p.includes('sorciere') },
+  ];
+  RARITY_CLASSES.forEach(({ cls, match }) => {
+    document.body.classList.toggle(cls, match(cleanedPath));
+  });
 
   // 6. Gestion des styles spécifiques (Boutons Éveil) via ID
   // Map des styles par défaut pour les cookies Antiques connus
@@ -1248,7 +1073,7 @@ function renderCookie(data) {
   const cookieHTML = `
   <div class="bloc-fond-cookie">
    <div class="fond-floute"></div>
-   <h1 class="nom-cookie">${data.nom}</h1>
+   <h1 class="nom-cookie">${escapeHTML(data.nom)}</h1>
    
    <div class="badges">
      ${(() => {
@@ -1497,6 +1322,9 @@ function renderCookie(data) {
 
   // 8. Gestion des costumes (Popup et Changement d'image)
   setupCostumeLogic(data);
+
+  // 9. Attacher les animations de navigation (boutons précédent/suivant/costume désormais dans le DOM)
+  setupButtonAnimations();
 }
 
 // Configuration des données d'Éveil pour les cookies Antiques
@@ -1712,7 +1540,7 @@ function injectAwakenButton(data) {
 
     // Lobby (Arrière-plan)
     if (data.lobby_eveil) {
-      root.style.setProperty('--bg-image', `url('${formatImagePath(data.lobby_eveil)}')`);
+      root.style.setProperty('--bg-image', `url('${safeCSSUrl(data.lobby_eveil)}')`);
     }
   }
 
@@ -1785,7 +1613,7 @@ function injectAwakenButton(data) {
 
       // Lobby (Arrière-plan)
       if (data.lobby_eveil) {
-        root.style.setProperty('--bg-image', `url('${formatImagePath(data.lobby_eveil)}')`);
+        root.style.setProperty('--bg-image', `url('${safeCSSUrl(data.lobby_eveil)}')`);
       }
 
       isAwakenedState = true;
@@ -1991,6 +1819,14 @@ function formatImagePath(path) {
   // Par défaut, on suppose que c'est une URL ou un chemin absolu
   // Ne pas ajouter de préfixe pour éviter de casser les URLs
   return path;
+}
+
+// Sanitise une URL avant injection dans un contexte CSS url('...')
+// Supprime les caractères qui pourraient casser le contexte CSS
+function safeCSSUrl(path) {
+  const url = formatImagePath(path);
+  if (!url) return '';
+  return url.replace(/['"\\\n\r]/g, '');
 }
 
 // Aide pour convertir les tableaux JSON en string pour data-images
@@ -2370,22 +2206,35 @@ async function initHomePage() {
   }
 }
 
-// --- ANIMATION DES BOUTONS (MIGRÉ DE INDEX.JS) ---
+// --- ANIMATION DES BOUTONS ---
+// Sélecteurs couvrant tous les boutons-liens du site (page détail + home)
+const BTN_SELECTORS = '.btn, .carte-cookie-wrapper, .btn-cookie-precedent, .btn-cookie-suivant, .btn-costume';
+
 function setupButtonAnimations() {
-  const buttons = document.querySelectorAll('.btn, .carte-cookie-wrapper');
-  buttons.forEach(button => {
+  document.querySelectorAll(BTN_SELECTORS).forEach(button => {
     // Éviter les doublons
     if (button.dataset.animAttached) return;
-    button.dataset.animAttached = "true";
+    button.dataset.animAttached = 'true';
 
     button.addEventListener('click', function (e) {
-      if (this.tagName === 'A' && this.href && !this.href.startsWith('#')) {
-        e.preventDefault();
-        const href = this.href;
-        setTimeout(() => {
-          window.location.href = href;
-        }, 150);
+      if (e.defaultPrevented) return;
+      if (this.tagName !== 'A') return;
+
+      // Valider l'URL : uniquement même origine ou chemins relatifs
+      let href;
+      try {
+        href = new URL(this.href, window.location.origin);
+      } catch {
+        return;
       }
+      if (href.origin !== window.location.origin) return;
+      if (href.hash && !href.pathname) return; // ancre pure, laisser le navigateur gérer
+
+      e.preventDefault();
+      const target = this.href;
+      setTimeout(() => {
+        window.location.href = target;
+      }, 150);
     });
   });
 }
