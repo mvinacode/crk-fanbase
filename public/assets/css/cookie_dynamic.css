@@ -2098,7 +2098,9 @@ body:not(.accueil) .header .user-info {
         width: 1427px;
         max-width: 1427px;
         margin: 0 auto;
-        position: relative;
-        padding-bottom: 120px;
+    }
+
+    .badges {
+        left: 35px;
     }
 }
