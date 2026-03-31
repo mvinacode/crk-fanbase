@@ -329,7 +329,7 @@ body.accueil .header-top::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+    background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/https://res.cloudinary.com/dkgfa4apm/image/upload/v1774948151/MAJ_7_2_ljnwlq.webp_k2p1qc.webp') no-repeat center;
     background-size: cover;
     opacity: 0.5;
     z-index: -1;
@@ -463,7 +463,7 @@ body:not(.accueil) .header-top::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+    background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/https://res.cloudinary.com/dkgfa4apm/image/upload/v1774948151/MAJ_7_2_ljnwlq.webp_k2p1qc.webp') no-repeat center;
     background-size: cover;
     opacity: 0.5;
     z-index: -1;
@@ -1923,10 +1923,12 @@ body:not(.accueil) .header .user-info {
 
 /* --- SITE-WIDE HEADER & MENU RESPONSIVENESS --- */
 @media screen and (max-width: 768px) {
+
     /* 1. Header Top & Background - Use high specificity to override everything */
     body .header-top,
     body:not(.accueil) .header-top {
-        padding: 40px 15px !important; /* Unified mobile padding */
+        padding: 40px 15px !important;
+        /* Unified mobile padding */
         min-height: auto !important;
         position: relative;
     }
@@ -1957,15 +1959,18 @@ body:not(.accueil) .header .user-info {
     body.list .menu {
         padding: 5px 0 !important;
         gap: 10px !important;
-        flex-wrap: nowrap !important; /* Force single line */
+        flex-wrap: nowrap !important;
+        /* Force single line */
         justify-content: center !important;
         width: 100% !important;
-        overflow-x: auto; /* Allow horizontal scroll if needed on very small screens */
+        overflow-x: auto;
+        /* Allow horizontal scroll if needed on very small screens */
         -webkit-overflow-scrolling: touch;
     }
 
     .nav-icon-link {
-        width: 105px !important; /* Larger icons */
+        width: 105px !important;
+        /* Larger icons */
         height: 105px !important;
         flex: 0 0 auto !important;
     }
@@ -1976,7 +1981,8 @@ body:not(.accueil) .header .user-info {
     }
 
     .user-info {
-        width: auto !important; /* Integrate on same line */
+        width: auto !important;
+        /* Integrate on same line */
         justify-content: center !important;
         margin-top: 0 !important;
         flex: 0 0 auto !important;
@@ -1986,7 +1992,7 @@ body:not(.accueil) .header .user-info {
     body.accueil .header-top {
         padding: 200px 0 !important;
     }
-    
+
     body:not(.accueil) .header-top {
         padding: 30px 0 !important;
     }
@@ -1994,6 +2000,7 @@ body:not(.accueil) .header .user-info {
 
 /* --- SITE-WIDE HEADER & MENU DESKTOP (Large Screens ≥ 1300px) --- */
 @media screen and (min-width: 1300px) {
+
     /* 1. Header & Banner full width */
     .header,
     .header-top {
@@ -2016,7 +2023,7 @@ body:not(.accueil) .header .user-info {
         left: 0;
         width: 100%;
         height: 100%;
-        background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/MAJ_7_1_k2p1qc.webp') no-repeat center;
+        background: url('https://res.cloudinary.com/dkgfa4apm/image/upload/v1771254526/https://res.cloudinary.com/dkgfa4apm/image/upload/v1774948151/MAJ_7_2_ljnwlq.webp_k2p1qc.webp') no-repeat center;
         background-size: cover;
         opacity: 0.5;
         z-index: -1;
