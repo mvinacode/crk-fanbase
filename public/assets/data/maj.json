@@ -378,6 +378,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Saint-Honoré",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772804876/cookie_saint_honore_carte_r33l4h.webp",
+    "link": "cookie_detail.html?id=cookie-saint-honore",
+    "date": "2026-04-08T16:18:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Salière",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772987838/cookie_saliere_carte_i5zftr.webp",
     "link": "cookie_detail.html?id=cookie-saliere",
