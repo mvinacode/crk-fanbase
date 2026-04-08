@@ -620,19 +620,28 @@ async function loadCookieData() {
           }
         }
 
+        // --- Détection de changement de garniture / biscuit dans Supabase ---
+        // Lancée dès qu'un enregistrement cookies_users existe, même sans builds,
+        // pour initialiser ou mettre à jour les signatures d'images (__img_sigs).
+        const { builds: sanitizedBuilds, needsPersist } =
+          checkAndResetBuildsOnItemChange(cookieData, userSelection.builds || {});
+
+        if (needsPersist) {
+          // Persistance asynchrone non bloquante pour ne pas retarder le rendu
+          persistResetBuilds(cookieId, sanitizedBuilds);
+        }
+
         // 2. Restauration des builds (JSONB)
         if (userSelection.builds) {
-          // On injecte les builds dans cookieData pour que renderCookie les utilise
-          cookieData.activeBuilds = userSelection.builds;
+          // On injecte les builds corrigés dans cookieData pour que renderCookie les utilise
+          cookieData.activeBuilds = sanitizedBuilds;
 
-          // On peut aussi mettre à jour les objets data directement pour simplifier renderCookie
           const applyStep = (items) => {
             if (!items) return;
             items.forEach(item => {
-              if (userSelection.builds[item.id] !== undefined) {
-                item.selectedStep = userSelection.builds[item.id];
-                // Mise à jour synchrone du localStorage pour la cohérence
-
+              // La clé réservée __img_sigs ne correspond à aucun item.id → ignorée
+              if (sanitizedBuilds[item.id] !== undefined) {
+                item.selectedStep = sanitizedBuilds[item.id];
               }
             });
           };
@@ -814,6 +823,126 @@ async function saveAwakenedStateToSupabase(cookieId, isAwakened) {
 }
 
 // --- FIN SAUVEGARDE SIMPLE ---
+
+// =====================================================================
+// --- DÉTECTION DE CHANGEMENT DE GARNITURE / BISCUIT (RESET DU CYCLE) ---
+// =====================================================================
+//
+// Stratégie : les signatures d'images sont stockées dans le JSONB `builds`
+// de la table `cookies_users`, sous la clé réservée `__img_sigs`.
+// Exemple de structure builds dans Supabase :
+//   {
+//     "topping-uuid": 2,
+//     "biscuit-uuid": 0,
+//     "__img_sigs": {
+//       "topping-uuid": "3|url_a|url_b|url_c",
+//       "biscuit-uuid": "2|url_x|url_y"
+//     }
+//   }
+// La clé "__img_sigs" est ignorée par applyStep (ne correspond à aucun item.id).
+// =====================================================================
+
+/** Clé réservée dans le JSONB builds pour stocker les signatures d'images. */
+const _BUILDS_SIGS_KEY = '__img_sigs';
+
+/**
+ * Calcule une signature déterministe des images d'un item.
+ * Les URLs sont triées avant la concaténation pour être insensible
+ * à un simple réordonnancement côté Supabase.
+ * @param {string[]} images
+ * @returns {string}
+ */
+function _computeImagesSignature(images) {
+  if (!Array.isArray(images) || images.length === 0) return '';
+  return [...images].sort().join('|');
+}
+
+/**
+ * Vérifie si les images des garnitures et des biscuits ont été modifiées
+ * dans Supabase depuis la dernière visite de l'utilisateur authentifié.
+ *
+ * Règle métier :
+ *   - Si les images d'un item ont changé, son step sauvegardé est obsolète.
+ *   - On réinitialise ce step à 0 et on retire l'entrée du JSONB `builds`.
+ *   - Les nouvelles signatures sont toujours mises à jour dans `builds.__img_sigs`.
+ *
+ * @param {Object} cookieData - Données complètes (toppings, biscuits, …)
+ * @param {Object} builds     - JSONB `builds` issu de cookies_users (peut être {})
+ * @returns {{
+ *   builds:       Object,   - builds mis à jour (steps réinitialisés absents + sigs à jour)
+ *   resetIds:     string[], - IDs des items dont le cycle a été remis à 0
+ *   needsPersist: boolean   - true si builds a changé (reset ou nouvelles sigs)
+ * }}
+ */
+function checkAndResetBuildsOnItemChange(cookieData, builds) {
+  const safeBuilds = (typeof builds === 'object' && builds !== null) ? builds : {};
+
+  // Lecture des signatures précédemment stockées dans Supabase
+  const storedSigs =
+    (typeof safeBuilds[_BUILDS_SIGS_KEY] === 'object' && safeBuilds[_BUILDS_SIGS_KEY] !== null)
+      ? safeBuilds[_BUILDS_SIGS_KEY]
+      : null; // null = première visite pour cet utilisateur sur ce cookie
+
+  const updatedBuilds = { ...safeBuilds };
+  const updatedSigs = storedSigs ? { ...storedSigs } : {};
+  const resetIds = [];
+  let needsPersist = false;
+
+  // Catégories soumises au reset : garnitures + biscuits
+  const resettableItems = [
+    ...(Array.isArray(cookieData?.toppings) ? cookieData.toppings : []),
+    ...(Array.isArray(cookieData?.biscuits) ? cookieData.biscuits : []),
+  ];
+
+  for (const item of resettableItems) {
+    // Validation défensive : item.id doit être un UUID valide, images doit être un tableau
+    if (
+      typeof item?.id !== 'string' ||
+      item.id.trim() === '' ||
+      !Array.isArray(item.images)
+    ) {
+      continue;
+    }
+
+    const currentSig = _computeImagesSignature(item.images);
+
+    if (storedSigs === null || updatedSigs[item.id] === undefined) {
+      // Première visite pour cet item → on mémorise sans reset
+      updatedSigs[item.id] = currentSig;
+      needsPersist = true;
+      continue;
+    }
+
+    if (updatedSigs[item.id] !== currentSig) {
+      // Les images ont changé dans Supabase → reset du cycle à 0 (image NB)
+      item.selectedStep = 0;
+      delete updatedBuilds[item.id];
+      resetIds.push(item.id);
+      needsPersist = true;
+    }
+
+    // Mise à jour de la signature (même si identique, pour cohérence)
+    updatedSigs[item.id] = currentSig;
+  }
+
+  updatedBuilds[_BUILDS_SIGS_KEY] = updatedSigs;
+
+  return { builds: updatedBuilds, resetIds, needsPersist };
+}
+
+/**
+ * Persiste les builds mis à jour (signatures + resets) dans Supabase.
+ * Non bloquant (pas d'await à l'appel) pour ne pas retarder le rendu.
+ * @param {string} cookieId
+ * @param {Object} builds - Objet builds avec __img_sigs à jour et steps réinitialisés supprimés
+ */
+async function persistResetBuilds(cookieId, builds) {
+  try {
+    await upsertCookieUser(cookieId, { builds });
+  } catch (err) {
+    console.error('[Reset cycle] Erreur persistance builds:', err);
+  }
+}
 
 // Lancer le chargement seulement si on est sur une page de détail
 if (document.getElementById('page-cookie')) {
