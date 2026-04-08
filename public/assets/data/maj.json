@@ -266,6 +266,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Mouche sucrée",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772972928/cookie_mouche_sucree_carte_twmrc5.webp",
+    "link": "cookie_detail.html?id=cookie-mouche-sucree",
+    "date": "2026-04-08T16:49:00",
+    "type": "update"
+  },
+  {
     "nom": "Cookie Mousse au thé vert",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772885013/cookie_mousse_au_the_vert_carte_vdfiuk.webp",
     "link": "cookie_detail.html?id=cookie-mousse-au-the-vert",
