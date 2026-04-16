@@ -269,7 +269,7 @@
     "nom": "Cookie Mira",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1776371475/cookie_mira_carte_rkjnra.webp",
     "link": "cookie_detail.html?id=cookie-mira",
-    "date": "2026-04-17T22:35:00",
+    "date": "2026-04-16T22:35:00",
     "type": "new"
   },
   {
@@ -397,6 +397,13 @@
     "link": "cookie_detail.html?id=cookie-roi-des-fees",
     "date": "2026-03-06T13:12:00",
     "type": "update"
+  },
+  {
+    "nom": "Cookie Rumi",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1776373339/cookie_rumi_carte_wdljf6.webp",
+    "link": "cookie_detail.html?id=cookie-rumi",
+    "date": "2026-04-16T23:06:00",
+    "type": "new"
   },
   {
     "nom": "Cookie Saint-Honoré",

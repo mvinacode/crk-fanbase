@@ -237,7 +237,10 @@ const cookieMap = {
   'cookie-pate-moisie': '8b0be96d-ac88-4bc5-97bf-d9b850d60376',
   'cookie-pate-toxique': 'dc5eb6c5-3694-4e5e-bc96-7c0641733512',
   'cookie-pate-fongique': '9a5ba7ee-378e-40c9-977d-a3740de54af7',
-  'cookie-cygne-de-sucre': 'f40c984e-2bea-4907-a353-b9d133fadcfa'
+  'cookie-cygne-de-sucre': 'f40c984e-2bea-4907-a353-b9d133fadcfa',
+  'cookie-zoey': '038999b5-4fd7-478a-a23e-cc95a6044944',
+  'cookie-mira': '6baf3641-bcfd-4d5c-86cd-6f3ce111df97',
+  'cookie-rumi': '6f21c424-b415-4368-ae68-507bfb769ed8'
 };
 
 if (cookieMap[cookieId]) {
