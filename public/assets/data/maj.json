@@ -469,6 +469,13 @@
     "type": "update"
   },
   {
+    "nom": "Cookie Zoey",
+    "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1776369275/cookie_zoey_carte_s7qnfe.webp",
+    "link": "cookie_detail.html?id=cookie-zoey",
+    "date": "2026-04-16T22:00:00",
+    "type": "new"
+  },
+  {
     "nom": "Schwarzwälder",
     "image": "https://res.cloudinary.com/dkgfa4apm/image/upload/v1772364537/schwarzwalder_carte_xzjwke.webp",
     "link": "cookie_detail.html?id=schwarzwalder",
